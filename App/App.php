@@ -6,7 +6,7 @@ class App
      function __construct()
      {
           global $routes;
-          if(isset($routes)){
+          if (isset($routes)) {
                $this->__controller = $routes['default_controller'];
           }
           $this->__action = 'hello';
@@ -36,8 +36,13 @@ class App
           }
           if (file_exists('./app/controllers/' . ($this->__controller) . '.php')) {
                require_once './app/controllers/' . ($this->__controller) . '.php';
-               $this->__controller = new $this->__controller();
-               unset($arrUrl[0]);
+               //Kiểm tra class $this->__controller
+               if (class_exists($this->__controller)) {
+                    $this->__controller = new $this->__controller();
+                    unset($arrUrl[0]);
+               }else{
+                    $this -> loadError();    
+               }
           } else {
                $this->loadError();
           }
@@ -48,8 +53,12 @@ class App
           }
           //Params
           $this->__params = array_values($arrUrl);
-
-          call_user_func_array([$this->__controller, $this->__action], $this->__params);
+          //Kiểm tra method 
+          if (method_exists($this->__controller, $this->__action)) {
+               call_user_func_array([$this->__controller, $this->__action], $this->__params);
+          } else {
+               $this->loadError();
+          }
      }
 
 
