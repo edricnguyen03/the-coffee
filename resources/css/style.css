@@ -1,0 +1,38 @@
+.icon {
+  padding: 5px;
+}
+
+/*--------product card item ---------------------------------------*/
+.card {
+  height: 500px;
+}
+.card-body {
+  align-items: end;
+}
+
+/*--------pagination------------------*/
+.pagination {
+  justify-content: center;
+  background-color: #eeeeee;
+}
+
+.page-link {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #eeeeee;
+  padding: 5px;
+}
+
+.page-link:hover {
+  background-color: white;
+}
+
+.page-number {
+  background-color: azure;
+  width: 30px;
+  height: 30px;
+  background-color: #fb8e18;
+  color: black;
+  border-radius: 20%;
+}
