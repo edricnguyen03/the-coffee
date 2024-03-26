@@ -19,6 +19,7 @@ class ProductModel
         $sanPhams[] = $sanPham;
 
         $sanPham2 = new stdClass();
+        $sanPham2->id = 2;
         $sanPham2->name = 'Coffee Product 2';
         $sanPham2->slug = 'Từ nơi đồng xanh thơm hương lúa';
         $sanPham2->thumb_image = 'product-default.png';
@@ -47,5 +48,21 @@ class ProductModel
 
 
         return $sanPhams;
+    }
+
+    public function getById($id){
+        $sanPham = new stdClass();
+        $sanPham->id = 1;
+        $sanPham->name = 'Coffee Product '.$id;
+        $sanPham->slug = 'Từ nơi đồng xanh thơm hương lúa';
+        $sanPham->thumb_image = 'product-default.png';
+        $sanPham->category_id = 1;
+        $sanPham->description = 'abcdnnnnnn';
+        $sanPham->content = 'abcdnnnnnn';
+        $sanPham->weight = 100;
+        $sanPham->price = 10000;
+        $sanPham->status = 1;
+        $sanPham->stock = 30;
+        return $sanPham;
     }
 }

@@ -1,5 +1,5 @@
 <!------------------------------------------------------Sticky header---------------------------------------------------------------->
-<nav class="navbar sticky-top navbar-expand-lg " style="background: linear-gradient(to right, #ffad3d, #fb8d17)">
+<nav class="navbar sticky-top navbar-expand-lg" style="background: linear-gradient(to right, #ffad3d, #fb8d17); z-index:10;">
     <div class="container-fluid px-5 py-2">
         <div class="col-md-6 col-sm-12 justify-content-small-center">
             <a href="#"><img src="./resources/images/header-logo.png" style="width: 10%;"></a>
