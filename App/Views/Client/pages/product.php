@@ -22,7 +22,7 @@
       }
       ?>
     </div>
-
+      <!------------------------------------pagination------------------>
     <div class="row justify-content-center">
       <div class="col-auto">
         <ul class="pagination">
@@ -42,28 +42,13 @@
         </ul>
       </div>
     </div>
-    <div class="overlay " id="overlay" style="position: fixed; display: none;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 98;"></div>
-
-    <div class="product-detail bg-white" style=" position: fixed;
-      z-index: 99;
-      width:fit-content;
-      height: fit-content;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      
-      display: none;
-      overflow:hidden;
-  " id="product-detail">
+    <div class="overlay " id="overlay" style="position: fixed; display: none; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;
+     background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index: 98;"></div> 
+    <!------------------lớp này che hết trang---------------------->
+    
+    <div class="product-detail bg-white" style=" position: fixed; z-index: 99; width:fit-content; height: fit-content; top: 50%; 
+    left: 50%; transform: translate(-50%, -50%); display: none; overflow:hidden;" id="product-detail">
+    <!------------------lớp này chứa nội dung chi tiết sản phâm----------------------->
 
     </div>
   </div>

@@ -12,7 +12,7 @@ class Product extends Controller
 
     public function detail($id = 1){
         $sanPham = $this->productModel->getById($id);
-        $data['product'] = $sanPham;
+        $data['sanPham'] = $sanPham;
         $this->view('/Client/pages/product-detail',$data);
     }
 }
