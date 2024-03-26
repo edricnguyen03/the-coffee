@@ -33,6 +33,16 @@ class App
           //Controller
           if (isset($arrUrl[0])) {
                $this->__controller = ucfirst($arrUrl[0]);
+               if($this->__controller == 'Login' || $this->__controller == 'Register') {
+                    if($this->__controller == 'Register'){
+                         $this->__controller = 'Login_Regis';
+                         $this->__action = 'Register';
+                    }else{
+                         $this->__controller = 'Login_Regis';
+                         $this->__action = 'Login';
+                    }
+                    
+               }
           }
           if (file_exists('./app/controllers/' . ($this->__controller) . '.php')) {
                require_once './app/controllers/' . ($this->__controller) . '.php';
@@ -43,7 +53,7 @@ class App
                }else{
                     $this -> loadError();    
                }
-          } else {
+          }else {
                $this->loadError();
           }
           //Action

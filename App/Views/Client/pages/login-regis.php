@@ -1,5 +1,6 @@
-<div class="container" id="container">
-     <div class="form-container sign-up">
+<!-- <?php if ($type == 'register') echo 'active'; ?> -->
+<div class="login-container" id="login-container">
+     <div class="loginform-container sign-up">
           <form>
                <h1>Tạo Tài Khoản</h1>
                <input type="text" placeholder="Tên">
@@ -10,7 +11,7 @@
                <button>Đăng Kí</button>
           </form>
      </div>
-     <div class="form-container sign-in">
+     <div class="loginform-container sign-in">
           <form>
                <h1>Đăng Nhập</h1>
                <input type="email" placeholder="Email">
@@ -33,6 +34,20 @@
                </div>
           </div>
      </div>
+     <script>
+          const container = document.getElementById('login-container');
+          const registerBtn = document.getElementById('register');
+          const loginBtn = document.getElementById('login');
+          registerBtn.addEventListener('click', () => {
+               alert('welcome');
+               container.classList.add("active");
+          });
+
+          loginBtn.addEventListener('click', () => {
+               alert('welcome');
+               container.classList.remove("active");
+          });
+     </script>
 </div>
 <style>
      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
@@ -44,7 +59,7 @@
           font-family: 'Montserrat', sans-serif;
      }
 
-     body {
+     /* body {
           background-color: #c9d6ff;
           background: linear-gradient(to right, #e2e2e2, #c9d6ff);
           display: flex;
@@ -52,9 +67,15 @@
           justify-content: center;
           flex-direction: column;
           height: 100vh;
-     }
+     } */
 
-     .container {
+     .login-container {
+          /* display:fixed;
+          top:0;
+          left:0;
+          z-index: 999; */
+
+
           background-color: #fff;
           border-radius: 30px;
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
@@ -65,25 +86,25 @@
           min-height: 480px;
      }
 
-     .container p {
+     .login-container p {
           font-size: 14px;
           line-height: 20px;
           letter-spacing: 0.3px;
           margin: 20px 0;
      }
 
-     .container span {
+     .login-container span {
           font-size: 12px;
      }
 
-     .container a {
+     .login-container a {
           color: #333;
           font-size: 13px;
           text-decoration: none;
           margin: 15px 0 10px;
      }
 
-     .container button {
+     .login-container button {
           background-color: #fb8b17;
           color: #fff;
           font-size: 12px;
@@ -97,12 +118,12 @@
           cursor: pointer;
      }
 
-     .container button.hidden {
+     .login-container button.hidden {
           background-color: transparent;
           border-color: #333;
      }
 
-     .container form {
+     .login-container form {
           background-color: #fff;
           display: flex;
           align-items: center;
@@ -112,7 +133,7 @@
           height: 100%;
      }
 
-     .container input {
+     .login-container input {
           background-color: #eee;
           border: none;
           margin: 8px 0;
@@ -123,7 +144,7 @@
           outline: none;
      }
 
-     .form-container {
+     .loginform-container {
           position: absolute;
           top: 0;
           height: 100%;
@@ -136,7 +157,7 @@
           z-index: 2;
      }
 
-     .container.active .sign-in {
+     .login-container.active .sign-in {
           transform: translateX(100%);
      }
 
@@ -147,11 +168,11 @@
           z-index: 1;
      }
 
-     .container.active .sign-up {
+     .login-container.active .sign-up {
           transform: translateX(100%);
           opacity: 1;
           z-index: 5;
-          animation: move 0.6s;
+          animation: move 0s;
      }
 
      @keyframes move {
@@ -181,7 +202,7 @@
           z-index: 1000;
      }
 
-     .container.active .toggle-container {
+     .login-container.active .toggle-container {
           transform: translateX(-100%);
           border-radius: 0 150px 100px 0;
      }
@@ -211,7 +232,7 @@
           color: #333;
      }
 
-     .container.active .toggle {
+     .login-container.active .toggle {
           transform: translateX(50%);
      }
 
@@ -234,7 +255,7 @@
           transform: translateX(-200%);
      }
 
-     .container.active .toggle-left {
+     .login-container.active .toggle-left {
           transform: translateX(0);
      }
 
@@ -247,16 +268,3 @@
           transform: translateX(200%);
      }
 </style>
-<script>
-     const container = document.getElementById('container');
-     const registerBtn = document.getElementById('register');
-     const loginBtn = document.getElementById('login');
-
-     registerBtn.addEventListener('click', () => {
-          container.classList.add("active");
-     });
-
-     loginBtn.addEventListener('click', () => {
-          container.classList.remove("active");
-     });
-</script>
