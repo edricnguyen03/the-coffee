@@ -1,6 +1,6 @@
 <!-- <?php if ($type == 'register') echo 'active'; ?> -->
-<div class="login-container" id="login-container">
-     <div class="loginform-container sign-up">
+<div class="login-wrapper" id="login-wrapper">
+     <div class="form-wrapper sign-up">
           <form>
                <h1>Tạo Tài Khoản</h1>
                <input type="text" placeholder="Tên">
@@ -11,7 +11,7 @@
                <button>Đăng Kí</button>
           </form>
      </div>
-     <div class="loginform-container sign-in">
+     <div class="form-wrapper sign-in">
           <form>
                <h1>Đăng Nhập</h1>
                <input type="email" placeholder="Email">
@@ -34,48 +34,9 @@
                </div>
           </div>
      </div>
-     <script>
-          const container = document.getElementById('login-container');
-          const registerBtn = document.getElementById('register');
-          const loginBtn = document.getElementById('login');
-          registerBtn.addEventListener('click', () => {
-               alert('welcome');
-               container.classList.add("active");
-          });
-
-          loginBtn.addEventListener('click', () => {
-               alert('welcome');
-               container.classList.remove("active");
-          });
-     </script>
 </div>
 <style>
-     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-
-     * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          font-family: 'Montserrat', sans-serif;
-     }
-
-     /* body {
-          background-color: #c9d6ff;
-          background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          height: 100vh;
-     } */
-
-     .login-container {
-          /* display:fixed;
-          top:0;
-          left:0;
-          z-index: 999; */
-
-
+     .login-wrapper {
           background-color: #fff;
           border-radius: 30px;
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
@@ -84,27 +45,28 @@
           width: 768px;
           max-width: 100%;
           min-height: 480px;
+          z-index: 9991;
      }
 
-     .login-container p {
+     .login-wrapper p {
           font-size: 14px;
           line-height: 20px;
           letter-spacing: 0.3px;
           margin: 20px 0;
      }
 
-     .login-container span {
+     .login-wrapper span {
           font-size: 12px;
      }
 
-     .login-container a {
+     .login-wrapper a {
           color: #333;
           font-size: 13px;
           text-decoration: none;
           margin: 15px 0 10px;
      }
 
-     .login-container button {
+     .login-wrapper button {
           background-color: #fb8b17;
           color: #fff;
           font-size: 12px;
@@ -118,12 +80,12 @@
           cursor: pointer;
      }
 
-     .login-container button.hidden {
+     .login-wrapper button.hidden {
           background-color: transparent;
           border-color: #333;
      }
 
-     .login-container form {
+     .login-wrapper form {
           background-color: #fff;
           display: flex;
           align-items: center;
@@ -133,7 +95,7 @@
           height: 100%;
      }
 
-     .login-container input {
+     .login-wrapper input {
           background-color: #eee;
           border: none;
           margin: 8px 0;
@@ -144,7 +106,7 @@
           outline: none;
      }
 
-     .loginform-container {
+     .form-wrapper {
           position: absolute;
           top: 0;
           height: 100%;
@@ -157,7 +119,7 @@
           z-index: 2;
      }
 
-     .login-container.active .sign-in {
+     .login-wrapper.active .sign-in {
           transform: translateX(100%);
      }
 
@@ -168,7 +130,7 @@
           z-index: 1;
      }
 
-     .login-container.active .sign-up {
+     .login-wrapper.active .sign-up {
           transform: translateX(100%);
           opacity: 1;
           z-index: 5;
@@ -202,7 +164,7 @@
           z-index: 1000;
      }
 
-     .login-container.active .toggle-container {
+     .login-wrapper.active .toggle-container {
           transform: translateX(-100%);
           border-radius: 0 150px 100px 0;
      }
@@ -232,7 +194,7 @@
           color: #333;
      }
 
-     .login-container.active .toggle {
+     .login-wrapper.active .toggle {
           transform: translateX(50%);
      }
 
@@ -255,7 +217,7 @@
           transform: translateX(-200%);
      }
 
-     .login-container.active .toggle-left {
+     .login-wrapper.active .toggle-left {
           transform: translateX(0);
      }
 
