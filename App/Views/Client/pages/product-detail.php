@@ -13,7 +13,7 @@
             <p>Chúc quý khách một ngày tốt lành</p>
 
             <div class="input-group mb-3">
-                <input type="number" class="form-control" placeholder="Nhập số lượng" aria-label="Nhập số lượng" aria-describedby="button-addon2">
+                <input type="number" class="form-control" id="txtSoLuong" placeholder="Nhập số lượng" aria-label="Nhập số lượng" aria-describedby="button-addon2">
                 <a href="#" class="btn btn-warning">
                     <i class="fa-solid fa-cart-arrow-down icon"></i>Thêm vào giỏ
                 </a>

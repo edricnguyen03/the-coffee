@@ -15,8 +15,7 @@
         <?php
         require_once("./App/Views/Client/layouts/header.php");
         require_once("./App/Views/Client/layouts/banner.php");
-        require_once("./App/Views/Client/pages/product-list.php");
-        require_once("./App/Views/Client/layouts/pagination.php");
+        require_once("./App/Views/Client/pages/home-product.php");
         require_once("./App/Views/Client/layouts/footer.php");
         ?>
     </div>
