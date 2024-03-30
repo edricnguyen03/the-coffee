@@ -3,12 +3,13 @@
      <div class="loginform-container sign-up">
           <form>
                <h1>Tạo Tài Khoản</h1>
-               <input type="text" placeholder="Tên">
-               <input type="email" placeholder="Email">
-               <input type="number" placeholder="Số điện thoại">
-               <input type="password" placeholder="Mật khẩu">
-               <input type="password" placeholder="Nhập lại mật khẩu">
-               <button>Đăng Kí</button>
+               <input type="text" id="name" name="name" placeholder="Tên">
+               <input type="email" id="email" name="email" placeholder="Email">
+               <input type="number" id="number" name="number" placeholder="Số điện thoại">
+               <input type="password" id="password" name="password" placeholder="Mật khẩu">
+               <input type="password" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu">
+               <button id="register-btn" name="register">Đăng Kí</button>
+               <p class="msg"></p>
           </form>
      </div>
      <div class="loginform-container sign-in">
@@ -267,4 +268,49 @@
      .container.active .toggle-right {
           transform: translateX(200%);
      }
+
+     .msg {
+          color: red;
+          font-size: 12px;
+          margin-top: 10px;
+     }
 </style>
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+     $(document).ready(function() {
+          $("#register-btn").on("click", function() {
+               var name = $("#name").val();
+               var email = $("#email").val();
+               var sdt = $("#number").val();
+               var password = $("#password").val();
+               var repassword = $("#repassword").val();
+               if (name == "" || email == "" || sdt == "" || password == "" || repassword == "") {
+                    $(".msg").html("Vui lòng nhập đầy đủ thông tin");
+               } else if (password != repassword) {
+                    $(".msg").html("Mật khẩu không khớp");
+               } else {
+                    $.ajax({
+                         // url: "login/tao ham check() lay name"
+                         url: "Login-Regis/check",
+                         type: "POST",
+                         data: {
+                              name: name,
+                              email: email,
+                              sdt: sdt,
+                              password: password,
+                              repassword: repassword,
+                              action: "register"
+                         },
+                         success: function(data) {
+                              if (data == 1) {
+                                   $(".msg").html("Đăng kí thành công");
+                              } else {
+                                   $(".msg").html("Đăng kí thất bại");
+                              }
+                         }
+                    });
+               }
+          });
+     });
+</script>
