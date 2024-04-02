@@ -1,13 +1,34 @@
-<div class="login-wrapper" id="login-wrapper">
-     <div class="form-wrapper sign-up">
-          <form id="regisForm" action="Login_Regis/Register">
+<!-- <?php if ($type == 'register') echo 'active'; ?> -->
+<div class="login-container" id="login-container">
+     <div class="loginform-container sign-up">
+          <form id="regForm" action="validation.php">
                <h1>Tạo Tài Khoản</h1>
-               <input type="text" placeholder="Tên">
-               <input type="email" placeholder="Email">
-               <input type="number" placeholder="Số điện thoại">
-               <input type="password" placeholder="Mật khẩu">
-               <input type="password" placeholder="Nhập lại mật khẩu">
-               <button id='registerButton'>Đăng Kí</button>
+               <input type="text" id="name" name="name" placeholder="Tên" onblur="validate('name_result', this.value)">
+               <center>
+                    <div class="text-danger" id="name_result"></div>
+               </center>
+
+               <input type="email" id="email" name="email" placeholder="Email" onblur="validate('email_result', this.value)">
+               <center>
+                    <div class="text-danger" id="email_result"></div>
+               </center>
+
+               <input type="text" id="phone" name="phone" placeholder="Số điện thoại" onblur="validate('phone_result', this.value)">
+               <center>
+                    <div class="text-danger" id="phone_result"></div>
+               </center>
+
+               <input type="password" id="password" name="password" placeholder="Mật khẩu" onblur="validate('password_result', this.value)">
+               <center>
+                    <div class="text-danger" id="password_result"></div>
+               </center>
+
+               <input type="password" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu" onblur="validate('repassword_result', this.value)">
+               <center>
+                    <div class="text-danger" id="repassword_result"></div>
+               </center>
+               <!-- button trong form dang ky -->
+               <button id="register-btn" name="register-btn" onclick="validForm()">Đăng Kí</button>
           </form>
      </div>
      <div class="form-wrapper sign-in">
@@ -24,11 +45,13 @@
                <div class="toggle-panel toggle-left">
                     <h1>Xin chào</h1>
                     <p>Đăng kí tài khoản với thông tin cá nhân của bạn để trải nghiệm tất cả tính năng trên trang web </p>
+                    <!-- button chuyen qua form dang nhap -->
                     <button class="hidden" id="login">Đăng nhập</button>
                </div>
                <div class="toggle-panel toggle-right">
                     <h1>Chào mừng trở lại !</h1>
                     <p>Đăng nhập để tiếp tục</p>
+                    <!-- button chuyen qua form dang ky -->
                     <button class="hidden" id="register">Đăng kí</button>
                </div>
           </div>
@@ -228,4 +251,77 @@
      .container.active .toggle-right {
           transform: translateX(200%);
      }
+
+     .text-danger {
+          color: red;
+          font-size: 12px;
+     }
+
+     .text-success {
+          color: green;
+          font-size: 12px;
+     }
 </style>
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+     //function validForm
+     function validForm() {
+          var name = document.getElementById('name').value;
+          var email = document.getElementById('email').value;
+          var phone = document.getElementById('phone').value;
+          var password = document.getElementById('password').value;
+          var repassword = document.getElementById('repassword').value;
+
+          if (name == "" || email == "" || phone == "" || password == "" || repssword == "") {
+               alert('Vui lòng nhập đầy đủ thông tin');
+               document.getElementById('name').focus();
+          } else {
+               var name_result = document.getElementById('name_result');
+               var email_result = document.getElementById('email_result');
+               var phone_result = document.getElementById('phone_result');
+               var password_result = document.getElementById('password_result');
+               var repassword_result = document.getElementById('repassword_result');
+
+               if (
+                    name_result.innerHTML == "Tên phải lớn hơn 4 ký tự" ||
+                    email_result.innerHTML == "Email không hợp lệ" ||
+                    phone_result.innerHTML == "Số điện thoại không hợp lệ" ||
+                    password_result.innerHTML == "Mật khẩu phải lớn hơn 4 ký tự" ||
+                    repassword_result.innerHTML == "Mật khẩu không khớp"
+
+               ) {
+                    alert('Vui lòng nhập đúng các thông tin!');
+               } else {
+                    document.getElementById('regForm').submit();
+               }
+          }
+
+     }
+
+     //function validate using ajax have xmlhttp
+     function validate(field, value) {
+          var xmlhttp;
+          if (window.XMLHttpRequest) {
+               xmlhttp = new XMLHttpRequest();
+          } else {
+               xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+          }
+
+          xmlhttp.onreadystatechange = function() {
+               if (xmlhttp.readyState != 4 && xmlhttp.status == 200) {
+                    document.getElementById(field).innerHTML = "Validating..";
+               } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById(field).innerHTML = xmlhttp.responseText;
+               }
+
+          };
+
+          xmlhttp.open(
+               "GET",
+               "validation.php?field=" + field + "&value=" + value,
+               true
+          );
+          xmlhttp.send();
+     }
+</script>
