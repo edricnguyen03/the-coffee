@@ -1,6 +1,41 @@
 <section style="background-color: #eee;">
+  <!---------------------------------------Thanh tìm kiếm-------------------->
+  <div class="fluid-container sticky-top bg-light p-4 shadow-sm searchbar-container">
+    <div class="row align-items-end justify-content-end">
+      <div class="col-md-2">
+        <div class="form-group mb-md-0 rounded w-100">
+          <select class="form-control form-select" id="searchbar-dropdown-category">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group mb-md-0">
+          <select class="form-control form-select" id="searchbar-dropdown-price">
+            <option value="option1">Option A</option>
+            <option value="option2">Option B</option>
+            <option value="option3">Option C</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="text" class="form-control rounded-2" id="searchInput" placeholder="Nhập nội dung tìm kiếm">
+          <div class="input-group-append">
+            <button type="button" class="btn btn-primary w-100" style="margin-left: 10%"><i class="fas fa-search icon"></i>Tìm Kiếm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-----------------------------Danh sách sản phẩm------------------------>
   <div class="text-center container py-2">
-    <h4 class="mt-4 mb-5"><strong>Danh Sách Sản Phẩm</strong></h4>
+    <h4 class="mt-4 mb-5"><strong>Sản Phẩm</strong></h4>
     <div class="row">
       <div class="row product-list-container">
         <?php
@@ -29,7 +64,7 @@
               </a>
             </li>
             <li class="page-item">
-              <!--chổ này điền số trang vào bằng js-->
+              <!--chổ này điền số trang vào bằng php-->
               <div class="page-number" style=" padding-top: 10%">1</div>
             </li>
             <li class="page-item">
@@ -103,7 +138,7 @@
         });
       }
       document.addEventListener('DOMContentLoaded', function() {
-          AddEventForAllDetailButton();
+        AddEventForAllDetailButton();
       });
 
       function closeProductDetail() {
@@ -120,8 +155,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       $(document).ready(function() {
-        // load các sản phẩm của trang vào
         $('#previous-icon').css('color', '#ccc');
+        // load các sản phẩm của trang vào
         function loadContent(url) {
           $.ajax({
             url: url,
@@ -163,6 +198,7 @@
             loadContent(url);
             $('.page-number').text(prevPage);
             $('#next-icon').css('color', '#fb8e18');
+
           } else {
             $('#previous-icon').css('color', '#ccc'); // tắt cái nút prev nếu số trang là 1 
           }

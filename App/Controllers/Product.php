@@ -10,6 +10,11 @@ class Product extends Controller
         $this->data = [];
     }
 
+    public function index(){
+        $sanPhams = $this->productModel->get();
+        $data['sanPhams'] = $sanPhams;
+        $this->view('/Client/Product', $data);
+    }
     public function detail($id = 1){
         $sanPham = $this->productModel->getById($id);
         $data['sanPham'] = $sanPham;
