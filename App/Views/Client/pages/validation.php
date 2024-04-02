@@ -1,10 +1,14 @@
 <?php
-$val = $_GET['value'];
-$field = $_GET['field'];
+$val = $_POST['value'];
+$field = $_POST['field'];
 $password = "";
 
+//nguyen file tao thanh 1 cai ham validation trong model user-model.php
+
+
+
 if ($field == 'name_result') {
-    if (strlen($val) < 4) {
+    if (strlen($val) < 4) {        //add trim to remove white space
         echo 'Tên phải lớn hơn 4 ký tự';
     } else {
         echo '<label class = "text-success">Hợp lệ</label>';
@@ -45,6 +49,3 @@ if ($field == "repassword_result") {
         echo '<label class="text-success">Hợp lệ</label>';
     }
 }
-
-echo "<script>alert('Đăng ký thành công')</script>";
-echo "<script>window.location = 'login-regis.php'</script>";

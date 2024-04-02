@@ -1,6 +1,6 @@
 <div class="login-wrapper" id="login-wrapper">
      <div class="form-wrapper sign-up">
-          <form id="regisForm" action="Login_Regis/Register">
+          <form id="regisForm" action="Login_Regis/Register" method="post">
                <h1>Tạo Tài Khoản</h1>
                <input type="text" id="name" name="name" placeholder="Tên" onblur="validate('name_result', this.value)">
                <center>
@@ -318,9 +318,10 @@
 
           xmlhttp.open(
                "GET",
-               "validation.php?field=" + field + "&value=" + value,
+               "validation.php",
                true
           );
-          xmlhttp.send();
+          var params = "field=" + field + "&value=" + value;
+          xmlhttp.send(params);
      }
 </script>

@@ -104,6 +104,7 @@
                         toggle_loginBtn.addEventListener('click', () => {
                             container.classList.remove("active");
                         });
+
                     }
                 }
                 xhttp.send();
@@ -131,7 +132,7 @@
                         const form_registerBtn = document.getElementById('registerButton');
 
                         form_loginBtn.addEventListener('click', () => {
-                            var username = dopcument.getElementById('loginUsername').value;
+                            var username = document.getElementById('loginUsername').value;
                             var password = document.getElementById('loginPassword').value;
                             document.getElementById('loginForm').submit();
                         });
@@ -163,5 +164,53 @@
         inner_login_regis_form.style.display = 'none';
         document.body.style.overflow = 'auto';
     };
-    //
+    // form kiem tra dang ky
+    //function validForm
+    function validForm() {
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var phone = document.getElementById('phone').value;
+        var password = document.getElementById('password').value;
+        var repassword = document.getElementById('repassword').value;
+
+        if (name == "" || email == "" || phone == "" || password == "" || repssword == "") {
+            alert('Vui lòng nhập đầy đủ thông tin');
+            document.getElementById('name').focus();
+        } else {
+            var name_result = document.getElementById('name_result');
+            var email_result = document.getElementById('email_result');
+            var phone_result = document.getElementById('phone_result');
+            var password_result = document.getElementById('password_result');
+            var repassword_result = document.getElementById('repassword_result');
+
+            if (
+                name_result.innerHTML == "Tên phải lớn hơn 4 ký tự" ||
+                email_result.innerHTML == "Email không hợp lệ" ||
+                phone_result.innerHTML == "Số điện thoại không hợp lệ" ||
+                password_result.innerHTML == "Mật khẩu phải lớn hơn 4 ký tự" ||
+                repassword_result.innerHTML == "Mật khẩu không khớp"
+
+            ) {
+                alert('Vui lòng nhập đúng các thông tin!');
+            } else {
+                document.getElementById('regisForm').submit();
+            }
+        }
+
+    }
+
+
+
+    //function validate using jQuery
+    function validate(field, value) {
+        $.post(
+            "/Login_Regis/validation", {
+                field: field,
+                value: value
+            },
+            function(data) {
+                $("#" + field).html(data);
+            }
+        );
+    }
 </script>
