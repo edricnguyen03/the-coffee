@@ -1,7 +1,6 @@
-<!-- <?php if ($type == 'register') echo 'active'; ?> -->
-<div class="login-container" id="login-container">
-     <div class="loginform-container sign-up">
-          <form id="regForm" action="validation.php">
+<div class="login-wrapper" id="login-wrapper">
+     <div class="form-wrapper sign-up">
+          <form id="regisForm" action="Login_Regis/Register">
                <h1>Tạo Tài Khoản</h1>
                <input type="text" id="name" name="name" placeholder="Tên" onblur="validate('name_result', this.value)">
                <center>
@@ -28,7 +27,7 @@
                     <div class="text-danger" id="repassword_result"></div>
                </center>
                <!-- button trong form dang ky -->
-               <button id="register-btn" name="register-btn" onclick="validForm()">Đăng Kí</button>
+               <button id="registerButton" name="registerButton" onclick="validForm()">Đăng Kí</button>
           </form>
      </div>
      <div class="form-wrapper sign-in">
@@ -293,7 +292,7 @@
                ) {
                     alert('Vui lòng nhập đúng các thông tin!');
                } else {
-                    document.getElementById('regForm').submit();
+                    document.getElementById('regisForm').submit();
                }
           }
 

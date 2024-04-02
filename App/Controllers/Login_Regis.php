@@ -15,7 +15,7 @@ class Login_Regis extends Controller
 
      function Register()
      {
-          $this->view('/Client/pages/login-regis', $this->data);
+          
      }
      function Logout(){
           unset($_SESSION['login']['status']);
