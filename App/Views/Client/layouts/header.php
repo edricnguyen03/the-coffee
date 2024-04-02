@@ -7,13 +7,10 @@
         <div class="col-md-6 col-sm-12">
             <ul class="navbar-nav justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#!"><i class="fa-solid fa-house icon"></i>Trang chủ</a>
+                    <a class="nav-link mx-2" href="/the-coffee/"><i class="fa-solid fa-house icon"></i>Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#!"><i class="fa-solid fa-list icon"></i>Danh mục</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2" href="#!"><i class="fa-brands fa-shopify icon"></i>Sản phẩm</a>
+                    <a class="nav-link mx-2" href="/the-coffee/product"><i class="fa-brands fa-shopify icon"></i>Sản phẩm</a>
                 </li>
                 <li class="nav-item ms-3">
                     <a class="btn btn-black btn-rounded" href="#" style="border: 2px solid black;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
