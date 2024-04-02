@@ -7,7 +7,7 @@
         <div class="col-md-8 col-sm-12">
             <ul class="navbar-nav justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#!"><i class="fa-solid fa-house icon"></i>Trang chủ</a>
+                    <a class="nav-link mx-2" href="home"><i class="fa-solid fa-house icon"></i>Trang chủ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="/the-coffee/product"><i class="fa-brands fa-shopify icon"></i>Sản phẩm</a>
