@@ -1,5 +1,5 @@
 <!------------------------------------------------------Sticky header---------------------------------------------------------------->
-<nav class="navbar sticky-top navbar-expand-lg " style="background: linear-gradient(to right, #ffad3d, #fb8d17)">
+<nav class="navbar sticky-top navbar-expand-lg" style="background: linear-gradient(to right, #ffad3d, #fb8d17); z-index:10;">
     <div class="container-fluid px-5 py-2">
         <div class="col-md-4 col-sm-12 justify-content-small-center">
             <a href="home"><img src="./resources/images/header-logo.png" style="width: 10%;"></a>
@@ -10,10 +10,7 @@
                     <a class="nav-link mx-2" href="home"><i class="fa-solid fa-house icon"></i>Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#!"><i class="fa-solid fa-list icon"></i>Danh mục</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2" href="#!"><i class="fa-brands fa-shopify icon"></i>Sản phẩm</a>
+                    <a class="nav-link mx-2" href="/the-coffee/product"><i class="fa-brands fa-shopify icon"></i>Sản phẩm</a>
                 </li>
                 <?php
                 if (!isset($_SESSION['login']['status']) || !$_SESSION['login']['status']) {
