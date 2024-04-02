@@ -1,10 +1,10 @@
 <!------------------------------------------------------Sticky header---------------------------------------------------------------->
 <nav class="navbar sticky-top navbar-expand-lg " style="background: linear-gradient(to right, #ffad3d, #fb8d17)">
     <div class="container-fluid px-5 py-2">
-        <div class="col-md-6 col-sm-12 justify-content-small-center">
+        <div class="col-md-4 col-sm-12 justify-content-small-center">
             <a href="home"><img src="./resources/images/header-logo.png" style="width: 10%;"></a>
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-8 col-sm-12">
             <ul class="navbar-nav justify-content-end">
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="home"><i class="fa-solid fa-house icon"></i>Trang chủ</a>
@@ -15,16 +15,27 @@
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="#!"><i class="fa-brands fa-shopify icon"></i>Sản phẩm</a>
                 </li>
-                <li class="nav-item ms-3">
-                    <!-- <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a> -->
-                    <div class="dropdown">
-                        <button class="btn btn-black btn-rounded dropbtn"></button>
-                        <div id="login-regis" class="dropdown-content">
-                            <a href="login" class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
-                            <a href="register" class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
-                        </div>
+                <?php
+                if (!isset($_SESSION['login']['status']) || !$_SESSION['login']['status']) {
+                ?>
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                    </li>
+                    <div class="nav-item ms-3">
+                        <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                     </div>
-                </li>
+                <?php
+                } else {
+                ?>
+                    <div class="nav-item ms-3">
+                        <a class="btn btn-black btn-rounded" id="logout-btn" href="Login_Regis/Logout" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng xuất</a>
+                    </div>
+                    <div class="nav-item ms-3">
+                        <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="bi bi-person-lines-fill"></i>User</a>
+                    </div>
+                <?php
+                }
+                ?>
             </ul>
         </div>
     </div>
@@ -51,84 +62,92 @@
         transform: translate(-50%, -50%);
         z-index: 1112;
     }
-
-    /* */
-    /* Style the dropdown button */
-    .dropbtn {
-        background-color: #3498DB;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-
-    /* Dropdown button on hover & focus */
-    .dropbtn:hover,
-    .dropbtn:focus {
-        background-color: #2980B9;
-    }
-
-    /* The container <div> - needed to position the dropdown content */
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    /* Dropdown Content (Hidden by Default) */
-    .dropdown-content {
-        display: flex;
-        position: absolute;
-        background-color: transparent;
-        align-items: center;
-        justify-content: center;
-        min-width: 160px;
-        z-index: 1;
-        right:0;
-    }
-    /* Change color of dropdown links on hover */
-    .dropdown-content a:hover {
-        background-color: #ddd;
-    }
-
-    /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-    .show {
-        display: block;
-    }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     const loginBtn = document.getElementById('login-btn');
     const regisBtn = document.getElementById('regis-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const userDetailBtn = document.getElementById('user-detail-btn');
     const inner_login_regis_form = document.getElementById('login-regis-form');
     const login_regis_overlay = document.getElementById('login-regis-overlay');
     document.addEventListener('DOMContentLoaded', function() {
-        loginBtn.addEventListener('click', () => {
-            event.preventDefault();
-            login_regis_overlay.style.display = 'block';
-            var xhttp = new XMLHttpRequest();
-            var method = "GET";
-            var url = "./App/Views/Client/pages/login-regis.php";
-            xhttp.open(method, url, true);
-            xhttp.onreadystatechange = function() {
-                if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200 && this.readyState === 4) {
-                    inner_login_regis_form.innerHTML = xhttp.responseText;
-                    inner_login_regis_form.style.display = "block";
-                    document.body.style.overflow = "hidden";
+        if (loginBtn != null) {
+            loginBtn.addEventListener('click', () => {
+                event.preventDefault();
+                login_regis_overlay.style.display = 'block';
+                var xhttp = new XMLHttpRequest();
+                var method = "GET";
+                var url = "./App/Views/Client/pages/login-regis.php";
+                xhttp.open(method, url, true);
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200 && this.readyState === 4) {
+                        inner_login_regis_form.innerHTML = xhttp.responseText;
+                        inner_login_regis_form.style.display = "block";
+                        document.body.style.overflow = "hidden";
 
-                    const container = document.getElementById('login-wrapper');
-                    const form_registerBtn = document.getElementById('register');
-                    const form_loginBtn = document.getElementById('login');
-                    form_registerBtn.addEventListener('click', () => {
-                        container.classList.add("active");
-                    });
-                    form_loginBtn.addEventListener('click', () => {
-                        container.classList.remove("active");
-                    });
+                        const container = document.getElementById('login-wrapper');
+                        const toggle_registerBtn = document.getElementById('register');
+                        const toggle_loginBtn = document.getElementById('login');
+                        const form_loginBtn = document.getElementById('loginButton');
+                        const form_registerBtn = document.getElementById('registerButton');
+
+                        form_loginBtn.addEventListener('click', () => {
+                            var username = document.getElementById('loginUsername').value;
+                            var password = document.getElementById('loginPassword').value;
+                            document.getElementById('loginForm').submit();
+                        });
+
+                        toggle_registerBtn.addEventListener('click', () => {
+                            container.classList.add("active");
+                        });
+                        toggle_loginBtn.addEventListener('click', () => {
+                            container.classList.remove("active");
+                        });
+                    }
                 }
-            }
-            xhttp.send();
+                xhttp.send();
 
-        });
+            });
+        }
+        if (regisBtn != null) {
+            regisBtn.addEventListener('click', () => {
+                event.preventDefault();
+                login_regis_overlay.style.display = 'block';
+                var xhttp = new XMLHttpRequest();
+                var method = "GET";
+                var url = "./App/Views/Client/pages/login-regis.php";
+                xhttp.open(method, url, true);
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200 && this.readyState === 4) {
+                        inner_login_regis_form.innerHTML = xhttp.responseText;
+                        inner_login_regis_form.style.display = "block";
+                        document.body.style.overflow = "hidden";
+
+                        const container = document.getElementById('login-wrapper');
+                        const toggle_registerBtn = document.getElementById('register');
+                        const toggle_loginBtn = document.getElementById('login');
+                        const form_loginBtn = document.getElementById('loginButton');
+                        const form_registerBtn = document.getElementById('registerButton');
+
+                        form_loginBtn.addEventListener('click', () => {
+                            var username = dopcument.getElementById('loginUsername').value;
+                            var password = document.getElementById('loginPassword').value;
+                            document.getElementById('loginForm').submit();
+                        });
+
+                        toggle_registerBtn.addEventListener('click', () => {
+                            container.classList.add("active");
+                        });
+                        toggle_loginBtn.addEventListener('click', () => {
+                            container.classList.remove("active");
+                        });
+                        toggle_registerBtn.click();
+                    }
+                }
+                xhttp.send();
+            });
+        }
 
     });
     login_regis_overlay.addEventListener('click', function(event) {
@@ -144,29 +163,5 @@
         inner_login_regis_form.style.display = 'none';
         document.body.style.overflow = 'auto';
     };
-    //Script for dropdown
-    // Function to show the dropdown menu on hover
-    document.querySelector('.dropdown').addEventListener('mouseenter', function() {
-        var dropdownContent = document.getElementById("login-regis");
-        dropdownContent.classList.add("show");
-    });
-
-    // Function to hide the dropdown menu when mouse leaves
-    document.querySelector('.dropdown').addEventListener('mouseleave', function() {
-        var dropdownContent = document.getElementById("login-regis");
-        dropdownContent.classList.remove("show");
-    });
-
-    // Close the dropdown menu if the user clicks outside of it
-    window.addEventListener('click', function(event) {
-        if (!event.target.matches('.dropdown')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-    });
+    //
 </script>

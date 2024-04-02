@@ -1,23 +1,22 @@
-<!-- <?php if ($type == 'register') echo 'active'; ?> -->
 <div class="login-wrapper" id="login-wrapper">
      <div class="form-wrapper sign-up">
-          <form>
+          <form id="regisForm" action="Login_Regis/Register">
                <h1>Tạo Tài Khoản</h1>
                <input type="text" placeholder="Tên">
                <input type="email" placeholder="Email">
                <input type="number" placeholder="Số điện thoại">
                <input type="password" placeholder="Mật khẩu">
                <input type="password" placeholder="Nhập lại mật khẩu">
-               <button>Đăng Kí</button>
+               <button id='registerButton'>Đăng Kí</button>
           </form>
      </div>
      <div class="form-wrapper sign-in">
-          <form>
+          <form id="loginForm" action="Login_Regis/Login/">
                <h1>Đăng Nhập</h1>
-               <input type="email" placeholder="Email">
-               <input type="password" placeholder="Mật khẩu">
+               <input type="email" placeholder="Email" id='loginUsername'>
+               <input type="password" placeholder="Mật khẩu" id='loginPassword'>
                <a href="#">Quên mật khẩu ?</a>
-               <button>Đăng Nhập</button>
+               <button id="loginButton">Đăng Nhập</button>
           </form>
      </div>
      <div class="toggle-container">
