@@ -18,7 +18,9 @@ class Login_Regis extends Controller
      function Register()
      {
           //goi ham o usermodel
-          echo "<script>alert('Dang ky thanh cong');</script>";
+          echo "<script>alert('Đăng ký thành công');</script>";
+          // $this->userModel->createUser();
+          header('Location: /index.php');
      }
      //add a validation function here
      //goi ham user-model.php tren day, echo ra gia tri tra ve

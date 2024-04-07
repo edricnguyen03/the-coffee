@@ -10,22 +10,37 @@ class UserModel
     {
 
         $password = "";
-
-        //nguyen file tao thanh 1 cai ham validation trong model user-model.php
-
         $result = '';
 
         if ($field == 'name_result') {
-            if (strlen($val) < 4) {        //add trim to remove white space, kiem tra ten co so khon vs ki tu dac biet, toi da 40 ki tu
+            //kiem tra do dai ten duoi 4 ki tu
+            if (strlen(trim($val)) < 4) {
                 $result = 'Tên phải lớn hơn 4 ký tự';
+            }
+
+            //kiem tra do dai ten qua 40 ki tu 
+            else if (strlen(trim($val)) > 40) {
+                $result = 'Tên không được quá 40 ký tự';
+            }
+
+            //kiem tra ten co chua ki tu dac biet hoac so khong
+            else if (!preg_match("/^[a-zA-Z ]*$/", $val) || preg_match("/\d/", $val)) {
+                $result = 'Tên không được chứa ký tự đặc biệt hoặc số';
             } else {
                 $result = '<label class="text-success">Hợp lệ</label>';
             }
         }
 
         if ($field == "email_result") {
-            if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $val)) {   //kiem tra do dai email
+
+            //kiem tra email hop le
+            if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $val)) {
                 $result = 'Email không hợp lệ';
+            }
+
+            //kiem tra do dai email
+            else if (!preg_match("/^(?=.{1,40}$)([\w\-]+\@[\w\-]+\.[\w\-]+)/", $val)) {
+                $result = 'Email dài quá 40 ký tự';
             } else {
                 $result = '<label class="text-success">Hợp lệ</label>';
             }
@@ -41,8 +56,13 @@ class UserModel
 
 
         if ($field == "password_result") {
-            if (strlen($val) < 4) {
-                $result = 'Mật khẩu phải lớn hơn 4 ký tự';   //kiem tra mat khau tu 4 den 10 ki tu, co dau cach 2 dau khong
+            //kiem tra mat khau tu 4 den 10 ki tu
+            if (strlen($val) < 4 || strlen($val) > 10) {
+                $result = 'Mật khẩu phải từ 4 đến 10 ký tự';
+            }
+            // kiem tra mat khau co chua khoang trang o 2 dau khong
+            else if (trim($val) !== $val) {
+                $result = 'Mật khẩu không được chứa khoảng trắng';
             } else {
                 $_SESSION['password'] = $val;
                 $result = '<label class="text-success">Hợp lệ</label>';
@@ -60,9 +80,10 @@ class UserModel
         return $result;
     }
 
+    //write a function to create a user and save in database
     public function createUser()
     {
-        //create user
+
         return true;
     }
 }
