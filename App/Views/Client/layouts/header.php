@@ -318,8 +318,6 @@
 
     }
 
-
-
     //function validate using jQuery
     function validate(field, value) {
         $.post(
