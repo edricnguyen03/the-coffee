@@ -1,33 +1,45 @@
 <section style="background-color: #eee;">
-  <!---------------------------------------Thanh tìm kiếm-------------------->
-  <div class="fluid-container sticky-top bg-light p-4 shadow-sm searchbar-container">
+  <!----------------------------------------Thanh tìm kiếm----------------------------------------------------->
+  <div class="fluid-container sticky-top bg-light p-4 shadow-sm searchbar-container" style="z-index: 10;">
     <div class="row align-items-end justify-content-end">
+      <!-------------------------------Combobox thương hiệu------------------------------->
       <div class="col-md-2">
         <div class="form-group mb-md-0 rounded w-100">
           <select class="form-control form-select" id="searchbar-dropdown-category">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+            <?php
+            echo '<option value="all">Thương hiệu</option>';
+            foreach ($danhMucs as $danhMuc) {
+              echo '<option value="' . $danhMuc->id . '">' . $danhMuc->name . '</option>';
+            }
+            ?>
           </select>
         </div>
       </div>
+
+      <!-------------------------------Combobox mức giá------------------------------->
       <div class="col-md-2">
         <div class="form-group mb-md-0">
           <select class="form-control form-select" id="searchbar-dropdown-price">
-            <option value="option1">Option A</option>
-            <option value="option2">Option B</option>
-            <option value="option3">Option C</option>
+            <option value="all">Mức giá</option>
+            <option value="1">Dưới 100.000 VND</option>
+            <option value="2">100.0000 đến 500.000 VND</option>
+            <option value="3">500.000 đến 1.000.000 VND</option>
+            <option value="4">1.000.000 VND</option>
           </select>
         </div>
       </div>
+
+      <!-------------------------------textbox tìm kiếm------------------------------->
       <div class="col-md-4">
         <div class="input-group">
           <input type="text" class="form-control rounded-2" id="searchInput" placeholder="Nhập nội dung tìm kiếm">
           <div class="input-group-append">
-            <button type="button" class="btn btn-primary w-100" style="margin-left: 10%"><i class="fas fa-search icon"></i>Tìm Kiếm</button>
+            <button type="button" id="btn-search" class="btn btn-primary w-100" style="margin-left: 10%"><i class="fas fa-search icon"></i>Tìm Kiếm</button>
           </div>
         </div>
       </div>
+      <!------------------------------------------------------------------------------>
+
     </div>
   </div>
 
@@ -43,7 +55,7 @@
         ?>
       </div>
 
-      <!---------------Chi tiết sản phẩm------------------------>
+      <!---------------Chi tiết sản phẩm-------------------------------------------------------------------------->
       <div class="overlay" id="overlay" style="position: fixed; display: none; top: 0; left: 0; width: 100%; height: 100%;
      overflow: hidden; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index: 90;">
         <!----------------Lớp này che hết trang---------------->
@@ -51,7 +63,7 @@
           <!------------------lớp này chứa nội dung chi tiết sản phâm----------------------->
         </div>
       </div>
-      <!-------------------------------------------------------->
+      <!----------------------------------------------------------------------------------------------------------->
 
       <!----------------------------Phân trang------------------------->
       <div class="row justify-content-center" style="align-items: center; background-color: rgb(238 238 238);">
@@ -80,7 +92,7 @@
 
     </div>
 
-    <!----------------------------Xử lý chi tiết sản phẩm------------------------->
+    <!---------------------------------------------------------Xử lý chi tiết sản phẩm---------------------------------------------------->
     <script>
       // Xác định hàm để cập nhật kích thước của product-detail
       function updateProductDetailSize() {
@@ -117,10 +129,12 @@
                 var productdetail = document.getElementById("product-detail");
                 productdetail.innerHTML = xhttp.responseText;
                 setTimeout(updateProductDetailSize, 50);
+                addEventForDetailAddToCartButton(); // thêm sự kiện cho nút add to cart của phần detail
               }
             };
             // Gửi yêu cầu đến file PHP
             xhttp.send();
+
           });
         });
 
@@ -137,9 +151,63 @@
           event.stopPropagation();
         });
       }
-      document.addEventListener('DOMContentLoaded', function() {
-        AddEventForAllDetailButton();
-      });
+
+      // Gán sự kiện cho nút thêm vào giỏ hàng
+      function AddEventForAllAddToCartButton() {
+        var addToCartButtons = document.querySelectorAll('.btn-addToCart');
+
+        addToCartButtons.forEach(function(button) {
+          button.addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+            // Lấy id sản phẩm từ thuộc tính data-productid
+            var productId = this.getAttribute('data-productid');
+            // Tạo một đối tượng XMLHttpRequest
+            var xhttp = new XMLHttpRequest();
+
+            // Xác định phương thức và URL của file PHP cần include
+            var method = "GET";
+            var url = 'Product/addToCart/' + productId;
+
+            // Mở kết nối với file PHP
+            xhttp.open(method, url, true);
+
+            // Xác định hành động khi kết quả trả về từ file PHP
+            xhttp.onreadystatechange = function() {
+              if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+                var response = xhttp.responseText;
+                switch (response) {
+                  case "login": {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Bạn chưa đăng nhập',
+                      text: "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng"
+                    });
+                    break;
+                  }
+                  case "fail": {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text: "Thêm sản phẩm vào giỏ hàng thất bại"
+                    });
+                    break;
+                  }
+                  case "success": {
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Success',
+                      text: "Thêm sản phẩm vào giỏ hàng thành công"
+                    });
+                    break;
+                  }
+                }
+              }
+            };
+            // Gửi yêu cầu đến file PHP
+            xhttp.send();
+          });
+        });
+      }
 
       function closeProductDetail() {
         var productDetail = document.getElementById('product-detail');
@@ -148,12 +216,130 @@
         productDetail.style.display = 'none';
         document.body.style.overflow = 'auto'; // Kích hoạt lại cuộn cho phần giao diện ở dưới
       }
+
+      function addEventForDetailAddToCartButton(){
+        var addToCartButton = document.getElementById('product-detail-btn-addtocart');
+        if(addToCartButton == null) return;
+        addToCartButton.addEventListener('click', function(event) {
+          event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+          // Lấy id sản phẩm từ thuộc tính data-productid
+          var productId = this.getAttribute('data-productid');
+          // Tạo một đối tượng XMLHttpRequest
+          var xhttp = new XMLHttpRequest();
+
+          var quantity = document.getElementById('product-detail-quantity').value;
+
+          if(quantity < 0 || quantity > 10){
+            Swal.fire({
+              icon: 'error',
+              title: 'Số lượng không hợp lệ',
+              text: "Số lượng phải nằm trong khoảng từ 1 đến 10"
+            });
+            return;
+          }
+          // Xác định phương thức và URL của file PHP cần include
+          var method = "GET";
+          var url = 'Product/addToCart/' + productId+ '/' + quantity;
+
+          // Mở kết nối với file PHP
+          xhttp.open(method, url, true);
+
+          // Xác định hành động khi kết quả trả về từ file PHP
+          xhttp.onreadystatechange = function() {
+            if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+              var response = xhttp.responseText;
+              switch (response) {
+                case "login": {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Bạn chưa đăng nhập',
+                    text: "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng"
+                  });
+                  break;
+                }
+                case "fail": {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "Thêm sản phẩm vào giỏ hàng thất bại"
+                  });
+                  break;
+                }
+                case "success": {
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: "Thêm sản phẩm vào giỏ hàng thành công"
+                  });
+                  break;
+                }
+              }
+            }
+          };
+          // Gửi yêu cầu đến file PHP
+          xhttp.send();
+        });
+      }
+
+
+      document.addEventListener('DOMContentLoaded', function() {
+        AddEventForAllDetailButton();
+        AddEventForAllAddToCartButton();
+      });
     </script>
 
 
-    <!----------------------------Xử lý phân trang------------------------->
+    <!-------------------------------------------------Xử lý phân trang----------------------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+      var $numberOfPages = 1;
+
+      // lấy số lượng trang tối đa
+      function getNumberOfPage() {
+        var idDanhMuc = $('#searchbar-dropdown-category').val();
+        var minMucGia, maxMucGia;
+        switch ($('#searchbar-dropdown-price').val()) {
+          case '1':
+            minMucGia = 0;
+            maxMucGia = 99999;
+            break;
+          case '2':
+            minMucGia = 100000;
+            maxMucGia = 499999;
+            break;
+          case '3':
+            minMucGia = 500000;
+            maxMucGia = 999999;
+            break;
+          case '4':
+            minMucGia = 1000000;
+            maxMucGia = -1;
+            break;
+          default:
+            minMucGia = 0;
+            maxMucGia = -1;
+        }
+        var noiDung = $('#searchInput').val();
+
+        $.ajax({
+          url: '/the-coffee/Product/getNumberOfPages',
+          type: 'POST',
+          data: {
+            idDanhMuc: idDanhMuc,
+            minMucGia: minMucGia,
+            maxMucGia: maxMucGia,
+            noiDung: noiDung,
+          },
+          success: function(response) {
+            $numberOfPages = response;
+          },
+          error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+          }
+        });
+      }
+
+
       $(document).ready(function() {
         $('#previous-icon').css('color', '#ccc');
         // load các sản phẩm của trang vào
@@ -164,6 +350,7 @@
             success: function(response) {
               $('.product-list-container').html(response);
               AddEventForAllDetailButton();
+              AddEventForAllAddToCartButton();
             },
             error: function(xhr, status, error) {
               console.error(xhr.responseText);
@@ -171,21 +358,6 @@
           });
         }
 
-        // lấy số lượng trang tối đa
-        var $numberOfPages = 1;
-
-        function getNumberOfPage() {
-          $.ajax({
-            url: '/the-coffee/Home/getNumberOfPages',
-            type: 'GET',
-            success: function(response) {
-              $numberOfPages = response;
-            },
-            error: function(xhr, status, error) {
-              console.error(xhr.responseText);
-            }
-          });
-        }
         getNumberOfPage();
 
         // Xử lý khi nhấn nút Prev
@@ -194,15 +366,15 @@
           var currentPage = parseInt($('.page-number').text());
           if (currentPage > 1) {
             var prevPage = currentPage - 1;
-            var url = '/the-coffee/Home/page/' + prevPage;
-            loadContent(url);
+            var url = '/the-coffee/Product/filter';
+            filter_Data(prevPage);
             $('.page-number').text(prevPage);
             $('#next-icon').css('color', '#fb8e18');
 
           } else {
             $('#previous-icon').css('color', '#ccc'); // tắt cái nút prev nếu số trang là 1 
           }
-          if(currentPage - 1 == 1){
+          if (currentPage - 1 == 1) {
             $('#previous-icon').css('color', '#ccc');
           }
         });
@@ -214,18 +386,96 @@
           if (currentPage < $numberOfPages) {
             var nextPage = currentPage + 1;
             var url = '/the-coffee/Home/page/' + nextPage;
-            loadContent(url);
+            filter_Data(nextPage);
             $('.page-number').text(nextPage);
             $('#previous-icon').css('color', '#fb8e18');
           } else {
             $('#next-icon').css('color', '#ccc');
           }
-          if(currentPage + 1 == $numberOfPages){
+          if (currentPage + 1 == $numberOfPages) {
             $('#next-icon').css('color', '#ccc');
           }
         });
+        $('.page-number').on('change', function() {
+          // Code xử lý khi giá trị của '.page-number' thay đổi
+          var currentPage = parseInt($('.page-number').text());
+          if (currentPage == 1) {
+            $('#previous-icon').css('color', '#ccc');
+            $('#next-icon').css('color', '#fb8e18');
+          } else {
+            $('#previous-icon').css('color', '#fb8e18');
+          }
+          if (currentPage == $numberOfPages) {
+            $('#next-icon').css('color', '#ccc');
+            $('#previous-icon').css('color', '#fb8e18');
 
+          } else {
+            $('#next-icon').css('color', '#fb8e18');
+          }
+        });
+
+        // Khi thay đổi giá trị của '.page-number', trigger sự kiện 'change'
+        $('.page-number').on('input', function() {
+          $(this).trigger('change');
+        });
+      });
+
+      //-------------------------------------------Xử lý lọc dữ liệu----------------------------------------------
+      $('#btn-search').click(function(e) {
+        filter_Data();
+        getNumberOfPage();
 
       });
+
+      function filter_Data(page = 1) {
+        var idDanhMuc = $('#searchbar-dropdown-category').val();
+        var minMucGia, maxMucGia;
+
+        switch ($('#searchbar-dropdown-price').val()) {
+          case '1':
+            minMucGia = 0;
+            maxMucGia = 99999;
+            break;
+          case '2':
+            minMucGia = 100000;
+            maxMucGia = 499999;
+            break;
+          case '3':
+            minMucGia = 500000;
+            maxMucGia = 999999;
+            break;
+          case '4':
+            minMucGia = 1000000;
+            maxMucGia = -1;
+            break;
+          default:
+            minMucGia = 0;
+            maxMucGia = -1;
+        }
+
+        var noiDung = $('#searchInput').val();
+
+        $.ajax({
+          url: "/the-coffee/Product/filter",
+          method: 'POST',
+          data: {
+            idDanhMuc: idDanhMuc,
+            minMucGia: minMucGia,
+            maxMucGia: maxMucGia,
+            noiDung: noiDung,
+            page: page
+          },
+          success: function(response) {
+            $('.product-list-container').html(response);
+            AddEventForAllDetailButton();
+            AddEventForAllAddToCartButton();
+            $('.page-number').text(page); // đặt lại ô số trang
+            $('.page-number').trigger('change');
+          }
+        });
+      }
     </script>
+
+
+
 </section>

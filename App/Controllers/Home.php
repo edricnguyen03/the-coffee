@@ -25,7 +25,6 @@ class Home extends Controller
      public function getNumberOfPages()
      {
           $numberOfPages = $this->productModel->getNumberOfPages();
-
           // Trả về dữ liệu dưới dạng JSON
           header('Content-Type: application/json');
           echo json_encode($numberOfPages);

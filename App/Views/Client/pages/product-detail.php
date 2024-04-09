@@ -13,8 +13,9 @@
             <p>Chúc quý khách một ngày tốt lành</p>
 
             <div class="input-group mb-3">
-                <input type="number" class="form-control" id="txtSoLuong" placeholder="Nhập số lượng" aria-label="Nhập số lượng" aria-describedby="button-addon2">
-                <a href="#" class="btn btn-warning">
+                <label for="soLuong" style="padding-top: 2%; margin-right: 2%">Số lượng: </label>
+                <input type="number" class="form-control" name="soLuong" id="product-detail-quantity" placeholder="Số lượng" aria-label="Nhập số lượng" aria-describedby="button-addon2" min="1" max="10" value="1" >
+                <a href="#" class="btn btn-warning" id="product-detail-btn-addtocart" data-productid = "<?php echo $sanPham->id?>" >
                     <i class="fa-solid fa-cart-arrow-down icon"></i>Thêm vào giỏ
                 </a>
             </div>

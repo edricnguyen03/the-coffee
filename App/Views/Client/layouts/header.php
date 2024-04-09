@@ -24,11 +24,12 @@
                 <?php
                 } else {
                 ?>
+                    
                     <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="logout-btn" href="Login_Regis/Logout" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng xuất</a>
+                        <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="fa-solid fa-user icon"></i>User</a>
                     </div>
                     <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="bi bi-person-lines-fill"></i>User</a>
+                        <a class="btn btn-black btn-rounded" id="logout-btn" href="Login_Regis/Logout" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-right-from-bracket icon"></i>Đăng xuất</a>
                     </div>
                 <?php
                 }
