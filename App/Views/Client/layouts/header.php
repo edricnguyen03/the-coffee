@@ -25,7 +25,7 @@
                 } else {
                 ?>
                     <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="logout-btn" href="Login_Regis/Logout" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-right-from-bracket icon"></i>Đăng xuất</a>
+                        <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="bi bi-person-lines-fill"></i>User</a>
                     </div>
                     <div class="sub-menu-wrapper" id="subMenu">
                         <div class="sub-menu">
@@ -33,7 +33,7 @@
                                 <img></img>
                                 <h3>
                                     <?php
-                                    if(isset($_SESSION['login']['username'])){
+                                    if (isset($_SESSION['login']['username'])) {
                                         echo $_SESSION['login']['username'];
                                     }
                                     ?>
@@ -68,7 +68,7 @@
                                 <img></img>
                                 <h3>
                                     <?php
-                                    if(isset($_SESSION['login']['username'])){
+                                    if (isset($_SESSION['login']['username'])) {
                                         echo $_SESSION['login']['username'];
                                     }
                                     ?>
@@ -219,7 +219,7 @@
     if (isset($_SESSION['login']['status']) && $_SESSION['login']['status'] == true) {
     ?>
         var subMenu = document.getElementById('subMenu');
-        userDetailBtn.addEventListener('click', function(){
+        userDetailBtn.addEventListener('click', function() {
             subMenu.classList.toggle("open-menu");
         });
     <?php
