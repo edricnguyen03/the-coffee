@@ -9,7 +9,7 @@ class App
           if (isset($routes)) {
                $this->__controller = $routes['default_controller'];
           }
-          $this->__action = 'index';
+          $this->__action = $routes['default_action'];
           $this->__params = [];
 
           $this->urlHandler();

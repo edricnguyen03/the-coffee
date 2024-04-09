@@ -25,10 +25,42 @@
                 } else {
                 ?>
                     <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="logout-btn" href="Login_Regis/Logout" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng xuất</a>
-                    </div>
-                    <div class="nav-item ms-3">
                         <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="bi bi-person-lines-fill"></i>User</a>
+                    </div>
+                    <div class="sub-menu-wrapper" id="subMenu">
+                        <div class="sub-menu">
+                            <div class="user-info">
+                                <img></img>
+                                <h3>
+                                    <?php
+                                    if(isset($_SESSION['login']['username'])){
+                                        echo $_SESSION['login']['username'];
+                                    }
+                                    ?>
+                                </h3>
+                            </div>
+                            <hr>
+                            <a href="#" class="sub-menu-link">
+                                <img src="./resources/images/user-detail/profile.png" alt="">
+                                <p>Edit profile</p>
+                                <span></span>
+                            </a>
+                            <a href="#" class="sub-menu-link">
+                                <img src="./resources/images/user-detail/shopping-cart.png" alt="">
+                                <p>Cart</p>
+                                <span></span>
+                            </a>
+                            <a href="#" class="sub-menu-link">
+                                <img src="./resources/images/user-detail/setting.png" alt="">
+                                <p>Setting</p>
+                                <span></span>
+                            </a>
+                            <a href="Login_Regis/Logout" class="sub-menu-link">
+                                <img src="./resources/images/user-detail/logout.png" alt="">
+                                <p>Logout</p>
+                                <span></span>
+                            </a>
+                        </div>
                     </div>
                 <?php
                 }
@@ -59,8 +91,88 @@
         transform: translate(-50%, -50%);
         z-index: 1112;
     }
+
+    .sub-menu-wrapper {
+        position: absolute;
+        top: 100%;
+        right: 2%;
+        width: 220px;
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 0.5s;
+    }
+
+    .sub-menu-wrapper.open-menu {
+        max-height: 400px;
+    }
+
+    .sub-menu {
+        background: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .sub-menu hr {
+        border: 0;
+        height: 1px;
+        width: 100%;
+        background: #ccc;
+        margin: 15px 0 10px;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-info h3 {
+        font-weight: 500;
+    }
+
+    .user-info img {
+        width: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+
+    }
+
+    .sub-menu-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #525252;
+        margin: 10px 0
+    }
+
+    .sub-menu-link p {
+        width: 100%;
+        margin-bottom: 0px;
+    }
+
+    .sub-menu-link img {
+        width: 35px;
+        background: #e5e5e5;
+        border-radius: 50%;
+        padding: 8px;
+        margin-right: 15px;
+    }
+
+    .sub-menu-link span {
+        font-size: 20px;
+        transition: transform 0.5s;
+    }
+
+    .sub-menu-link:hover span {
+        transform: translateX(5px);
+    }
+
+    .sub-menu-link:hover p {
+        font-weight: 600;
+    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <script>
     const loginBtn = document.getElementById('login-btn');
     const regisBtn = document.getElementById('regis-btn');
@@ -68,6 +180,16 @@
     const userDetailBtn = document.getElementById('user-detail-btn');
     const inner_login_regis_form = document.getElementById('login-regis-form');
     const login_regis_overlay = document.getElementById('login-regis-overlay');
+    <?php
+    if (isset($_SESSION['login']['status']) && $_SESSION['login']['status'] == true) {
+    ?>
+        var subMenu = document.getElementById('subMenu');
+        userDetailBtn.addEventListener('click', function(){
+            subMenu.classList.toggle("open-menu");
+        });
+    <?php
+    }
+    ?>
     document.addEventListener('DOMContentLoaded', function() {
         if (loginBtn != null) {
             loginBtn.addEventListener('click', () => {

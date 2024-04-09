@@ -11,6 +11,7 @@ class Login_Regis extends Controller
      function Login()
      {
           $_SESSION['login']['status'] = true;
+          $_SESSION['login']['username'] = "MinhTien"; //Gán tên đại j đó đi @@
           header('Location: /the-coffee/');
           exit();
      }
