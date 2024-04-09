@@ -25,7 +25,42 @@
                 } else {
                 ?>
                     <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="bi bi-person-lines-fill"></i>User</a>
+                        <a class="btn btn-black btn-rounded" id="logout-btn" href="Login_Regis/Logout" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-right-from-bracket icon"></i>Đăng xuất</a>
+                    </div>
+                    <div class="sub-menu-wrapper" id="subMenu">
+                        <div class="sub-menu">
+                            <div class="user-info">
+                                <img></img>
+                                <h3>
+                                    <?php
+                                    if(isset($_SESSION['login']['username'])){
+                                        echo $_SESSION['login']['username'];
+                                    }
+                                    ?>
+                                </h3>
+                            </div>
+                            <hr>
+                            <a href="#" class="sub-menu-link">
+                                <img src="./resources/images/user-detail/profile.png" alt="">
+                                <p>Edit profile</p>
+                                <span></span>
+                            </a>
+                            <a href="#" class="sub-menu-link">
+                                <img src="./resources/images/user-detail/shopping-cart.png" alt="">
+                                <p>Cart</p>
+                                <span></span>
+                            </a>
+                            <a href="#" class="sub-menu-link">
+                                <img src="./resources/images/user-detail/setting.png" alt="">
+                                <p>Setting</p>
+                                <span></span>
+                            </a>
+                            <a href="Login_Regis/Logout" class="sub-menu-link">
+                                <img src="./resources/images/user-detail/logout.png" alt="">
+                                <p>Logout</p>
+                                <span></span>
+                            </a>
+                        </div>
                     </div>
                     <div class="sub-menu-wrapper" id="subMenu">
                         <div class="sub-menu">

@@ -82,6 +82,7 @@
                 var productdetail = document.getElementById("product-detail");
                 productdetail.innerHTML = xhttp.responseText;
                 setTimeout(updateProductDetailSize, 50);
+                addEventForDetailAddToCartButton();
               }
             };
             // Gửi yêu cầu đến file PHP
@@ -102,8 +103,68 @@
           event.stopPropagation();
         });
       }
+
+      // Gán sự kiện cho nút "Thêm vào giỏ hàng"
+      function AddEventForAllAddToCartButton() {
+        var addToCartButtons = document.querySelectorAll('.btn-addToCart');
+
+        addToCartButtons.forEach(function(button) {
+          button.addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+            // Lấy id sản phẩm từ thuộc tính data-productid
+            var productId = this.getAttribute('data-productid');
+            // Tạo một đối tượng XMLHttpRequest
+            var xhttp = new XMLHttpRequest();
+
+            // Xác định phương thức và URL của file PHP cần include
+            var method = "GET";
+            var url = 'Product/addToCart/' + productId;
+
+            // Mở kết nối với file PHP
+            xhttp.open(method, url, true);
+
+            // Xác định hành động khi kết quả trả về từ file PHP
+            xhttp.onreadystatechange = function() {
+              if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+                var response = xhttp.responseText;
+                switch (response) {
+                  case "login": {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Bạn chưa đăng nhập',
+                      text: "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng"
+                    });
+                    break;
+                  }
+                  case "fail": {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text: "Thêm sản phẩm vào giỏ hàng thất bại"
+                    });
+                    break;
+                  }
+                  case "success": {
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Success',
+                      text: "Thêm sản phẩm vào giỏ hàng thành công"
+                    });
+                    break;
+                  }
+                }
+              }
+            };
+            // Gửi yêu cầu đến file PHP
+            xhttp.send();
+          });
+        });
+      }
+
+
       document.addEventListener('DOMContentLoaded', function() {
-          AddEventForAllDetailButton();
+        AddEventForAllDetailButton();
+        AddEventForAllAddToCartButton();
       });
 
       function closeProductDetail() {
@@ -112,6 +173,70 @@
         overlay.style.display = 'none';
         productDetail.style.display = 'none';
         document.body.style.overflow = 'auto'; // Kích hoạt lại cuộn cho phần giao diện ở dưới
+      }
+
+      function addEventForDetailAddToCartButton() {
+        var addToCartButton = document.getElementById('product-detail-btn-addtocart');
+        if (addToCartButton == null) return;
+        addToCartButton.addEventListener('click', function(event) {
+          event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+          // Lấy id sản phẩm từ thuộc tính data-productid
+          var productId = this.getAttribute('data-productid');
+          // Tạo một đối tượng XMLHttpRequest
+          var xhttp = new XMLHttpRequest();
+
+          var quantity = document.getElementById('product-detail-quantity').value;
+
+          if (quantity < 0 || quantity > 10) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Số lượng không hợp lệ',
+              text: "Số lượng phải nằm trong khoảng từ 1 đến 10"
+            });
+            return;
+          }
+          // Xác định phương thức và URL của file PHP cần include
+          var method = "GET";
+          var url = 'Product/addToCart/' + productId + '/' + quantity;
+
+          // Mở kết nối với file PHP
+          xhttp.open(method, url, true);
+
+          // Xác định hành động khi kết quả trả về từ file PHP
+          xhttp.onreadystatechange = function() {
+            if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+              var response = xhttp.responseText;
+              switch (response) {
+                case "login": {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Bạn chưa đăng nhập',
+                    text: "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng"
+                  });
+                  break;
+                }
+                case "fail": {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "Thêm sản phẩm vào giỏ hàng thất bại"
+                  });
+                  break;
+                }
+                case "success": {
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: "Thêm sản phẩm vào giỏ hàng thành công"
+                  });
+                  break;
+                }
+              }
+            }
+          };
+          // Gửi yêu cầu đến file PHP
+          xhttp.send();
+        });
       }
     </script>
 
@@ -122,6 +247,7 @@
       $(document).ready(function() {
         // load các sản phẩm của trang vào
         $('#previous-icon').css('color', '#ccc');
+
         function loadContent(url) {
           $.ajax({
             url: url,
@@ -129,6 +255,7 @@
             success: function(response) {
               $('.product-list-container').html(response);
               AddEventForAllDetailButton();
+              AddEventForAllAddToCartButton();
             },
             error: function(xhr, status, error) {
               console.error(xhr.responseText);
@@ -166,7 +293,7 @@
           } else {
             $('#previous-icon').css('color', '#ccc'); // tắt cái nút prev nếu số trang là 1 
           }
-          if(currentPage - 1 == 1){
+          if (currentPage - 1 == 1) {
             $('#previous-icon').css('color', '#ccc');
           }
         });
@@ -184,9 +311,30 @@
           } else {
             $('#next-icon').css('color', '#ccc');
           }
-          if(currentPage + 1 == $numberOfPages){
+          if (currentPage + 1 == $numberOfPages) {
             $('#next-icon').css('color', '#ccc');
           }
+        });
+        $('.page-number').on('change', function() {
+          // Code xử lý khi giá trị của '.page-number' thay đổi
+          var currentPage = parseInt($('.page-number').text());
+          if (currentPage == 1) {
+            $('#previous-icon').css('color', '#ccc');
+            $('#next-icon').css('color', '#fb8e18');
+          } else {
+            $('#previous-icon').css('color', '#fb8e18');
+          }
+          if (currentPage == $numberOfPages) {
+            $('#next-icon').css('color', '#ccc');
+            $('#previous-icon').css('color', '#fb8e18');
+          } else {
+            $('#next-icon').css('color', '#fb8e18');
+          }
+        });
+
+        // Khi thay đổi giá trị của '.page-number', trigger sự kiện 'change'
+        $('.page-number').on('input', function() {
+          $(this).trigger('change');
         });
 
 
