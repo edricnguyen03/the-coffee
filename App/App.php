@@ -5,7 +5,8 @@ class App
 
      function __construct()
      {
-          global $routes;
+          global $routes, $config;
+
           if (isset($routes)) {
                $this->__controller = $routes['default_controller'];
           }

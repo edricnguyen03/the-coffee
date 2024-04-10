@@ -25,7 +25,7 @@
                 } else {
                 ?>
                     <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="bi bi-person-lines-fill"></i>User</a>
+                        <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="fa-regular fa-circle-user icon"></i>User</a>
                     </div>
                     <div class="sub-menu-wrapper" id="subMenu">
                         <div class="sub-menu">
