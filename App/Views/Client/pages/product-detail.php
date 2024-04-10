@@ -5,11 +5,12 @@
             <img src="./resources/images/products/<?php echo $sanPham->thumb_image ?>" alt="" class="product-info-product-image" style="max-width: 100%;">
         </div>
         <div class="col-md-6 product-info-product-info">
-            <h5><?php echo $sanPham->name ?></h5>
+            <h4 class="font-weight-bold"><?php echo $sanPham->name ?></h4>
             <p><?php echo $sanPham->description ?></p>
             <p><?php echo $sanPham->content ?></p>
-            <p class="product-info-product-price">Giá: <?php echo $sanPham->price ?> VND</p>
+            <p class="product-info-product-price text-success">Giá: <?php echo $sanPham->price ?> VND</p>
             <p class="product-info-product-attribute">Khối lượng: <?php echo $sanPham->weight ?> g</p>
+            <p class="product-info-product-attribute text-bg-info">Số lượng còn lại: <?php echo $sanPham->stock ?></p>
             <p>Chúc quý khách một ngày tốt lành</p>
 
             <div class="input-group mb-3">

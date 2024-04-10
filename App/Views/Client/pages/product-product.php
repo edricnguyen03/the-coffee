@@ -217,9 +217,9 @@
         document.body.style.overflow = 'auto'; // Kích hoạt lại cuộn cho phần giao diện ở dưới
       }
 
-      function addEventForDetailAddToCartButton(){
+      function addEventForDetailAddToCartButton() {
         var addToCartButton = document.getElementById('product-detail-btn-addtocart');
-        if(addToCartButton == null) return;
+        if (addToCartButton == null) return;
         addToCartButton.addEventListener('click', function(event) {
           event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
           // Lấy id sản phẩm từ thuộc tính data-productid
@@ -229,7 +229,7 @@
 
           var quantity = document.getElementById('product-detail-quantity').value;
 
-          if(quantity < 0 || quantity > 10){
+          if (quantity < 0 || quantity > 10) {
             Swal.fire({
               icon: 'error',
               title: 'Số lượng không hợp lệ',
@@ -239,7 +239,7 @@
           }
           // Xác định phương thức và URL của file PHP cần include
           var method = "GET";
-          var url = 'Product/addToCart/' + productId+ '/' + quantity;
+          var url = 'Product/addToCart/' + productId + '/' + quantity;
 
           // Mở kết nối với file PHP
           xhttp.open(method, url, true);
@@ -424,7 +424,7 @@
       $('#btn-search').click(function(e) {
         filter_Data();
         getNumberOfPage();
-
+        $('.page-number').trigger('change');
       });
 
       function filter_Data(page = 1) {
