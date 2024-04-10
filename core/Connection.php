@@ -4,7 +4,7 @@
 
           private function __construct($config){
                try{
-                    $dsn = 'mysql:dbname'.$config['dbname'].';host='.$config['servername'];
+                    $dsn = 'mysql:dbname='.$config['dbname'].';host='.$config['servername'];
 
                     $option = [
                          PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
