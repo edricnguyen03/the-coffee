@@ -4,7 +4,24 @@ class UserModel
     function __construct()
     {
     }
-
+    public function login($username, $password)
+    {
+        global $db;
+        $userArr = $db->get('users');
+        foreach ($userArr as $user) {
+            if ($user['email'] == $username && $user['password'] != $password) {
+                return "wrongPassword";
+            }
+            if ($user['email'] == $username && $user['password'] == $password) {
+                if ($user['status'] == 1) {
+                    return $user['id'];
+                } else {
+                    return "banned";
+                }
+            }
+        }
+        return "notFound";
+    }
 
     public function validation($field, $val)
     {

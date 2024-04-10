@@ -2,7 +2,6 @@
 class App
 {
      private $__controller, $__action, $__params;
-
      function __construct()
      {
           global $routes, $config;

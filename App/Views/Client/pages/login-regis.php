@@ -31,10 +31,12 @@
           </form>
      </div>
      <div class="form-wrapper sign-in">
-          <form id="loginForm" action="Login_Regis/Login/">
+          <form id="loginForm" method="POST">
                <h1>Đăng Nhập</h1>
-               <input type="email" placeholder="Email" id='loginUsername'>
-               <input type="password" placeholder="Mật khẩu" id='loginPassword'>
+               <input type="email" placeholder="Email" id='loginUsername' name="login-email">
+               <div id="responseEmail" class="responseText"></div>
+               <input type="password" placeholder="Mật khẩu" id='loginPassword' name="login-password">
+               <div id="responsePassword" class="responseText"></div>
                <a href="#">Quên mật khẩu ?</a>
                <button id="loginButton">Đăng Nhập</button>
           </form>
@@ -57,6 +59,9 @@
      </div>
 </div>
 <style>
+     .responseText{
+          color: red;
+     }
      .login-wrapper {
           background-color: #fff;
           border-radius: 30px;

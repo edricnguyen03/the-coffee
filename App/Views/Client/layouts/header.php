@@ -13,89 +13,118 @@
                     <a class="nav-link mx-2" href="/the-coffee/product"><i class="fa-brands fa-shopify icon"></i>Sản phẩm</a>
                 </li>
                 <?php
-                if (!isset($_SESSION['login']['status']) || !$_SESSION['login']['status']) {
+                if (isset($_SESSION['login']['status'])) {
+                    if ($_SESSION['login']['status'] == 1) {
                 ?>
+                        <div class="nav-item ms-3">
+                            <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="fa-regular fa-circle-user icon"></i>User</a>
+                        </div>
+                        <div class="sub-menu-wrapper" id="subMenu">
+                            <div class="sub-menu">
+                                <div class="user-info">
+                                    <img></img>
+                                    <h3>
+                                        <?php
+                                        if (isset($_SESSION['login']['username'])) {
+                                            echo $_SESSION['login']['username'];
+                                        }
+                                        ?>
+                                    </h3>
+                                </div>
+                                <hr>
+                                <a href="#" class="sub-menu-link">
+                                    <img src="./resources/images/user-detail/profile.png" alt="">
+                                    <p>Edit profile</p>
+                                    <span></span>
+                                </a>
+                                <a href="#" class="sub-menu-link">
+                                    <img src="./resources/images/user-detail/shopping-cart.png" alt="">
+                                    <p>Cart</p>
+                                    <span></span>
+                                </a>
+                                <a href="#" class="sub-menu-link">
+                                    <img src="./resources/images/user-detail/setting.png" alt="">
+                                    <p>Setting</p>
+                                    <span></span>
+                                </a>
+                                <a href="Login_Regis/Logout" class="sub-menu-link">
+                                    <img src="./resources/images/user-detail/logout.png" alt="">
+                                    <p>Logout</p>
+                                    <span></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="sub-menu-wrapper" id="subMenu">
+                            <div class="sub-menu">
+                                <div class="user-info">
+                                    <img></img>
+                                    <h3>
+                                        <?php
+                                        if (isset($_SESSION['login']['username'])) {
+                                            echo $_SESSION['login']['username'];
+                                        }
+                                        ?>
+                                    </h3>
+                                </div>
+                                <hr>
+                                <a href="#" class="sub-menu-link">
+                                    <img src="./resources/images/user-detail/profile.png" alt="">
+                                    <p>Edit profile</p>
+                                    <span></span>
+                                </a>
+                                <a href="#" class="sub-menu-link">
+                                    <img src="./resources/images/user-detail/shopping-cart.png" alt="">
+                                    <p>Cart</p>
+                                    <span></span>
+                                </a>
+                                <a href="#" class="sub-menu-link">
+                                    <img src="./resources/images/user-detail/setting.png" alt="">
+                                    <p>Setting</p>
+                                    <span></span>
+                                </a>
+                                <a href="Login_Regis/Logout" class="sub-menu-link">
+                                    <img src="./resources/images/user-detail/logout.png" alt="">
+                                    <p>Logout</p>
+                                    <span></span>
+                                </a>
+                            </div>
+                        </div>
+                    <?php
+                    } else if ($_SESSION['login']['status'] == -1) {
+                    ?>
+                        <li class="nav-item ms-3">
+                            <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                        </li>
+                        <div class="nav-item ms-3">
+                            <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                        </div>
+                    <?php
+                        unset($_SESSION['login']['status']);
+                    } else if ($_SESSION['login']['status'] == 0) {
+                    ?>
+                        <li class="nav-item ms-3">
+                            <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                        </li>
+                        <div class="nav-item ms-3">
+                            <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                        </div>
+                        <script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: "Tài khoản của bạn đã ăn global ban"
+                            });
+                        </script>
+                    <?php
+                        unset($_SESSION['login']['status']);
+                    }
+                } else {
+                    ?>
                     <li class="nav-item ms-3">
                         <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
                     </li>
                     <div class="nav-item ms-3">
                         <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
-                    </div>
-                <?php
-                } else {
-                ?>
-                    <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="fa-regular fa-circle-user icon"></i>User</a>
-                    </div>
-                    <div class="sub-menu-wrapper" id="subMenu">
-                        <div class="sub-menu">
-                            <div class="user-info">
-                                <img></img>
-                                <h3>
-                                    <?php
-                                    if (isset($_SESSION['login']['username'])) {
-                                        echo $_SESSION['login']['username'];
-                                    }
-                                    ?>
-                                </h3>
-                            </div>
-                            <hr>
-                            <a href="#" class="sub-menu-link">
-                                <img src="./resources/images/user-detail/profile.png" alt="">
-                                <p>Edit profile</p>
-                                <span></span>
-                            </a>
-                            <a href="#" class="sub-menu-link">
-                                <img src="./resources/images/user-detail/shopping-cart.png" alt="">
-                                <p>Cart</p>
-                                <span></span>
-                            </a>
-                            <a href="#" class="sub-menu-link">
-                                <img src="./resources/images/user-detail/setting.png" alt="">
-                                <p>Setting</p>
-                                <span></span>
-                            </a>
-                            <a href="Login_Regis/Logout" class="sub-menu-link">
-                                <img src="./resources/images/user-detail/logout.png" alt="">
-                                <p>Logout</p>
-                                <span></span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sub-menu-wrapper" id="subMenu">
-                        <div class="sub-menu">
-                            <div class="user-info">
-                                <img></img>
-                                <h3>
-                                    <?php
-                                    if (isset($_SESSION['login']['username'])) {
-                                        echo $_SESSION['login']['username'];
-                                    }
-                                    ?>
-                                </h3>
-                            </div>
-                            <hr>
-                            <a href="#" class="sub-menu-link">
-                                <img src="./resources/images/user-detail/profile.png" alt="">
-                                <p>Edit profile</p>
-                                <span></span>
-                            </a>
-                            <a href="#" class="sub-menu-link">
-                                <img src="./resources/images/user-detail/shopping-cart.png" alt="">
-                                <p>Cart</p>
-                                <span></span>
-                            </a>
-                            <a href="#" class="sub-menu-link">
-                                <img src="./resources/images/user-detail/setting.png" alt="">
-                                <p>Setting</p>
-                                <span></span>
-                            </a>
-                            <a href="Login_Regis/Logout" class="sub-menu-link">
-                                <img src="./resources/images/user-detail/logout.png" alt="">
-                                <p>Logout</p>
-                                <span></span>
-                            </a>
-                        </div>
                     </div>
                 <?php
                 }
@@ -247,9 +276,55 @@
                         const form_registerBtn = document.getElementById('registerButton');
 
                         form_loginBtn.addEventListener('click', () => {
+                            event.preventDefault();
                             var username = document.getElementById('loginUsername').value;
                             var password = document.getElementById('loginPassword').value;
-                            document.getElementById('loginForm').submit();
+                            if (username.trim() == "" && password.trim() == "") {
+                                $('#responsePassword').html('Vui lòng nhập đầy đủ mật khẩu.');
+                                $('#responseEmail').html('Vui lòng nhập đầy đủ tài khoản.');
+                                return;
+                            }
+                            if (username.trim() == "") {
+                                $('#responseEmail').html('Vui lòng nhập đầy đủ tài khoản.');
+                                $('#responsePassword').html('');
+                                return;
+                            }
+                            if (password.trim() == "") {
+                                $('#responsePassword').html('Vui lòng nhập đầy đủ mật khẩu.');
+                                $('#responseEmail').html('');
+                                return;
+                            }
+                            $.ajax({
+                                type: 'POST',
+                                url: '/the-coffee/Login_Regis/Login', // replace with your login endpoint
+                                data: {
+                                    username: username,
+                                    password: password
+                                },
+                                success: function(response) {
+                                    switch (response) {
+                                        case "success": {
+                                            window.location.reload();
+                                            break;
+                                        }
+                                        case "notFound": {
+                                            $('#responseEmail').html("Email không tồn tại.");
+                                            $('#responsePassword').html("");
+                                            break;
+                                        }
+                                        case "banned": {
+                                            window.location.reload();
+                                            break;
+                                        }
+                                        case "wrongPassword": {
+                                            $('#responsePassword').html("Sai mật khẩu.");
+                                            $('#responseEmail').html("");
+                                            break;
+                                        }
+
+                                    }
+                                }
+                            });
                         });
 
                         toggle_registerBtn.addEventListener('click', () => {
@@ -285,10 +360,44 @@
                         const form_loginBtn = document.getElementById('loginButton');
                         const form_registerBtn = document.getElementById('registerButton');
 
+
+
+
                         form_loginBtn.addEventListener('click', () => {
                             var username = document.getElementById('loginUsername').value;
                             var password = document.getElementById('loginPassword').value;
-                            document.getElementById('loginForm').submit();
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '/the-coffee/Login_Regis/Login', // replace with your login endpoint
+                                data: {
+                                    username: username,
+                                    password: password
+                                },
+                                success: function(response) {
+                                    switch (response) {
+                                        case "success": {
+                                            window.location.reload();
+                                            break;
+                                        }
+                                        case "notFound": {
+                                            $('#responseEmail').html("Email address incorrect.");
+                                            $('#responsePassword').html("");
+                                            break;
+                                        }
+                                        case "banned": {
+                                            window.location.reload();
+                                            break;
+                                        }
+                                        case "wrongPassword": {
+                                            $('#responsePassword').html("Incorrect password.");
+                                            $('#responseEmail').html("");
+                                            break;
+                                        }
+                                    }
+                                }
+                            });
+
                         });
 
                         toggle_registerBtn.addEventListener('click', () => {
