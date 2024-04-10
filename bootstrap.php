@@ -10,12 +10,11 @@
      require_once './App/App.php'; //Load app
      //Kiểm tra config và load connection
      if(!empty($config['database'])){
-          $db_config = array_filter($config['database']);
+          $db_config = $config['database'];
           if(!empty(array_filter($db_config))){
                require_once "./core/Connection.php";
                require_once "./core/Database.php";
                $db = new Database();
-               var_dump($db);
           }
      }
 
