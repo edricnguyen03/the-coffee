@@ -37,9 +37,8 @@ class Product extends Controller
             return;
         }
         
-        //$User_id = isset($_SESSION['login']['id']);--------------------
+        $User_id = $_SESSION['login']['id'];
         // Gọi hàm addToCart từ model và xử lý kết quả
-        $User_id = 1;
         $result = $this->cartModel->addToCart($User_id, $productID, $soLuongMua);
         
         if($result){
@@ -108,6 +107,7 @@ class Product extends Controller
 
         $sanPhams = $this->productModel->get($page, $idDanhMuc, $minMucGia, $maxMucGia, $noiDung);
         $data['sanPhams'] = $sanPhams;
+        
         return  $this->view('/Client/pages/product-list', $data);
     }
 }

@@ -10,10 +10,36 @@ class Login_Regis extends Controller
      }
      function Login()
      {
-          $_SESSION['login']['status'] = true;
-          $_SESSION['login']['username'] = "MinhTien"; //Gán tên đại j đó đi @@
-          header('Location: /the-coffee/');
-          exit();
+          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+               if (!empty($_POST['username']) && !empty($_POST['password'])) {
+                    $email = $_POST['username'];
+                    $password = $_POST['password'];
+                    $user = $this->userModel->login($email, $password);
+                    switch ($user) {
+                         case 1: {
+                                   $_SESSION['login']['id'] = $user;
+                                   $_SESSION['login']['status'] = 1;
+                                   echo "success";
+                                   break;
+                              }
+                         case "notFound": {
+                                   $_SESSION['login']['status'] = -1;
+                                   echo "notFound";
+                                   break;
+                              }
+                         case "banned": {
+                                   $_SESSION['login']['status'] = 0;
+                                   echo "banned";
+                                   break;
+                              }
+                         case "wrongPassword": {
+                                   $_SESSION['login']['status'] = -1;
+                                   echo "wrongPassword";
+                                   break;
+                              }
+                    }
+               }
+          }
      }
 
      function Register()

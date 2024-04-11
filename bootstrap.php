@@ -12,11 +12,12 @@
      if(!empty($config['database'])){
           $db_config = $config['database'];
           if(!empty(array_filter($db_config))){
-               require_once "./core/Connection.php";
-               require_once "./core/Database.php";
-               $db = new Database();
+               if(!empty($db_config['dbname']) && !empty($db_config['servername']) && !empty($db_config['username'])){
+                    require_once "./core/Connection.php";
+                    require_once "./core/Database.php";
+                    $db = new Database();
+               }
           }
      }
 
      require_once './core/Controller.php'; //Load base controller
-?>
