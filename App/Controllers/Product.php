@@ -30,23 +30,19 @@ class Product extends Controller
         $this->view('/Client/pages/product-detail', $data);
     }
 
-    public function addToCart($productID, $soLuongMua = 1){
+    public function addToCart($productID, $soLuongMua = 1)
+    {
         //Kiểm tra xem người dùng đã đăng nhập chưa
-        if(!isset($_SESSION['login']['status'])){
+        if (!isset($_SESSION['login']['status'])) {
             echo "login";
             return;
         }
-        
+
         $User_id = $_SESSION['login']['id'];
+
         // Gọi hàm addToCart từ model và xử lý kết quả
         $result = $this->cartModel->addToCart($User_id, $productID, $soLuongMua);
-        
-        if($result){
-            echo "success";
-        } else {
-            echo "fail";
-        }
-    
+        echo $result;
     }
 
     public function GetNumberOfPages()
@@ -107,7 +103,7 @@ class Product extends Controller
 
         $sanPhams = $this->productModel->get($page, $idDanhMuc, $minMucGia, $maxMucGia, $noiDung);
         $data['sanPhams'] = $sanPhams;
-        
+
         return  $this->view('/Client/pages/product-list', $data);
     }
 }
