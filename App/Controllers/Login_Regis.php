@@ -38,12 +38,6 @@ class Login_Regis extends Controller
                                    echo "success";
                                    break;
                               }
-                         default: {
-                                   $_SESSION['login']['id'] = $user;
-                                   $_SESSION['login']['status'] = 1;
-                                   echo "success";
-                                   break;
-                              }
                     }
                }
           }
