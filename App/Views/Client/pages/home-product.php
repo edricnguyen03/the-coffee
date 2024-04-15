@@ -2,7 +2,7 @@
   <div class="text-center container py-2">
     <h4 class="mt-4 mb-5"><strong>Danh Sách Sản Phẩm</strong></h4>
     <div class="row">
-      <div class="row product-list-container">
+      <div class="row product-list-container" id="product-list-container">
         <?php
         require_once('./App/Views/Client/pages/product-list.php');
         ?>
@@ -240,7 +240,6 @@
       }
     </script>
 
-
     <!----------------------------Xử lý phân trang------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -250,14 +249,21 @@
         $('#previous-button').css('visibility', 'hidden');
 
 
+
         function loadContent(url) {
           $.ajax({
             url: url,
             type: 'GET',
             success: function(response) {
-              $('.product-list-container').html(response);
-              AddEventForAllDetailButton();
-              AddEventForAllAddToCartButton();
+              document.getElementById('product-list-container').classList.add('changing');
+
+              setTimeout(function() {
+                $('.product-list-container').html(response);
+                AddEventForAllDetailButton();
+                AddEventForAllAddToCartButton();
+                // Loại bỏ class 'changing' sau khi hoàn thành việc thay đổi
+                document.getElementById('product-list-container').classList.remove('changing');
+              }, 300);
             },
             error: function(xhr, status, error) {
               console.error(xhr.responseText);

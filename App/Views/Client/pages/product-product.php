@@ -49,7 +49,7 @@
   <div class="text-center container py-2">
     <h4 class="mt-4 mb-5"><strong>Sản Phẩm</strong></h4>
     <div class="row">
-      <div class="row product-list-container">
+      <div class="row product-list-container" id="product-list-container">
         <?php
         require_once('./App/Views/Client/pages/product-list.php');
         ?>
@@ -477,11 +477,18 @@
             page: page
           },
           success: function(response) {
-            $('.product-list-container').html(response);
-            AddEventForAllDetailButton();
-            AddEventForAllAddToCartButton();
-            $('.page-number').text(page); // đặt lại ô số trang
-            $('.page-number').trigger('change');
+            document.getElementById('product-list-container').classList.add('changing');
+
+            setTimeout(function() {
+              $('.product-list-container').html(response);
+              AddEventForAllDetailButton();
+              AddEventForAllAddToCartButton();
+              $('.page-number').text(page); // đặt lại ô số trang
+              $('.page-number').trigger('change');
+              // Loại bỏ class 'changing' sau khi hoàn thành việc thay đổi
+              document.getElementById('product-list-container').classList.remove('changing');
+            }, 300);
+
           }
         });
       }
