@@ -24,7 +24,7 @@
           <ul class="pagination" style=" margin:0px; padding:5px;">
             <li class="page-item">
               <!--Điền link zo php-->
-              <a class="page-link" href="#" aria-label="Previous" style="display: flex; align-items: center; justify-content:center;">
+              <a class="page-link" id="previous-button" aria-label="Previous" style="display: flex; align-items: center; justify-content:center;">
                 <i class="fa-solid fa-angle-left" id="previous-icon" style="color: #fb8e18;"></i>
               </a>
             </li>
@@ -34,7 +34,7 @@
             </li>
             <li class="page-item">
               <!--Điền link zo php-->
-              <a class="page-link" href="#" aria-label="Next" style="display: flex; align-items: center; justify-content:center;">
+              <a class="page-link" id="next-button" aria-label="Next" style="display: flex; align-items: center; justify-content:center;">
                 <i class="fa-solid fa-angle-right" id="next-icon" style="color: #fb8e18;"></i>
               </a>
             </li>
@@ -197,7 +197,7 @@
           }
           // Xác định phương thức và URL của file PHP cần include
           var method = "GET";
-          var url = 'Product/addToCart/' + productId;
+          var url = 'Product/addToCart/' + productId + "/" + quantity;
 
           // Mở kết nối với file PHP
           xhttp.open(method, url, true);
@@ -246,7 +246,9 @@
     <script>
       $(document).ready(function() {
         // load các sản phẩm của trang vào
-        $('#previous-icon').css('color', '#ccc');
+        //$('#previous-icon').css('color', '#ccc'); // lúc mới vào trang đầu
+        $('#previous-button').css('visibility', 'hidden');
+
 
         function loadContent(url) {
           $.ajax({
@@ -289,12 +291,16 @@
             var url = '/the-coffee/Home/page/' + prevPage;
             loadContent(url);
             $('.page-number').text(prevPage);
-            $('#next-icon').css('color', '#fb8e18');
+            //$('#next-icon').css('color', '#fb8e18');
+            $('#next-button').css('visibility', 'visible');
+
           } else {
-            $('#previous-icon').css('color', '#ccc'); // tắt cái nút prev nếu số trang là 1 
+            //$('#previous-icon').css('color', '#ccc'); // tắt cái nút prev nếu số trang là 1 
+            $('#previous-button').css('visibility', 'hidden');
           }
           if (currentPage - 1 == 1) {
-            $('#previous-icon').css('color', '#ccc');
+            //$('#previous-icon').css('color', '#ccc');
+            $('#previous-button').css('visibility', 'hidden');
           }
         });
 
@@ -307,28 +313,40 @@
             var url = '/the-coffee/Home/page/' + nextPage;
             loadContent(url);
             $('.page-number').text(nextPage);
-            $('#previous-icon').css('color', '#fb8e18');
+            $('#previous-button').css('visibility', 'visible');
+            //$('#previous-icon').css('color', '#fb8e18');
           } else {
-            $('#next-icon').css('color', '#ccc');
+            //$('#next-icon').css('color', '#ccc');
+            $('#next-button').css('visibility', 'hidden');
           }
           if (currentPage + 1 == $numberOfPages) {
-            $('#next-icon').css('color', '#ccc');
+            //$('#next-icon').css('color', '#ccc');
+            $('#next-button').css('visibility', 'hidden');
+
           }
         });
         $('.page-number').on('change', function() {
           // Code xử lý khi giá trị của '.page-number' thay đổi
           var currentPage = parseInt($('.page-number').text());
           if (currentPage == 1) {
-            $('#previous-icon').css('color', '#ccc');
-            $('#next-icon').css('color', '#fb8e18');
+            // $('#previous-icon').css('color', '#ccc');
+            // $('#next-icon').css('color', '#fb8e18');
+            $('#next-button').css('visibility', 'visible');
+            $('#previous-button').css('visibility', 'hidden');
           } else {
-            $('#previous-icon').css('color', '#fb8e18');
+            //$('#previous-icon').css('color', '#fb8e18');
+            $('#previous-button').css('visibility', 'visible');
           }
           if (currentPage == $numberOfPages) {
-            $('#next-icon').css('color', '#ccc');
-            $('#previous-icon').css('color', '#fb8e18');
+            //$('#next-icon').css('color', '#ccc');
+            $('#next-button').css('visibility', 'hidden');
           } else {
-            $('#next-icon').css('color', '#fb8e18');
+            //$('#next-icon').css('color', '#fb8e18');
+            $('#next-button').css('visibility', 'visible');
+          }
+          if($numberOfPages == 1){
+            $('#next-button').css('visibility', 'hidden');
+            $('#previous-button').css('visibility', 'hidden');
           }
         });
 

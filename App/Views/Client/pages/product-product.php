@@ -71,7 +71,7 @@
           <ul class="pagination" style=" margin:0px; padding:5px;">
             <li class="page-item">
               <!--Điền link zo php-->
-              <a class="page-link" href="#" aria-label="Previous" style="display: flex; align-items: center; justify-content:center;">
+              <a class="page-link" id="previous-button" aria-label="Previous" style="display: flex; align-items: center; justify-content:center;">
                 <i class="fa-solid fa-angle-left" id="previous-icon" style="color: #fb8e18;"></i>
               </a>
             </li>
@@ -81,7 +81,7 @@
             </li>
             <li class="page-item">
               <!--Điền link zo php-->
-              <a class="page-link" href="#" aria-label="Next" style="display: flex; align-items: center; justify-content:center;">
+              <a class="page-link" id="next-button" aria-label="Next" style="display: flex; align-items: center; justify-content:center;">
                 <i class="fa-solid fa-angle-right" id="next-icon" style="color: #fb8e18;"></i>
               </a>
             </li>
@@ -293,7 +293,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       var $numberOfPages = 1;
-
       // lấy số lượng trang tối đa
       function getNumberOfPage() {
         var idDanhMuc = $('#searchbar-dropdown-category').val();
@@ -328,10 +327,14 @@
             idDanhMuc: idDanhMuc,
             minMucGia: minMucGia,
             maxMucGia: maxMucGia,
-            noiDung: noiDung,
+            noiDung: noiDung
           },
           success: function(response) {
-            $numberOfPages = response;
+            $numberOfPages = parseInt(response);
+            if ($numberOfPages < 2) {
+              $('#next-button').css('visibility', 'hidden');
+              $('#previous-button').css('visibility', 'hidden');
+            }
           },
           error: function(xhr, status, error) {
             console.error(xhr.responseText);
@@ -341,23 +344,8 @@
 
 
       $(document).ready(function() {
-        $('#previous-icon').css('color', '#ccc');
-        // load các sản phẩm của trang vào
-        function loadContent(url) {
-          $.ajax({
-            url: url,
-            type: 'GET',
-            success: function(response) {
-              $('.product-list-container').html(response);
-              AddEventForAllDetailButton();
-              AddEventForAllAddToCartButton();
-            },
-            error: function(xhr, status, error) {
-              console.error(xhr.responseText);
-            }
-          });
-        }
-
+        //$('#previous-icon').css('color', '#ccc');
+        $('#previous-button').css('visibility', 'hidden');
         getNumberOfPage();
 
         // Xử lý khi nhấn nút Prev
@@ -369,13 +357,20 @@
             var url = '/the-coffee/Product/filter';
             filter_Data(prevPage);
             $('.page-number').text(prevPage);
-            $('#next-icon').css('color', '#fb8e18');
+            //$('#next-icon').css('color', '#fb8e18');
+            $('#next-button').css('visibility', 'visible');
 
           } else {
-            $('#previous-icon').css('color', '#ccc'); // tắt cái nút prev nếu số trang là 1 
+            //$('#previous-icon').css('color', '#ccc'); // tắt cái nút prev nếu số trang là 1 
+            $('#previous-button').css('visibility', 'hidden');
           }
           if (currentPage - 1 == 1) {
-            $('#previous-icon').css('color', '#ccc');
+            //$('#previous-icon').css('color', '#ccc');
+            $('#previous-button').css('visibility', 'hidden');
+          }
+          if (currentPage + 1 == $numberOfPages) {
+            //$('#next-icon').css('color', '#ccc');
+            $('#next-button').css('visibility', 'hidden');
           }
         });
 
@@ -388,30 +383,47 @@
             var url = '/the-coffee/Home/page/' + nextPage;
             filter_Data(nextPage);
             $('.page-number').text(nextPage);
-            $('#previous-icon').css('color', '#fb8e18');
+            $('#previous-button').css('visibility', 'visible');
+            //$('#previous-icon').css('color', '#fb8e18');
           } else {
-            $('#next-icon').css('color', '#ccc');
+            //$('#next-icon').css('color', '#ccc');
+            $('#next-button').css('visibility', 'hidden');
           }
           if (currentPage + 1 == $numberOfPages) {
-            $('#next-icon').css('color', '#ccc');
+            //$('#next-icon').css('color', '#ccc');
+            $('#next-button').css('visibility', 'hidden');
           }
         });
+
+        //xử lý khi thay đổi ô trang
         $('.page-number').on('change', function() {
+          getNumberOfPage();
           // Code xử lý khi giá trị của '.page-number' thay đổi
           var currentPage = parseInt($('.page-number').text());
-          if (currentPage == 1) {
-            $('#previous-icon').css('color', '#ccc');
-            $('#next-icon').css('color', '#fb8e18');
-          } else {
-            $('#previous-icon').css('color', '#fb8e18');
+          console.log($numberOfPages + " " + currentPage);
+          if (currentPage == 1 && $numberOfPages > 1) {
+            //$('#previous-icon').css('color', '#ccc');
+            //$('#next-icon').css('color', '#fb8e18');
+            $('#next-button').css('visibility', 'visible');
+            $('#previous-button').css('visibility', 'hidden');
           }
+          // if ($numberOfPages == 1) {
+          //   $('#next-button').css('visibility', 'hidden');
+          //   $('#previous-button').css('visibility', 'hidden');
+          // }
+          // else {
+          //   //$('#previous-icon').css('color', '#fb8e18');
+          //   $('#previous-button').css('visibility', 'visible');
+          // }
           if (currentPage == $numberOfPages) {
-            $('#next-icon').css('color', '#ccc');
-            $('#previous-icon').css('color', '#fb8e18');
-
+            $('#next-button').css('visibility', 'hidden');
+            // $('#next-icon').css('color', '#ccc');
+            // $('#previous-icon').css('color', '#fb8e18');
           } else {
-            $('#next-icon').css('color', '#fb8e18');
+            //$('#next-icon').css('color', '#fb8e18');
+            $('#next-button').css('visibility', 'visible');
           }
+
         });
 
         // Khi thay đổi giá trị của '.page-number', trigger sự kiện 'change'
@@ -423,7 +435,6 @@
       //-------------------------------------------Xử lý lọc dữ liệu----------------------------------------------
       $('#btn-search').click(function(e) {
         filter_Data();
-        getNumberOfPage();
         $('.page-number').trigger('change');
       });
 
