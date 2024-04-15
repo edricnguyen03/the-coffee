@@ -274,6 +274,10 @@
             type: 'GET',
             success: function(response) {
               $numberOfPages = response;
+              if ($numberOfPages < 2) {
+                $('#previous-button').css('visibility', 'hidden');
+                $('#next-button').css('visibility', 'hidden');
+              }
             },
             error: function(xhr, status, error) {
               console.error(xhr.responseText);
@@ -344,7 +348,7 @@
             //$('#next-icon').css('color', '#fb8e18');
             $('#next-button').css('visibility', 'visible');
           }
-          if($numberOfPages == 1){
+          if ($numberOfPages == 1) {
             $('#next-button').css('visibility', 'hidden');
             $('#previous-button').css('visibility', 'hidden');
           }
