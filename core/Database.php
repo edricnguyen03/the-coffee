@@ -20,10 +20,10 @@ class Database
                $fieldStr = rtrim($fieldStr, ",");
                $valueStr = rtrim($valueStr, ",");
 
-               $sql = "INSERT INTO " . $table($fieldStr) . "VALUES " . $valueStr;
+               $sql = "INSERT INTO " . $table . " ($fieldStr) VALUES ($valueStr)";
                $status = $this->query($sql);
                if ($status) {
-                    return true;
+                    return $sql;
                }
                return false;
           }
@@ -44,7 +44,7 @@ class Database
                }
                $status = $this->query($sql);
                if ($status) {
-                    return true;
+                    return $sql;
                }
                return false;
           }

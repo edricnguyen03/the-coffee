@@ -184,19 +184,19 @@
                     });
                     break;
                   }
-                  case "fail": {
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Error',
-                      text: "Thêm sản phẩm vào giỏ hàng thất bại"
-                    });
-                    break;
-                  }
-                  case "success": {
+                  case '1': {
                     Swal.fire({
                       icon: 'success',
                       title: 'Success',
                       text: "Thêm sản phẩm vào giỏ hàng thành công"
+                    });
+                    break;
+                  }
+                  default: {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text: "Thêm vào giỏ hàng thất bại\n" + response
                     });
                     break;
                   }
@@ -229,7 +229,7 @@
 
           var quantity = document.getElementById('product-detail-quantity').value;
 
-          if (quantity < 0 || quantity > 10) {
+          if (quantity < 0 || quantity > 10 || quantity == "" || isNaN(quantity)) {
             Swal.fire({
               icon: 'error',
               title: 'Số lượng không hợp lệ',
@@ -257,19 +257,19 @@
                   });
                   break;
                 }
-                case "fail": {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: "Thêm sản phẩm vào giỏ hàng thất bại"
-                  });
-                  break;
-                }
-                case "success": {
+                case '1': {
                   Swal.fire({
                     icon: 'success',
                     title: 'Success',
                     text: "Thêm sản phẩm vào giỏ hàng thành công"
+                  });
+                  break;
+                }
+                default: {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "Thêm vào giỏ hàng thất bại\n" + response
                   });
                   break;
                 }
