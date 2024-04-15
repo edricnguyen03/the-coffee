@@ -2,7 +2,7 @@
 <nav class="navbar sticky-top navbar-expand-lg" style="background: linear-gradient(to right, #ffad3d, #fb8d17); z-index:10;">
     <div class="container-fluid px-5 py-2">
         <div class="col-md-4 col-sm-12 justify-content-small-center">
-            <a href="home"><img src="./resources/images/header-logo.png" style="width: 10%;"></a>
+            <a href="" id="home-logo"><img src="/the-coffee/resources/images/header-logo.png" style="width: 10%;"></a>
         </div>
         <div class="col-md-8 col-sm-12">
             <ul class="navbar-nav justify-content-end">
@@ -33,22 +33,22 @@
                                 </div>
                                 <hr>
                                 <a href="#" class="sub-menu-link">
-                                    <img src="./resources/images/user-detail/profile.png" alt="">
+                                    <img src="/the-coffee/resources/images/user-detail/profile.png" alt="">
                                     <p>Edit profile</p>
                                     <span></span>
                                 </a>
                                 <a href="#" class="sub-menu-link">
-                                    <img src="./resources/images/user-detail/shopping-cart.png" alt="">
+                                    <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
                                     <p>Cart</p>
                                     <span></span>
                                 </a>
                                 <a href="#" class="sub-menu-link">
-                                    <img src="./resources/images/user-detail/setting.png" alt="">
+                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
                                     <p>Setting</p>
                                     <span></span>
                                 </a>
-                                <a href="Login_Regis/Logout" class="sub-menu-link">
-                                    <img src="./resources/images/user-detail/logout.png" alt="">
+                                <a href="Login_Regis/Logout" class="sub-menu-link" >
+                                    <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
                                     <p>Logout</p>
                                     <span></span>
                                 </a>
@@ -68,22 +68,22 @@
                                 </div>
                                 <hr>
                                 <a href="#" class="sub-menu-link">
-                                    <img src="./resources/images/user-detail/profile.png" alt="">
+                                    <img src="/the-coffee/resources/images/user-detail/profile.png" alt="">
                                     <p>Edit profile</p>
                                     <span></span>
                                 </a>
                                 <a href="#" class="sub-menu-link">
-                                    <img src="./resources/images/user-detail/shopping-cart.png" alt="">
+                                    <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
                                     <p>Cart</p>
                                     <span></span>
                                 </a>
                                 <a href="#" class="sub-menu-link">
-                                    <img src="./resources/images/user-detail/setting.png" alt="">
+                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
                                     <p>Setting</p>
                                     <span></span>
                                 </a>
-                                <a href="Login_Regis/Logout" class="sub-menu-link">
-                                    <img src="./resources/images/user-detail/logout.png" alt="">
+                                <a href="Login_Regis/Logout" class="sub-menu-link" >
+                                    <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
                                     <p>Logout</p>
                                     <span></span>
                                 </a>
@@ -255,6 +255,11 @@
     }
     ?>
     document.addEventListener('DOMContentLoaded', function() {
+        var homeLogo = document.getElementById('home-logo');
+        homeLogo.addEventListener('click', function() {
+            event.preventDefault();
+            window.location.href = "/the-coffee/home";
+        });
         if (loginBtn != null) {
             loginBtn.addEventListener('click', () => {
                 event.preventDefault();

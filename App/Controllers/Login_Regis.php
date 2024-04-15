@@ -10,18 +10,13 @@ class Login_Regis extends Controller
      }
      function Login()
      {
+          //Này xài ajax để lấy response 1 trong 3 trạng thái (-1,0,1) tương ứng với ([NotFound,WrongPwd],Banned,Success)
           if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                if (!empty($_POST['username']) && !empty($_POST['password'])) {
                     $email = $_POST['username'];
                     $password = $_POST['password'];
                     $user = $this->userModel->login($email, $password);
                     switch ($user) {
-                         case 1: {
-                                   $_SESSION['login']['id'] = $user;
-                                   $_SESSION['login']['status'] = 1;
-                                   echo "success";
-                                   break;
-                              }
                          case "notFound": {
                                    $_SESSION['login']['status'] = -1;
                                    echo "notFound";
@@ -35,6 +30,12 @@ class Login_Regis extends Controller
                          case "wrongPassword": {
                                    $_SESSION['login']['status'] = -1;
                                    echo "wrongPassword";
+                                   break;
+                              }
+                         default: {
+                                   $_SESSION['login']['id'] = $user;
+                                   $_SESSION['login']['status'] = 1;
+                                   echo "success";
                                    break;
                               }
                     }
@@ -63,7 +64,8 @@ class Login_Regis extends Controller
      function Logout()
      {
           unset($_SESSION['login']['status']);
-          header('Location: /the-coffee/');
+          unset($_SESSION['login']['id']);
+          header('Location: /the-coffee/');  
           exit();
      }
 }
