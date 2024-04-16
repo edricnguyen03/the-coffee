@@ -1,4 +1,4 @@
-<section style="background-color: #eee;">
+<section style="background-color: #eee; min-height: 75vh;">
   <div class="text-center container py-2">
     <h4 class="mt-4 mb-5"><strong>Danh Sách Sản Phẩm</strong></h4>
     <div class="row">

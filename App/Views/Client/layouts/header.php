@@ -32,7 +32,7 @@
                                     </h3>
                                 </div>
                                 <hr>
-                                <a href="#" class="sub-menu-link">
+                                <a href="/the-coffee/profile" class="sub-menu-link" id="user-profile-button">
                                     <img src="/the-coffee/resources/images/user-detail/profile.png" alt="">
                                     <p>Edit profile</p>
                                     <span></span>
