@@ -1,13 +1,13 @@
 <?php
 class Orders extends Controller
 {
-     public $order_productsModel;
+     public $orderProductsModel;
      public $ordersModel;
      public $data;
 
      public function __construct()
      {
-          $this->order_productsModel = $this->model('OrdersProducts');
+          $this->orderProductsModel = $this->model('OrderProductsModel');
           $this->ordersModel = $this->model('OrdersModel');
           $this->data = [];
      }
@@ -19,10 +19,20 @@ class Orders extends Controller
                $userId = $_SESSION['login']['id'];
                $this->ordersModel->setUserId($userId);
                $orderId = $this->ordersModel->getOrdersId();
-               $orders = $this->order_productsModel->getOrderProducts($orderId);
-               $data['orders'] = $orders;
+               $order_product = $this->orderProductsModel->getOrderProducts($orderId[0]->id);
+               $data['orders'] = $orderId;
+               $data['order'] = $this->ordersModel->getOrder($orderId[0]->id);
+               $data['order_products'] = $order_product;
                $this->view('/Client/Orders',$data);
           }
+     }
+     public function detail($id = -1){
+          $order_product = $this->orderProductsModel->getOrder_OrderProduct($id);
+          $data['order_products'] = $order_product;
+          // echo "<pre>";
+          // print_r($order_product);
+          $json_data = json_encode($order_product, JSON_FORCE_OBJECT);
+          echo $json_data;
      }
      public function __loadError($name = "404")
      {

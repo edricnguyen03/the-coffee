@@ -13,7 +13,7 @@ class OrdersModel
      {
           try {
                global $db;
-               $result = $db->get(table: "orders", fields : "id",condition: "user_id = " . $this->userId);
+               $result = $db->get(table: "orders",condition: "user_id = " . $this->userId);
                $orders = [];
                foreach ($result as $row) {
                     $order = (object) $row;
@@ -24,4 +24,15 @@ class OrdersModel
                return $e->getMessage()." OrdersModel, getOrdersId exception";
           }
      }
+     public function getOrder($id){
+          try{
+               global $db;
+               $result = $db->get(table: "orders",condition: "id = " . $id);
+               $order = (object) $result[0];
+               return $order;
+          }catch(Exception $e){
+               echo $e->getMessage()." OrdersModel, getOrder exception";
+          }
+     }
+
 }

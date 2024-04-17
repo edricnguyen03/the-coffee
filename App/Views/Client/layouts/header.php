@@ -47,7 +47,7 @@
                                     <p>Setting</p>
                                     <span></span>
                                 </a>
-                                <a href="Login_Regis/Logout" class="sub-menu-link" >
+                                <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
                                     <p>Logout</p>
                                     <span></span>
@@ -82,7 +82,7 @@
                                     <p>Setting</p>
                                     <span></span>
                                 </a>
-                                <a href="Login_Regis/Logout" class="sub-menu-link" >
+                                <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
                                     <p>Logout</p>
                                     <span></span>
@@ -93,26 +93,26 @@
                     } else if ($_SESSION['login']['status'] == -1) {
                     ?>
                         <li class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                            <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
                         </li>
                         <div class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                            <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                         </div>
                     <?php
                         unset($_SESSION['login']['status']);
                     } else if ($_SESSION['login']['status'] == 0) {
                     ?>
                         <li class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                            <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
                         </li>
                         <div class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                            <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                         </div>
                         <script>
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: "Tài khoản của bạn đã ăn global ban"
+                                text: "Tài khoản của bạn đã bị khóa !"
                             });
                         </script>
                     <?php
@@ -121,10 +121,10 @@
                 } else {
                     ?>
                     <li class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                        <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
                     </li>
                     <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                        <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                     </div>
                 <?php
                 }
@@ -238,8 +238,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script>
-    const loginBtn = document.getElementById('login-btn');
-    const regisBtn = document.getElementById('regis-btn');
+    const loginBtn = document.getElementById('header-login-btn');
+    const regisBtn = document.getElementById('header-regis-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const userDetailBtn = document.getElementById('user-detail-btn');
     const inner_login_regis_form = document.getElementById('login-regis-form');

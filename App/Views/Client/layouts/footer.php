@@ -26,17 +26,36 @@
                     <h5 class="text-uppercase text-center mb-4 font-weight-bold text-warning">Trang Web</h5>
 
                     <p>
-                        <a href="#" class="text-white" style="text-decoration: none;">Trang Chủ</a>
+                        <a href="/the-coffee/" class="text-white" style="text-decoration: none;">Trang Chủ</a>
                     </p>
                     <p>
-                        <a href="#" class="text-white" style="text-decoration: none;">Sản Phẩm</a>
+                        <a href="/the-coffee/product" class="text-white" style="text-decoration: none;">Sản Phẩm</a>
                     </p>
-                    <p>
-                        <a href="#" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
-                    </p>
-                    <p>
-                        <a href="#" class="text-white" style="text-decoration: none;">Tài Khoản</a>
-                    </p>
+                    <?php
+                    if (isset($_SESSION['login']['status'])) {
+                        if ($_SESSION['login']['status'] == 1) {
+                    ?>
+                            <p>
+                                <a href="#" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
+                            </p>
+                            <p>
+                                <a href="#" class="text-white" style="text-decoration: none;">Tài Khoản</a>
+                            </p>
+                        <?php
+                        } else {
+                            unset($_SESSION['login']['status']);
+                        }
+                    } else {
+                        ?>
+                        <p>
+                            <a class="text-white" style="text-decoration: none; cursor:pointer;" id="footer-sign-up-btn">Đăng kí</a>
+                        </p>
+                        <p>
+                            <a class="text-white" style="text-decoration: none; cursor:pointer;" id="footer-login-btn">Đăng nhập</a>
+                        </p>
+                    <?php
+                    }
+                    ?>
 
                 </div>
                 <!----------------------------------------------------Cột 4------------------------------------------------------->
@@ -104,3 +123,27 @@
         </div>
     </div>
 </footer>
+<script>
+    const footerLoginBtn = document.getElementById('footer-login-btn');
+    const footerSignUpBtn = document.getElementById('footer-sign-up-btn');
+    if (loginBtn != null) {
+        footerLoginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Tạo hiệu ứng cuộn mượt
+            });
+            loginBtn.dispatchEvent(new Event('click'));
+        })
+    }
+    if (regisBtn != null) {
+        footerSignUpBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Tạo hiệu ứng cuộn mượt
+            });
+            regisBtn.dispatchEvent(new Event('click'));
+        })
+    }
+</script>

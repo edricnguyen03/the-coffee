@@ -1,105 +1,130 @@
+<section style="background-color: #eee;" style="min-height: 85vh;">
+     <div class="wrapper">
+          <div class="order-product" style="min-width:40%;">
+               <h2 style="text-align:center;">Chi tiết</h2>
+               <div class="container" style="min-height:70vh; ">
+                    <div class="table-container table-responsive">
+                         <table class="table ">
+                              <thead> <!-- Header-->
+                                   <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">Tên sản phẩm</th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col">Số lượng</th>
+                                        <th scope="col">Tổng tiền</th>
+                                   </tr>
+                              </thead>
+                              <tbody id="order_product_tbody" style="max-height:100%;"> <!-- Body-->
+                                   <?php
+                                   $id = 1;
+                                   if (isset($data['order_products'])) {
+                                        foreach ($data['order_products'] as $item) {
+                                   ?>
+                                             <tr>
+                                                  <th scope="row" id="order_product_no"><?php echo $id++; ?></th>
+                                                  <td style="text-align:left;" id="order_product_name"><?php echo $item->product_name; ?></td>
+                                                  <td style="text-align:right;" id="order_product_price"><?php echo $item->product_price . " VND"; ?></td>
+                                                  <td style="text-align:center;" id="order_product_qty"><?php echo $item->qty; ?></td>
+                                                  <td style="text-align:right;" id="order_product_total"><?php echo ($item->qty * $item->product_price) . " VND"; ?></td>
+                                             </tr>
+                                   <?php
+                                        }
+                                   }
+                                   ?>
 
-<div class="wrapper">
-     <div class="container">
-          <h2>こんにちわ</h2>
-          <div class="table-container">
-               <table class="table table-hover">
-                    <thead> <!-- Header-->
-                         <tr>
-                              <th scope="col">No.</th>
-                              <th scope="col">Order No.</th>
-                              <th scope="col">Name</th>
-                              <th scope="col">Price</th>
-                              <th scope="col">Quantity</th>
-                              <th scope="col">Total</th>
-                         </tr>
-                    </thead>
-                    <tbody> <!-- Body-->
-                         <?php
-                         $id = 1;
-                         foreach ($data['orders'] as $item) {
-                         ?>
-                              <tr onclick="rowClicked(this)">
-                                   <th scope="row"><?php echo $id++; ?></th>
-                                   <td style="text-align:center;"><?php echo $item->order_id; ?></td>
-                                   <td><?php echo $item->product_name; ?></td>
-                                   <td style="text-align:right;"><?php echo $item->product_price . " VND"; ?></td>
-                                   <td style="text-align:center;"><?php echo $item->qty; ?></td>
-                                   <td style="text-align:right;"><?php echo ($item->product_price * $item->qty) . " VND" ?></td>
-                              </tr>
-                         <?php
-                         }
-                         ?>
+                              </tbody>
+                         </table>
+                    </div>
+                    <div class="order-detail-container" id="order_detail">
+                         <h4>Thông tin nhận hàng</h4>
+                         <div class="order-detail">
+                              <p id="name_receiver">Người nhận : <?php if (isset($data['order'])) echo $data['order']->name_receiver ?></p>
+                              <p id="address_receiver">Địa chỉ : <?php if (isset($data['order'])) echo $data['order']->address_receiver ?></p>
+                              <p id="phone_receiver">Số điện thoại : <?php if (isset($data['order'])) echo $data['order']->phone_receiver ?></p>
+                              <p id="payment_status">Thanh toán : <?php if (isset($data['order'])) if ($data['order']->payment_status == 1) echo "Đã thanh toán";
+                                                                      else {
+                                                                           echo "Chưa thanh toán";
+                                                                      } ?></p>
+                         </div>
+                    </div>
+               </div>
+          </div>
+          <div class="order" style="min-width:60%">
+               <div class="container" style="min-height:70vh;">
+                    <h2 style="text-align:center;">Lịch sử đơn hàng</h2>
+                    <div class="table-container table-responsive">
+                         <table class="table table-hover ">
+                              <thead> <!-- Header-->
+                                   <tr>
+                                        <th scope="col">Mã đơn</th>
+                                        <th scope="col">Người nhận</th>
+                                        <th scope="col">SDT</th>
+                                        <th scope="col">Tổng tiền</th>
+                                        <th scope="col">Thanh toán</th>
+                                        <th scope="col">Ghi chú</th>
+                                   </tr>
+                              </thead>
+                              <tbody style="max-height:100%;"> <!-- Body-->
+                                   <?php
+                                   foreach ($data['orders'] as $item) {
+                                   ?>
+                                        <tr onclick="rowClicked(this)">
+                                             <td style="text-align:center;"><?php echo $item->id; ?></td>
+                                             <td style="text-align:center;"><?php echo $item->name_receiver; ?></td>
+                                             <td style="text-align:center;"><?php echo $item->phone_receiver; ?></td>
+                                             <td style="text-align:center;"><?php echo $item->total . " VND"; ?></td>
+                                             <td style="text-align:center;"><?php if ($item->payment_status == 1) echo "Đã thanh toán";
+                                                                                else {
+                                                                                     echo "Chưa thanh toán";
+                                                                                }
+                                                                                ?>
+                                             </td>
+                                             <td style="text-align:center;">
+                                                  <?php
+                                                  if (isset($item->note)) {
+                                                       echo $item->note;
+                                                  } else {
+                                                       echo "Không";
+                                                  }
+                                                  ?>
+                                             </td>
+                                        </tr>
+                                   <?php
+                                   }
+                                   ?>
 
-                    </tbody>
-               </table>
+                              </tbody>
+                         </table>
+                    </div>
+               </div>
           </div>
      </div>
-     <div class="row justify-content-center" style="align-items: center; background-color: rgb(238 238 238);">
-          <div class="col-auto">
-               <ul class="pagination" style=" margin:0px; padding:5px;">
-                    <li class="page-item">
-                         <!--Điền link zo php-->
-                         <a class="page-link" href="#" aria-label="Previous" style="display: flex; align-items: center; justify-content:center;">
-                              <i class="fa-solid fa-angle-left" id="previous-icon" style="color: #fb8e18;"></i>
-                         </a>
-                    </li>
-                    <li class="page-item">
-                         <!--chổ này điền số trang vào bằng php-->
-                         <div class="page-number">1</div>
-                    </li>
-                    <li class="page-item">
-                         <!--Điền link zo php-->
-                         <a class="page-link" href="#" aria-label="Next" style="display: flex; align-items: center; justify-content:center;">
-                              <i class="fa-solid fa-angle-right" id="next-icon" style="color: #fb8e18;"></i>
-                         </a>
-                    </li>
-               </ul>
-          </div>
-     </div>
-</div>
+</section>
 <style>
-     .pagination {
-          justify-content: center;
-          background-color: #eeeeee;
-     }
-
-     .page-link {
-          width: 30px;
-          height: 30px;
-          border: none;
-          background-color: #eeeeee;
-     }
-
-     .page-link:hover {
-          background-color: white;
-     }
-
-     .page-number {
-          background-color: azure;
-          width: 30px;
-          height: 30px;
-          background-color: #fb8e18;
-          color: black;
-          border-radius: 20%;
-          text-align: center;
-          padding-top:10%;
-     }
-
-     .table-container {
+     .wrapper {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
      }
+
+     .order-product {
+          border-right: 2px solid #fb8e18;
+     }
+
+     .order {
+          border-left: 2px solid #fb8e18;
+     }
+
 
      .table {
           max-height: 490;
           max-width: 1620;
           border-collapse: collapse;
+          overflow-y: scroll;
      }
 
      .table td,
      .table th {
-          border: 1px solid #ddd;
+          min-width: fit-content;
           padding: 8px;
      }
 
@@ -121,7 +146,49 @@
           for (var i = 0; i < cells.length; i++) {
                rowData.push(cells[i].innerText);
           }
-          // In ra dữ liệu từ hàng đó
-          console.log("Row clicked! Data: " + rowData.join(", "));
+          // Tạo một đối tượng XMLHttpRequest
+          var xhttp = new XMLHttpRequest();
+          // Xác định phương thức và URL của file PHP cần include
+          // alert("the-coffee/Orders/" + rowData[1]);
+          $.ajax({
+               url: '/the-coffee/Orders/detail/' + rowData[0], // URL đích
+               method: 'GET',
+               success: function(response) {
+                    // Dữ liệu được trả về từ server       
+                    var data = JSON.parse(response);
+                    // Cập nhật bảng khác dựa trên dữ liệu
+                    updateOtherTable(data);
+               },
+               error: function(xhr, status, error) {
+                    // Xử lý lỗi nếu có
+                    console.error(xhr.responseText);
+               }
+          });
+
+          function updateOtherTable(data) {
+               var count = 1;
+               var tbodyHTML = '';
+               console.log(data);
+               for (var key in data) {
+                    var rowHTML = '<tr>';
+                    rowHTML += '<th scope="row" id="order_product_no">' + (count) + '</th>';
+                    count++;
+                    rowHTML += '<td style="text-align:left;" id="order_product_name">' + data[key]['product_name'] + '</td>';
+                    rowHTML += '<td style="text-align:right;" id="order_product_price">' + data[key]['product_price'] + ' VND</td>';
+                    rowHTML += '<td style="text-align:center;" id="order_product_qty">' + data[key]['qty'] + '</td>';
+                    rowHTML += '<td style="text-align:right;" id="order_product_total">' + (data[key]['qty'] * data[key]['product_price']) + ' VND</td>';
+                    rowHTML += '</tr>';
+                    tbodyHTML += rowHTML;
+               }
+               document.getElementById('name_receiver').innerHTML = "Người nhận : " + data[0]['name_receiver'];
+               document.getElementById('address_receiver').innerHTML = "Địa chỉ : " + data[0]['address_receiver'];
+               document.getElementById('phone_receiver').innerHTML = "Số điện thoại : " + data[0]['phone_receiver'];
+               if (data[0]['payment_status'] == 1) {
+                    document.getElementById('payment_status').innerHTML = "Thanh toán : Đã thanh toán";
+               } else {
+                    document.getElementById('payment_status').innerHTML = "Số điện thoại : Chưa thanh toán";
+               }
+               document.getElementById('order_product_tbody').innerHTML = tbodyHTML;
+          }
      }
 </script>
