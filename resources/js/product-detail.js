@@ -125,6 +125,7 @@ function closeProductDetail() {
   document.body.style.overflow = "auto"; // Kích hoạt lại cuộn cho phần giao diện ở dưới
 }
 
+//thêm sự kiện nút thêm vào giỏ của trang chi tiết sản phẩm
 function addEventForDetailAddToCartButton() {
   var addToCartButton = document.getElementById("product-detail-btn-addtocart");
   if (addToCartButton == null) return;
@@ -137,11 +138,12 @@ function addEventForDetailAddToCartButton() {
 
     var quantity = document.getElementById("product-detail-quantity").value;
 
-    if (quantity < 0 || quantity > 10 || quantity == "" || isNaN(quantity)) {
+    var stock = parseInt(document.getElementById("product-detail-stock").getAttribute("data-productstock"));
+    if (quantity < 1 || quantity > stock || quantity == "" || isNaN(quantity)) {
       Swal.fire({
         icon: "error",
         title: "Số lượng không hợp lệ",
-        text: "Số lượng phải nằm trong khoảng từ 1 đến 10",
+        text: "Số lượng phải nằm trong khoảng từ 1 đến "+stock,
       });
       return;
     }
@@ -187,4 +189,12 @@ function addEventForDetailAddToCartButton() {
     // Gửi yêu cầu đến file PHP
     xhttp.send();
   });
+
+  // Xác định sự kiện khi người dùng nhập số lượng sản phẩm khác số nguyên dương
+  document.getElementById("product-detail-quantity").addEventListener("input", function(event) {
+    var value = parseInt(event.target.value);
+    if (isNaN(value) || value < 1) {
+        event.target.value = "";
+    }
+});
 }
