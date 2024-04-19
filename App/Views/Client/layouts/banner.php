@@ -10,13 +10,13 @@
 <!-----------------------------------------------------3 tấm banner------------------------------------------------------>
                 <div class="carousel-inner" style="height: fit-content;" >
                     <div class="carousel-item active">
-                        <img src="./resources/images/banner1.png" class="d-block w-100" alt="...">
+                        <img src="/the-coffee/resources/images/banner1.png" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="./resources/images/banner2.png" class="d-block w-100" alt="...">
+                        <img src="/the-coffee/resources/images/banner2.png" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="./resources/images/banner3.png" class="d-block w-100" alt="...">
+                        <img src="/the-coffee/resources/images/banner3.png" class="d-block w-100" alt="...">
                     </div>
                 </div>
 <!----------------------------------------------------------------------------------------------------------------------->

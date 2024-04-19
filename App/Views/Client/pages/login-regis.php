@@ -1,22 +1,44 @@
-<div class="container" id="container">
-     <div class="form-container sign-up">
-          <form>
+<div class="login-wrapper" id="login-wrapper">
+     <div class="form-wrapper sign-up">
+          <form id="regisForm" action="Login_Regis/Register" method="post">
                <h1>Tạo Tài Khoản</h1>
-               <input type="text" placeholder="Tên">
-               <input type="email" placeholder="Email">
-               <input type="number" placeholder="Số điện thoại">
-               <input type="password" placeholder="Mật khẩu">
-               <input type="password" placeholder="Nhập lại mật khẩu">
-               <button>Đăng Kí</button>
+               <input type="text" id="name" name="name" placeholder="Tên" onblur="validate('name_result', this.value)">
+               <center>
+                    <div class="text-danger" id="name_result"></div>
+               </center>
+
+               <input type="email" id="email" name="email" placeholder="Email" onblur="validate('email_result', this.value)">
+               <center>
+                    <div class="text-danger" id="email_result"></div>
+               </center>
+
+               <input type="text" id="phone" name="phone" placeholder="Số điện thoại" onblur="validate('phone_result', this.value)">
+               <center>
+                    <div class="text-danger" id="phone_result"></div>
+               </center>
+
+               <input type="password" id="password" name="password" placeholder="Mật khẩu" onblur="validate('password_result', this.value)">
+               <center>
+                    <div class="text-danger" id="password_result"></div>
+               </center>
+
+               <input type="password" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu" onblur="validate('repassword_result', this.value)">
+               <center>
+                    <div class="text-danger" id="repassword_result"></div>
+               </center>
+               <!-- button trong form dang ky -->
+               <button id="registerButton" name="registerButton" onclick="validForm()">Đăng Kí</button>
           </form>
      </div>
-     <div class="form-container sign-in">
-          <form>
+     <div class="form-wrapper sign-in">
+          <form id="loginForm" method="POST">
                <h1>Đăng Nhập</h1>
-               <input type="email" placeholder="Email">
-               <input type="password" placeholder="Mật khẩu">
+               <input type="email" placeholder="Email" id='loginUsername' name="login-email">
+               <div id="responseEmail" class="responseText"></div>
+               <input type="password" placeholder="Mật khẩu" id='loginPassword' name="login-password">
+               <div id="responsePassword" class="responseText"></div>
                <a href="#">Quên mật khẩu ?</a>
-               <button>Đăng Nhập</button>
+               <button id="loginButton">Đăng Nhập</button>
           </form>
      </div>
      <div class="toggle-container">
@@ -24,37 +46,23 @@
                <div class="toggle-panel toggle-left">
                     <h1>Xin chào</h1>
                     <p>Đăng kí tài khoản với thông tin cá nhân của bạn để trải nghiệm tất cả tính năng trên trang web </p>
+                    <!-- button chuyen qua form dang nhap -->
                     <button class="hidden" id="login">Đăng nhập</button>
                </div>
                <div class="toggle-panel toggle-right">
                     <h1>Chào mừng trở lại !</h1>
                     <p>Đăng nhập để tiếp tục</p>
+                    <!-- button chuyen qua form dang ky -->
                     <button class="hidden" id="register">Đăng kí</button>
                </div>
           </div>
      </div>
 </div>
 <style>
-     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-
-     * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          font-family: 'Montserrat', sans-serif;
+     .responseText{
+          color: red;
      }
-
-     body {
-          background-color: #c9d6ff;
-          background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          height: 100vh;
-     }
-
-     .container {
+     .login-wrapper {
           background-color: #fff;
           border-radius: 30px;
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
@@ -63,27 +71,28 @@
           width: 768px;
           max-width: 100%;
           min-height: 480px;
+          z-index: 9991;
      }
 
-     .container p {
+     .login-wrapper p {
           font-size: 14px;
           line-height: 20px;
           letter-spacing: 0.3px;
           margin: 20px 0;
      }
 
-     .container span {
+     .login-wrapper span {
           font-size: 12px;
      }
 
-     .container a {
+     .login-wrapper a {
           color: #333;
           font-size: 13px;
           text-decoration: none;
           margin: 15px 0 10px;
      }
 
-     .container button {
+     .login-wrapper button {
           background-color: #fb8b17;
           color: #fff;
           font-size: 12px;
@@ -97,12 +106,12 @@
           cursor: pointer;
      }
 
-     .container button.hidden {
+     .login-wrapper button.hidden {
           background-color: transparent;
           border-color: #333;
      }
 
-     .container form {
+     .login-wrapper form {
           background-color: #fff;
           display: flex;
           align-items: center;
@@ -112,7 +121,7 @@
           height: 100%;
      }
 
-     .container input {
+     .login-wrapper input {
           background-color: #eee;
           border: none;
           margin: 8px 0;
@@ -123,7 +132,7 @@
           outline: none;
      }
 
-     .form-container {
+     .form-wrapper {
           position: absolute;
           top: 0;
           height: 100%;
@@ -136,7 +145,7 @@
           z-index: 2;
      }
 
-     .container.active .sign-in {
+     .login-wrapper.active .sign-in {
           transform: translateX(100%);
      }
 
@@ -147,11 +156,11 @@
           z-index: 1;
      }
 
-     .container.active .sign-up {
+     .login-wrapper.active .sign-up {
           transform: translateX(100%);
           opacity: 1;
           z-index: 5;
-          animation: move 0.6s;
+          animation: move 0s;
      }
 
      @keyframes move {
@@ -181,7 +190,7 @@
           z-index: 1000;
      }
 
-     .container.active .toggle-container {
+     .login-wrapper.active .toggle-container {
           transform: translateX(-100%);
           border-radius: 0 150px 100px 0;
      }
@@ -211,7 +220,7 @@
           color: #333;
      }
 
-     .container.active .toggle {
+     .login-wrapper.active .toggle {
           transform: translateX(50%);
      }
 
@@ -234,7 +243,7 @@
           transform: translateX(-200%);
      }
 
-     .container.active .toggle-left {
+     .login-wrapper.active .toggle-left {
           transform: translateX(0);
      }
 
@@ -246,17 +255,78 @@
      .container.active .toggle-right {
           transform: translateX(200%);
      }
+
+     .text-danger {
+          color: red;
+          font-size: 12px;
+     }
+
+     .text-success {
+          color: green;
+          font-size: 12px;
+     }
 </style>
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-     const container = document.getElementById('container');
-     const registerBtn = document.getElementById('register');
-     const loginBtn = document.getElementById('login');
+     //function validForm
+     function validForm() {
+          var name = document.getElementById('name').value;
+          var email = document.getElementById('email').value;
+          var phone = document.getElementById('phone').value;
+          var password = document.getElementById('password').value;
+          var repassword = document.getElementById('repassword').value;
 
-     registerBtn.addEventListener('click', () => {
-          container.classList.add("active");
-     });
+          if (name == "" || email == "" || phone == "" || password == "" || repssword == "") {
+               alert('Vui lòng nhập đầy đủ thông tin');
+               document.getElementById('name').focus();
+          } else {
+               var name_result = document.getElementById('name_result');
+               var email_result = document.getElementById('email_result');
+               var phone_result = document.getElementById('phone_result');
+               var password_result = document.getElementById('password_result');
+               var repassword_result = document.getElementById('repassword_result');
 
-     loginBtn.addEventListener('click', () => {
-          container.classList.remove("active");
-     });
+               if (
+                    name_result.innerHTML == "Tên phải lớn hơn 4 ký tự" ||
+                    email_result.innerHTML == "Email không hợp lệ" ||
+                    phone_result.innerHTML == "Số điện thoại không hợp lệ" ||
+                    password_result.innerHTML == "Mật khẩu phải lớn hơn 4 ký tự" ||
+                    repassword_result.innerHTML == "Mật khẩu không khớp"
+
+               ) {
+                    alert('Vui lòng nhập đúng các thông tin!');
+               } else {
+                    document.getElementById('regisForm').submit();
+               }
+          }
+
+     }
+
+     //function validate using ajax have xmlhttp
+     function validate(field, value) {
+          var xmlhttp;
+          if (window.XMLHttpRequest) {
+               xmlhttp = new XMLHttpRequest();
+          } else {
+               xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+          }
+
+          xmlhttp.onreadystatechange = function() {
+               if (xmlhttp.readyState != 4 && xmlhttp.status == 200) {
+                    document.getElementById(field).innerHTML = "Validating..";
+               } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById(field).innerHTML = xmlhttp.responseText;
+               }
+
+          };
+
+          xmlhttp.open(
+               "GET",
+               "validation.php",
+               true
+          );
+          var params = "field=" + field + "&value=" + value;
+          xmlhttp.send(params);
+     }
 </script>

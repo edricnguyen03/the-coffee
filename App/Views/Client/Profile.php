@@ -16,8 +16,7 @@
     <div class="main-container">
         <?php
         require_once("./App/Views/Client/layouts/header.php");
-        require_once("./App/Views/Client/layouts/banner.php");
-        require_once("./App/Views/Client/pages/home-product.php");
+        require_once("./App/Views/Client/pages/profile.php");
         require_once("./App/Views/Client/layouts/footer.php");
         ?>
     </div>
@@ -39,20 +38,5 @@
         </script>
 
 </body>
-
-<style>
-    /*hiệu ứng xuất hiện và biến mất của danh sách sản phẩm*/
-    .product-list-container {
-        transition: opacity 0.2s ease-in-out, transform 0.3s ease-in-out;
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    /* Hiệu ứng khi đang thay đổi */
-    .product-list-container.changing {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-</style>
 
 </html>
