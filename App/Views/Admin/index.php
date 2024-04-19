@@ -7,8 +7,8 @@
     <title>QUẢN LÝ WEBSITE</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/1c4a893c55.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../resources/css/admin.css">
-    <link href="../resources/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="./../../resources/css/admin.css">
+    <link href="./../../resources/main.css" rel="stylesheet">
 </head>
 
 <body>
@@ -23,8 +23,8 @@
             ?>
         </div>
     </div>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../resources/js/script.js"></script>
+    <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./../../resources/js/script.js"></script>
 </body>
 
 </html>
