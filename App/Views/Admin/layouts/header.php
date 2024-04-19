@@ -43,10 +43,10 @@
                 </a>
                 <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Thêm người dùng</a>
+                        <a href="../usercontroller/create" class="sidebar-link">Thêm người dùng</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Danh sách</a>
+                        <a href="../usercontroller/index" class="sidebar-link">Danh sách</a>
                     </li>
                 </ul>
             </li>

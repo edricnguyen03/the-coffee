@@ -104,6 +104,13 @@ class UserModel
         return $user;
     }
 
+    public function getAllUsers()
+    {
+        global $db;
+        $users = $db->get('users');
+        return $users;
+    }
+
     public function changePassword($userId, $currentPassword, $newPassword)
     {
         global $db;
@@ -129,8 +136,9 @@ class UserModel
             return $e->getMessage();
         }
     }
-    public function editName($userId, $userName){
-        try{
+    public function editName($userId, $userName)
+    {
+        try {
             global $db;
             $currentName = $db->get('users', 'name', 'id = ' . $userId);
             if ($currentName[0]['name'] == $userName) {
@@ -155,13 +163,20 @@ class UserModel
                 return "success";
             }
             return "fail";
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
     //write a function to create a user and save in database
     public function createUser()
     {
+        return true;
+    }
+
+    public function insertUser($data)
+    {
+        global $db;
+        $db->insert('users', $data);
         return true;
     }
 }

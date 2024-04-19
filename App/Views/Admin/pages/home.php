@@ -6,7 +6,7 @@
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                    <img src="../resources/images/header-logo.png" class="avatar img-fluid rounded" alt="">
+                    <img src="../../resources/images/header-logo.png" class="avatar img-fluid rounded" alt="">
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a href="#" class="dropdown-item">Logout</a>

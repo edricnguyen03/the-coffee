@@ -89,6 +89,7 @@ class App
           } else {
                $this->loadError();
           }
+
           //Action
           if (isset($arrUrl[1])) {
                $this->__action = $arrUrl[1];

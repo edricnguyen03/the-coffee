@@ -66,7 +66,7 @@ class Database
      {
           if (!empty($condition)) {
                $sql = "SELECT $fields FROM $table WHERE $condition";
-          }else{
+          } else {
                $sql = "SELECT $fields FROM $table";
           }
           $result = $this->query($sql);
