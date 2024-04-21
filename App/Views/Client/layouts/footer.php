@@ -123,6 +123,7 @@
         </div>
     </div>
 </footer>
+
 <script>
     const footerLoginBtn = document.getElementById('footer-login-btn');
     const footerSignUpBtn = document.getElementById('footer-sign-up-btn');
