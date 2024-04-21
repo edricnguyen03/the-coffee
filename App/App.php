@@ -78,18 +78,18 @@ class App
                } else {
                     $this->loadError();
                }
-          } else if (file_exists('./app/controllers/admin' . $urlCheck . '.php')) {
-               require_once './app/controllers/admin' . $urlCheck . '.php';
-               if (class_exists($this->__controller)) {
-                    $this->__controller = new $this->__controller();
-                    unset($arrUrl[0]);
-               } else {
-                    $this->loadError();
-               }
-          } else {
+          }
+          // else if (file_exists('./app/controllers/admin' . $urlCheck . '.php')) {
+          //      require_once './app/controllers/admin' . $urlCheck . '.php';
+          //      if (class_exists($this->__controller)) {
+          //           $this->__controller = new $this->__controller();
+          //           unset($arrUrl[0]);
+          //      } else {
+          //           $this->loadError();
+          //      }
+          else {
                $this->loadError();
           }
-
           //Action
           if (isset($arrUrl[1])) {
                $this->__action = $arrUrl[1];

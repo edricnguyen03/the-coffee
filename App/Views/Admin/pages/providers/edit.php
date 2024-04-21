@@ -11,14 +11,13 @@
     <title>QUẢN LÝ WEBSITE</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/1c4a893c55.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./../../../resources/css/admin.css">
     <link href="./../../../resources/main.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar" class="js-sidebar sticky-top vh-100">
+        <aside id="sidebar" class="js-sidebar">
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
@@ -106,7 +105,7 @@
                                 <img src="./../../../resources/images/header-logo.png" class="avatar img-fluid rounded" alt="">
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="../../logout" class="dropdown-item">Logout</a>
+                                <a href="#" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -125,43 +124,40 @@
                             </h5>
                         </div>
                         <div class="card-body">
-                            <div class="alert alert-danger text-center " style="display: none;" role="alert">
-                            </div>
-                            <div class="alert alert-success text-center" style="display: none;" role="alert">
-                            </div>
-                            <form id="edit_user" method="POST">
+                            <?php if (isset($error)) : ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <?php echo $error; ?>
+                                </div>
+                            <?php endif; ?>
+                            <form action="update" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input value="<?php echo $user['name'] ?>" type="text" class="form-control" id="name" name="name" required>
-                                    <span class="error" id="name_error" style="color: red;"></span>
                                 </div>
                                 <div class=" mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input value="<?php echo $user['email'] ?>" type="email" class="form-control" id="email" name="email" required>
-                                    <span class="error" id="email_error" style="color: red;"></span>
+                                    <input value="<?php echo $user['email'] ?>" type="email" class="form-control" id=" email" name="email" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                    <span class="error" id="password_error" style="color: red;"></span>
+                                    <input value="<?php echo $user['password'] ?>" type="password" class="form-control" id=" password" name="password" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="confirm_password" class="form-label">Confirm Password</label>
                                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                                    <span class="error" id="confirm_password_error" style="color: red;"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Status</label>
-                                    <select value="<?php echo $user['status'] ?>" class="form-select" id="status" name="status" required>
-                                        <option value="1" <?php echo $user['status'] == 1 ? 'selected' : ''; ?>>Active</option>
-                                        <option value="0" <?php echo $user['status'] == 0 ? 'selected' : ''; ?>>Inactive</option>
+                                    <select value="<?php echo $user['status'] ?>" class="form-select" id="status" name=" status" required>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="role_id" class="form-label">Role ID</label>
-                                    <select class="form-select" id="role_id" name="role_id" required>
-                                        <option value="1" <?php echo $user['role_id'] == 1 ? 'selected' : ''; ?>>Super Admin</option>
-                                        <option value="2" <?php echo $user['role_id'] == 2 ? 'selected' : ''; ?>>User</option>
+                                    <select value="<?php echo $user['role_id'] ?>" class="form-select" id="role_id" name=" role_id" required>
+                                        <option value="1">Super Admin</option>
+                                        <option value="2">User</option>
                                     </select>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
@@ -178,88 +174,6 @@
     </div>
     <script src="./../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./../../../resources/js/script.js"></script>
-    <script type="text/javascript">
-        // Edit user
-        $(document).ready(function() {
-            $('#edit_user').submit(function(e) {
-                e.preventDefault();
-
-                var formData = $(this).serialize();
-                var params = new URLSearchParams(formData);
-
-                var name = params.get('name');
-                var email = params.get('email');
-                var password = params.get('password');
-                var confirm_password = params.get('confirm_password');
-                var status = params.get('status');
-                var role_id = params.get('role_id');
-                var userId = <?php echo $user['id']; ?>;
-
-                $('.error').text('');
-
-
-                if (password != confirm_password) {
-                    $('#confirm_password_error').text('Mật khẩu không trùng khớp').css('display', 'block');
-                    return;
-                } else if (name.length > 40 || name.length < 4 || /[^A-Za-z ]/.test(name)) {
-                    $('#name_error').text('Tên không hợp lệ - Tối thiểu 4 ký tự, tối đa 40  ký tự và không chứa ký tự đặc biệt').css('display', 'block');
-                    return;
-                } else if (password.length < 4 || password.length > 10) {
-                    $('#password_error').text('Mật khẩu không hợp lệ - Tối thiểu 6 ký tự và tối đa 20 ký tự').css('display', 'block');
-                    return;
-                } else if (email.length > 50 || !/^\S+@\S+\.\S+$/.test(email)) {
-                    $('#email_error').text('Email không hợp lệ - Tối đa 50 ký tự và phải đúng định dạng email').css('display', 'block');
-                    return;
-                } else {
-                    $.ajax({
-                        url: '../check_email',
-                        type: 'POST',
-                        data: {
-                            email: email,
-                            id: userId,
-                        },
-                        dataType: 'json',
-                    }).done(function(response) {
-                        if (response.email_exists) {
-                            $('#email_error').text('Email đã được sử dụng').css('display', 'block');
-                        } else {
-                            $.ajax({
-                                url: '../update/' + <?php echo $user['id']; ?>,
-                                type: 'POST',
-                                data: {
-                                    name: name,
-                                    email: email,
-                                    password: password,
-                                    status: status,
-                                    role_id: role_id
-                                },
-                                // ...
-                            });
-                            $.ajax({
-                                url: '../update/' + <?php echo $user['id']; ?>,
-                                type: 'POST',
-                                data: {
-                                    name: name,
-                                    email: email,
-                                    password: password,
-                                    status: status,
-                                    role_id: role_id
-                                },
-                            }).done(function(response) {
-                                $('.alert-success').text('Chỉnh sửa người dùng thành công').css('display', 'block');
-                            }).fail(function(jqXHR, textStatus, errorThrown) {
-                                console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
-                                $('.alert-danger').text('Chỉnh sửa người dùng thất bại').css('display', 'block');
-                            });
-                        }
-                    }).fail(function(jqXHR, textStatus, errorThrown) {
-                        console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
-                    });
-                }
-            });
-        });
-    </script>
-
 </body>
 
 </html>

@@ -9,7 +9,7 @@
                     <img src="../../resources/images/header-logo.png" class="avatar img-fluid rounded" alt="">
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a href="#" class="dropdown-item">Logout</a>
+                    <a href="../logout" class="dropdown-item">Logout</a>
                 </div>
             </li>
         </ul>
@@ -108,7 +108,3 @@
         </div>
     </div>
 </main>
-<a href="#" class="theme-toggle">
-    <i class="fa-regular fa-moon"></i>
-    <i class="fa-regular fa-sun"></i>
-</a>
