@@ -13,7 +13,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <img src="../../resources/images/header-logo.png" class="avatar img-fluid rounded" alt="">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a href="#" class="dropdown-item">Logout</a>
+                        <a href="../logout" class="dropdown-item">Logout</a>
                     </div>
                 </li>
             </ul>

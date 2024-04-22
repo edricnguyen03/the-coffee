@@ -34,7 +34,7 @@ class Login_Regis extends Controller
                               }
                          case "success_admin": {
                                    $_SESSION['login']['id'] = $user;
-                                   $_SESSION['login']['status'] = 1;
+                                   $_SESSION['login']['status'] = 2;
                                    echo "success_admin";
                                    break;
                               }

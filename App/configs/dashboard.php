@@ -14,6 +14,7 @@ $routes['admin/dashboard'] = 'admin/Dashboard/index';
 // User
 $routes['admin/user'] = 'admin/UserController/index';
 $routes['admin/user/check_email'] = 'admin/UserController/check_email';
+$routes['admin/user/alert'] = 'admin/UserController/alert';
 //Create User
 $routes['admin/user/create'] = 'admin/UserController/create';
 $routes['admin/user/store'] = 'admin/UserController/store';

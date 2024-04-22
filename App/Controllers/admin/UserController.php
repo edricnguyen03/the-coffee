@@ -127,4 +127,8 @@ class UserController extends Controller
             }
         }
     }
+    public function alert()
+    {
+        $this->view('/alert',);
+    }
 }

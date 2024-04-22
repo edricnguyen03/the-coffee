@@ -1,3 +1,21 @@
+<?php
+
+// Start the session
+// Check if the user is logged in
+// if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+//     // If not, display an alert message and redirect them to the login page
+//     // header('Location: alert');
+//     header('Location: ./../../Login_Regis/Logout');
+//     exit;
+// } else if ($_SESSION['login']['id'] != 'success_admin' && $_SESSION['login']['status'] != 2) {
+//     // If not, redirect them to the login page
+//     header('Location: alert');
+//     exit;
+// }
+// ... rest of your page code ...
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 

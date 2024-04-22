@@ -29,6 +29,9 @@ class UserModel
         $userArr = $db->get('users');
 
         foreach ($userArr as $user) {
+            if ($user['email'] == $username && password_verify($password, $user['password']) == true && $user['role_id'] == 1 && $user['status'] == 1) {
+                return "success_admin";
+            }
             if ($user['email'] == $username && password_verify($password, $user['password']) == false) {
                 return "wrongPassword";
             }
@@ -38,9 +41,6 @@ class UserModel
                 } else {
                     return "banned";
                 }
-            }
-            if ($user['email'] == $username && password_verify($password, $user['password']) == false && $user['role_id'] == 1 && $user['status'] == 1) {
-                return "success_admin";
             }
         }
         return "notFound";

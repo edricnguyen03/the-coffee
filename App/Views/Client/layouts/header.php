@@ -14,7 +14,7 @@
                 </li>
                 <?php
                 if (isset($_SESSION['login']['status'])) {
-                    if ($_SESSION['login']['status'] == 1) {
+                    if ($_SESSION['login']['status'] == 1 || $_SESSION['login']['status'] == 2) {
                 ?>
                         <div class="nav-item ms-3">
                             <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="fa-regular fa-circle-user icon"></i>User</a>
@@ -47,7 +47,7 @@
                                     <p>Setting</p>
                                     <span></span>
                                 </a>
-                                <a href="Login_Regis/Logout" class="sub-menu-link" >
+                                <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
                                     <p>Logout</p>
                                     <span></span>
@@ -82,7 +82,7 @@
                                     <p>Setting</p>
                                     <span></span>
                                 </a>
-                                <a href="Login_Regis/Logout" class="sub-menu-link" >
+                                <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
                                     <p>Logout</p>
                                     <span></span>
@@ -307,6 +307,8 @@
                                     password: password
                                 },
                                 success: function(response) {
+                                    response = response.trim();
+                                    console.log(response);
                                     switch (response) {
                                         case "success": {
                                             window.location.reload();
@@ -324,6 +326,10 @@
                                         case "wrongPassword": {
                                             $('#responsePassword').html("Sai mật khẩu.");
                                             $('#responseEmail').html("");
+                                            break;
+                                        }
+                                        case "success_admin": {
+                                            window.location.href = "/the-coffee/admin/dashboard/";
                                             break;
                                         }
 
