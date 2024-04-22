@@ -14,7 +14,7 @@
                 </li>
                 <?php
                 if (isset($_SESSION['login']['status'])) {
-                    if ($_SESSION['login']['status'] == 1 || $_SESSION['login']['status'] == 2) {
+                    if ($_SESSION['login']['status'] == 1) {
                 ?>
                         <div class="nav-item ms-3">
                             <a class="btn btn-black btn-rounded" id="user-detail-btn" style="border: 2px solid black;"><i class="fa-regular fa-circle-user icon"></i>User</a>
@@ -42,11 +42,17 @@
                                     <p>Cart</p>
                                     <span></span>
                                 </a>
-                                <a href="#" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                    <p>Setting</p>
-                                    <span></span>
-                                </a>
+                                <?php
+                                if ($_SESSION['login']['id'] == 1) {
+                                ?>
+                                    <a href="admin/dashboard/" class="sub-menu-link">
+                                        <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
+                                        <p>Setting</p>
+                                        <span></span>
+                                    </a>
+                                <?php
+                                }
+                                ?>
                                 <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
                                     <p>Logout</p>
