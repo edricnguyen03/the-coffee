@@ -328,11 +328,6 @@
                                             $('#responseEmail').html("");
                                             break;
                                         }
-                                        case "success_admin": {
-                                            window.location.href = "/the-coffee/admin/dashboard/";
-                                            break;
-                                        }
-
                                     }
                                 }
                             });
