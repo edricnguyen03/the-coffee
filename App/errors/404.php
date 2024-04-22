@@ -1,3 +1,2 @@
-<?php
-     echo '<div style="justify-content:center; align-items:center;"><h2>PAGE NOT FOUND</h2></div>';
-?>
+<h1 style="text-align:center;">PAGE NOT FOUND</h1>
+
