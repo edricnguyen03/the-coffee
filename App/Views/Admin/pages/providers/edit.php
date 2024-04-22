@@ -1,5 +1,16 @@
 <?php
-
+// Start the session
+// Check if the user is logged in
+if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+    // If not, display an alert message and redirect them to the login page
+    // header('Location: alert');
+    header('Location: ../../../Login_Regis/logout');
+    exit;
+} else if ($_SESSION['login']['id'] != 1) {
+    // If not, redirect them to the login page
+    header('Location: ../alert');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +80,18 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>
+                            Nhà cung cấp
+                        </a>
+                        <ul id="provider" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../provider/create" class="sidebar-link">Thêm nhà cung cấp</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../provider/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
                     <li class="sidebar-header">
                         Multi Level Menu
                     </li>
@@ -105,7 +128,7 @@
                                 <img src="./../../../resources/images/header-logo.png" class="avatar img-fluid rounded" alt="">
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="#" class="dropdown-item">Logout</a>
+                                <a href="../../logout" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -113,14 +136,14 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="text-center my-3 py-2">
-                    <h3>QUẢN LÝ NGƯỜI DÙNG</h3>
+                    <h3>QUẢN LÝ NHÀ CUNG CẤP</h3>
                 </div>
                 <div class="container-fluid">
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title my-3 py-2">
-                                Chinh sửa người dùng
+                                Chinh sửa nhà cung cấp
                             </h5>
                         </div>
                         <div class="card-body">
@@ -129,36 +152,20 @@
                                     <?php echo $error; ?>
                                 </div>
                             <?php endif; ?>
-                            <form action="update" method="POST">
+                            <?php if (isset($_SESSION['success'])) : ?>
+                                <div class="alert alert-success text-center" role="alert">
+                                    <?php echo $_SESSION['success']; ?>
+                                </div>
+                                <?php unset($_SESSION['success']); ?>
+                            <?php endif; ?>
+                            <form action="../update/<?php echo $provider['id'] ?>" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input value="<?php echo $user['name'] ?>" type="text" class="form-control" id="name" name="name" required>
+                                    <input value="<?php echo $provider['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class=" mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input value="<?php echo $user['email'] ?>" type="email" class="form-control" id=" email" name="email" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input value="<?php echo $user['password'] ?>" type="password" class="form-control" id=" password" name="password" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select value="<?php echo $user['status'] ?>" class="form-select" id="status" name=" status" required>
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="role_id" class="form-label">Role ID</label>
-                                    <select value="<?php echo $user['role_id'] ?>" class="form-select" id="role_id" name=" role_id" required>
-                                        <option value="1">Super Admin</option>
-                                        <option value="2">User</option>
-                                    </select>
+                                    <label for="description" class="form-label">Description</label>
+                                    <input value="<?php echo $provider['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
                             </form>

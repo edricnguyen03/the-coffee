@@ -80,6 +80,18 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>
+                            Nhà cung cấp
+                        </a>
+                        <ul id="provider" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../provider/create" class="sidebar-link">Thêm nhà cung cấp</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../provider/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
                     <li class="sidebar-header">
                         Multi Level Menu
                     </li>

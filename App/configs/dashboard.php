@@ -26,7 +26,16 @@ $routes['admin/user/delete'] = 'admin/UserController/delete';
 
 
 // Provider
-
+$routes['admin/provider'] = 'admin/ProviderController/index';
+$routes['admin/provider/alert'] = 'admin/ProviderController/alert';
+//Create Provider
+$routes['admin/provider/create'] = 'admin/ProviderController/create';
+$routes['admin/provider/store'] = 'admin/ProviderController/store';
+//Update Provider
+$routes['admin/provider/edit'] = 'admin/ProviderController/edit';
+$routes['admin/provider/update'] = 'admin/ProviderController/update';
+//Delete Provider
+$routes['admin/provider/delete'] = 'admin/ProviderController/delete';
 
 
 $routes['base-img-url'] = 'http://localhost:8080/the-coffee/';

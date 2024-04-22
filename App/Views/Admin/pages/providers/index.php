@@ -1,8 +1,5 @@
 <?php
-// // Start the session if it's not already started
-// if (session_status() == PHP_SESSION_NONE) {
-//     session_start();
-// }
+
 ?>
 <?php
 require_once('./App/Views/Admin/layouts/header.php');
@@ -27,17 +24,24 @@ require_once('./App/Views/Admin/layouts/header.php');
     </nav>
     <main class="content px-3 py-2">
         <div class="text-center my-3 py-2">
-            <h3>QUẢN LÝ NGƯỜI DÙNG</h3>
+            <h3>QUẢN LÝ NHÀ CUNG CẤP</h3>
         </div>
         <div class="container-fluid">
             <!-- Table Element -->
             <div class="card border-0">
                 <div class="card-header">
                     <h5 class="card-title">
-                        Danh sách người dùng
-                    </h5>
+                        Danh sách nhà cung cấp
                 </div>
                 <div class="card-body">
+                    <div class="mb-3">
+                        <form method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên hoặc email">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
                     <?php if (isset($_SESSION['error'])) : ?>
                         <div class="alert alert-danger text-center" role="alert">
                             <?php echo $_SESSION['error']; ?>
@@ -54,33 +58,55 @@ require_once('./App/Views/Admin/layouts/header.php');
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Role_id</th>
+                                <th scope="col">Description</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            foreach ($users as $user) {
+                            global $db;
+                            if (isset($_GET['search'])) {
+                                $filterValues = $_GET['search'];
+                                $query = $db->query("SELECT * FROM providers WHERE CONCAT( name) LIKE '%$filterValues%'");
+                                $query->execute();
+                                $providers = $query->fetchAll();
+                                if ($query->rowCount() > 0) {
+                                    foreach ($providers as $provider) {
                             ?>
-                                <tr>
-                                    <th scope="row"><?php echo $user['id']; ?></th>
-                                    <td><?php echo $user['name']; ?></td>
-                                    <td><?php echo $user['email']; ?></td>
-                                    <td>
-                                        <?php if ($user['status'] == '1') { ?>
-                                            <button class="btn btn-success">Active</button>
-                                        <?php } else { ?>
-                                            <button class="btn btn-danger">Inactive</button>
-                                        <?php } ?>
-                                    </td>
-                                    <td><?php echo $user['role_id']; ?></td>
-                                    <td>
-                                        <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
-                                        <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
-                                </tr>
+
+                                        <tr>
+                                            <th scope="row"><?php echo $provider['id']; ?></th>
+                                            <td><?php echo $provider['name']; ?></td>
+                                            <td><?php echo $provider['description']; ?></td>
+                                            <td>
+                                                <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
+                                                <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>
+                                        </tr>
+                                    <?php
+                                    }
+                                } else {
+                                    ?>
+                                    <tr>
+                                        <td colspan="6" class="text-center">KHÔNG TÌM THẤY NHÀ CUNG CẤP</td>
+                                    </tr>
+                                <?php
+                                }
+                            } else {
+                                $query = $db->query("SELECT * FROM providers");
+                                $query->execute();
+                                $providers = $query->fetchAll();
+                                foreach ($providers as $provider) {
+                                ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $provider['id']; ?></th>
+                                        <td><?php echo $provider['name']; ?></td>
+                                        <td><?php echo $provider['description']; ?></td>
+                                        <td>
+                                            <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>
+                                    </tr>
                             <?php
+                                }
                             }
                             ?>
                         </tbody>
