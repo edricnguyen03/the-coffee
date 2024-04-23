@@ -77,7 +77,7 @@ function AddEventForAllAddToCartButton() {
       // Xác định hành động khi kết quả trả về từ file PHP
       xhttp.onreadystatechange = function () {
         if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
-          var response = xhttp.responseText;
+          var response = xhttp.responseText.trim();
           switch (response) {
             case "login": {
               Swal.fire({
@@ -112,6 +112,10 @@ function AddEventForAllAddToCartButton() {
   });
 }
 
+function deleteCookie(name) {
+  document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   AddEventForAllDetailButton();
   AddEventForAllAddToCartButton();
@@ -143,7 +147,7 @@ function addEventForDetailAddToCartButton() {
       Swal.fire({
         icon: "error",
         title: "Số lượng không hợp lệ",
-        text: "Số lượng phải nằm trong khoảng từ 1 đến "+stock,
+        text: "Số lượng phải nằm trong khoảng từ 1 đến " + stock,
       });
       return;
     }
@@ -157,7 +161,7 @@ function addEventForDetailAddToCartButton() {
     // Xác định hành động khi kết quả trả về từ file PHP
     xhttp.onreadystatechange = function () {
       if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
-        var response = xhttp.responseText;
+        var response = xhttp.responseText.trim();
         switch (response) {
           case "login": {
             Swal.fire({
@@ -191,10 +195,10 @@ function addEventForDetailAddToCartButton() {
   });
 
   // Xác định sự kiện khi người dùng nhập số lượng sản phẩm khác số nguyên dương
-  document.getElementById("product-detail-quantity").addEventListener("input", function(event) {
+  document.getElementById("product-detail-quantity").addEventListener("input", function (event) {
     var value = parseInt(event.target.value);
     if (isNaN(value) || value < 1) {
-        event.target.value = "";
+      event.target.value = "";
     }
-});
+  });
 }

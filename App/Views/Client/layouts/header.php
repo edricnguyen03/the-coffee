@@ -42,11 +42,17 @@
                                     <p>Giỏ hàng</p>
                                     <span></span>
                                 </a>
-                                <a href="/the-coffee/orders" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                    <p>Đơn hàng</p>
-                                    <span></span>
-                                </a>
+                                <?php
+                                if ($_SESSION['login']['id'] == 1) {
+                                ?>
+                                    <a href="admin/dashboard/" class="sub-menu-link">
+                                        <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
+                                        <p>Setting</p>
+                                        <span></span>
+                                    </a>
+                                <?php
+                                }
+                                ?>
                                 <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
                                     <p>Đăng xuất</p>
@@ -307,6 +313,8 @@
                                     password: password
                                 },
                                 success: function(response) {
+                                    response = response.trim();
+                                    console.log(response);
                                     switch (response) {
                                         case "success": {
                                             window.location.reload();
@@ -326,7 +334,6 @@
                                             $('#responseEmail').html("");
                                             break;
                                         }
-
                                     }
                                 }
                             });

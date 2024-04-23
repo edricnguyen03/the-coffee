@@ -4,24 +4,47 @@ class UserModel
     function __construct()
     {
     }
+    // public function login($username, $password)
+    // {
+    //     global $db;
+    //     $userArr = $db->get('users');
+    //     foreach ($userArr as $user) {
+    //         if ($user['email'] == $username && $user['password'] != $password) {
+    //             return "wrongPassword";
+    //         }
+    //         if ($user['email'] == $username && $user['password'] == $password) {
+    //             if ($user['status'] == 1) {
+    //                 return $user['id'];
+    //             } else {
+    //                 return "banned";
+    //             }
+    //         }
+    //     }
+    //     return "notFound";
+    // }
+
     public function login($username, $password)
     {
         global $db;
         $userArr = $db->get('users');
+
         foreach ($userArr as $user) {
-            if ($user['email'] == $username && $user['password'] != $password) {
+            if ($user['email'] == $username && password_verify($password, $user['password']) == false) {
                 return "wrongPassword";
             }
-            if ($user['email'] == $username && $user['password'] == $password) {
+            if ($user['email'] == $username && password_verify($password, $user['password']) == true) {
                 if ($user['status'] == 1) {
                     return $user['id'];
                 } else {
                     return "banned";
                 }
             }
+
+            // return "success_admin";
         }
         return "notFound";
     }
+
 
     public function validation($field, $val)
     {
@@ -104,6 +127,21 @@ class UserModel
         return $user;
     }
 
+    public function getAllUsers()
+    {
+        global $db;
+        $users = $db->get('users');
+        return $users;
+    }
+    public function getMaxId()
+    {
+        global $db;
+        $query = $db->query("SELECT MAX(id) as max_id FROM users");
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result['max_id'];
+    }
+
     public function changePassword($userId, $currentPassword, $newPassword)
     {
         global $db;
@@ -129,8 +167,9 @@ class UserModel
             return $e->getMessage();
         }
     }
-    public function editName($userId, $userName){
-        try{
+    public function editName($userId, $userName)
+    {
+        try {
             global $db;
             $currentName = $db->get('users', 'name', 'id = ' . $userId);
             if ($currentName[0]['name'] == $userName) {
@@ -155,7 +194,7 @@ class UserModel
                 return "success";
             }
             return "fail";
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
@@ -163,5 +202,32 @@ class UserModel
     public function createUser()
     {
         return true;
+    }
+
+    public function insertUser($data)
+    {
+        global $db;
+        $db->insert('users', $data);
+        return true;
+    }
+
+    public function updateUser($userId, $newUserData)
+    {
+        global $db;
+        $db->update('users', $newUserData, 'id = ' . $userId);
+        return true;
+    }
+
+    public function deleteUser($userId)
+    {
+        global $db;
+        $db->delete('users', 'id = ' . $userId);
+        return true;
+    }
+    public function getUserByEmail($email)
+    {
+        global $db;
+        $user = $db->get('users', '*', "email = '$email'");
+        return $user;
     }
 }
