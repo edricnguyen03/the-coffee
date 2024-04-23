@@ -23,7 +23,7 @@ class Database
                $sql = "INSERT INTO " . $table . " ($fieldStr) VALUES ($valueStr)";
                $status = $this->query($sql);
                if ($status) {
-                    return $sql;
+                    return true;
                }
                return false;
           }
@@ -44,7 +44,7 @@ class Database
                }
                $status = $this->query($sql);
                if ($status) {
-                    return $sql;
+                    return true;
                }
                return false;
           }

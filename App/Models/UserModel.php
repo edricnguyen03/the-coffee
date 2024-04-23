@@ -41,7 +41,7 @@ class UserModel
             }
 
             //kiem tra ten co chua ki tu dac biet hoac so khong
-            else if (!preg_match("/^[a-zA-Z ]*$/", $val) || preg_match("/\d/", $val)) {
+            else if (!preg_match("/^[\p{L} ]*$/u", $val) || preg_match("/\d/", $val)) {
                 $result = 'Tên không được chứa ký tự đặc biệt hoặc số';
             } else {
                 $result = '<label class="text-success">Hợp lệ</label>';
@@ -97,10 +97,71 @@ class UserModel
         return $result;
     }
 
+    public function getUserById($userId)
+    {
+        global $db;
+        $user = $db->get('users', '*', 'id = ' . $userId);
+        return $user;
+    }
+
+    public function changePassword($userId, $currentPassword, $newPassword)
+    {
+        global $db;
+        try {
+            $password = $db->get('users', 'password', 'id = ' . $userId);
+            if ($password[0]['password'] != $currentPassword) {
+                return "Mật khẩu cũ không đúng";
+            }
+            if ($currentPassword == $newPassword) {
+                return "Mật khẩu mới không được trùng mật khẩu cũ";
+            }
+            if (strlen($newPassword) < 4 || strlen($newPassword) > 10) {
+                return "Mật khẩu mới phải từ 4 đến 10 ký tự";
+            }
+            if (trim($newPassword) !== $newPassword) {
+                return 'Mật khẩu mới không được chứa khoảng trắng';
+            }
+            if ($db->update('users', ['password' => $newPassword], 'id = ' . $userId)) {
+                return "success";
+            };
+            return "fail";
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function editName($userId, $userName){
+        try{
+            global $db;
+            $currentName = $db->get('users', 'name', 'id = ' . $userId);
+            if ($currentName[0]['name'] == $userName) {
+                return "Tên không được trùng với tên hiện tại";
+            }
+            if (trim($userName) != $userName) {
+                return "Tên không được chứa khoảng trắng ở đầu hoặc cuối chuỗi";
+            }
+            if (empty($userName)) {
+                return "Tên không được để trống";
+            }
+            if (!preg_match("/^[\p{L} ]*$/u", $userName) || preg_match("/\d/", $userName)) {
+                return "Tên không được chứa ký tự đặc biệt hoặc số";
+            }
+            if (strlen($userName) < 4) {
+                return "Tên phải lớn hơn 4 ký tự";
+            }
+            if (strlen($userName) > 40) {
+                return "Tên không được quá 40 ký tự";
+            }
+            if ($db->update('users', ['name' => $userName], 'id = ' . $userId)) {
+                return "success";
+            }
+            return "fail";
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
     //write a function to create a user and save in database
     public function createUser()
     {
-
         return true;
     }
 }
