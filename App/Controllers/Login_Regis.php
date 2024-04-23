@@ -32,12 +32,7 @@ class Login_Regis extends Controller
                                    echo "wrongPassword";
                                    break;
                               }
-                         case "success_admin": {
-                                   $_SESSION['login']['id'] = $user;
-                                   $_SESSION['login']['status'] = 2;
-                                   echo "success_admin";
-                                   break;
-                              }
+
                          default: {
                                    $_SESSION['login']['id'] = $user;
                                    $_SESSION['login']['status'] = 1;
