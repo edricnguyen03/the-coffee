@@ -42,12 +42,18 @@
                                     <p>Giỏ hàng</p>
                                     <span></span>
                                 </a>
+                                <a href="/the-coffee/orders" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
+                                    <p>Đơn hàng</p>
+                                    <span></span>
+                                </a>
+
                                 <?php
                                 if ($_SESSION['login']['id'] == 1) {
                                 ?>
                                     <a href="admin/dashboard/" class="sub-menu-link">
                                         <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                        <p>Setting</p>
+                                        <p>Cài đặt</p>
                                         <span></span>
                                     </a>
                                 <?php
@@ -73,24 +79,24 @@
                                     </h3>
                                 </div>
                                 <hr>
-                                <a href="#" class="sub-menu-link">
+                                <a href="/the-coffee/profile" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/profile.png" alt="">
-                                    <p>Edit profile</p>
+                                    <p>Tài khoản</p>
                                     <span></span>
                                 </a>
-                                <a href="#" class="sub-menu-link">
+                                <a href="/the-coffee/cart" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                    <p>Cart</p>
+                                    <p>Giỏ hàng</p>
                                     <span></span>
                                 </a>
-                                <a href="#" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                    <p>Setting</p>
+                                <a href="/the-coffee/orders" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
+                                    <p>Đơn hàng</p>
                                     <span></span>
                                 </a>
                                 <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
-                                    <p>Logout</p>
+                                    <p>Đăng xuất</p>
                                     <span></span>
                                 </a>
                             </div>
@@ -177,7 +183,7 @@
     }
 
     .sub-menu {
-        background: #fff;
+        background: #f8be71;
         border-radius: 5px;
         padding: 20px;
         margin: 10px;
