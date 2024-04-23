@@ -16,7 +16,7 @@
             <input type="email" class="form-control" id="user-email" value="<?php echo $user['email']; ?>" disabled>
           </div>
           <div class="form-group py-2 text-center">
-            <button type="button" id="btn-LuuThongTin" class="btn-LuuThongTin px-3 py-2">Lưu thông tin</button>
+            <button type="button" id="btn-LuuThongTin" class="btn-LuuThongTin px-3 py-2" style="border-radius: 5px;">Lưu thông tin</button>
           </div>
           <hr>
           <h5 class="card-title py-4">Đổi mật khẩu</h5>
@@ -33,7 +33,7 @@
             <input type="password" class="form-control" id="confirm-password" required>
           </div>
           <div class="form-group py-2 text-center">
-            <button type="button" id="btn-DoiMatKhau" class="btn-LuuThongTin px-3 py-2">Đổi mật khẩu</button>
+            <button type="button" id="btn-DoiMatKhau" class="btn-LuuThongTin px-3 py-2" style="border-radius: 5px;">Đổi mật khẩu</button>
           </div>
         </div>
       </div>

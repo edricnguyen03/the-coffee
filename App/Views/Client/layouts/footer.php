@@ -39,7 +39,7 @@
                                 <a href="#" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
                             </p>
                             <p>
-                                <a href="#" class="text-white" style="text-decoration: none;">Tài Khoản</a>
+                                <a href="/the-coffee/profile" class="text-white" style="text-decoration: none;">Tài Khoản</a>
                             </p>
                         <?php
                         } else {

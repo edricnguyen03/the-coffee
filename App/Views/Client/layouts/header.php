@@ -54,41 +54,6 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="sub-menu-wrapper" id="subMenu">
-                            <div class="sub-menu">
-                                <div class="user-info">
-                                    <img></img>
-                                    <h3>
-                                        <?php
-                                        if (isset($_SESSION['login']['username'])) {
-                                            echo $_SESSION['login']['username'];
-                                        }
-                                        ?>
-                                    </h3>
-                                </div>
-                                <hr>
-                                <a href="#" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/profile.png" alt="">
-                                    <p>Edit profile</p>
-                                    <span></span>
-                                </a>
-                                <a href="#" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                    <p>Cart</p>
-                                    <span></span>
-                                </a>
-                                <a href="#" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                    <p>Setting</p>
-                                    <span></span>
-                                </a>
-                                <a href="Login_Regis/Logout" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
-                                    <p>Logout</p>
-                                    <span></span>
-                                </a>
-                            </div>
-                        </div>
                     <?php
                     } else if ($_SESSION['login']['status'] == -1) {
                     ?>
