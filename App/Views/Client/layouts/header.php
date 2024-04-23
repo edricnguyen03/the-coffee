@@ -34,22 +34,22 @@
                                 <hr>
                                 <a href="/the-coffee/profile" class="sub-menu-link" id="user-profile-button">
                                     <img src="/the-coffee/resources/images/user-detail/profile.png" alt="">
-                                    <p>Edit profile</p>
+                                    <p>Tài khoản</p>
                                     <span></span>
                                 </a>
-                                <a href="#" class="sub-menu-link">
+                                <a href="/the-coffee/cart" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                    <p>Cart</p>
+                                    <p>Giỏ hàng</p>
                                     <span></span>
                                 </a>
-                                <a href="#" class="sub-menu-link">
+                                <a href="/the-coffee/orders" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                    <p>Setting</p>
+                                    <p>Đơn hàng</p>
                                     <span></span>
                                 </a>
                                 <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
-                                    <p>Logout</p>
+                                    <p>Đăng xuất</p>
                                     <span></span>
                                 </a>
                             </div>
