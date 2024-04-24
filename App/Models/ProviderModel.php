@@ -7,15 +7,15 @@ class ProviderModel
     public function getProviderById($providerId)
     {
         global $db;
-        $user = $db->get('providers', '*', 'id = ' . $providerId);
-        return $user;
+        $provider = $db->get('providers', '*', 'id = ' . $providerId);
+        return $provider;
     }
 
     public function getAllProviders()
     {
         global $db;
-        $users = $db->get('providers');
-        return $users;
+        $providers = $db->get('providers');
+        return $providers;
     }
     public function getMaxId()
     {

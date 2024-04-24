@@ -21,14 +21,14 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="text-center my-3 py-2">
-                    <h3>QUẢN LÝ NHÀ CUNG CẤP</h3>
+                    <h3>QUẢN LÝ VAI TRÒ</h3>
                 </div>
                 <div class="container-fluid">
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Thêm nhà cung cấp vào danh sách
+                                Thêm vai trò vào danh sách
                             </h5>
                         </div>
                         <div class="card-body">
@@ -51,7 +51,7 @@
                                     <label for="description" class="form-label">Description</label>
                                     <input type="text" class="form-control" id="description" name="description" required>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Create Provider</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Create Role</button>
                             </form>
                         </div>
                     </div>

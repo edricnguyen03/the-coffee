@@ -185,14 +185,14 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 </div>
                                 <?php unset($_SESSION['success']); ?>
                             <?php endif; ?>
-                            <form action="../update/<?php echo $provider['id'] ?>" method="POST">
+                            <form action="../update/<?php echo $role['id'] ?>" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input value="<?php echo $provider['name'] ?>" type="text" class="form-control" id="name" name="name" required>
+                                    <input value="<?php echo $role['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class=" mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <input value="<?php echo $provider['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
+                                    <input value="<?php echo $role['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
                             </form>

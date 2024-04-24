@@ -38,4 +38,28 @@ $routes['admin/provider/update'] = 'admin/ProviderController/update';
 $routes['admin/provider/delete'] = 'admin/ProviderController/delete';
 
 
+// Role
+$routes['admin/role'] = 'admin/RoleController/index';
+$routes['admin/role/alert'] = 'admin/RoleController/alert';
+//Create role
+$routes['admin/role/create'] = 'admin/RoleController/create';
+$routes['admin/role/store'] = 'admin/RoleController/store';
+//Update role
+$routes['admin/role/edit'] = 'admin/RoleController/edit';
+$routes['admin/role/update'] = 'admin/RoleController/update';
+//Delete role
+$routes['admin/role/delete'] = 'admin/RoleController/delete';
+
+// Role
+$routes['admin/permission'] = 'admin/PermissionController/index';
+$routes['admin/permission/alert'] = 'admin/PermissionController/alert';
+//Create permission
+$routes['admin/permission/create'] = 'admin/PermissionController/create';
+$routes['admin/permission/store'] = 'admin/PermissionController/store';
+//Update permission
+$routes['admin/permission/edit'] = 'admin/PermissionController/edit';
+$routes['admin/permission/update'] = 'admin/PermissionController/update';
+//Delete permission
+$routes['admin/permission/delete'] = 'admin/PermissionController/delete';
+
 $routes['base-img-url'] = 'http://localhost:8080/the-coffee/';

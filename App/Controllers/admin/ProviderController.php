@@ -85,14 +85,14 @@ class ProviderController extends Controller
     {
         if ($this->providerModel->deleteProvider($providerId)) {
             // If the deletion was successful, save success message to session
-            $_SESSION['success'] = 'Xóa người dùng thành công';
+            $_SESSION['success'] = 'Xóa nhà cung cấp thành công';
             // Then redirect to the index page
             header('Location: /the-coffee/admin/provider/');
             exit();
         } else {
             // If the deletion failed, show an error message and stay on the current page
             // You can also save the error message to session and display it on the current page
-            $_SESSION['error'] = 'Xóa người dùng thất bại';
+            $_SESSION['error'] = 'Xóa nhà cung cấp thất bại';
         }
     }
 

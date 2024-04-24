@@ -24,14 +24,14 @@ require_once('./App/Views/Admin/layouts/header.php');
     </nav>
     <main class="content px-3 py-2">
         <div class="text-center my-3 py-2">
-            <h3>QUẢN LÝ NHÀ CUNG CẤP</h3>
+            <h3>QUẢN LÝ QUYỀN</h3>
         </div>
         <div class="container-fluid">
             <!-- Table Element -->
             <div class="card border-0">
                 <div class="card-header">
                     <h5 class="card-title">
-                        Danh sách nhà cung cấp
+                        Danh sách quyền
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
@@ -43,12 +43,12 @@ require_once('./App/Views/Admin/layouts/header.php');
                         </form>
                     </div>
                     <?php if (isset($_SESSION['error'])) : ?>
-                        <div class="alert alert-danger text-center" role="alert">
+                        <div class="alert alert-danger text-center" permission="alert">
                             <?php echo $_SESSION['error']; ?>
                         </div>
                     <?php endif; ?>
                     <?php if (isset($_SESSION['success'])) : ?>
-                        <div class="alert alert-success text-center" role="alert">
+                        <div class="alert alert-success text-center" permission="alert">
                             <?php echo $_SESSION['success']; ?>
                         </div>
                         <?php unset($_SESSION['success']); ?>
@@ -67,43 +67,43 @@ require_once('./App/Views/Admin/layouts/header.php');
                             global $db;
                             if (isset($_GET['search'])) {
                                 $filterValues = $_GET['search'];
-                                $query = $db->query("SELECT * FROM providers WHERE CONCAT( name) LIKE '%$filterValues%'");
+                                $query = $db->query("SELECT * FROM permissions WHERE CONCAT( name) LIKE '%$filterValues%'");
                                 $query->execute();
-                                $providers = $query->fetchAll();
+                                $permissions = $query->fetchAll();
                                 if ($query->rowCount() > 0) {
-                                    foreach ($providers as $provider) {
+                                    foreach ($permissions as $permission) {
                             ?>
 
                                         <tr>
-                                            <th scope="row"><?php echo $provider['id']; ?></th>
-                                            <td><?php echo $provider['name']; ?></td>
-                                            <td><?php echo $provider['description']; ?></td>
+                                            <th scope="row"><?php echo $permission['id']; ?></th>
+                                            <td><?php echo $permission['name']; ?></td>
+                                            <td><?php echo $permission['description']; ?></td>
                                             <td>
-                                                <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>
+                                                <a href="edit/<?php echo $permission['id']; ?>" class="btn btn-primary">Edit</a>
+                                                <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $permission['id']; ?>" class="btn btn-danger">Delete</a>
                                         </tr>
                                     <?php
                                     }
                                 } else {
                                     ?>
                                     <tr>
-                                        <td colspan="6" class="text-center">KHÔNG TÌM THẤY NHÀ CUNG CẤP</td>
+                                        <td colspan="6" class="text-center">KHÔNG TÌM THẤY QUYỀN</td>
                                     </tr>
                                 <?php
                                 }
                             } else {
-                                $query = $db->query("SELECT * FROM providers");
+                                $query = $db->query("SELECT * FROM permissions");
                                 $query->execute();
-                                $providers = $query->fetchAll();
-                                foreach ($providers as $provider) {
+                                $permissions = $query->fetchAll();
+                                foreach ($permissions as $permission) {
                                 ?>
                                     <tr>
-                                        <th scope="row"><?php echo $provider['id']; ?></th>
-                                        <td><?php echo $provider['name']; ?></td>
-                                        <td><?php echo $provider['description']; ?></td>
+                                        <th scope="row"><?php echo $permission['id']; ?></th>
+                                        <td><?php echo $permission['name']; ?></td>
+                                        <td><?php echo $permission['description']; ?></td>
                                         <td>
-                                            <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>
+                                            <a href="edit/<?php echo $permission['id']; ?>" class="btn btn-primary">Edit</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa quyền này không ?')" href="delete/<?php echo $permission['id']; ?>" class="btn btn-danger">Delete</a>
                                     </tr>
                             <?php
                                 }
