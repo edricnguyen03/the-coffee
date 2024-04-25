@@ -9,7 +9,7 @@ class OrdersModel
      {
           $this->userId = $userId;
      }
-     public function getOrdersId()
+     public function getOrdersById()
      {
           try {
                global $db;
@@ -24,4 +24,5 @@ class OrdersModel
                return $e->getMessage()." OrdersModel, getOrdersId exception";
           }
      }
+
 }

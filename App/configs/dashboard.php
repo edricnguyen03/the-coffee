@@ -29,4 +29,29 @@ $routes['admin/user/delete'] = 'admin/UserController/delete';
 
 
 
-$routes['base-img-url'] = 'http://localhost:8080/the-coffee/';
+//Order
+$routes['admin/order'] = 'admin/OrderController/index';
+$routes['admin/order/alert'] = 'admin/OrderController/alert';
+$routes['admin/order/detail'] = 'admin/OrderController/alert';
+// //Create Order
+// $routes['admin/order/create'] = 'admin/OrderController/create';
+// $routes['admin/order/store'] = 'admin/OrderController/store';
+// ////Update User
+// $routes['admin/order/edit'] = 'admin/OrderController/edit';
+// $routes['admin/order/update'] = 'admin/OrderController/update';
+// //Delete User
+// $routes['admin/order/delete'] = 'admin/OrderController/delete';
+
+
+//Receipt
+$routes['admin/receipt'] = 'admin/ReceiptController/index';
+$routes['admin/receipt/alert'] = 'admin/ReceiptController/alert';
+//Create Order
+$routes['admin/receipt/create'] = 'admin/ReceiptController/create';
+$routes['admin/receipt/store'] = 'admin/ReceiptController/store';
+////Update User
+$routes['admin/receipt/edit'] = 'admin/ReceiptController/edit';
+$routes['admin/receipt/update'] = 'admin/ReceiptController/update';
+//Delete User
+$routes['admin/receipt/delete'] = 'admin/ReceiptController/delete';
+
