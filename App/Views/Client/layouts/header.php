@@ -43,7 +43,7 @@
                                     <span></span>
                                 </a>
                                 <?php
-                                if ($_SESSION['login']['id'] == 1) {
+                                if ($_SESSION['login']['role'] == 1) {
                                 ?>
                                     <a href="admin/dashboard/" class="sub-menu-link">
                                         <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">

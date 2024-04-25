@@ -45,7 +45,12 @@ class UserModel
         return "notFound";
     }
 
-
+    public function getRole($userId)
+    {
+        global $db;
+        $role = $db->get('users', 'role_id', 'id = ' . $userId);
+        return $role[0]['role_id'];
+    }
     public function validation($field, $val)
     {
 

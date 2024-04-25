@@ -1,5 +1,16 @@
 <?php
-
+// Start the session
+// Check if the user is logged in
+if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+    // If not, display an alert message and redirect them to the login page
+    // header('Location: alert');
+    header('Location: ../../../Login_Regis/logout');
+    exit;
+} else if ($_SESSION['login']['id'] != 1) {
+    // If not, redirect them to the login page
+    header('Location: ../alert');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +81,46 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-truck pe-2"></i>
+                            Nhà cung cấp
+                        </a>
+                        <ul id="provider" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../provider/create" class="sidebar-link">Thêm nhà cung cấp</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../provider/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#role" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-user-shield"></i>
+                            Vai trò
+                        </a>
+                        <ul id="role" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../role/create" class="sidebar-link">Thêm vai trò</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../role/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#permission" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>
+                            Phân quyền
+                        </a>
+                        <ul id="permission" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../permission/create" class="sidebar-link">Thêm phân quyền</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../permission/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="sidebar-header">
                         Multi Level Menu
                     </li>

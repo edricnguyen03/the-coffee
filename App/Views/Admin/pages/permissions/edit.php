@@ -175,24 +175,24 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </div>
                         <div class="card-body">
                             <?php if (isset($error)) : ?>
-                                <div class="alert alert-danger text-center" role="alert">
+                                <div class="alert alert-danger text-center" permission="alert">
                                     <?php echo $error; ?>
                                 </div>
                             <?php endif; ?>
                             <?php if (isset($_SESSION['success'])) : ?>
-                                <div class="alert alert-success text-center" role="alert">
+                                <div class="alert alert-success text-center" permission="alert">
                                     <?php echo $_SESSION['success']; ?>
                                 </div>
                                 <?php unset($_SESSION['success']); ?>
                             <?php endif; ?>
-                            <form action="../update/<?php echo $provider['id'] ?>" method="POST">
+                            <form action="../update/<?php echo $permission['id'] ?>" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input value="<?php echo $provider['name'] ?>" type="text" class="form-control" id="name" name="name" required>
+                                    <input value="<?php echo $permission['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class=" mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <input value="<?php echo $provider['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
+                                    <input value="<?php echo $permission['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
                             </form>

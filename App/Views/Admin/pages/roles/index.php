@@ -24,14 +24,14 @@ require_once('./App/Views/Admin/layouts/header.php');
     </nav>
     <main class="content px-3 py-2">
         <div class="text-center my-3 py-2">
-            <h3>QUẢN LÝ NHÀ CUNG CẤP</h3>
+            <h3>QUẢN LÝ VAI TRÒ</h3>
         </div>
         <div class="container-fluid">
             <!-- Table Element -->
             <div class="card border-0">
                 <div class="card-header">
                     <h5 class="card-title">
-                        Danh sách nhà cung cấp
+                        Danh sách vai trò
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
@@ -67,43 +67,43 @@ require_once('./App/Views/Admin/layouts/header.php');
                             global $db;
                             if (isset($_GET['search'])) {
                                 $filterValues = $_GET['search'];
-                                $query = $db->query("SELECT * FROM providers WHERE CONCAT( name) LIKE '%$filterValues%'");
+                                $query = $db->query("SELECT * FROM roles WHERE CONCAT( name) LIKE '%$filterValues%'");
                                 $query->execute();
-                                $providers = $query->fetchAll();
+                                $roles = $query->fetchAll();
                                 if ($query->rowCount() > 0) {
-                                    foreach ($providers as $provider) {
+                                    foreach ($roles as $role) {
                             ?>
 
                                         <tr>
-                                            <th scope="row"><?php echo $provider['id']; ?></th>
-                                            <td><?php echo $provider['name']; ?></td>
-                                            <td><?php echo $provider['description']; ?></td>
+                                            <th scope="row"><?php echo $role['id']; ?></th>
+                                            <td><?php echo $role['name']; ?></td>
+                                            <td><?php echo $role['description']; ?></td>
                                             <td>
-                                                <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>
+                                                <a href="edit/<?php echo $role['id']; ?>" class="btn btn-primary">Edit</a>
+                                                <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $role['id']; ?>" class="btn btn-danger">Delete</a>
                                         </tr>
                                     <?php
                                     }
                                 } else {
                                     ?>
                                     <tr>
-                                        <td colspan="6" class="text-center">KHÔNG TÌM THẤY NHÀ CUNG CẤP</td>
+                                        <td colspan="6" class="text-center">KHÔNG TÌM THẤY VAI TRÒ</td>
                                     </tr>
                                 <?php
                                 }
                             } else {
-                                $query = $db->query("SELECT * FROM providers");
+                                $query = $db->query("SELECT * FROM roles");
                                 $query->execute();
-                                $providers = $query->fetchAll();
-                                foreach ($providers as $provider) {
+                                $roles = $query->fetchAll();
+                                foreach ($roles as $role) {
                                 ?>
                                     <tr>
-                                        <th scope="row"><?php echo $provider['id']; ?></th>
-                                        <td><?php echo $provider['name']; ?></td>
-                                        <td><?php echo $provider['description']; ?></td>
+                                        <th scope="row"><?php echo $role['id']; ?></th>
+                                        <td><?php echo $role['name']; ?></td>
+                                        <td><?php echo $role['description']; ?></td>
                                         <td>
-                                            <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>
+                                            <a href="edit/<?php echo $role['id']; ?>" class="btn btn-primary">Edit</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $role['id']; ?>" class="btn btn-danger">Delete</a>
                                     </tr>
                             <?php
                                 }

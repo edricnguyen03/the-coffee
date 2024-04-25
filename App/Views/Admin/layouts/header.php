@@ -6,7 +6,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
     // header('Location: alert');
     header('Location: ../../Login_Regis/logout');
     exit;
-} else if ($_SESSION['login']['id'] != 1) {
+} else if ($_SESSION['login']['role'] != 1) {
     // If not, redirect them to the login page
     header('Location: alert');
     exit;
@@ -81,17 +81,42 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <!-- receipt -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#post" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
-                            Phiếu nhập
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-truck pe-2"></i>
+                            Nhà cung cấp
                         </a>
-                        <ul id="post" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <ul id="provider" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="../receipt/create" class="sidebar-link">Thêm phiếu nhập</a>
+                                <a href="../provider/create" class="sidebar-link">Thêm nhà cung cấp</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../receipt/" class="sidebar-link">Danh sách</a>
+                                <a href="../provider/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#role" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-user-shield"></i>
+                            Vai trò
+                        </a>
+                        <ul id="role" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../role/create" class="sidebar-link">Thêm vai trò</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../role/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#permission" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>
+                            Phân quyền
+                        </a>
+                        <ul id="permission" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../permission/create" class="sidebar-link">Thêm phân quyền</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../permission/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
