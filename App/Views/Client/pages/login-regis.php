@@ -59,9 +59,10 @@
      </div>
 </div>
 <style>
-     .responseText{
+     .responseText {
           color: red;
      }
+
      .login-wrapper {
           background-color: #fff;
           border-radius: 30px;
@@ -330,3 +331,4 @@
           xmlhttp.send(params);
      }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

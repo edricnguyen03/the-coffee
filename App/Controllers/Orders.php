@@ -23,10 +23,11 @@ class Orders extends Controller
                $data['orders'] = $orderId;
                $data['order'] = $this->ordersModel->getOrder($orderId[0]->id);
                $data['order_products'] = $order_product;
-               $this->view('/Client/Orders',$data);
+               $this->view('/Client/Orders', $data);
           }
      }
-     public function detail($id = -1){
+     public function detail($id = -1)
+     {
           $order_product = $this->orderProductsModel->getOrder_OrderProduct($id);
           $data['order_products'] = $order_product;
           // echo "<pre>";

@@ -68,7 +68,7 @@ class App
                     }
                }
           }
-          if($urlCheck == '') $urlCheck = $this->__controller;
+          if ($urlCheck == '') $urlCheck = $this->__controller;
           if (file_exists('./app/controllers/' . $urlCheck . '.php')) {
                require_once './app/controllers/' . $urlCheck . '.php';
                //Kiểm tra class $this->__controller
@@ -78,7 +78,16 @@ class App
                } else {
                     $this->loadError();
                }
-          } else {
+          }
+          // else if (file_exists('./app/controllers/admin' . $urlCheck . '.php')) {
+          //      require_once './app/controllers/admin' . $urlCheck . '.php';
+          //      if (class_exists($this->__controller)) {
+          //           $this->__controller = new $this->__controller();
+          //           unset($arrUrl[0]);
+          //      } else {
+          //           $this->loadError();
+          //      }
+          else {
                $this->loadError();
           }
           //Action

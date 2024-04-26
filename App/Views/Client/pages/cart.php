@@ -144,26 +144,41 @@
                         </div>
 
                         <div class="cart_select_items">
+                            <?php
+                            foreach ($productsInCart as $cartProduct) {
+                                foreach ($products as $product) {
+                                    if ($cartProduct->idProduct == $product->id) {
+                                        $cartProduct->name = $product->name;
+                                        $cartProduct->thumb_image = $product->thumb_image;
+                                        $cartProduct->price = $product->price;
+                                        $cartProduct->stock = $product->stock;
+                                    }
+                                }
 
-                            <div class="cart_item">
-                                <div class="cart_item_thumb">
-                                    <a href="#">
-                                        <img src="https://via.placeholder.com/100x100" alt="cart_thumb">
-                                    </a>
+                            ?>
+
+                                <div class="cart_item">
+                                    <div class="cart_item_thumb">
+                                        <a href="#">
+                                            <img style="object-fit: cover;width: 100%; height: 100%;" src="./resources/images/products/<?php echo $cartProduct->thumb_image ?>" />
+                                        </a>
+                                    </div>
+                                    <div class="cart_item_caption">
+                                        <a href="#">
+                                            <h4 class="product_title"><?php echo $cartProduct->name ?></h4>
+                                        </a>
+                                        <span class="number_of_item">Số lượng: <?php echo $cartProduct->quantity ?></span>
+                                        <strong class="cart_item_price"><?php echo $cartProduct->price ?></strong>
+                                        <a href="#" class="text-danger cart_item_remove" id="delete">Xóa</a>
+
+
+                                    </div>
                                 </div>
-                                <div class="cart_item_caption">
-                                    <a href="#">
-                                        <h4 class="product_title">Product Name</h4>
-                                    </a>
-                                    <span class="number_of_item">Số lượng: 1</span>
-                                    <strong class="cart_item_price">100.000đ</strong>
-                                    <a href="#" class="text-danger cart_item_remove" id="delete">Xóa</a>
-
-
-                                </div>
-                            </div>
-
+                            <?php
+                            }
+                            ?>
                         </div>
+
                     </div>
                     <!-- Button -->
                     <div class="cart_action">

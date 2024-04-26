@@ -91,7 +91,24 @@ class ProductModel
                 $sanPham->thumb_image = "product-default.png";
             }
 
-            $sanPhams[] = $sanPham;            
+            $sanPhams[] = $sanPham;
+        }
+        return $sanPhams;
+    }
+
+    public function getAllProducts()
+    {
+        global $db;
+        $result = $db->get("products", "*");
+        $sanPhams = [];
+        foreach ($result as $row) {
+            $sanPham = (object) $row;
+
+            if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
+                $sanPham->thumb_image = "product-default.png";
+            }
+
+            $sanPhams[] = $sanPham;
         }
         return $sanPhams;
     }

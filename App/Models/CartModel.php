@@ -1,11 +1,11 @@
 <?php
 class CartModel
 {
-
+    //them cac san pham da them vo database bang carts
     public function addToCart($User_id, $idProduct, $soLuongMua)
     {
         $cartItem[] = array(
-            'idProduct'=> $idProduct,
+            'idProduct' => $idProduct,
             'quantity' => $soLuongMua
         );
         global $db;
@@ -19,7 +19,7 @@ class CartModel
             }
 
             // Nếu đã có giỏ hàng, kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng hay chưa
-            $cartItemsArray = json_decode(rtrim($currentCartItems[0]['cart_items'],'1'));
+            $cartItemsArray = json_decode(rtrim($currentCartItems[0]['cart_items'], '1'));
             $itemFound = false;
             foreach ($cartItemsArray as &$item) {
                 if ($item->idProduct == $idProduct) {
@@ -45,5 +45,14 @@ class CartModel
             return $e->getMessage();
         }
     }
+    //lay cac san pham trong cart hien len giao dien cart
+    public function getProductsInCart($User_id)
+    {
+        global $db;
+        $cartItems = $db->get('carts', 'cart_items',  'user_id = ' . $User_id);
+        if (!$cartItems) {
+            return [];
+        }
+        return json_decode(rtrim($cartItems[0]['cart_items'], '1'));
+    }
 }
-

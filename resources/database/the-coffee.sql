@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 09, 2024 lúc 03:55 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.1.25
+-- Thời gian đã tạo: Th4 21, 2024 lúc 06:11 PM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `carts` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
   `cart_items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`cart_items`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -337,16 +337,21 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `status`, `password`, `role_id`) VALUES
-(1, 'Người dùng tối cao', 'admin@gmail.com', 1, '1', 1),
-(2, 'Người dùng', 'user1@gmail.com', 1, '1', 2),
-(3, 'Người dùng', 'user2@gmail.com', 1, '1', 2),
-(4, 'Người dùng', 'user3@gmail.com', 1, '1', 2),
-(5, 'Người dùng', 'user4@gmail.com', 1, '1', 2),
-(6, 'Người dùng', 'user5@gmail.com', 1, '1', 2),
-(7, 'Tài khoản bị khoá', 'ban1@gmail.com', 0, '1', 2),
-(8, 'Tài khoản bị khoá', 'ban2@gmail.com', 0, '1', 2),
-(9, 'Tài khoản bị khoá', 'ban3@gmail.com', 0, '1', 2),
-(10, 'Tài khoản bị khoá', 'ban4@gmail.com', 0, '1', 2);
+(1, 'Người dùng tối cao', 'admin@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 1),
+(2, 'Người dùng', 'user1@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(3, 'Người dùng', 'user2@gmail.com', 1, '1$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(4, 'Người dùng', 'user3@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(5, 'Người dùng', 'user4@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(6, 'Người dùng', 'user5@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(7, 'Tài khoản bị khoá', 'ban1@gmail.com', 0, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(8, 'Tài khoản bị khoá', 'ban2@gmail.com', 0, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(9, 'Tài khoản bị khoá', 'ban3@gmail.com', 0, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(10, 'Tài khoản bị khoá', 'ban4@gmail.com', 0, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(18, 'Edric', 'test123@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(19, 'Edric Nguyen', 'user44@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(21, 'Edricson', '123@xn--sd-oia.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(22, 'Harper Lee', 'test123aa@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(23, 'Edric Nguyensan', 'test122@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2);
 
 --
 -- Chỉ mục cho các bảng đã đổ
