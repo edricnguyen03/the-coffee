@@ -46,29 +46,10 @@ class Login_Regis extends Controller
 
      function Register()
      {
-          //Này xài ajax để lấy response 1 trong 2 trạng thái (0,1) tương ứng với (Fail,Success)
-          $id = $this->userModel->getMaxId();
-          $name = $_POST['name'];
-          $email = $_POST['email'];
-          $password = $_POST['password'];
-          $password_hash = password_hash($password, PASSWORD_DEFAULT);
-          $status = 1;
-          $role = 2;
-          $data = [
-               'id' => $id + 1,
-               'name' => $name,
-               'email' => $email,
-               'password' => $password_hash,
-               'status' => $status,
-               'role_id' => $role
-          ];
-
-          $this->userModel->insertUser($data);
-
           //goi ham o usermodel
           echo "<script>alert('Đăng ký thành công');</script>";
           // $this->userModel->createUser();
-          header('Location: /the-coffee');
+          header('Location: /index.php');
      }
      //add a validation function here
      //goi ham user-model.php tren day, echo ra gia tri tra ve
