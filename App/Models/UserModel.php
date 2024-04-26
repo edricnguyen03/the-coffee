@@ -31,7 +31,7 @@ class UserModel
         foreach ($userArr as $user) {
             if ($user['email'] == $username && password_verify($password, $user['password']) == false) {
                 return "wrongPassword";
-            }
+            }   
             if ($user['email'] == $username && password_verify($password, $user['password']) == true) {
                 if ($user['status'] == 1) {
                     return $user['id'];
