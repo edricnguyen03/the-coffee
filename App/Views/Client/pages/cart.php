@@ -158,7 +158,7 @@
                             ?>
 
                                 <div class="cart_item">
-                                    <div class="cart_item_thumb">
+                                    <div class="ca rt_item_thumb">
                                         <a href="#">
                                             <img style="object-fit: cover;width: 100%; height: 100%;" src="./resources/images/products/<?php echo $cartProduct->thumb_image ?>" />
                                         </a>
