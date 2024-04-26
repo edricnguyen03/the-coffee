@@ -198,11 +198,6 @@ class UserModel
             return $e->getMessage();
         }
     }
-    //write a function to create a user and save in database
-    public function createUser()
-    {
-        return true;
-    }
 
     public function insertUser($data)
     {
