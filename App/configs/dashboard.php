@@ -65,15 +65,7 @@ $routes['admin/permission/delete'] = 'admin/PermissionController/delete';
 //Order
 $routes['admin/order'] = 'admin/OrderController/index';
 $routes['admin/order/alert'] = 'admin/OrderController/alert';
-$routes['admin/order/detail'] = 'admin/OrderController/alert';
-// //Create Order
-// $routes['admin/order/create'] = 'admin/OrderController/create';
-// $routes['admin/order/store'] = 'admin/OrderController/store';
-// ////Update User
-// $routes['admin/order/edit'] = 'admin/OrderController/edit';
-// $routes['admin/order/update'] = 'admin/OrderController/update';
-// //Delete User
-// $routes['admin/order/delete'] = 'admin/OrderController/delete';
+$routes['admin/order/detail'] = 'admin/OrderController/edit';
 
 
 //Receipt
@@ -87,4 +79,5 @@ $routes['admin/receipt/edit'] = 'admin/ReceiptController/edit';
 $routes['admin/receipt/update'] = 'admin/ReceiptController/update';
 //Delete User
 $routes['admin/receipt/delete'] = 'admin/ReceiptController/delete';
+
 

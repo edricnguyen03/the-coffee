@@ -6,6 +6,13 @@ class ProductModel
     public function __construct()
     {
     }
+
+    function getAllProductsName() {
+        global $db;
+        $products = $db->get('products', 'name');
+        return $products;
+    }
+
     public function getById($id)
     {
         global $db;

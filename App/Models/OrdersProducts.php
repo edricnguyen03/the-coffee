@@ -19,8 +19,27 @@ class OrdersProducts
                return $orders;
           }
      }
-     public function get()
+     public function getOrderProducts2($orderId)
      {
-          return 1;
+          if ($orderId != null) {
+               global $db;
+               $orders = $db->get("order_products", "*", "order_id = " .$orderId); // Gán kết quả cho $orders
+               return $orders; // Trả về biến đã gán
+          }
+          return null;
      }
+
+      public function getUserById($userId)
+    {
+        global $db;
+        $user = $db->get('users', '*', 'id = ' . $userId);
+        return $user;
+    }
+
+    public function getAllorders_products()
+    {
+        global $db;
+        $users = $db->get('order_products');
+        return $users;
+    }
 }

@@ -27,43 +27,79 @@
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
-                            <h5 class="card-title">
+                            <h4 class="card-title">
                                 Thêm đơn nhập hàng vào danh sách
-                            </h5>
+                            </h4>
                         </div>
                         <div class="card-body">
-                            <div class="alert alert-danger text-center " style="display: none;" role="alert">
-                            </div>
-                            <div class="alert alert-success text-center" style="display: none;" role="alert">
-                            </div>
-                            <form id="create_user" method="POST">
+                            <form id="create_receipt" action="store" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Tên tối thiểu 4 ký tự, tối đa 40 ký tự và không chứa ký tự đặc biệt " required>
                                     <span class="error" id="name_error" style="color: red;"></span>
                                 </div>
-                        
 
                                 <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                                    <span class="error" id="confirm_password_error" style="color: red;"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select class="form-select" id="status" name="status" required>
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        
+                                    <label for="provider" class="form-label">Provider</label>
+                                    <select class="form-select" id="provider" name="provider" required>
+                                    <?php
+                                            // echo '<pre>';
+                                            // print_r($names);
+                                            // echo '<pre>'; 
+                                            $names = array_map(function ($row) {
+                                                return $row['name'];
+                                            }, $nameOfProvider);
+                                            
+                                            // echo '<pre>';
+                                            // print_r($names);
+                                            // echo '<pre>'; 
+                                            foreach($names as $id => $name){
+                                            $id=$id+1;
+                                            echo "<option value=\"$id\">$name</option>\n";
+                                        }
+                                        ?>
                                     </select>
+                                <!-- nhập sản phẩm -->
+                                <br> <br>
                                 </div>
+                                    <div class="card-header">
+                                    <h6 class="card-title">
+                                        Sản phẩm nhập
+                                    </h6>
+                                </div>                              
                                 <div class="mb-3">
-                                    <label for="role_id" class="form-label">Role ID</label>
-                                    <select class="form-select" id="role_id" name=" role_id" required>
-                                        <option value="1">Super Admin</option>
-                                        <option value="2">User</option>
-                                    </select>
-                                </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Create User</button>
+                                        
+                                        <label for="product" class="form-label">Product</label>
+                                        <select class="form-select" id="product" name="product" required>
+                                        <?php
+                                            $names2 = array_map(function ($row) {
+                                                return $row['name'];
+                                            }, $nameOfProduct);
+                                            
+                                            echo '<pre>';
+                                            print_r($names2);
+                                            echo '<pre>'; ;
+                                            foreach($names2 as $id => $name){
+                                            $id=$id+1;
+                                            echo "<option value=\"$id\">$name</option>\n";
+                                        }
+                                        ?>
+                                        </select>
+                                    </div>
+                            
+                                    <div class="mb-3">
+                                        <label for="quantity" class="form-label">Quantity</label>
+                                        <input type="text" class="form-control" id="quantity" name="total" placeholder="" required>
+                                        <span class="error" id="name_error" style="color: red;"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="price" class="form-label">Price</label>
+                                        <input type="text" class="form-control" id="price" name="price" placeholder="" required>
+                                        <span class="error" id="name_error" style="color: red;"></span>
+                                    </div>       
+                                <button type="submit" name="submit" class="btn btn-primary">Create Receipt</button>
                             </form>
                         </div>
                     </div>
@@ -77,71 +113,6 @@
         </div>
         <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./../../resources/js/script.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#create_user').submit(function(e) {
-                    e.preventDefault();
-                    var name = $('#name').val();
-                    var email = $('#email').val();
-                    var password = $('#password').val();
-                    var confirm_password = $('#confirm_password').val();
-                    var status = $('#status').val();
-                    var role_id = $('#role_id').val();
-
-                    $('.error').text('');
-
-                    if (password != confirm_password) {
-                        $('#confirm_password_error').text('Mật khẩu không trùng khớp').css('display', 'block');
-                        return;
-                    } else if (name.length > 40 || name.length < 4 || /[^A-Za-z ]/.test(name)) {
-                        $('#name_error').text('Tên không hợp lệ - Tối thiểu 4 ký tự, tối đa 40  ký tự và không chứa ký tự đặc biệt').css('display', 'block');
-                        return;
-                    } else if (password.length < 4 || password.length > 10) {
-                        $('#password_error').text('Mật khẩu không hợp lệ - Tối thiểu 6 ký tự và tối đa 20 ký tự').css('display', 'block');
-                        return;
-                    } else if (email.length > 50 || !/^\S+@\S+\.\S+$/.test(email)) {
-                        $('#email_error').text('Email không hợp lệ - Tối đa 50 ký tự và phải đúng định dạng email').css('display', 'block');
-                        return;
-                    } else {
-                        // Check if email is already in use
-                        $.ajax({
-                                url: 'check_email',
-                                type: 'POST',
-                                data: {
-                                    email: email
-                                },
-                                dataType: 'json',
-                            }).done(function(response) {
-                                if (response.email_exists) {
-                                    $('#email_error').text('Email đã được sử dụng').css('display', 'block');
-
-                                } else {
-                                    // If email is not in use, submit the form data
-                                    $.ajax({
-                                        url: 'store',
-                                        type: 'POST',
-                                        data: {
-                                            name: name,
-                                            email: email,
-                                            password: password,
-                                            confirm_password: confirm_password,
-                                            status: status,
-                                            role_id: role_id
-                                        },
-                                    }).done(function(response) {
-                                        $('.alert-success').text('Thêm người dùng thành công').css('display', 'block');
-                                    }).fail(function(response) {
-                                        $('.alert-danger').text('Thêm người dùng thất bại').css('display', 'block');
-                                    });
-                                }
-                            })
-                            .fail(function(jqXHR, textStatus, errorThrown) {
-                                console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
-                            });
-                    }
-                });
-            });
-        </script>
         </body>
 
         </html>

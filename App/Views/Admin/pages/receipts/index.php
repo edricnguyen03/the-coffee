@@ -56,9 +56,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Role_id</th>
+                                <th scope="col">Provider</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">create_at</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -67,29 +67,23 @@ require_once('./App/Views/Admin/layouts/header.php');
                             global $db;
                             if (isset($_GET['search'])) {
                                 $filterValues = $_GET['search'];
-                                $query = $db->query("SELECT * FROM users WHERE CONCAT( name , email) LIKE '%$filterValues%'");
+                                $query = $db->query("SELECT * FROM receipts WHERE CONCAT( name ) LIKE '%$filterValues%'");
                                 $query->execute();
-                                $users = $query->fetchAll();
+                                $receipts = $query->fetchAll();
                                 if ($query->rowCount() > 0) {
-                                    foreach ($users as $user) {
+                                    foreach ($receipts as $receipt) {
                             ?>
 
-                                        <tr>
-                                            <th scope="row"><?php echo $user['id']; ?></th>
-                                            <td><?php echo $user['name']; ?></td>
-                                            <td><?php echo $user['email']; ?></td>
-                                            <td>
-                                                <?php if ($user['status'] == '1') { ?>
-                                                    <button class="btn btn-success">Active</button>
-                                                <?php } else { ?>
-                                                    <button class="btn btn-danger">Inactive</button>
-                                                <?php } ?>
-                                            </td>
-                                            <td><?php echo $user['role_id']; ?></td>
-                                            <td>
-                                                <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
-                                        </tr>
+<tr>
+                                        <th scope="row"><?php echo $receipt['id']; ?></th>
+                                        <td><?php echo $receipt['name']; ?></td>
+                                        <td><?php echo $receipt['provider_id']; ?></td>
+                                        <td><?php echo $receipt['total']; ?></td>
+                                        <td><?php echo $receipt['create_at']; ?></td>
+                                        <td>
+                                            <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
+                                    </tr>
                                     <?php
                                     }
                                 } else {
@@ -99,26 +93,21 @@ require_once('./App/Views/Admin/layouts/header.php');
                                     </tr>
                                 <?php
                                 }
+                                
                             } else {
-                                $query = $db->query("SELECT * FROM users");
+                                $query = $db->query("SELECT * FROM receipts");
                                 $query->execute();
-                                $users = $query->fetchAll();
+                                $receipts = $query->fetchAll();
                                 // $query_run = mysqli_query($conn, $query);
                                 // $users = mysqli_fetch_all($query_run, MYSQLI_ASSOC);
-                                foreach ($users as $user) {
+                                foreach ($receipts as $receipt) {
                                 ?>
                                     <tr>
-                                        <th scope="row"><?php echo $user['id']; ?></th>
-                                        <td><?php echo $user['name']; ?></td>
-                                        <td><?php echo $user['email']; ?></td>
-                                        <td>
-                                            <?php if ($user['status'] == '1') { ?>
-                                                <button class="btn btn-success">Active</button>
-                                            <?php } else { ?>
-                                                <button class="btn btn-danger">Inactive</button>
-                                            <?php } ?>
-                                        </td>
-                                        <td><?php echo $user['role_id']; ?></td>
+                                        <th scope="row"><?php echo $receipt['id']; ?></th>
+                                        <td><?php echo $receipt['name']; ?></td>
+                                        <td><?php echo $receipt['provider_id']; ?></td>
+                                        <td><?php echo $receipt['total']; ?></td>
+                                        <td><?php echo $receipt['create_at']; ?></td>
                                         <td>
                                             <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
                                             <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>

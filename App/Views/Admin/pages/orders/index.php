@@ -74,9 +74,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 $orders = $query->fetchAll();
                                 if ($query->rowCount() > 0) {
                                     foreach ($orders as $order) {
-                            ?>
+                                ?>
 
-<tr>
+                                    <tr >
                                         <th scope="row"><?php echo $order['id']; ?></th>
                                         <td><?php echo $order['name_receiver']; ?></td>
 

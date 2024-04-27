@@ -1,19 +1,30 @@
 <?php
 class OrdersModel
 {
-     private $userId;
+     private $orderId;
      function __construct()
      {
      }
-     public function setUserId($userId)
+     public function setOrderId($orderId)
      {
-          $this->userId = $userId;
+          $this->orderId = $orderId;
      }
+
+     public function getAllOrdersTitle($orderId)
+     {
+          $this->orderId = $orderId;
+     }
+
+     public function getAllProduct_idByOrderId($orderId)
+     {
+          $this->orderId = $orderId;
+     }
+
      public function getOrdersById()
      {
           try {
                global $db;
-               $result = $db->get(table: "orders", fields : "id",condition: "user_id = " . $this->userId);
+               $result = $db->get(table: "orders", fields : "id",condition: "order_id = " . $this->orderId);
                $orders = [];
                foreach ($result as $row) {
                     $order = (object) $row;

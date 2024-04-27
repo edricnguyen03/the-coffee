@@ -40,37 +40,12 @@ class ReceiptModel
     public function getMaxId()
     {
         global $db;
-        $query = $db->query("SELECT MAX(id) as max_id FROM users");
+        $query = $db->query("SELECT MAX(id) as max_id FROM receipts");
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['max_id'];
     }
 
-    public function changePassword($userId, $currentPassword, $newPassword)
-    {
-        global $db;
-        try {
-            $password = $db->get('users', 'password', 'id = ' . $userId);
-            if ($password[0]['password'] != $currentPassword) {
-                return "Mật khẩu cũ không đúng";
-            }
-            if ($currentPassword == $newPassword) {
-                return "Mật khẩu mới không được trùng mật khẩu cũ";
-            }
-            if (strlen($newPassword) < 4 || strlen($newPassword) > 10) {
-                return "Mật khẩu mới phải từ 4 đến 10 ký tự";
-            }
-            if (trim($newPassword) !== $newPassword) {
-                return 'Mật khẩu mới không được chứa khoảng trắng';
-            }
-            if ($db->update('users', ['password' => $newPassword], 'id = ' . $userId)) {
-                return "success";
-            };
-            return "fail";
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
     public function editName($userId, $userName)
     {
         try {
@@ -103,35 +78,29 @@ class ReceiptModel
         }
     }
     //write a function to create a user and save in database
-    public function createUser()
+    public function createReceipt()
     {
         return true;
     }
 
-    public function insertUser($data)
-    {
-        global $db;
-        $db->insert('users', $data);
-        return true;
-    }
-
-    public function updateUser($userId, $newUserData)
+    public function insertReceipt($data)
     {
         global $db;
-        $db->update('users', $newUserData, 'id = ' . $userId);
+        $db->insert('receipts', $data);
         return true;
     }
 
-    public function deleteUser($userId)
+    public function updateReceipt($receiptId, $newReceiptData)
+    {
+        global $db;
+        $db->update('receipts', $newReceiptData, 'id = ' . $receiptId);
+        return true;
+    }
+
+    public function deleteReceipt($userId)
     {
         global $db;
         $db->delete('users', 'id = ' . $userId);
         return true;
-    }
-    public function getUserByEmail($email)
-    {
-        global $db;
-        $user = $db->get('users', '*', "email = '$email'");
-        return $user;
     }
 }
