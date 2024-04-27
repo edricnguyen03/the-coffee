@@ -212,6 +212,64 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 $query = $db->query("SELECT * FROM orders WHERE CONCAT( name_receiver ,phone_receiver) LIKE '%$filterValues%'");
                                 $query->execute();
                                 $orders = $query->fetchAll();
+                                if ($query->rowCount() > 0) {
+                                    foreach ($orders as $order) {
+                                ?>
+
+                                    <tr >
+                                        <th scope="row"><?php echo $order['id']; ?></th>
+                                        <td><?php echo $order['name_receiver']; ?></td>
+
+                                        <td>
+                                            <?php 
+                                                $orderId_curr = $order['id'];
+                                                $query = $db->query("SELECT order_id, COUNT(*) AS order_count FROM order_products WHERE order_id = '$orderId_curr' GROUP BY order_id");
+                                                $query->execute();
+                                                $arr = $query->fetchAll();
+                                                if (!empty($arr)) {
+                                                    // Lấy giá trị của order_count từ mảng
+                                                    $orderCount = $arr[0]['order_count'];
+                                                    // Hiển thị giá trị order_count
+                                                    echo $orderCount;
+                                                }
+                                                // echo '<pre>';
+                                                // print_r($arr);
+                                                // echo '<pre>'; ;;
+                                            ?>
+                                        </td>
+
+                                        <td>
+                                            <?php if ($order['payment_status'] == '1') { ?>
+                                                <button class="btn btn-success">Active</button>
+                                            <?php } else { ?>
+                                                <button class="btn btn-danger">Inactive</button>
+                                            <?php } ?>
+                                        </td>
+                                        <td>
+                                        <select id="selectBox">
+                                            <option value="0">
+                                                Đang chờ xử lý
+                                            </option>
+                                            <option value="1">
+                                                Đã xác nhận và sẵn sàng giao hàng
+                                            </option>
+                                            <option value="2">
+                                                Đang giao hàng
+                                            </option>
+                                            <option value="3">
+                                                Đã giao hàng
+                                            </option>
+                                            <option value="4">
+                                                Đã hủy
+                                            </option>
+                                        </select>
+                                        </td>
+                                        <td><?php echo $order['create_at']; ?></td>
+                                        <td>
+                                            <a href="detail/<?php echo $order['id']; ?>" class="btn btn-primary">Detail</a>
+                                    </tr>
+                                    <?php
+                                    }
                             } else {
                                 $query = $db->query("SELECT * FROM orders");
                                 
@@ -274,6 +332,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                             </option>
                                         </select>
                                         </td>
+                                        <!-- $data = [
+                                            0 => đang chở xử lý
+                                            1 => 
+                                            ] -->
                                     </tr>
                             <?php
                                 }
