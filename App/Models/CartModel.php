@@ -55,4 +55,24 @@ class CartModel
         }
         return json_decode(rtrim($cartItems[0]['cart_items'], '1'));
     }
+
+    //xoa san pham trong cart
+    public function deleteProductInCart($User_id, $idProduct)
+    {
+        global $db;
+        $cartItems = $db->get('carts', 'cart_items',  'user_id = ' . $User_id);
+        if (!$cartItems) {
+            return false;
+        }
+
+        $cartItemsArray = json_decode(rtrim($cartItems[0]['cart_items'], '1'));
+        $newCartItemsArray = [];
+        foreach ($cartItemsArray as $item) {
+            if ($item->idProduct != $idProduct) {
+                $newCartItemsArray[] = $item;
+            }
+        }
+        $db->update('carts', ['cart_items' => json_encode($newCartItemsArray)],  'User_id = ' . $User_id);
+        return true;
+    }
 }

@@ -28,6 +28,8 @@
                </center>
                <!-- button trong form dang ky -->
                <button id="registerButton" name="registerButton" onclick="validForm()">Đăng Kí</button>
+
+
           </form>
      </div>
      <div class="form-wrapper sign-in">

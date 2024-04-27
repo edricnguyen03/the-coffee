@@ -126,9 +126,31 @@
                     <!-- Order Summary -->
                     <div class="cart" id="cart" style="border:none">
                         <div class="cart-priceTotal">
+                            <?php
+
+                            //ham xu ly so tien
+                            function product_price($priceFloat)
+                            {
+                                $symbol = 'đ';
+                                $symbol_thousand = '.';
+                                $decimal_place = 0;
+                                $price = number_format($priceFloat, $decimal_place, '', $symbol_thousand);
+                                return $price . $symbol;
+                            }
+
+                            $total_price = 0;
+                            foreach ($productsInCart as $cartProduct) {
+                                foreach ($products as $product) {
+                                    if ($cartProduct->idProduct == $product->id) {
+                                        //tong tien = don gia * so luong
+                                        $total_price +=  $product->price * $cartProduct->quantity;
+                                    }
+                                }
+                            }
+                            ?>
                             <h6>
                                 Tổng Đơn Hàng
-                                <span class="cartSub">0đ</span>
+                                <span class="cartSub"> <?php echo product_price($total_price) ?></span>
                             </h6>
 
                             <div class="shipping-cart">
@@ -139,7 +161,7 @@
                             </div>
                             <h6>
                                 Tổng Tiền
-                                <span class="cartTotal">0đ</span>
+                                <span class="cartTotal"><?php echo product_price($total_price) ?></span>
                             </h6>
                         </div>
 
@@ -169,7 +191,8 @@
                                         </a>
                                         <span class="number_of_item">Số lượng: <?php echo $cartProduct->quantity ?></span>
                                         <strong class="cart_item_price"><?php echo $cartProduct->price ?></strong>
-                                        <a href="#" class="text-danger cart_item_remove" id="delete">Xóa</a>
+
+                                        <button class="text-danger cart_item_remove" id="delete" onclick="deleteProductInCart(<?php echo $_SESSION['login']['id'] ?>, <?php echo $cartProduct->idProduct ?>)">Xóa</button>
 
 
                                     </div>
@@ -181,7 +204,7 @@
 
                     </div>
                     <!-- Button -->
-                    <div class="cart_action">
+                    <div class="cart_action" style="margin-bottom: 50px">
                         <button type="submit" class="btn-checkout">Thanh toán</button>
                     </div>
 
@@ -193,3 +216,19 @@
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script src="./resources/js/filter-province.js"></script>
+<script>
+    //add a function to remove an item out a cart and reload the page
+    function deleteProductInCart(User_id, idProduct) {
+        $.ajax({
+            url: '/the-coffee/Cart/deleteProductInCart', //tro toi controller cart va goi ham delete
+            type: 'POST',
+            data: {
+                User_id: User_id,
+                idProduct: idProduct
+            },
+            success: function(response) {
+                location.reload();
+            }
+        });
+    }
+</script>

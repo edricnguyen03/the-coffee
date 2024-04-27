@@ -5,6 +5,7 @@ class Cart extends Controller
      public $data;
      public $productModel;
 
+
      public function __construct()
      {
           $this->cartModel = $this->model('CartModel');
@@ -25,5 +26,16 @@ class Cart extends Controller
           $this->data['productsInCart'] = $productsInCart;
           $this->data['products'] = $products;
           $this->view('/Client/Cart', $this->data);
+     }
+
+     public function deleteProductInCart()
+     {
+          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+               if (!empty($_POST['User_id']) && !empty($_POST['idProduct'])) {
+                    $User_id = $_POST['User_id'];
+                    $idProduct = $_POST['idProduct'];
+                    $this->cartModel->deleteProductInCart($User_id, $idProduct);
+               }
+          }
      }
 }
