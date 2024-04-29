@@ -131,7 +131,7 @@
                             //ham xu ly so tien
                             function product_price($priceFloat)
                             {
-                                $symbol = 'đ';
+                                $symbol = ' ₫';
                                 $symbol_thousand = '.';
                                 $decimal_place = 0;
                                 $price = number_format($priceFloat, $decimal_place, '', $symbol_thousand);
@@ -167,6 +167,7 @@
 
                         <div class="cart_select_items">
                             <?php
+
                             foreach ($productsInCart as $cartProduct) {
                                 foreach ($products as $product) {
                                     if ($cartProduct->idProduct == $product->id) {
@@ -177,27 +178,26 @@
                                     }
                                 }
 
-                            ?>
 
-                                <div class="cart_item">
+
+                                echo ' <div class="cart_item">
                                     <div class="cart_item_thumb">
                                         <a href="#">
-                                            <img style="object-fit: cover;width: 100%; height: 100%;" src="./resources/images/products/<?php echo $cartProduct->thumb_image ?>" />
+                                            <img style="object-fit: cover;width: 100%; height: 100%;" src="./resources/images/products/' . $cartProduct->thumb_image . '" />
                                         </a>
                                     </div>
                                     <div class="cart_item_caption">
                                         <a href="#">
-                                            <h4 class="product_title"><?php echo $cartProduct->name ?></h4>
+                                            <h4 class="product_title">' . $cartProduct->name . '</h4>
                                         </a>
-                                        <span class="number_of_item">Số lượng: <?php echo $cartProduct->quantity ?></span>
-                                        <strong class="cart_item_price"><?php echo $cartProduct->price ?></strong>
+                                        <span class="number_of_item">Số lượng: <input type="number" name="soLuong" class="product_quantity" min="1" max="' . $cartProduct->stock . '" value="' . $cartProduct->quantity  . '"> </span>
+                                        <strong class=" cart_item_price">' . $cartProduct->price . '</strong>
 
-                                        <button class="text-danger cart_item_remove" id="delete" onclick="deleteProductInCart(<?php echo $_SESSION['login']['id'] ?>, <?php echo $cartProduct->idProduct ?>)">Xóa</button>
+                                        <button class="text-danger cart_item_remove" id="delete" onclick="deleteProductInCart(' .  $_SESSION['login']['id'] . ' , ' . $cartProduct->idProduct . ')">Xóa</button>
 
 
                                     </div>
-                                </div>
-                            <?php
+                                </div> ';
                             }
                             ?>
                         </div>
@@ -230,5 +230,68 @@
                 location.reload();
             }
         });
+    }
+
+    //add a function to check the quantity input from user
+    function checkQuantityInput(event) {
+        var quantity = parseInt(event.target.value);
+        var stock = parseInt(event.target.getAttribute('max'));
+        if (quantity > stock || quantity < 1 || quantity == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Số lượng không hợp lệ',
+                text: "Số lượng phải nằm trong khoảng từ 1 đến " + stock,
+            });
+            event.target.value = 1;
+        }
+
+
+    }
+
+    //add an event listener to check all quantity inputs
+    document.addEventListener('DOMContentLoaded', function() {
+        var quantityInputs = document.querySelectorAll('.product_quantity');
+        quantityInputs.forEach(function(input) {
+            input.addEventListener('input', checkQuantityInput);
+
+        });
+
+
+    });
+
+    //add a function to calculate the total price of the cart
+    function calculateTotalPrice() {
+        var quantityInputs = document.querySelectorAll('.product_quantity');
+        var currentTotal = 0;
+
+        quantityInputs.forEach(function(input) {
+            var quantity = parseInt(input.value);
+            var priceElement = input.closest('.cart_item').querySelector('.cart_item_price');
+            var price = parseInt(priceElement.innerText);
+            var total = quantity * price;
+            currentTotal += total;
+        });
+
+        document.querySelector('.cartSub').innerText = formatCurrency(currentTotal);
+        document.querySelector('.cartTotal').innerText = formatCurrency(currentTotal);
+
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var quantityInputs = document.querySelectorAll('.product_quantity');
+        quantityInputs.forEach(function(input) {
+            input.addEventListener('input', calculateTotalPrice);
+        });
+
+        calculateTotalPrice();
+    });
+
+    //a function to format the price to vnd
+    function formatCurrency(number) {
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(number);
     }
 </script>
