@@ -1,6 +1,6 @@
 <section>
     <div class="container">
-        <form action="" method="post">
+        <form action="Cart/buyNow" method="post">
             <div class="row">
                 <div class="col-lg-7 col-md-12">
                     <!-- Heading -->
@@ -11,30 +11,30 @@
                         <!-- Name -->
                         <div class="col-12">
                             <div class="form-group">
-                                <p> <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên" required> </p>
+                                <p> <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên" onblur="validation('name_result', this.value)" required> </p>
                             </div>
                             <div>
-                                <span class="text-danger" style="color:#00ffff"></span>
+                                <span class=" text-danger" id="name_result"></span>
                             </div>
                         </div>
 
                         <!-- Phone -->
                         <div class="col-12">
                             <div class="form-group">
-                                <p> <input type="phone" class="form-control" id="phone" name="phone" placeholder="Số điện thoại" required> </p>
+                                <p> <input type="phone" class="form-control" id="phone" name="phone" placeholder="Số điện thoại" onblur="validation('phone_result', this.value)" required> </p>
                             </div>
                             <div>
-                                <span class="text-danger" style="color:#00ffff"></span>
+                                <span class="text-danger" id="phone_result"></span>
                             </div>
                         </div>
 
                         <!-- Email -->
                         <div class="col-12">
                             <div class="form-group">
-                                <p> <input type="email" class="form-control" id="email" name="email" placeholder="Email" required> </p>
+                                <p> <input type="email" class="form-control" id="email" name="email" placeholder="Email" onblur="validation('email_result', this.value)"> </p>
                             </div>
                             <div>
-                                <span class="text-danger" style="color:#00ffff"></span>
+                                <span class="text-danger" id="email_result"></span>
                             </div>
                         </div>
 
@@ -49,17 +49,18 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <p> <label for="province">Tỉnh/Thành phố</label> </p>
-                                <p> <select class="input_search province" id="province" required>
-                                        <option value>Bạn chưa chọn</option>
+                                <p> <select class="input_search province" id="province" name="province" onblur="validation('province_result', this.value)" required>
+                                        <option selected>Bạn chưa chọn</option>
                                         <!-- dung vong lap de in ra cac tinh thanh -->
 
 
                                     </select>
                                 </p>
+                                <input type="hidden" name="province_name" id="province_name">
                             </div>
 
                             <div>
-                                <span class="text-danger" style="color:#00ffff"></span>
+                                <span class="text-danger" id="province_result"></span>
                             </div>
                         </div>
 
@@ -67,16 +68,17 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <p> <label for="district">Quận/Huyện</label> </p>
-                                <p> <select class="input_search district" id="district" required>
+                                <p> <select class="input_search district" id="district" name="district" onblur="validation('district_result', this.value)" required>
 
                                         <!-- chon tinh in ra huyen tuong ung php -->
 
                                     </select>
                                 </p>
+                                <input type="hidden" name="district_name" id="district_name">
                             </div>
 
                             <div>
-                                <span class="text-danger" style="color:#00ffff"></span>
+                                <span class="text-danger" id="district_result"></span>
                             </div>
                         </div>
 
@@ -84,26 +86,27 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <p> <label for="ward">Phường/Xã</label> </p>
-                                <p> <select class="input_search ward" id="ward" required>
+                                <p> <select class="input_search ward" id="ward" name="ward" onblur="validation('ward_result', this.value)" required>
 
                                         <!-- chon huyen in ra xa tuong ung !-->
                                     </select>
                                 </p>
+                                <input type="hidden" name="ward_name" id="ward_name">
                             </div>
 
                             <div>
-                                <span class="text-danger" style="color:#00ffff"></span>
+                                <span class="text-danger" id="ward_result"></span>
                             </div>
                         </div>
 
                         <!-- Address Detail -->
                         <div class="col-12">
                             <div class="form-group">
-                                <p> <input type="text" class="form-control" id="address_detail" name="address_detail" placeholder="Địa chỉ chi tiết" required> </p>
+                                <p> <input type="text" class="form-control" id="address_detail" name="address_detail" placeholder="Địa chỉ chi tiết" onblur="validation('address_result', this.value)" required> </p>
                             </div>
 
                             <div>
-                                <span class="text-danger" style="color:#00ffff"></span>
+                                <span class="text-danger" id="address_result"></span>
                             </div>
                         </div>
 
@@ -162,6 +165,8 @@
                             <h6>
                                 Tổng Tiền
                                 <span class="cartTotal"><?php echo product_price($total_price) ?></span>
+                                <!-- add a hidden input to store the total price -->
+                                <input type="hidden" name="cartTotal" id="cartTotal" value="<?php echo $total_price; ?>">
                             </h6>
                         </div>
 
@@ -216,6 +221,8 @@
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script src="./resources/js/filter-province.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     //add a function to remove an item out a cart and reload the page
     function deleteProductInCart(User_id, idProduct) {
@@ -278,6 +285,7 @@
 
     }
 
+    //add an event listener to calculate the total price of the cart
     document.addEventListener('DOMContentLoaded', function() {
         var quantityInputs = document.querySelectorAll('.product_quantity');
         quantityInputs.forEach(function(input) {
@@ -287,11 +295,100 @@
         calculateTotalPrice();
     });
 
+    //add a jQuery code to pass the value of total price to the hidden input field
+    $('.product_quantity').on('input', function() {
+        // Calculate the new total price
+        var newTotalPrice = calculateTotalPrice();
+
+        // Update the cartTotal span
+        $('.cartTotal').text(newTotalPrice);
+
+        // Update the hidden input field
+        $('#cartTotal').val(newTotalPrice);
+    });
+
     //a function to format the price to vnd
     function formatCurrency(number) {
         return new Intl.NumberFormat('vi-VN', {
             style: 'currency',
             currency: 'VND'
         }).format(number);
+    }
+
+    //function validation shipping information
+    function validation(field, value) {
+        //check the name
+        if (field == 'name_result') {
+            if (value.length < 4) {
+                $('#name_result').html('Tên phải lớn hơn 4 ký tự');
+            } else if (value.length > 40) {
+                $('#name_result').html('Tên không được quá 40 ký tự');
+            } else if (!/^[a-zA-Z ]+$/.test(value)) {
+                $('#name_result').html('Tên không được chứa ký tự đặc biệt hoặc số');
+            } else {
+                $('#name_result').html('');
+            }
+        }
+
+        //check the phone number
+        if (field == 'phone_result') {
+            if (!/^0(\d{9}|9\d{8})$/.test(value)) {
+                $('#phone_result').html('Số điện thoại không hợp lệ');
+            } else {
+                $('#phone_result').html('');
+            }
+        }
+
+        //check the email
+        if (field == 'email_result') {
+            if (value == '') {
+                $('#email_result').html('');
+            } else {
+                if (!/([\w\-]+\@[\w\-]+\.[\w\-]+)/.test(value)) {
+                    $('#email_result').html('Email không hợp lệ');
+                } else if (value.length > 40) {
+                    $('#email_result').html('Email dài quá 40 ký tự');
+                } else {
+                    $('#email_result').html('');
+                }
+            }
+
+        }
+
+        //check selected item of combobox province
+        if (field == 'province_result') {
+            if (value == 'Bạn chưa chọn') {
+                $('#province_result').html('Vui lòng chọn Tỉnh/Thành phố');
+            } else {
+                $('#province_result').html('');
+            }
+        }
+
+        //check selected item of combobox district
+        if (field == 'district_result') {
+            if (value == '') {
+                $('#district_result').html('Vui lòng chọn Quận/Huyện');
+            } else {
+                $('#district_result').html('');
+            }
+        }
+
+        //check selected item of combobox ward
+        if (field == 'ward_result') {
+            if (value == '') {
+                $('#ward_result').html('Vui lòng chọn Phường/Xã');
+            } else {
+                $('#ward_result').html('');
+            }
+        }
+
+        //check the address detail
+        if (field == 'address_result') {
+            if (value.length < 4) {
+                $('#address_result').html('Địa chỉ phải lớn hơn 4 ký tự');
+            } else if (value.length > 40) {
+                $('#address_result').html('Địa chỉ không được quá 40 ký tự');
+            }
+        }
     }
 </script>
