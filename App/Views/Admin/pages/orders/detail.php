@@ -399,6 +399,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             <?php
                                 }
                             }
+                        }
                             ?>
                         </tbody>
                     </table>
