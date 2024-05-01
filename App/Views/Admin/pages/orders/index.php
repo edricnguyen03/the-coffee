@@ -55,12 +55,12 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Customer</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Payment Status</th>
-                                <th scope="col">Order Status</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Detail</th>
+                                <th scope="col">Khách hàng</th>
+                                <th scope="col">Số tiền</th>
+                                <th scope="col">Tình trạng thanh toán</th>
+                                <th scope="col">Tình trạng đơn hàng</th>
+                                <th scope="col">Ngày</th>
+                                <th scope="col">Chi tiết</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -100,9 +100,9 @@ require_once('./App/Views/Admin/layouts/header.php');
 
                                             <td>
                                                 <?php if ($order['payment_status'] == '1') { ?>
-                                                    <button class="btn btn-success" disabled>Active</button>
+                                                    <button class="btn btn-success" disabled>Đã thanh toán</button>
                                                 <?php } else { ?>
-                                                    <button class="btn btn-danger" disabled>Inactive</button>
+                                                    <button class="btn btn-danger" disabled>Chưa thanh toán</button>
                                                 <?php } ?>
                                             </td>
                                             <td>
@@ -187,9 +187,9 @@ require_once('./App/Views/Admin/layouts/header.php');
 
                                         <td>
                                             <?php if ($order['payment_status'] == '1') { ?>
-                                                <button class="btn btn-success" disabled>Active</button>
+                                                <button class="btn btn-success" disabled>Đã thanh toán</button>
                                             <?php } else { ?>
-                                                <button class="btn btn-danger" disabled>Inactive</button>
+                                                <button class="btn btn-danger" disabled>Chưa thanh toán</button>
                                             <?php } ?>
                                         </td>
                                         <td>

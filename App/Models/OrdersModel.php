@@ -24,13 +24,10 @@ class OrdersModel
      {
           try {
                global $db;
-               $result = $db->get(table: "orders", fields : "id",condition: "order_id = " . $this->orderId);
-               $orders = [];
-               foreach ($result as $row) {
-                    $order = (object) $row;
-                    $orders[] = $order;
-               }
-               return $orders;
+               $result = $db->get("orders", "*", "id = $this->orderId");
+               $row = $result[0];
+               $order = (object) $row;
+               return $order;
           } catch (Exception $e) {
                return $e->getMessage()." OrdersModel, getOrdersId exception";
           }
