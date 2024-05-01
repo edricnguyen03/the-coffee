@@ -87,6 +87,23 @@ class OrderController extends Controller
         // Your code to delete the user from the database based on $userId
     }
 
+    public function updateStatus()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $orderId = $_POST['orderId'];
+            $status = $_POST['orderStatus'];
+            $this->orderModel->setOrderId($orderId);
+            if ($status == 5) { // nếu hủy đơn hàng thì trả lại số lượng sản phẩm
+                $order_products = $this->ordersProducts->getOrderProducts2($orderId);
+                foreach ($order_products as $order_product) {
+                    $this->productModel->changeStock($order_product['product_id'], -$order_product['qty']);
+                }
+            }
+            $result = $this->orderModel->updateStatus($status);
+            echo $result;
+        }
+    }
+
     public function alert()
     {
         $this->view('/alert',);

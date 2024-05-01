@@ -193,7 +193,6 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             <?php } ?>
                                         </td>
                                         <td>
-                                            <?php if ($order['order_status'] = 1)  ?>
                                             <?php if ($order['order_status'] == 1) { ?>
                                                 <span style="color: #0d6efd;">Đang chờ xử lý</span>
                                             <?php } elseif ($order['order_status'] == 2) { ?>

@@ -33,4 +33,14 @@ class OrdersModel
           }
      }
 
+     public function updateStatus($status){
+          try {
+               global $db;
+               $result = $db->update("orders", ["order_status" => $status], "id = $this->orderId");
+               return $result;
+          } catch (Exception $e) {
+               return $e->getMessage()." OrdersModel, updateStatus exception";
+          }
+     }
+
 }

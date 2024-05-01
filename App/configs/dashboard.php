@@ -66,6 +66,7 @@ $routes['admin/permission/delete'] = 'admin/PermissionController/delete';
 $routes['admin/order'] = 'admin/OrderController/index';
 $routes['admin/order/alert'] = 'admin/OrderController/alert';
 $routes['admin/order/detail'] = 'admin/OrderController/edit';
+$routes['admin/order/updateStatus'] = 'admin/OrderController/updateStatus'; // cái này của tiến viêt thêm nè
 
 
 //Receipt

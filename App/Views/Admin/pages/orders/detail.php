@@ -442,14 +442,14 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                                 echo '<p class="order-status"><strong>Trạng thái đơn hàng:</strong><span style="color: red;">Đã hủy</span></p>';
                                             } else {
                                                 echo '<p class="order-status"><strong>Trạng thái đơn hàng:</strong></p>';
-                                                echo '<select id="selectBox" class="form-select">';
+                                                echo '<select id="cbbTrangThaiDonHang" class="form-select">';
                                                 echo '<option value="1" ' . ($order->order_status == '1' ? 'selected' : '') . '>Đang chờ xử lý</option>';
                                                 echo '<option value="2" ' . ($order->order_status == '2' ? 'selected' : '') . '>Đã xác nhận và sẵn sàng giao hàng</option>';
                                                 echo '<option value="3" ' . ($order->order_status == '3' ? 'selected' : '') . '>Đang giao hàng</option>';
                                                 echo '<option value="4" ' . ($order->order_status == '4' ? 'selected' : '') . '>Đã giao hàng</option>';
                                                 echo '<option value="5" ' . ($order->order_status == '5' ? 'selected' : '') . '>Đã hủy</option>';
                                                 echo '</select>';
-                                                echo '<button class="btn btn-success mt-3">Lưu</button>';
+                                                echo '<button id="btn-LuuTrangThaiDonHang" class="btn btn-success mt-3">Lưu</button>';
                                             } ?>
                                         </div>
                                     </div>
@@ -469,6 +469,52 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
     </div>
     <script src="./../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./../../../resources/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 
 </html>
+<script>
+    addEventListener('DOMContentLoaded', function() {
+        const btnLuuTrangThaiDonHang = document.getElementById('btn-LuuTrangThaiDonHang');
+        const cbbTrangThaiDonHang = document.getElementById('cbbTrangThaiDonHang');
+        const orderId = <?php echo $order->id; ?>;
+        btnLuuTrangThaiDonHang.addEventListener('click', function() {
+            const orderStatus = cbbTrangThaiDonHang.value;
+            const data = {
+                orderId: orderId,
+                orderStatus: orderStatus
+            };
+            // Use SweetAlert to confirm the status change
+            Swal.fire({
+                title: 'Xác nhận đổi trạng thái đơn hàng',
+                text: 'Đơn hàng đã hủy hoặc giao thành công sẽ không thể đổi nữa ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/the-coffee/admin/order/updateStatus',
+                        type: 'POST',
+                        data: data,
+                        success: function(response) {
+                            if (response == true) {
+                                Swal.fire('Success', 'Cập nhật trạng thái đơn hàng thành công', 'success').then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire('Error', 'Cập nhật trạng thái đơn hàng thất bại\n' + response, 'error');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire('Error', 'Cập nhật trạng thái đơn hàng thất bại\n' + error, 'error');
+                        }
+                    });
+                }
+            });
+    });
+    });
+</script>
