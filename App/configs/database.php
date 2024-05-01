@@ -1,7 +1,7 @@
 <?php
 $config['database'] = [
      'servername' => 'localhost',
-     'dbname' => 'the-coffe',
+     'dbname' => 'the-coffee',
      'username' => 'root',
      'password' => ''
 ];

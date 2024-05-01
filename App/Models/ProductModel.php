@@ -102,4 +102,14 @@ class ProductModel
         }
         return $sanPhams;
     }
+
+    public function changeStock($id, $quantity)
+    {
+        global $db;
+        $product = $db->get("products", "*", "id = $id")[0];
+        $stock = $product['stock'];
+        $stock -= $quantity;
+        $result = $db->update("products", ["stock" => $stock], "id = $id");
+        return $result;
+    }
 }
