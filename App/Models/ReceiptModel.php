@@ -23,11 +23,25 @@ class ReceiptModel
     //     return "notFound";
     // }
 
-    public function getReceiptById($userId)
+    public function getReceiptById($receiptId)
     {
         global $db;
-        $user = $db->get('users', '*', 'id = ' . $userId);
-        return $user;
+        $receipts = $db->get('receipts', '*', 'id = ' . $receiptId);
+        return $receipts;
+    }
+
+    public function getReceiptNameById($receiptId)
+    {
+        global $db;
+        $receiptName = $db->get('receipts', 'name', 'id = ' . $receiptId);
+        return $receiptName;
+    }
+
+    public function getProviderIdById($receiptId)
+    {
+        global $db;
+        $receiptName = $db->get('receipts', 'provider_id', 'id = ' . $receiptId);
+        return $receiptName;
     }
 
     public function getAllReceipts()
@@ -97,10 +111,10 @@ class ReceiptModel
         return true;
     }
 
-    public function deleteReceipt($userId)
+    public function deleteReceipt($receiptId)
     {
         global $db;
-        $db->delete('users', 'id = ' . $userId);
+        $db->delete('receipts', 'id = ' . $receiptId);
         return true;
     }
 }

@@ -50,10 +50,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Thêm sản phẩm</a>
-                            </li>
+                                <a href="../../provider/create" class="sidebar-link">Thêm sản phẩm</a>
+                            </li>provider
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../provider/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -63,7 +63,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../order/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -329,6 +329,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                     </tr>
                                     <?php
                                     }
+                                }
                             } else {
                                 $query = $db->query("SELECT * FROM orders");
                                 

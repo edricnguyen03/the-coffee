@@ -58,23 +58,74 @@ class ReceiptController extends Controller {
             ];
             // var_dump($data);
             // die();
-            if ($this->receiptModel->insertReceipt($data)) {
-                $this->view('/Admin/pages/receipts/create', ['success' => 'Nhập hàng thành công']);
+            if ($this->receiptModel->insertReceipt($data)) { 
+                $_SESSION['success'] = 'Thêm đơn nhập hàng thành công';
+                header('Location: /the-coffee/admin/receipt/index');
+                exit();
                 //tao session
                 //them exit()
             } else {
-                $this->view('/Admin/pages/receipts/create', ['error' => 'Nhập hàng thất bại']);
+                $_SESSION['error'] = 'Xóa đơn nhập hàng thất bại';
             };
         }  
     }
 
     // Function to edit an existing user in the database
-    public function edit($userId, $newUserData)
+    public function edit($receiptId)
     {
-        // Your code to update the user data in the database based on $userId with $newUserData
+        
+        $receipt = $this->receiptModel->getReceiptById($receiptId);
+       
+        $this->data['name'] = $this->receiptModel->getReceiptNameById($receiptId);
+        $this->data['nameOfProvider'] = $this->providerModel->getAllProvidersName();
+        $this->data['providerId'] = $this->receiptModel->getProviderIdById($receiptId);
+        $this->data['receiptId'] = $receiptId;
+        $this->data['receipt'] = $receipt[0];
+        $this->view('/Admin/pages/receipts/edit', $this->data);
+        // Redirect to the index page or show a success message
+    
     }
-    public function delete($userId)
+    
+    public function update($receiptId)
     {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $name = $_POST['name'];
+            $providerId = $_POST['provider'];
+            $total = $_POST['total'];
+
+            $updateData = [
+                'name' => $name,
+                'provider_id' => $providerId,
+                'total' => $total,
+            ];
+            if ($this->receiptModel->updateReceipt($receiptId, $updateData)) {
+                $receipt = $this->receiptModel->getReceiptById($receiptId);
+                $this->data['name'] = $this->receiptModel->getReceiptNameById($receiptId);
+                $this->data['receipt'] = $receipt[0];
+                $this->data['providerId'] = $providerId;
+                $this->data['nameOfProvider'] = $this->providerModel->getAllProvidersName();
+                $_SESSION['success'] = 'Chỉnh sửa đơn nhập hàng thành công';
+                $this->view('/Admin/pages/receipts/edit', $this->data);
+                exit();
+            } else {
+                $this->view('/Admin/pages/receipts/edit', ['error' => 'Chỉnh sửa đơn nhập hàng thất bại']);
+            };
+        }
+    }
+
+    public function delete($receiptId)
+    {
+        if($this->receiptModel->deleteReceipt($receiptId)){
+            // If the deletion was successful, save success message to session
+            $_SESSION['success'] = 'Xóa đơn nhập hàng thành công';
+            // Then redirect to the index page
+            header('Location: /the-coffee/admin/receipt/');
+            exit();
+        } else {
+            // If the deletion failed, show an error message and stay on the current page
+            // You can also save the error message to session and display it on the current page
+            $_SESSION['error'] = 'Xóa đơn nhập hàng thất bại';
+        }
         // Your code to delete the user from the database based on $userId
     }
 

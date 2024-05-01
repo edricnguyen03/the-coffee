@@ -1,5 +1,16 @@
 <?php
-
+// Start the session
+// Check if the user is logged in
+if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+    // If not, display an alert message and redirect them to the login page
+    // header('Location: alert');
+    header('Location: ../../../Login_Regis/logout');
+    exit;
+} else if ($_SESSION['login']['role'] != 1) {
+    // If not, redirect them to the login page
+    header('Location: ../alert');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +29,7 @@
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar" class="js-sidebar sticky-top vh-100">
+        <aside id="sidebar" class="js-sidebar">
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
@@ -57,6 +68,20 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- //receipt -->
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#receipts" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
+                            Phiếu nhập
+                        </a>
+                        <ul id="#receipts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../receipt/create" class="sidebar-link">Thêm phiếu nhập</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../receipt/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
                             Người dùng
@@ -67,6 +92,45 @@
                             </li>
                             <li class="sidebar-item">
                                 <a href="../../user/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-truck pe-2"></i>
+                            Nhà cung cấp
+                        </a>
+                        <ul id="provider" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../provider/create" class="sidebar-link">Thêm nhà cung cấp</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../provider/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#role" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-user-shield"></i>
+                            Vai trò
+                        </a>
+                        <ul id="role" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../role/create" class="sidebar-link">Thêm vai trò</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../role/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#permission" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>
+                            Phân quyền
+                        </a>
+                        <ul id="permission" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../permission/create" class="sidebar-link">Thêm phân quyền</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../permission/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -112,57 +176,61 @@
                     </ul>
                 </div>
             </nav>
-            <main class="content px-3 py-2">
-                <div class="text-center my-3 py-2">
-                    <h3>QUẢN LÝ NGƯỜI DÙNG</h3>
+    <main class="content px-3 py-2">
+        <div class="text-center my-3 py-2">
+                    <h3>QUẢN LÝ ĐƠN NHẬP HÀNG</h3>
                 </div>
                 <div class="container-fluid">
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title my-3 py-2">
-                                Chinh sửa người dùng
+                                Chinh sửa đơn nhập hàng
                             </h5>
                         </div>
                         <div class="card-body">
-                            <div class="alert alert-danger text-center " style="display: none;" role="alert">
-                            </div>
-                            <div class="alert alert-success text-center" style="display: none;" role="alert">
-                            </div>
-                            <form id="edit_user" method="POST">
+                            <?php if (isset($error)) : ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <?php echo $error; ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (isset($_SESSION['success'])) : ?>
+                                <div class="alert alert-success text-center" role="alert">
+                                    <?php echo $_SESSION['success']; ?>
+                                </div>
+                                <?php unset($_SESSION['success']); ?>
+                            <?php endif; ?>
+                            <form action="../update/<?php echo $receipt['id'] ?>" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input value="<?php echo $user['name'] ?>" type="text" class="form-control" id="name" name="name" required>
-                                    <span class="error" id="name_error" style="color: red;"></span>
+                                    <input value="<?php echo $nameOfReceipt = $name[0]['name']; ?> " type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="provider" class="form-label">Provider</label>
+                                    <select id="select" class="form-select" id="provider" name="provider" required>
+                                    <?php
+                                             
+                                            $names = array_map(function ($row) {
+                                                return $row['name'];
+                                            }, $nameOfProvider);
+                                            foreach($names as $id => $name){
+                                            $id=$id+1;
+                                            if ($id == $providerId){
+                                                echo "<option value=\"$id\" selected>$name</option>\n";
+                                            }
+                                            else {
+                                                echo "<option value=\"$id\">$name</option>\n";
+                                            }
+                                            
+                                        }
+                                        ?>
+                                    </select>
+                                <!-- nhập sản phẩm -->
+                                <br> <br>
                                 </div>
                                 <div class=" mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input value="<?php echo $user['email'] ?>" type="email" class="form-control" id="email" name="email" required>
-                                    <span class="error" id="email_error" style="color: red;"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                    <span class="error" id="password_error" style="color: red;"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                                    <span class="error" id="confirm_password_error" style="color: red;"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select value="<?php echo $user['status'] ?>" class="form-select" id="status" name="status" required>
-                                        <option value="1" <?php echo $user['status'] == 1 ? 'selected' : ''; ?>>Active</option>
-                                        <option value="0" <?php echo $user['status'] == 0 ? 'selected' : ''; ?>>Inactive</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="role_id" class="form-label">Role ID</label>
-                                    <select class="form-select" id="role_id" name="role_id" required>
-                                        <option value="1" <?php echo $user['role_id'] == 1 ? 'selected' : ''; ?>>Super Admin</option>
-                                        <option value="2" <?php echo $user['role_id'] == 2 ? 'selected' : ''; ?>>User</option>
-                                    </select>
+                                    <label for="total" class="form-label">Total</label>
+                                    <input value="<?php echo $receipt['total'] ?>" type="text" class="form-control" id=" total" name="total" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
                             </form>

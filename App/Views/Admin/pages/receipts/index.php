@@ -109,8 +109,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <td><?php echo $receipt['total']; ?></td>
                                         <td><?php echo $receipt['create_at']; ?></td>
                                         <td>
-                                            <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
+                                            <a href="edit/<?php echo $receipt['id']; ?>" class="btn btn-primary">Edit</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa đơn nhập hàng này không ?')" href="delete/<?php echo $receipt['id']; ?>" class="btn btn-danger">Delete</a>
                                     </tr>
                             <?php
                                 }
