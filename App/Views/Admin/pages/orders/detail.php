@@ -63,7 +63,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../order/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>

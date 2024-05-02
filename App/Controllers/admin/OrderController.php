@@ -41,44 +41,19 @@ class OrderController extends Controller
         $oderProducts = $this->ordersProducts->getOrderProducts2($orderId);
         $this->orderModel->setOrderId($orderId);
         $order = $this->orderModel->getOrdersById();
-        //echo '<pre>';
-        // print_r($oderProducts);
-        // echo '<pre>'; ;
-
-        // $nameOfProduct = array_map(function ($row) {
-        //     return $row['product_name'];
-        // }, $oderProducts);
-
-        // $price = array_map(function ($row) {
-        //     return $row['product_price'];
-        // }, $oderProducts);
-
-        // $quantity = array_map(function ($row) {
-        //     return $row['qty'];
-        // }, $oderProducts);
-        // echo '<pre>';
-        // print_r($nameOfProduct);
-        // echo '<pre>'; ;
-
-        // foreach($nameOfProduct as $key => $value){
-        //     $this->data['name'.$key] = $value;
-        // }
-        // foreach($price as $key => $value){
-        //     $this->data['price'.$key] = $value;
-        // }
-        // foreach($quantity as $key => $value){
-        //     $this->data['qty'.$key] = $value;
-        // }
-        // echo '<pre>';
-        // print_r($this->data);
-        // echo '<pre>'; ;
 
         foreach ($oderProducts as &$orderProduct) {
             $orderProduct['thumb_image'] = $this->productModel->getById($orderProduct['product_id'])->thumb_image;
         }
+        // echo '<pre>';
+        // print_r($oderProducts);
+        // echo '<pre>'; ;
 
         $this->data['orderProducts'] = $oderProducts;
         $this->data['order'] = $order;
+        // echo '<pre>';
+        // print_r($this->data['order']);
+        // echo '<pre>'; ;
         $this->view('/Admin/pages/orders/detail', $this->data);
         // Redirect to the index page or show a success message
     }
