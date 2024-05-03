@@ -19,14 +19,20 @@ class Orders extends Controller
                $userId = $_SESSION['login']['id'];
                $this->ordersModel->setUserId($userId);
                $orderId = $this->ordersModel->getOrdersId();
-               if (!isset($orderId)) {
-                    $order_product = $this->orderProductsModel->getOrderProducts($orderId[0]->id);
-                    $data['orders'] = $orderId;
-                    $data['order'] = $this->ordersModel->getOrder($orderId[0]->id);
-                    $data['order_products'] = $order_product;
-                    $this->view('/Client/Orders', $data);
+               if (isset($orderId)){
+                    if(!empty($orderId)){
+                         $order_product = $this->orderProductsModel->getOrderProducts($orderId[0]->id);
+                         $data['orders'] = $orderId;
+                         $data['order'] = $this->ordersModel->getOrder($orderId[0]->id);
+                         $data['order_products'] = $order_product;
+                         $this->view('/Client/Orders', $data);
+                    }else{
+                         $data['orders'] = $orderId;
+                         $this->view('/Client/Orders', $data);
+                    }
+               } else {
+                    $this->__loadError();
                }
-               $this->__loadError();
           }
      }
      public function detail($id = -1)
