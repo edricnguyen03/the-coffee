@@ -9,6 +9,18 @@ $routes['admin/logout'] = 'Login_Regis/Logout';
 //Dashboard
 $routes['admin/dashboard'] = 'admin/Dashboard/index';
 
+// Product
+$routes['admin/product'] = 'admin/ProductController/index';
+$routes['admin/product/search'] = 'admin/ProductController/search';
+$routes['admin/product/alert'] = 'admin/ProductController/alert';
+//Create product
+$routes['admin/product/create'] = 'admin/ProductController/create';
+$routes['admin/product/store'] = 'admin/ProductController/store';
+//Update product
+$routes['admin/product/edit'] = 'admin/ProductController/edit';
+$routes['admin/product/update'] = 'admin/ProductController/update';
+//Delete product
+$routes['admin/product/delete'] = 'admin/ProductController/delete';
 
 
 // User

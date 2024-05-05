@@ -32,7 +32,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="#">THE COFFEE</a>
+                    <a href="../../">THE COFFEE</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
@@ -50,10 +50,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Thêm sản phẩm</a>
+                                <a href="../product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../product/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>

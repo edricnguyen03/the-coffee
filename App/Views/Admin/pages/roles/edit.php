@@ -32,7 +32,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="#">THE COFFEE</a>
+                    <a href="../../../">THE COFFEE</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
@@ -81,15 +81,15 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </ul>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-truck pe-2"></i>
-                            Nhà cung cấp
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                            Sản phẩm
                         </a>
-                        <ul id="provider" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="../../provider/create" class="sidebar-link">Thêm nhà cung cấp</a>
+                                <a href="../../product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../../provider/" class="sidebar-link">Danh sách</a>
+                                <a href="../../product/ " class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
