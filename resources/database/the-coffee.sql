@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 24, 2024 lúc 01:47 PM
+-- Thời gian đã tạo: Th5 07, 2024 lúc 05:41 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `carts` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `cart_items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`cart_items`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -105,8 +105,6 @@ CREATE TABLE `order_products` (
   `id` bigint(20) NOT NULL,
   `order_id` bigint(20) NOT NULL,
   `product_id` bigint(20) NOT NULL,
-  `product_price` double NOT NULL,
-  `product_name` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -114,19 +112,19 @@ CREATE TABLE `order_products` (
 -- Đang đổ dữ liệu cho bảng `order_products`
 --
 
-INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `product_price`, `product_name`, `qty`) VALUES
-(1, 1, 1, 80000, 'Tri ân thầy cô', 1),
-(2, 1, 3, 20000, 'Cà Phê Hòa Tan Đậm Vị Việt Túi 40x16G', 1),
-(3, 2, 5, 100000, 'Cà Phê Sữa Nóng', 1),
-(4, 2, 4, 100000, 'Cà Phê Sữa Nóng', 1),
-(5, 3, 4, 100000, 'Cà Phê Sữa Đá', 3),
-(6, 4, 7, 300000, 'Cà Phê Sữa Nóng', 1),
-(7, 4, 5, 50000, 'Cà Phê Sữa Nóng', 2),
-(8, 5, 1, 500000, 'Cà Phê Sữa Nóng', 1),
-(9, 6, 3, 300000, 'Cappuccino Nóng', 2),
-(10, 7, 5, 500000, 'Cà Phê Hòa Tan Đậm Vị Việt Túi 40x16G', 1),
-(11, 7, 2, 200000, 'Cà Phê Sữa Nóng', 1),
-(12, 8, 6, 600000, 'Cà Phê Sữa Nóng', 2);
+INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `qty`) VALUES
+(1, 1, 1, 1),
+(2, 1, 3, 1),
+(3, 2, 5, 1),
+(4, 2, 4, 1),
+(5, 3, 4, 3),
+(6, 4, 7, 1),
+(7, 4, 5, 2),
+(8, 5, 1, 1),
+(9, 6, 3, 2),
+(10, 7, 5, 1),
+(11, 7, 2, 1),
+(12, 8, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -201,17 +199,15 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `slug`, `thumb_image`, `category_id`, `description`, `content`, `weight`, `price`, `status`, `stock`) VALUES
-(1, 'Tri Ân Thầy Cô 1', 'tri-an-thay-co-1', '1.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 500, 337000, 1, 148),
-(2, 'Tri Ân Thầy Cô 2', 'tri-an-thay-co-2', '2.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 390, 110000, 1, 149),
-(3, 'Tri Ân Thầy Cô 3', 'tri-an-thay-co-3', '3.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 400, 190000, 1, 97),
-(4, 'Tri Ân Thầy Cô 4', 'tri-an-thay-co-4', '4.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 150, 99000, 1, 96),
-(5, 'Tri Ân Thầy Cô 5', 'tri-an-thay-co-5', '5.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 520, 346000, 1, 96),
-(6, 'Tri Ân Thầy Cô 6', 'tri-an-thay-co-6', '6.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 430, 200000, 1, 98),
-(7, 'Tri Ân Thầy Cô 7', 'tri-an-thay-co-7', '7.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 560, 400000, 1, 99),
-(8, 'Tri Ân Thầy Cô 8', 'tri-an-thay-co-8', '8.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 770, 559000, 1, 100),
-(9, 'Tri Ân Thầy Cô 9', 'tri-an-thay-co-9', '9.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 1000, 700000, 1, 100),
-(10, 'Tri Ân Thầy Cô 10', 'tri-an-thay-co-10', '10.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 200, 95000, 1, 100),
-(11, 'Tri Ân Thầy Cô 11', 'tri-an-thay-co-11', '11.png', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 600, 500000, 1, 100);
+(1, 'Tri Ân Thầy Cô 1', 'tri-an-thay-co-1', '1.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 500, 337000, 1, 148),
+(2, 'Tri Ân Thầy Cô 2', 'tri-an-thay-co-2', '2.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 390, 110000, 1, 149),
+(3, 'Tri Ân Thầy Cô 3', 'tri-an-thay-co-3', '3.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 400, 190000, 1, 97),
+(4, 'Tri Ân Thầy Cô 4', 'tri-an-thay-co-4', '4.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 150, 99000, 1, 96),
+(5, 'Tri Ân Thầy Cô 5', 'tri-an-thay-co-5', '5.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 520, 346000, 1, 96),
+(6, 'Tri Ân Thầy Cô 6', 'tri-an-thay-co-6', '6.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 430, 200000, 1, 98),
+(7, 'Tri Ân Thầy Cô 7', 'tri-an-thay-co-7', '7.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 560, 400000, 1, 99),
+(8, 'Tri Ân Thầy Cô 8', 'tri-an-thay-co-8', '8.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 770, 559000, 1, 100),
+(9, 'Tri Ân Thầy Cô 9', 'tri-an-thay-co-9', '9.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 1000, 700000, 1, 100);
 
 -- --------------------------------------------------------
 
@@ -240,8 +236,6 @@ INSERT INTO `product_receipt` (`id`, `product_id`, `receipt_id`, `quantity`) VAL
 (7, 7, 2, 50),
 (8, 8, 2, 50),
 (9, 9, 3, 50),
-(10, 10, 3, 50),
-(11, 11, 3, 50),
 (12, 1, 3, 50),
 (13, 2, 4, 50),
 (14, 3, 4, 50),
@@ -251,8 +245,6 @@ INSERT INTO `product_receipt` (`id`, `product_id`, `receipt_id`, `quantity`) VAL
 (18, 7, 5, 50),
 (19, 8, 5, 50),
 (20, 9, 5, 50),
-(21, 10, 6, 50),
-(22, 11, 6, 50),
 (23, 1, 6, 50),
 (24, 2, 6, 50);
 
