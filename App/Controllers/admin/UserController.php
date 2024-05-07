@@ -60,6 +60,9 @@ class UserController extends Controller
     public function edit($userId)
     {
         $user = $this->userModel->getUserById($userId);
+        // echo '<pre>';
+        // print_r($user);
+        // echo '<pre>'; ;
 
         $this->data['user'] = $user[0];
         $this->view('/Admin/pages/users/edit', $this->data);

@@ -1,38 +1,46 @@
 <?php
 class OrdersModel
 {
-     private $userId;
+     private $orderId;
      function __construct()
      {
      }
-     public function setUserId($userId)
+     public function setOrderId($orderId)
      {
-          $this->userId = $userId;
+          $this->orderId = $orderId;
      }
-     public function getOrdersId()
+
+     public function getAllOrdersTitle($orderId)
+     {
+          $this->orderId = $orderId;
+     }
+
+     public function getAllProduct_idByOrderId($orderId)
+     {
+          $this->orderId = $orderId;
+     }
+
+     public function getOrdersById()
      {
           try {
                global $db;
-               $result = $db->get(table: "orders",condition: "user_id = " . $this->userId);
-               $orders = [];
-               foreach ($result as $row) {
-                    $order = (object) $row;
-                    $orders[] = $order;
-               }
-               return $orders;
-          } catch (Exception $e) {
-               return $e->getMessage()." OrdersModel, getOrdersId exception";
-          }
-     }
-     public function getOrder($id){
-          try{
-               global $db;
-               $result = $db->get(table: "orders",condition: "id = " . $id);
-               $order = (object) $result[0];
+               $result = $db->get("orders", "*", "id = $this->orderId");
+               $row = $result[0];
+               $order = (object) $row;
                return $order;
-          }catch(Exception $e){
-               echo $e->getMessage()." OrdersModel, getOrder exception";
+          } catch (Exception $e) {
+               return $e->getMessage() . " OrdersModel, getOrdersId exception";
           }
      }
 
+     public function updateStatus($status)
+     {
+          try {
+               global $db;
+               $result = $db->update("orders", ["order_status" => $status], "id = $this->orderId");
+               return $result;
+          } catch (Exception $e) {
+               return $e->getMessage() . " OrdersModel, updateStatus exception";
+          }
+     }
 }

@@ -74,4 +74,23 @@ $routes['admin/permission/update'] = 'admin/PermissionController/update';
 //Delete permission
 $routes['admin/permission/delete'] = 'admin/PermissionController/delete';
 
-$routes['base-img-url'] = 'http://localhost:8080/the-coffee/';
+//Order
+$routes['admin/order'] = 'admin/OrderController/index';
+$routes['admin/order/alert'] = 'admin/OrderController/alert';
+$routes['admin/order/detail'] = 'admin/OrderController/edit';
+$routes['admin/order/updateStatus'] = 'admin/OrderController/updateStatus'; // cái này của tiến viêt thêm nè
+
+
+//Receipt
+$routes['admin/receipt'] = 'admin/ReceiptController/index';
+$routes['admin/receipt/alert'] = 'admin/ReceiptController/alert';
+//Create Order
+$routes['admin/receipt/create'] = 'admin/ReceiptController/create';
+$routes['admin/receipt/store'] = 'admin/ReceiptController/store';
+////Update User
+$routes['admin/receipt/edit'] = 'admin/ReceiptController/edit';
+$routes['admin/receipt/update'] = 'admin/ReceiptController/update';
+//Delete User
+$routes['admin/receipt/delete'] = 'admin/ReceiptController/delete';
+
+

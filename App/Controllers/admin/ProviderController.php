@@ -21,7 +21,8 @@ class ProviderController extends Controller
     // Function to create a new provider in the database
     public function create()
     {
-        $this->view('/Admin/pages/providers/create',);
+        $this->data['name'] = $this->providerModel->getAllProvidersName();
+        $this->view('/Admin/pages/providers/create',$this->data);
     }
 
     public function store()
@@ -33,7 +34,7 @@ class ProviderController extends Controller
             // Get the current max id
             $maxId = $this->providerModel->getMaxId();
             $newId = $maxId + 1;
-
+            
             $data = [
                 'id' => $newId,
                 'name' => $name,

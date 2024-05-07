@@ -138,6 +138,7 @@ class UserModel
         $users = $db->get('users');
         return $users;
     }
+    
     public function getMaxId()
     {
         global $db;
