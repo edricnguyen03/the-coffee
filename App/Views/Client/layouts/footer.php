@@ -36,7 +36,7 @@
                         if ($_SESSION['login']['status'] == 1) {
                     ?>
                             <p>
-                                <a href="#" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
+                                <a href="/the-coffee/cart" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
                             </p>
                             <p>
                                 <a href="/the-coffee/profile" class="text-white" style="text-decoration: none;">Tài Khoản</a>
@@ -62,22 +62,22 @@
                 <div class="col-md-4 col-lg-3 mx-auto mt-3 text-center">
                     <h5 class="text-uppercase text-center mb-4 font-weight-bold text-warning">Thành Viên</h5>
                     <p>
-                        <a href="#" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Dat Nguyen</a>
+                        <a href="https://www.facebook.com/profile.php?id=100027954192211" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Dat Nguyen</a>
                     </p>
                     <p>
-                        <a href="#" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Tien Phan</a>
-                    </p>
-
-                    <p>
-                        <a href="#" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Nam Tran</a>
+                        <a href="https://www.facebook.com/profile.php?id=100009295230748" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Tien Phan</a>
                     </p>
 
                     <p>
-                        <a href="#" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Phu Tran</a>
+                        <a href="https://www.facebook.com/profile.php?id=100027954192211" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Nam Tran</a>
                     </p>
 
                     <p>
-                        <a href="#" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Huy Le</a>
+                        <a href="https://www.facebook.com/trongphu21" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Phu Tran</a>
+                    </p>
+
+                    <p>
+                        <a href="https://www.facebook.com/profile.php?id=100027954192211" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Huy Le</a>
                     </p>
                 </div>
             </div>
@@ -86,9 +86,9 @@
             <div class="row align-items-center">
                 <div class="col-md-7 col-lg-8">
                     <p>Sản phẩm được thực hiện bởi:
-                        <a href="#" style="text-decoration: none;">
+                        <span href="" style="text-decoration: none;">
                             <strong class="text-warning">Nhóm 21</strong>
-                        </a>
+                        </span>
                     </p>
                 </div>
 

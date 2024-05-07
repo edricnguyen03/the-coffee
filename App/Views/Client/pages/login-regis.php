@@ -39,7 +39,7 @@
                <div id="responseEmail" class="responseText"></div>
                <input type="password" placeholder="Mật khẩu" id='loginPassword' name="login-password">
                <div id="responsePassword" class="responseText"></div>
-               <a href="#">Quên mật khẩu ?</a>
+               <!-- <a href="#">Quên mật khẩu ?</a> Còn thời gian thì làm-->
                <button id="loginButton">Đăng Nhập</button>
           </form>
      </div>

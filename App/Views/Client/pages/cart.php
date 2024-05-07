@@ -187,14 +187,14 @@
 
                                 echo ' <div class="cart_item">
                                     <div class="cart_item_thumb">
-                                        <a href="#">
+                                        <span>
                                             <img style="object-fit: cover;width: 100%; height: 100%;" src="./resources/images/products/' . $cartProduct->thumb_image . '" />
-                                        </a>
+                                        </span>
                                     </div>
                                     <div class="cart_item_caption">
-                                        <a href="#">
+                                        <span>
                                             <h4 class="product_title">' . $cartProduct->name . '</h4>
-                                        </a>
+                                        </span>
                                         <span class="number_of_item">Số lượng: <input type="number" name="soLuong" class="product_quantity" min="1" max="' . $cartProduct->stock . '" value="' . $cartProduct->quantity  . '"> </span>
                                         <strong class=" cart_item_price">' . $cartProduct->price . '</strong>
 
