@@ -34,20 +34,26 @@
                                 <hr>
                                 <a href="/the-coffee/profile" class="sub-menu-link" id="user-profile-button">
                                     <img src="/the-coffee/resources/images/user-detail/profile.png" alt="">
-                                    <p>Edit profile</p>
+                                    <p>Tài khoản</p>
                                     <span></span>
                                 </a>
-                                <a href="#" class="sub-menu-link">
+                                <a href="/the-coffee/cart" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                    <p>Cart</p>
+                                    <p>Giỏ hàng</p>
                                     <span></span>
                                 </a>
+                                <a href="/the-coffee/orders" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
+                                    <p>Đơn hàng</p>
+                                    <span></span>
+                                </a>
+
                                 <?php
                                 if ($_SESSION['login']['role'] == 1) {
                                 ?>
                                     <a href="admin/dashboard/" class="sub-menu-link">
                                         <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                        <p>Setting</p>
+                                        <p>Cài đặt</p>
                                         <span></span>
                                     </a>
                                 <?php
@@ -55,7 +61,7 @@
                                 ?>
                                 <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
-                                    <p>Logout</p>
+                                    <p>Đăng xuất</p>
                                     <span></span>
                                 </a>
                             </div>
@@ -73,24 +79,24 @@
                                     </h3>
                                 </div>
                                 <hr>
-                                <a href="#" class="sub-menu-link">
+                                <a href="/the-coffee/profile" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/profile.png" alt="">
-                                    <p>Edit profile</p>
+                                    <p>Tài khoản</p>
                                     <span></span>
                                 </a>
-                                <a href="#" class="sub-menu-link">
+                                <a href="/the-coffee/cart" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                    <p>Cart</p>
+                                    <p>Giỏ hàng</p>
                                     <span></span>
                                 </a>
-                                <a href="#" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                    <p>Setting</p>
+                                <a href="/the-coffee/orders" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
+                                    <p>Đơn hàng</p>
                                     <span></span>
                                 </a>
                                 <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
-                                    <p>Logout</p>
+                                    <p>Đăng xuất</p>
                                     <span></span>
                                 </a>
                             </div>
@@ -99,26 +105,26 @@
                     } else if ($_SESSION['login']['status'] == -1) {
                     ?>
                         <li class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                            <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
                         </li>
                         <div class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                            <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                         </div>
                     <?php
                         unset($_SESSION['login']['status']);
                     } else if ($_SESSION['login']['status'] == 0) {
                     ?>
                         <li class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                            <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
                         </li>
                         <div class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                            <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                         </div>
                         <script>
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: "Tài khoản của bạn đã ăn global ban"
+                                text: "Tài khoản của bạn đã bị khóa !"
                             });
                         </script>
                     <?php
@@ -127,10 +133,10 @@
                 } else {
                     ?>
                     <li class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                        <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
                     </li>
                     <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                        <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                     </div>
                 <?php
                 }
@@ -177,7 +183,7 @@
     }
 
     .sub-menu {
-        background: #fff;
+        background: #f8be71;
         border-radius: 5px;
         padding: 20px;
         margin: 10px;
@@ -244,8 +250,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script>
-    const loginBtn = document.getElementById('login-btn');
-    const regisBtn = document.getElementById('regis-btn');
+    const loginBtn = document.getElementById('header-login-btn');
+    const regisBtn = document.getElementById('header-regis-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const userDetailBtn = document.getElementById('user-detail-btn');
     const inner_login_regis_form = document.getElementById('login-regis-form');
