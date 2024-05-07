@@ -142,6 +142,19 @@ class UserModel
         return $result['max_id'];
     }
 
+    public function updatePassword($userId, $newPassword)
+    {
+        global $db;
+        try {            
+            if ($db->update('users', ['password' => password_hash($newPassword, PASSWORD_DEFAULT)], 'id = ' . $userId)) {
+                return "success";
+            };
+            return "fail";
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function changePassword($userId, $currentPassword, $newPassword)
     {
         global $db;
@@ -159,7 +172,7 @@ class UserModel
             if (trim($newPassword) !== $newPassword) {
                 return 'Mật khẩu mới không được chứa khoảng trắng';
             }
-            if ($db->update('users', ['password' => $newPassword], 'id = ' . $userId)) {
+            if ($db->update('users', ['password' => password_hash($newPassword, PASSWORD_DEFAULT)], 'id = ' . $userId)) {
                 return "success";
             };
             return "fail";
