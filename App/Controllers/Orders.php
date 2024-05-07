@@ -1,14 +1,16 @@
 <?php
 class Orders extends Controller
 {
-     public $orderProductsModel;
-     public $ordersModel;
-     public $data;
+     private $orderProductsModel;
+     private $ordersModel;
+     private $data;
+     private $productModel;
 
      public function __construct()
      {
           $this->orderProductsModel = $this->model('OrderProductsModel');
           $this->ordersModel = $this->model('OrdersModel');
+          $this->productModel = $this->model('ProductModel');
           $this->data = [];
      }
      public function index()
@@ -25,6 +27,11 @@ class Orders extends Controller
                          $data['orders'] = $orderId;
                          $data['order'] = $this->ordersModel->getOrder($orderId[0]->id);
                          $data['order_products'] = $order_product;
+                         $data['product'] = [];
+                         foreach($order_product as $product){
+                              $result = $this->productModel->getById($product->product_id);
+                              array_push($data['product'],$result);
+                         }
                          $this->view('/Client/Orders', $data);
                     }else{
                          $data['orders'] = $orderId;

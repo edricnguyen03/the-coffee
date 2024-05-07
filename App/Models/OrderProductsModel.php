@@ -21,7 +21,7 @@ class OrderProductsModel
      public function getOrder_OrderProduct($id){
           global $db;
           try{
-               $result = $db->get(table:"order_products,orders",condition:"order_products.order_id = orders.id AND user_id = ".$_SESSION['login']['id']." AND order_id = ".$id);
+               $result = $db->get(table:"order_products,orders,products",condition:"order_products.order_id = orders.id AND order_products.product_id = products.id AND order_id = ".$id);
                $order_product = [];
                foreach ($result as $row) {
                     $order_product[] = (object) $row;
