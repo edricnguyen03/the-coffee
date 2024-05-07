@@ -49,6 +49,17 @@ class Cart extends Controller
         return $result;
     }
 
+    public function updateQuantityInCart(){
+        if (!isset($_SESSION['login']['id'])) {
+            require_once './App/errors/404.php';
+            return;
+        }
+        $user_id = $_SESSION['login']['id'];
+        $idProduct = $_POST['idProduct'];
+        $newQuantity = $_POST['newQuantity'];
+        $this->cartModel->updateProductQuantity($user_id, $idProduct, $newQuantity);
+    }
+
     public function buyNow()
     {
         $id = $this->orderModel->getMaxId();
@@ -62,6 +73,7 @@ class Cart extends Controller
         $total = $_POST['cartTotal'];
         $payment = 1;
         $status = 1;
+        $products = $this->cartModel->getProductsInCart($user_id);
 
         $data = [
             'id' => $id + 1,

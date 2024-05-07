@@ -83,6 +83,28 @@ class CartModel
         $db->update('carts', ['cart_items' => '[]'],  'User_id = ' . $User_id);
     }
 
+    // cập nhật số lượng sản phẩm trong giỏ hàng
+    public function updateProductQuantity($User_id, $idProduct, $newQuantity)
+    {
+        global $db;
+        $cartItems = $db->get('carts', 'cart_items', 'user_id = ' . $User_id);
+        if (!$cartItems) {
+            return false;
+        }
+
+        $cartItemsArray = json_decode(rtrim($cartItems[0]['cart_items'], '1'));
+        foreach ($cartItemsArray as &$item) {
+            if ($item->idProduct == $idProduct) {
+                $item->quantity = $newQuantity;
+                break;
+            }
+        }
+        unset($item); // Giải phóng biến tham chiếu
+
+        $db->update('carts', ['cart_items' => json_encode($cartItemsArray)], 'User_id = ' . $User_id);
+        return true;
+    }
+
     //kiem tra thong tin giao hang nhap vao
     public function validateShip($field, $val)
     {

@@ -200,7 +200,6 @@
 
                                         <button class="text-danger cart_item_remove" id="delete" onclick="deleteProductInCart(' .  $_SESSION['login']['id'] . ' , ' . $cartProduct->idProduct . ')">Xóa</button>
 
-
                                     </div>
                                 </div> ';
                             }
@@ -241,7 +240,17 @@
 
     //add a function to check the quantity input from user
     function checkQuantityInput(event) {
-        var quantity = parseInt(event.target.value);
+        try {
+            var quantity = parseInt(event.target.value);
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Số lượng không hợp lệ',
+                text: "Số lượng phải là số nguyên",
+            });
+            event.target.value = 1;
+            return;
+        }
         var stock = parseInt(event.target.getAttribute('max'));
         if (quantity > stock || quantity < 1 || quantity == "") {
             Swal.fire({
@@ -250,9 +259,8 @@
                 text: "Số lượng phải nằm trong khoảng từ 1 đến " + stock,
             });
             event.target.value = 1;
+            return;
         }
-
-
     }
 
     //add an event listener to check all quantity inputs
@@ -260,10 +268,7 @@
         var quantityInputs = document.querySelectorAll('.product_quantity');
         quantityInputs.forEach(function(input) {
             input.addEventListener('input', checkQuantityInput);
-
         });
-
-
     });
 
     //add a function to calculate the total price of the cart
@@ -272,17 +277,20 @@
         var currentTotal = 0;
 
         quantityInputs.forEach(function(input) {
+            if (input.value.includes('.')) {
+                input.value = 0;
+            }
             var quantity = parseInt(input.value);
             var priceElement = input.closest('.cart_item').querySelector('.cart_item_price');
             var price = parseInt(priceElement.innerText);
             var total = quantity * price;
             currentTotal += total;
         });
-
+        if(isNaN(currentTotal)){
+            currentTotal = 0;
+        }
         document.querySelector('.cartSub').innerText = formatCurrency(currentTotal);
         document.querySelector('.cartTotal').innerText = formatCurrency(currentTotal);
-
-
     }
 
     //add an event listener to calculate the total price of the cart
@@ -291,7 +299,6 @@
         quantityInputs.forEach(function(input) {
             input.addEventListener('input', calculateTotalPrice);
         });
-
         calculateTotalPrice();
     });
 

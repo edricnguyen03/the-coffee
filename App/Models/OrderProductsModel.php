@@ -31,4 +31,23 @@ class OrderProductsModel
                echo $e->getMessage()."OrdersProducts getOrderProducts exception";
           }
      }
+
+     public function addOrderProduct($orderId, $product, $quantity)
+     {
+          global $db;
+          try {
+               $data = [
+                    'order_id' => $orderId,
+                    'product_id' => $product->product_id,
+                    'product_price' => $product->price,
+                    'product_name'=>$product->name,
+                    'qty' => $quantity
+               ];
+               $db->insert(table: 'order_products', data: $data);
+               return true;
+          } catch (Exception $e) {
+               echo $e->getMessage() . "OrdersProducts addOrderProduct exception";
+               return false;
+          }
+     }
 }
