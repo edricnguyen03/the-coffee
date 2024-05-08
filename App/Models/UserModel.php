@@ -31,7 +31,7 @@ class UserModel
         foreach ($userArr as $user) {
             if ($user['email'] == $username && password_verify($password, $user['password']) == false) {
                 return "wrongPassword";
-            }   
+            }
             if ($user['email'] == $username && password_verify($password, $user['password']) == true) {
                 if ($user['status'] == 1) {
                     return $user['id'];
@@ -110,10 +110,14 @@ class UserModel
         }
 
         if ($field == "repassword_result") {
-            if ($val != $_SESSION['password']) {
-                $result = 'Mật khẩu không khớp';
+            if (!isset($_SESSION['password']) || $_SESSION['password'] == "") {
+                $result = 'Vui lòng nhập mật khẩu trước';
             } else {
-                $result = '<label class="text-success">Hợp lệ</label>';
+                if ($val != $_SESSION['password']) {
+                    $result = 'Mật khẩu không khớp';
+                } else {
+                    $result = '<label class="text-success">Hợp lệ</label>';
+                }
             }
         }
 

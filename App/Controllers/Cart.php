@@ -5,6 +5,7 @@ class Cart extends Controller
     public $data;
     public $productModel;
     public $orderModel;
+    public $orderProductModel;
 
 
     public function __construct()
@@ -13,6 +14,7 @@ class Cart extends Controller
         $this->data = [];
         $this->productModel = $this->model('ProductModel');
         $this->orderModel = $this->model('OrdersModel');
+        $this->orderProductModel = $this->model('OrderProductsModel');
     }
 
     public function index()
@@ -49,7 +51,8 @@ class Cart extends Controller
         return $result;
     }
 
-    public function updateQuantityInCart(){
+    public function updateQuantityInCart()
+    {
         if (!isset($_SESSION['login']['id'])) {
             require_once './App/errors/404.php';
             return;
@@ -89,18 +92,19 @@ class Cart extends Controller
 
         //goi ham o ordersmodel
         $this->orderModel->insertOrder($data);
+        foreach ($products as $product) {
+            $product->orderProductModel->addOrderProduct();
+        }
         //xoa tat ca san pham trong gio hang
         $this->cartModel->deleteAllProductInCart($user_id);
-        //them sweet alert thong bao dat hang thanh cong
-        echo "<script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Order Successful',
-            text: 'Your order has been placed successfully',
-        });
-        </script>";
+    }
 
-
-        header('Location: /the-coffee');
+    //add product to order-product
+    public function addOrderProduct()
+    {
+        $orderId = $_POST['orderId'];
+        $product = $_POST['product'];
+        $quantity = $_POST['quantity'];
+        $this->orderProductModel->addOrderProduct($orderId, $product, $quantity);
     }
 }

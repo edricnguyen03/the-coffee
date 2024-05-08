@@ -195,7 +195,7 @@
                                         <span>
                                             <h4 class="product_title">' . $cartProduct->name . '</h4>
                                         </span>
-                                        <span class="number_of_item">Số lượng: <input type="number" name="soLuong" class="product_quantity" min="1" max="' . $cartProduct->stock . '" value="' . $cartProduct->quantity  . '"> </span>
+                                        <span class="number_of_item">Số lượng: <input type="number" name="soLuong" productid = "' . $cartProduct->idProduct . '"  class="product_quantity" min="1" max="' . $cartProduct->stock . '" value="' . $cartProduct->quantity  . '"> </span>
                                         <strong class=" cart_item_price">' . $cartProduct->price . '</strong>
 
                                         <button class="text-danger cart_item_remove" id="delete" onclick="deleteProductInCart(' .  $_SESSION['login']['id'] . ' , ' . $cartProduct->idProduct . ')">Xóa</button>
@@ -238,21 +238,31 @@
         });
     }
 
+    //add a function to update the quantity of a product in the cart
+    function updateQuantity(idProduct, newQuantity) {
+        $.ajax({
+            url: '/the-coffee/Cart/updateQuantityInCart',
+            type: 'POST',
+            data: {
+                idProduct: idProduct,
+                newQuantity: newQuantity
+            },
+            success: function(response) {
+                location.reload();
+            }
+        });
+    }
+
+
+
     //add a function to check the quantity input from user
     function checkQuantityInput(event) {
-        try {
-            var quantity = parseInt(event.target.value);
-        } catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Số lượng không hợp lệ',
-                text: "Số lượng phải là số nguyên",
-            });
-            event.target.value = 1;
-            return;
-        }
+        var quantity = parseInt(event.target.value);
+
         var stock = parseInt(event.target.getAttribute('max'));
-        if (quantity > stock || quantity < 1 || quantity == "") {
+        var idProduct = event.target.getAttribute('productid'); // Get the idProduct attribute
+
+        if (quantity > stock || quantity < 1 || quantity == '') {
             Swal.fire({
                 icon: 'error',
                 title: 'Số lượng không hợp lệ',
@@ -261,7 +271,18 @@
             event.target.value = 1;
             return;
         }
+
+
+        if ((isNaN(quantity) && quantity != '') || quantity.toString().includes('.')) {
+            event.target.value = 1;
+            return;
+        }
+        //thanh cong
+        updateQuantity(idProduct, quantity);
+
     }
+
+
 
     //add an event listener to check all quantity inputs
     document.addEventListener('DOMContentLoaded', function() {
@@ -286,7 +307,7 @@
             var total = quantity * price;
             currentTotal += total;
         });
-        if(isNaN(currentTotal)){
+        if (isNaN(currentTotal)) {
             currentTotal = 0;
         }
         document.querySelector('.cartSub').innerText = formatCurrency(currentTotal);
