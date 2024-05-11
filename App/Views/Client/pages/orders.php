@@ -25,10 +25,28 @@
                                         ?>
                                                   <tr>
                                                        <th scope="row" id="order_product_no"><?php echo $id++; ?></th>
-                                                       <td style="text-align:left;" id="order_product_name"><?php echo $item->product_name; ?></td>
-                                                       <td style="text-align:right;" id="order_product_price"><?php echo $item->product_price . " VND"; ?></td>
+                                                            <td style="text-align:center;" id="order_product_name"><?php 
+                                                                 foreach ($data['product'] as $value){
+                                                                      if ($value->id == $item->product_id){
+                                                                           echo $value->name;
+                                                                      }
+                                                                 }
+                                                            ?></td>
+                                                            <td style="text-align:right;" id="order_product_price"><?php 
+                                                                 foreach ($data['product'] as $value){
+                                                                      if ($value->id == $item->product_id){
+                                                                           echo $value->price." VND";
+                                                                      }
+                                                            }
+                                                            " VND"; ?></td>
                                                        <td style="text-align:center;" id="order_product_qty"><?php echo $item->qty; ?></td>
-                                                       <td style="text-align:right;" id="order_product_total"><?php echo ($item->qty * $item->product_price) . " VND"; ?></td>
+                                                       <td style="text-align:right;" id="order_product_total"><?php 
+                                                                 foreach ($data['product'] as $value){
+                                                                      if($value->id == $item->product_id){
+                                                                           echo $value->price * $item->qty. " VND";
+                                                                      }
+                                                                 }
+                                                         ?></td>
                                                   </tr>
                                         <?php
                                              }
@@ -239,10 +257,10 @@
                     var rowHTML = '<tr>';
                     rowHTML += '<th scope="row" id="order_product_no">' + (count) + '</th>';
                     count++;
-                    rowHTML += '<td style="text-align:left;" id="order_product_name">' + data[key]['product_name'] + '</td>';
-                    rowHTML += '<td style="text-align:right;" id="order_product_price">' + data[key]['product_price'] + ' VND</td>';
+                    rowHTML += '<td style="text-align:center;" id="order_product_name">' + data[key]['name'] + '</td>';
+                    rowHTML += '<td style="text-align:right;" id="order_product_price">' + data[key]['price'] + ' VND</td>';
                     rowHTML += '<td style="text-align:center;" id="order_product_qty">' + data[key]['qty'] + '</td>';
-                    rowHTML += '<td style="text-align:right;" id="order_product_total">' + (data[key]['qty'] * data[key]['product_price']) + ' VND</td>';
+                    rowHTML += '<td style="text-align:right;" id="order_product_total">' + (data[key]['qty'] * data[key]['price']) + ' VND</td>';
                     rowHTML += '</tr>';
                     tbodyHTML += rowHTML;
                }
@@ -256,7 +274,7 @@
                }
                switch (data[0]['order_status']) {
                     case 1:
-                         var note = "Đang chờ xác nhận";
+                         var note = "Đang chờ xử lý";
                          var color = "#0d6efd";
                          document.getElementById('order_status').innerHTML = "Trạng thái đơn hàng : <span style='color:" + color + "'>" + note + "</span>";
                          break;
