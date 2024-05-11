@@ -82,16 +82,17 @@ require_once('./App/Views/Admin/layouts/header.php');
 
                                             <td>
                                                 <?php
-                                                $orderId_curr = $order['id'];
-                                                $query = $db->query("SELECT order_id, COUNT(*) AS order_count FROM order_products WHERE order_id = '$orderId_curr' GROUP BY order_id");
-                                                $query->execute();
-                                                $arr = $query->fetchAll();
-                                                if (!empty($arr)) {
-                                                    // Lấy giá trị của order_count từ mảng
-                                                    $orderCount = $arr[0]['order_count'];
-                                                    // Hiển thị giá trị order_count
-                                                    echo $orderCount;
-                                                }
+                                                echo $order['total'];
+                                                // $orderId_curr = $order['id'];
+                                                // $query = $db->query("SELECT order_id, COUNT(*) AS order_count FROM order_products WHERE order_id = '$orderId_curr' GROUP BY order_id");
+                                                // $query->execute();
+                                                // $arr = $query->fetchAll();
+                                                // if (!empty($arr)) {
+                                                //     // Lấy giá trị của order_count từ mảng
+                                                //     $orderCount = $arr[0]['order_count'];
+                                                //     // Hiển thị giá trị order_count
+                                                //     echo $orderCount;
+                                                // }
                                                 // echo '<pre>';
                                                 // print_r($arr);
                                                 // echo '<pre>'; ;;
@@ -168,21 +169,22 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <td><?php echo $order['name_receiver']; ?></td>
 
                                         <td>
-                                            <?php
-                                            $orderId_curr = $order['id'];
-                                            $query = $db->query("SELECT order_id, COUNT(*) AS order_count FROM order_products WHERE order_id = '$orderId_curr' GROUP BY order_id");
-                                            $query->execute();
-                                            $arr = $query->fetchAll();
-                                            if (!empty($arr)) {
-                                                // Lấy giá trị của order_count từ mảng
-                                                $orderCount = $arr[0]['order_count'];
-                                                // Hiển thị giá trị order_count
-                                                echo $orderCount;
-                                            }
-                                            // echo '<pre>';
-                                            // print_r($arr);
-                                            // echo '<pre>'; ;;
-                                            ?>
+                                            <?php echo $order['total']; ?>
+                                             <?php
+                                                    // $orderId_curr = $order['id'];
+                                                    // $query = $db->query("SELECT order_id, COUNT(*) AS order_count FROM order_products WHERE order_id = '$orderId_curr' GROUP BY order_id");
+                                                    // $query->execute();
+                                                    // $arr = $query->fetchAll();
+                                                    // if (!empty($arr)) {
+                                                    //     // Lấy giá trị của order_count từ mảng
+                                                    //     $orderCount = $arr[0]['order_count'];
+                                                    //     // Hiển thị giá trị order_count
+                                                    //     echo $orderCount;
+                                                    // }
+                                                    // echo '<pre>';
+                                                    // print_r($arr);
+                                                    // echo '<pre>'; ;;
+                                                    //?>
                                         </td>
 
                                         <td>
