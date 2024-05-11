@@ -112,4 +112,15 @@ class ProductModel
         }
         return $sanPhams;
     }
+
+    // thêm hàm cập nhật số lượng sản phẩm trong kho
+    public function changeStock($id, $quantity)
+    {
+        global $db;
+        $product = $db->get("products", "*", "id = $id")[0];
+        $stock = $product['stock'];
+        $stock -= $quantity;
+        $result = $db->update("products", ["stock" => $stock], "id = $id");
+        return $result;
+    }
 }

@@ -223,7 +223,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    //add a function to remove an item out a cart and reload the page
+    //thêm một hàm để xóa một sản phẩm khỏi giỏ hàng và tải lại trang
     function deleteProductInCart(User_id, idProduct) {
         $.ajax({
             url: '/the-coffee/Cart/deleteProductInCart', //tro toi controller cart va goi ham delete
@@ -238,7 +238,7 @@
         });
     }
 
-    //add a function to update the quantity of a product in the cart
+    //thêm hàm để cập nhật số lượng của một sản phẩm trong giỏ hàng
     function updateQuantity(idProduct, newQuantity) {
         $.ajax({
             url: '/the-coffee/Cart/updateQuantityInCart',
@@ -250,41 +250,38 @@
             success: function(response) {
                 location.reload();
             }
+
         });
     }
 
 
 
-    //add a function to check the quantity input from user
+    // thêm hàm để kiểm tra số lượng nhập từ người dùng
     function checkQuantityInput(event) {
         var quantity = parseInt(event.target.value);
 
         var stock = parseInt(event.target.getAttribute('max'));
         var idProduct = event.target.getAttribute('productid'); // Get the idProduct attribute
 
-        if (quantity > stock || quantity < 1 || quantity == '') {
+        // Kiểm tra số lượng nhập vào phải lớn hơn 0, nhỏ hơn hoặc bằng số lượng tồn kho và phải là số
+        if (quantity < 1 || quantity > stock || isNaN(quantity)) {
             Swal.fire({
                 icon: 'error',
                 title: 'Số lượng không hợp lệ',
                 text: "Số lượng phải nằm trong khoảng từ 1 đến " + stock,
             });
-            event.target.value = 1;
             return;
+        } else {
+            //gọi hàm cập nhật số lượng sản phẩm trong giỏ hàng
+            updateQuantity(idProduct, quantity);
         }
 
-
-        if ((isNaN(quantity) && quantity != '') || quantity.toString().includes('.')) {
-            event.target.value = 1;
-            return;
-        }
-        //thanh cong
-        updateQuantity(idProduct, quantity);
 
     }
 
 
 
-    //add an event listener to check all quantity inputs
+    // thêm sự kiện để kiểm tra tất cả các input nhập số lượng
     document.addEventListener('DOMContentLoaded', function() {
         var quantityInputs = document.querySelectorAll('.product_quantity');
         quantityInputs.forEach(function(input) {
@@ -292,7 +289,7 @@
         });
     });
 
-    //add a function to calculate the total price of the cart
+    // thêm hàm để tính tổng giá trị của giỏ hàng
     function calculateTotalPrice() {
         var quantityInputs = document.querySelectorAll('.product_quantity');
         var currentTotal = 0;
@@ -314,7 +311,7 @@
         document.querySelector('.cartTotal').innerText = formatCurrency(currentTotal);
     }
 
-    //add an event listener to calculate the total price of the cart
+    //thêm sự kiện để tính tổng giá trị của giỏ hàng
     document.addEventListener('DOMContentLoaded', function() {
         var quantityInputs = document.querySelectorAll('.product_quantity');
         quantityInputs.forEach(function(input) {
@@ -323,19 +320,19 @@
         calculateTotalPrice();
     });
 
-    //add a jQuery code to pass the value of total price to the hidden input field
+    // thêm code Jquery để chuyển giá trị tổng tiền vào trường input ẩn để post dữ liệu
     $('.product_quantity').on('input', function() {
-        // Calculate the new total price
+        // gọi hàm tính tổng giá trị của giỏ hàng
         var newTotalPrice = calculateTotalPrice();
 
-        // Update the cartTotal span
+        // cập nhật giá trị tổng tiền của giỏ hàng
         $('.cartTotal').text(newTotalPrice);
 
-        // Update the hidden input field
+        // cập nhật giá trị tổng tiền vào trường input ẩn
         $('#cartTotal').val(newTotalPrice);
     });
 
-    //a function to format the price to vnd
+    // thêm hàm để định dạng giá tiền sang vnd
     function formatCurrency(number) {
         return new Intl.NumberFormat('vi-VN', {
             style: 'currency',
@@ -343,18 +340,22 @@
         }).format(number);
     }
 
-    //function validation shipping information
+    // thêm hàm để kiểm tra thông tin giao hàng
     function validation(field, value) {
         //check the name
         if (field == 'name_result') {
             if (value.length < 4) {
                 $('#name_result').html('Tên phải lớn hơn 4 ký tự');
-            } else if (value.length > 40) {
-                $('#name_result').html('Tên không được quá 40 ký tự');
-            } else if (!/^[a-zA-Z ]+$/.test(value)) {
-                $('#name_result').html('Tên không được chứa ký tự đặc biệt hoặc số');
             } else {
-                $('#name_result').html('');
+                if (value.length > 40) {
+                    $('#name_result').html('Tên không được quá 40 ký tự');
+                }
+                //kiem tra chu cai tieng viet 
+                else if (!/^[a-zA-ZáàảãạăắằặẳẵâầấẩẫậèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\s]+$/.test(value)) {
+                    $('#name_result').html('Tên không được chứa ký tự đặc biệt hoặc số');
+                } else {
+                    $('#name_result').html('');
+                }
             }
         }
 
@@ -419,4 +420,45 @@
             }
         }
     }
+
+    // thêm hàm để thông báo đặt hàng thành công bằng ajax và sweetalert và trỏ về trang chủ
+    $('form').submit(function(e) {
+        e.preventDefault();
+        var name = $('#name').val();
+        var phone = $('#phone').val();
+        var email = $('#email').val();
+        var province = $('#province option:selected').text();
+        var district = $('#district option:selected').text();
+        var ward = $('#ward option:selected').text();
+        var address_detail = $('#address_detail').val();
+        var cartTotal = $('#cartTotal').val();
+        var payment = 1;
+
+        $.ajax({
+            url: '/the-coffee/Cart/buyNow',
+            type: 'POST',
+            data: {
+                name: name,
+                phone: phone,
+                email: email,
+                province_name: province,
+                district_name: district,
+                ward_name: ward,
+                address_detail: address_detail,
+                cartTotal: cartTotal,
+                payment: payment
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đặt hàng thành công',
+                    text: 'Cảm ơn bạn đã mua hàng tại The Coffee',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function() {
+                    window.location.href = '/the-coffee';
+                });
+            }
+        });
+    });
 </script>

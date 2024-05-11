@@ -33,20 +33,19 @@ class OrderProductsModel
           }
      }
 
-     public function addOrderProduct($orderId, $product, $quantity)
+     public function getMaxId()
      {
           global $db;
-          try {
-               $data = [
-                    'order_id' => $orderId,
-                    'product_id' => $product->product_id,
-                    'qty' => $quantity
-               ];
-               $db->insert(table: 'order_products', data: $data);
-               return true;
-          } catch (Exception $e) {
-               echo $e->getMessage() . "OrdersProducts addOrderProduct exception";
-               return false;
-          }
+          $query = $db->query("SELECT MAX(id) as max_id FROM order_products");
+          $query->execute();
+          $result = $query->fetch(PDO::FETCH_ASSOC);
+          return $result['max_id'];
+     }
+
+     public function insertOrderProduct($data)
+     {
+          global $db;
+          $db->insert('order_products', $data);
+          return true;
      }
 }

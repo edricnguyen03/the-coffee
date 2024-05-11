@@ -106,95 +106,95 @@ class CartModel
     }
 
     //kiem tra thong tin giao hang nhap vao
-    public function validateShip($field, $val)
-    {
-        $result = '';
+    // public function validateShip($field, $val)
+    // {
+    //     $result = '';
 
-        //kiem tra ho ten
-        if ($field == 'name_result') {
-            //kiem tra do dai ten duoi 4 ki tu
-            if (strlen(trim($val)) < 4) {
-                $result = 'Tên phải lớn hơn 4 ký tự';
-            }
+    //     //kiem tra ho ten
+    //     if ($field == 'name_result') {
+    //         //kiem tra do dai ten duoi 4 ki tu
+    //         if (strlen(trim($val)) < 4) {
+    //             $result = 'Tên phải lớn hơn 4 ký tự';
+    //         }
 
-            //kiem tra do dai ten qua 40 ki tu 
-            else if (strlen(trim($val)) > 40) {
-                $result = 'Tên không được quá 40 ký tự';
-            }
+    //         //kiem tra do dai ten qua 40 ki tu 
+    //         else if (strlen(trim($val)) > 40) {
+    //             $result = 'Tên không được quá 40 ký tự';
+    //         }
 
-            //kiem tra ten co chua ki tu dac biet hoac so khong
-            else if (!preg_match("/^[\p{L} ]*$/u", $val) || preg_match("/\d/", $val)) {
-                $result = 'Tên không được chứa ký tự đặc biệt hoặc số';
-            } else {
-                $result = '<label class="text-success">Hợp lệ</label>';
-            }
-        }
+    //         //kiem tra ten co chua ki tu dac biet hoac so khong
+    //         else if (!preg_match("/^[\p{L} ]*$/u", $val) || preg_match("/\d/", $val)) {
+    //             $result = 'Tên không được chứa ký tự đặc biệt hoặc số';
+    //         } else {
+    //             $result = '<label class="text-success">Hợp lệ</label>';
+    //         }
+    //     }
 
-        //kiem tra so dien thoai
-        if ($field == "phone_result") {
-            if (!preg_match("/^0(\d{9}|9\d{8})$/", $val)) {
-                $result = 'Số điện thoại không hợp lệ';
-            } else {
-                $result = '<label class="text-success">Hợp lệ</label>';
-            }
-        }
+    //     //kiem tra so dien thoai
+    //     if ($field == "phone_result") {
+    //         if (!preg_match("/^0(\d{9}|9\d{8})$/", $val)) {
+    //             $result = 'Số điện thoại không hợp lệ';
+    //         } else {
+    //             $result = '<label class="text-success">Hợp lệ</label>';
+    //         }
+    //     }
 
-        //kiem tra email
-        if ($field == "email_result") {
+    //     //kiem tra email
+    //     if ($field == "email_result") {
 
-            if ($val == "") {
-                $result = '<label class="text-success">Hợp lệ</label>';
-            }
+    //         if ($val == "") {
+    //             $result = '<label class="text-success">Hợp lệ</label>';
+    //         }
 
-            //kiem tra email hop le
-            if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $val)) {
-                $result = 'Email không hợp lệ';
-            }
+    //         //kiem tra email hop le
+    //         if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $val)) {
+    //             $result = 'Email không hợp lệ';
+    //         }
 
-            //kiem tra do dai email
-            else if (!preg_match("/^(?=.{1,40}$)([\w\-]+\@[\w\-]+\.[\w\-]+)/", $val)) {
-                $result = 'Email dài quá 40 ký tự';
-            } else {
-                $result = '<label class="text-success">Hợp lệ</label>';
-            }
-        }
+    //         //kiem tra do dai email
+    //         else if (!preg_match("/^(?=.{1,40}$)([\w\-]+\@[\w\-]+\.[\w\-]+)/", $val)) {
+    //             $result = 'Email dài quá 40 ký tự';
+    //         } else {
+    //             $result = '<label class="text-success">Hợp lệ</label>';
+    //         }
+    //     }
 
-        //kiem tra da chon tinh thanh pho hay chua trong combobox
-        if ($field == "province_result") {
-            if ($val == "Bạn chưa chọn") {
-                $result = 'Vui lòng chọn Tỉnh/Thành phố';
-            } else {
-                $result = '<label class="text-success">Hợp lệ</label>';
-            }
-        }
+    //     //kiem tra da chon tinh thanh pho hay chua trong combobox
+    //     if ($field == "province_result") {
+    //         if ($val == "Bạn chưa chọn") {
+    //             $result = 'Vui lòng chọn Tỉnh/Thành phố';
+    //         } else {
+    //             $result = '<label class="text-success">Hợp lệ</label>';
+    //         }
+    //     }
 
-        //kiem tra da chon huyen hay chua trong combobox
-        if ($field == "district_result") {
-            if ($val == "") {
-                $result = 'Vui lòng chọn Quận/Huyện';
-            } else {
-                $result = '<label class="text-success">Hợp lệ</label>';
-            }
-        }
+    //     //kiem tra da chon huyen hay chua trong combobox
+    //     if ($field == "district_result") {
+    //         if ($val == "") {
+    //             $result = 'Vui lòng chọn Quận/Huyện';
+    //         } else {
+    //             $result = '<label class="text-success">Hợp lệ</label>';
+    //         }
+    //     }
 
-        //kiem tra da chon xa hay chua trong combobox
-        if ($field == "ward_result") {
-            if ($val == "") {
-                $result = 'Vui lòng chọn Phường/Xã';
-            } else {
-                $result = '<label class="text-success">Hợp lệ</label>';
-            }
-        }
+    //     //kiem tra da chon xa hay chua trong combobox
+    //     if ($field == "ward_result") {
+    //         if ($val == "") {
+    //             $result = 'Vui lòng chọn Phường/Xã';
+    //         } else {
+    //             $result = '<label class="text-success">Hợp lệ</label>';
+    //         }
+    //     }
 
-        //kiem tra dia chi
-        if ($field == "address_result") {
-            if (strlen(trim($val)) < 10) {
-                $result = 'Địa chỉ phải lớn hơn 10 ký tự';
-            } else {
-                $result = '<label class="text-success">Hợp lệ</label>';
-            }
-        }
+    //     //kiem tra dia chi
+    //     if ($field == "address_result") {
+    //         if (strlen(trim($val)) < 10) {
+    //             $result = 'Địa chỉ phải lớn hơn 10 ký tự';
+    //         } else {
+    //             $result = '<label class="text-success">Hợp lệ</label>';
+    //         }
+    //     }
 
-        return $result;
-    }
+    //     return $result;
+    // }
 }

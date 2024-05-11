@@ -76,6 +76,7 @@ class Cart extends Controller
         $total = $_POST['cartTotal'];
         $payment = 1;
         $status = 1;
+
         $products = $this->cartModel->getProductsInCart($user_id);
 
         $data = [
@@ -92,19 +93,32 @@ class Cart extends Controller
 
         //goi ham o ordersmodel
         $this->orderModel->insertOrder($data);
+
+
         foreach ($products as $product) {
-            $product->orderProductModel->addOrderProduct();
+            //goi ham o orderproductmodel
+            $orderId = $this->orderProductModel->getMaxId();
+            $data_order = [
+                'id' => $orderId + 1,
+                'order_id' => $id + 1,
+                'product_id' => $product->idProduct,
+                'qty' => $product->quantity
+            ];
+
+            //them vao bang orderProduct
+            $this->orderProductModel->insertOrderProduct($data_order);
         }
         //xoa tat ca san pham trong gio hang
         $this->cartModel->deleteAllProductInCart($user_id);
-    }
 
-    //add product to order-product
-    public function addOrderProduct()
-    {
-        $orderId = $_POST['orderId'];
-        $product = $_POST['product'];
-        $quantity = $_POST['quantity'];
-        $this->orderProductModel->addOrderProduct($orderId, $product, $quantity);
+        //cap nhat lai so luong san pham trong kho sử dụng changeStock
+        foreach ($products as $product) {
+
+            $this->productModel->changeStock($product->idProduct, $product->quantity);
+        }
+
+
+        //return mua hang thanh cong va tro ve trang chu
+        echo 'success';
     }
 }
