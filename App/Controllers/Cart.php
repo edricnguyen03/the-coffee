@@ -32,6 +32,7 @@ class Cart extends Controller
         $this->view('/Client/Cart', $this->data);
     }
 
+    // ham xoa 1 san pham khoi gio hang
     public function deleteProductInCart()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -51,6 +52,7 @@ class Cart extends Controller
         return $result;
     }
 
+    //ham cap nhat so luong san pham trong gio hang
     public function updateQuantityInCart()
     {
         if (!isset($_SESSION['login']['id'])) {
@@ -63,6 +65,7 @@ class Cart extends Controller
         $this->cartModel->updateProductQuantity($user_id, $idProduct, $newQuantity);
     }
 
+    // ham thanh toan gio hang
     public function buyNow()
     {
         $id = $this->orderModel->getMaxId();
@@ -77,6 +80,10 @@ class Cart extends Controller
         $payment = 1;
         $status = 1;
 
+        //lay ngay hien tai lam ngay dat hang
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date_order = date('Y-m-d H:i:s');
+
         $products = $this->cartModel->getProductsInCart($user_id);
 
         $data = [
@@ -88,15 +95,16 @@ class Cart extends Controller
             'note' => null,
             'total' => $total,
             'payment_status' => $payment,
-            'order_status' => $status
+            'order_status' => $status,
+            'create_at' => $date_order
         ];
 
-        //goi ham o ordersmodel
+        //goi ham add thong tin vao orders
         $this->orderModel->insertOrder($data);
 
 
         foreach ($products as $product) {
-            //goi ham o orderproductmodel
+            //goi ham add thong tin vao orderProducts
             $orderId = $this->orderProductModel->getMaxId();
             $data_order = [
                 'id' => $orderId + 1,
@@ -111,12 +119,11 @@ class Cart extends Controller
         //xoa tat ca san pham trong gio hang
         $this->cartModel->deleteAllProductInCart($user_id);
 
-        //cap nhat lai so luong san pham trong kho sử dụng changeStock
+        //cap nhat lai so luong san pham trong kho su dung changeStock
         foreach ($products as $product) {
 
             $this->productModel->changeStock($product->idProduct, $product->quantity);
         }
-
 
         //return mua hang thanh cong va tro ve trang chu
         echo 'success';
