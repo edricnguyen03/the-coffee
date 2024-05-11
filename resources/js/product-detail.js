@@ -18,26 +18,19 @@ function AddEventForAllDetailButton() {
       // Lấy id sản phẩm từ thuộc tính data-productid
       var productId = this.getAttribute("data-productid");
       // Tạo một đối tượng XMLHttpRequest
-      var xhttp = new XMLHttpRequest();
-
-      // Xác định phương thức và URL của file PHP cần include
-      var method = "GET";
-      var url = "product/detail/" + productId;
-
-      // Mở kết nối với file PHP
-      xhttp.open(method, url, true);
-
-      // Xác định hành động khi kết quả trả về từ file PHP
-      xhttp.onreadystatechange = function () {
-        if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+      $.ajax({
+        url: "product/detail/" + productId,
+        method: "GET",
+        success: function (response) {
           var productdetail = document.getElementById("product-detail");
-          productdetail.innerHTML = xhttp.responseText;
+          productdetail.innerHTML = response;
           setTimeout(updateProductDetailSize, 50);
           addEventForDetailAddToCartButton();
-        }
-      };
-      // Gửi yêu cầu đến file PHP
-      xhttp.send();
+        },
+        error: function (xhr, status, error) {
+          console.log(error);
+        },
+      });
     });
   });
 
@@ -65,19 +58,14 @@ function AddEventForAllAddToCartButton() {
       // Lấy id sản phẩm từ thuộc tính data-productid
       var productId = this.getAttribute("data-productid");
       // Tạo một đối tượng XMLHttpRequest
-      var xhttp = new XMLHttpRequest();
-
-      // Xác định phương thức và URL của file PHP cần include
-      var method = "GET";
       var url = "Product/addToCart/" + productId;
 
-      // Mở kết nối với file PHP
-      xhttp.open(method, url, true);
-
-      // Xác định hành động khi kết quả trả về từ file PHP
-      xhttp.onreadystatechange = function () {
-        if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
-          var response = xhttp.responseText.trim();
+      // Gửi yêu cầu AJAX
+      $.ajax({
+        url: url,
+        method: "GET",
+        success: function (response) {
+          response = response.trim();
           switch (response) {
             case "login": {
               Swal.fire({
@@ -90,7 +78,7 @@ function AddEventForAllAddToCartButton() {
             case "1": {
               Swal.fire({
                 icon: "success",
-                title: "Success",
+                title: "Thành công",
                 text: "Thêm sản phẩm vào giỏ hàng thành công",
               });
               break;
@@ -98,22 +86,27 @@ function AddEventForAllAddToCartButton() {
             default: {
               Swal.fire({
                 icon: "error",
-                title: "Error",
+                title: "Lỗi",
                 text: "Thêm vào giỏ hàng thất bại\n" + response,
               });
               break;
             }
           }
-        }
-      };
-      // Gửi yêu cầu đến file PHP
-      xhttp.send();
+        },
+        error: function (xhr, status, error) {
+          Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: "Có lỗi xảy ra trong quá trình xử lý yêu cầu",
+          });
+        },
+      });
     });
   });
 }
 
 function deleteCookie(name) {
-  document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -142,7 +135,11 @@ function addEventForDetailAddToCartButton() {
 
     var quantity = document.getElementById("product-detail-quantity").value;
 
-    var stock = parseInt(document.getElementById("product-detail-stock").getAttribute("data-productstock"));
+    var stock = parseInt(
+      document
+        .getElementById("product-detail-stock")
+        .getAttribute("data-productstock")
+    );
     if (quantity < 1 || quantity > stock || quantity == "" || isNaN(quantity)) {
       Swal.fire({
         icon: "error",
@@ -195,10 +192,12 @@ function addEventForDetailAddToCartButton() {
   });
 
   // Xác định sự kiện khi người dùng nhập số lượng sản phẩm khác số nguyên dương
-  document.getElementById("product-detail-quantity").addEventListener("input", function (event) {
-    var value = parseInt(event.target.value);
-    if (isNaN(value) || value < 1) {
-      event.target.value = "";
-    }
-  });
+  document
+    .getElementById("product-detail-quantity")
+    .addEventListener("input", function (event) {
+      var value = parseInt(event.target.value);
+      if (isNaN(value) || value < 1) {
+        event.target.value = "";
+      }
+    });
 }
