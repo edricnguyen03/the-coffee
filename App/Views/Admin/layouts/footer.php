@@ -15,7 +15,7 @@
             <div class="col-6 text-end">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <a href="#" class="text-muted">Contact</a>
+                        <a href="https://www.facebook.com/" class="text-muted">Contact</a>
                     </li>
                     <li class="list-inline-item">
                         <a href="#" class="text-muted">About Us</a>

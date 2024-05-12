@@ -1,6 +1,6 @@
 <section style="background-color: #eee; min-height: 85vh;">
   <!----------------------------------------Thanh tìm kiếm----------------------------------------------------->
-  <div class="fluid-container sticky-top bg-light p-4 shadow-sm searchbar-container" style="z-index: 10;">
+  <div class="fluid-container w-100 bg-light py-2 px-4 shadow-sm searchbar-container" style="z-index: 10;">
     <div class="row align-items-end justify-content-end">
       <!-------------------------------Combobox thương hiệu------------------------------->
       <div class="col-md-2">

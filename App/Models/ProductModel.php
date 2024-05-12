@@ -7,7 +7,8 @@ class ProductModel
     {
     }
 
-    function getAllProductsName() {
+    function getAllProductsName()
+    {
         global $db;
         $products = $db->get('products', 'name');
         return $products;
@@ -20,7 +21,19 @@ class ProductModel
         $row = $result[0];
         $sanPham = (object) $row;
         if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
-            $sanPham->thumb_image = "product-default.png";
+            $sanPham->thumb_image = "noimage.jpg";
+        }
+        return $sanPham;
+    }
+
+    public function getStockByProductId($id)
+    {
+        global $db;
+        $result = $db->get("products", "stock", "id = $id");
+        $row = $result[0];
+        $sanPham = (object) $row;
+        if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
+            $sanPham->thumb_image = "noimage.jpg";
         }
         return $sanPham;
     }
@@ -107,14 +120,79 @@ class ProductModel
             $sanPham = (object) $row;
 
             if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
-                $sanPham->thumb_image = "product-default.png";
+                $sanPham->thumb_image = "noimage.jpg";
             }
 
-            $sanPhams[] = $sanPham;            
+            $sanPhams[] = $sanPham;
         }
         return $sanPhams;
     }
 
+
+
+    public function getAllProducts()
+    {
+        global $db;
+        $result = $db->get("products", "*");
+        $sanPhams = [];
+        foreach ($result as $row) {
+            $sanPham = (object) $row;
+            if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
+                $sanPham->thumb_image = "noimage.jpg";
+            }
+            $sanPhams[] = $sanPham;
+        }
+        return $sanPhams;
+    }
+
+    public function getMaxId()
+    {
+        global $db;
+        $result = $db->get("products", "MAX(id) as maxId");
+        return $result[0]['maxId'];
+    }
+
+    public function insertProduct($data)
+    {
+        global $db;
+        return $db->insert("products", $data);
+    }
+
+    public function getProductById($productId)
+    {
+        global $db;
+        $result = $db->get("products", "*", "id = $productId");
+        return $result;
+    }
+
+    public function updateProduct($productId, $data)
+    {
+        global $db;
+        return $db->update("products", $data, "id = $productId");
+    }
+
+    public function deleteProduct($productId)
+    {
+        global $db;
+        return $db->delete("products", "id = $productId");
+    }
+
+    public function search($search)
+    {
+        global $db;
+        $result = $db->get("products", "*", "name LIKE '%$search%'");
+        $sanPhams = [];
+        foreach ($result as $row) {
+            $sanPham = (object) $row;
+            if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
+                $sanPham->thumb_image = "noimage.jpg";
+            }
+            $sanPhams[] = $sanPham;
+        }
+        return $sanPhams;
+    }
+
+    // thêm hàm cập nhật số lượng sản phẩm trong kho
     public function changeStock($id, $quantity)
     {
         global $db;

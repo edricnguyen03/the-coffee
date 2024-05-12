@@ -32,7 +32,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="#">THE COFFEE</a>
+                    <a href="../../../">THE COFFEE</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
@@ -50,10 +50,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Thêm sản phẩm</a>
+                                <a href="../../product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../product/ " class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -64,6 +64,20 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Receipt -->
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#receipt" data-bs-toggle="collapse" aria-expanded="false"><i class="fas fa-receipt"></i>
+                            Phiếu nhập
+                        </a>
+                        <ul id="receipt" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../receipt/create" class="sidebar-link">Thêm phiếu nhập</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../receipt/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -119,7 +133,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <li class="sidebar-header">
+                    <!-- <li class="sidebar-header">
                         Multi Level Menu
                     </li>
                     <li class="sidebar-item">
@@ -139,7 +153,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </aside>

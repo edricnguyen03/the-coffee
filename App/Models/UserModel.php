@@ -115,10 +115,14 @@ class UserModel
         }
 
         if ($field == "repassword_result") {
-            if ($val != $_SESSION['password']) {
-                $result = 'Mật khẩu không khớp';
+            if (!isset($_SESSION['password']) || $_SESSION['password'] == "") {
+                $result = 'Vui lòng nhập mật khẩu trước';
             } else {
-                $result = '<label class="text-success">Hợp lệ</label>';
+                if ($val != $_SESSION['password']) {
+                    $result = 'Mật khẩu không khớp';
+                } else {
+                    $result = '<label class="text-success">Hợp lệ</label>';
+                }
             }
         }
 
@@ -148,6 +152,19 @@ class UserModel
         return $result['max_id'];
     }
 
+    public function updatePassword($userId, $newPassword)
+    {
+        global $db;
+        try {            
+            if ($db->update('users', ['password' => password_hash($newPassword, PASSWORD_DEFAULT)], 'id = ' . $userId)) {
+                return "success";
+            };
+            return "fail";
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function changePassword($userId, $currentPassword, $newPassword)
     {
         global $db;
@@ -165,7 +182,7 @@ class UserModel
             if (trim($newPassword) !== $newPassword) {
                 return 'Mật khẩu mới không được chứa khoảng trắng';
             }
-            if ($db->update('users', ['password' => $newPassword], 'id = ' . $userId)) {
+            if ($db->update('users', ['password' => password_hash($newPassword, PASSWORD_DEFAULT)], 'id = ' . $userId)) {
                 return "success";
             };
             return "fail";
@@ -203,11 +220,6 @@ class UserModel
         } catch (Exception $e) {
             return $e->getMessage();
         }
-    }
-    //write a function to create a user and save in database
-    public function createUser()
-    {
-        return true;
     }
 
     public function insertUser($data)

@@ -32,14 +32,14 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="#">THE COFFEE</a>
+                    <a href="../../">THE COFFEE</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
                         Danh sách chức năng
                     </li>
                     <li class="sidebar-item">
-                        <a href="../dashboard/" class="sidebar-link">
+                        <a href="../stat/" class="sidebar-link">
                             <i class="fa-solid fa-list pe-2"></i>
                             Thống kê
                         </a>
@@ -57,7 +57,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                      <!-- order -->
+                    <!-- order -->
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#order" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-sliders pe-2"></i>
                             Đơn hàng
@@ -134,7 +134,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <li class="sidebar-header">
+                    <!-- <li class="sidebar-header">
                         Multi Level Menu
                     </li>
                     <li class="sidebar-item">
@@ -154,7 +154,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </aside>
