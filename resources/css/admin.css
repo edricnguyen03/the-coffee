@@ -45,12 +45,6 @@ h4 {
     height: auto;
 } */
 
-tr {
-    display: table-cell;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-}
 /* Layout for admin dashboard skeleton */
 
 .wrapper {

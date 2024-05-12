@@ -11,8 +11,8 @@ if (isset($_SESSION['login']['status']) && $_SESSION['login']['role'] == 1) {
                 </div>
                     <div class="text-success font-weight-bold">Giá: ' . $sanPham->price . ' VND</div>
                     <div class="font-weight-bold">Khối lượng: ' . $sanPham->weight . ' g</div>
-                <div class="card-button py-2">
-                    <a href="#" class="btn btn-primary btn-product-detail" data-productid="' . $sanPham->id . '">
+                <div class=" py-2">
+                    <a href="admin/product/edit/' . $sanPham->id . '" class="btn btn-primary "">
                         <i class="fa-solid fa-pencil icon"></i>Chỉnh sửa
                     </a>
                 </div>

@@ -51,10 +51,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Thêm sản phẩm</a>
+                                <a href="../../product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../product/ " class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -68,12 +68,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <!-- //receipt -->
+                    <!-- Receipt -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#receipts" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#receipt" data-bs-toggle="collapse" aria-expanded="false"><i class="fas fa-receipt"></i>
                             Phiếu nhập
                         </a>
-                        <ul id="#receipts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <ul id="receipt" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
                                 <a href="../../receipt/create" class="sidebar-link">Thêm phiếu nhập</a>
                             </li>
@@ -134,7 +134,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <li class="sidebar-header">
+                    <!-- <li class="sidebar-header">
                         Multi Level Menu
                     </li>
                     <li class="sidebar-item">
@@ -154,7 +154,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </aside>
@@ -176,8 +176,8 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     </ul>
                 </div>
             </nav>
-    <main class="content px-3 py-2">
-        <div class="text-center my-3 py-2">
+            <main class="content px-3 py-2">
+                <div class="text-center my-3 py-2">
                     <h3>QUẢN LÝ ĐƠN NHẬP HÀNG</h3>
                 </div>
                 <div class="container-fluid">
@@ -208,25 +208,23 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 <div class="mb-3">
                                     <label for="provider" class="form-label">Provider</label>
                                     <select id="select" class="form-select" id="provider" name="provider" required>
-                                    <?php
-                                             
-                                            $names = array_map(function ($row) {
-                                                return $row['name'];
-                                            }, $nameOfProvider);
-                                            foreach($names as $id => $name){
-                                            $id=$id+1;
-                                            if ($id == $providerId){
+                                        <?php
+
+                                        $names = array_map(function ($row) {
+                                            return $row['name'];
+                                        }, $nameOfProvider);
+                                        foreach ($names as $id => $name) {
+                                            $id = $id + 1;
+                                            if ($id == $providerId) {
                                                 echo "<option value=\"$id\" selected>$name</option>\n";
-                                            }
-                                            else {
+                                            } else {
                                                 echo "<option value=\"$id\">$name</option>\n";
                                             }
-                                            
                                         }
                                         ?>
                                     </select>
-                                <!-- nhập sản phẩm -->
-                                <br> <br>
+                                    <!-- nhập sản phẩm -->
+                                    <br> <br>
                                 </div>
                                 <div class=" mb-3">
                                     <label for="total" class="form-label">Total</label>

@@ -36,7 +36,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <div class="mb-3">
                         <form action="search" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên hoặc email">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên sản phẩm">
                                 <button class="btn btn-primary" type="submit">Search</button>
                             </div>
                         </form>

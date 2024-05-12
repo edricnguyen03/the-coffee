@@ -92,5 +92,3 @@ $routes['admin/receipt/edit'] = 'admin/ReceiptController/edit';
 $routes['admin/receipt/update'] = 'admin/ReceiptController/update';
 //Delete User
 $routes['admin/receipt/delete'] = 'admin/ReceiptController/delete';
-
-

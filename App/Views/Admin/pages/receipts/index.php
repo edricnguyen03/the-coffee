@@ -35,7 +35,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <div class="mb-3">
                         <form method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên hoặc email">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên ">
                                 <button class="btn btn-primary" type="submit">Search</button>
                             </div>
                         </form>
@@ -74,16 +74,16 @@ require_once('./App/Views/Admin/layouts/header.php');
                                     foreach ($receipts as $receipt) {
                             ?>
 
-<tr>
-                                        <th scope="row"><?php echo $receipt['id']; ?></th>
-                                        <td><?php echo $receipt['name']; ?></td>
-                                        <td><?php echo $receipt['provider_id']; ?></td>
-                                        <td><?php echo $receipt['total']; ?></td>
-                                        <td><?php echo $receipt['create_at']; ?></td>
-                                        <td>
-                                            <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
-                                    </tr>
+                                        <tr>
+                                            <th scope="row"><?php echo $receipt['id']; ?></th>
+                                            <td><?php echo $receipt['name']; ?></td>
+                                            <td><?php echo $receipt['provider_id']; ?></td>
+                                            <td><?php echo $receipt['total']; ?></td>
+                                            <td><?php echo $receipt['create_at']; ?></td>
+                                            <td>
+                                                <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
+                                                <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
+                                        </tr>
                                     <?php
                                     }
                                 } else {
@@ -93,7 +93,6 @@ require_once('./App/Views/Admin/layouts/header.php');
                                     </tr>
                                 <?php
                                 }
-                                
                             } else {
                                 $query = $db->query("SELECT * FROM receipts");
                                 $query->execute();

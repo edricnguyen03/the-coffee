@@ -50,10 +50,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Thêm sản phẩm</a>
+                                <a href="../../product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../product/ " class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -64,6 +64,20 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Receipt -->
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#receipt" data-bs-toggle="collapse" aria-expanded="false"><i class="fas fa-receipt"></i>
+                            Phiếu nhập
+                        </a>
+                        <ul id="receipt" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../receipt/create" class="sidebar-link">Thêm phiếu nhập</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../receipt/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -81,15 +95,15 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </ul>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                            Sản phẩm
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-truck pe-2"></i>
+                            Nhà cung cấp
                         </a>
-                        <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <ul id="provider" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="../../product/create" class="sidebar-link">Thêm sản phẩm</a>
+                                <a href="../../provider/create" class="sidebar-link">Thêm nhà cung cấp</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../../product/ " class="sidebar-link">Danh sách</a>
+                                <a href="../../provider/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -119,7 +133,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <li class="sidebar-header">
+                    <!-- <li class="sidebar-header">
                         Multi Level Menu
                     </li>
                     <li class="sidebar-item">
@@ -139,7 +153,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </aside>

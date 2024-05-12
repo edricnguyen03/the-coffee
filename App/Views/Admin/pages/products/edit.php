@@ -68,6 +68,20 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <!-- Receipt -->
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#receipt" data-bs-toggle="collapse" aria-expanded="false"><i class="fas fa-receipt"></i>
+                            Phiếu nhập
+                        </a>
+                        <ul id="receipt" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../receipt/create" class="sidebar-link">Thêm phiếu nhập</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../receipt/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
                             Người dùng
@@ -120,8 +134,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-
-                    <li class="sidebar-header">
+                    <!-- <li class="sidebar-header">
                         Multi Level Menu
                     </li>
                     <li class="sidebar-item">
@@ -141,7 +154,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </aside>
