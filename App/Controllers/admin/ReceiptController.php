@@ -51,7 +51,7 @@ class ReceiptController extends Controller {
             }
             // echo $total;
             // echo '<pre>';
-            // print_r($productId);
+            // print_r($price);
             // echo '<pre>'; 
             // die();
             $this->data['nameOfProvider'] = $this->providerModel->getAllProvidersName();
@@ -79,6 +79,7 @@ class ReceiptController extends Controller {
                             'product_id' => $_POST["item_name"][$count],
                             'receipt_id' => $newId,
                             'quantity' => $_POST["item_quantity"][$count],
+                            'producr_price' => $_POST["item_price"][$count],
                         ];
 
                         $this->productsReceipts->insertPR($data2);
