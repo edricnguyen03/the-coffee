@@ -39,7 +39,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         Danh sách chức năng
                     </li>
                     <li class="sidebar-item">
-                        <a href="../dashboard/" class="sidebar-link">
+                        <a href="../stat/" class="sidebar-link">
                             <i class="fa-solid fa-list pe-2"></i>
                             Thống kê
                         </a>

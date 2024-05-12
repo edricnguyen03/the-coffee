@@ -9,7 +9,8 @@ $routes['admin/logout'] = 'Login_Regis/Logout';
 //Dashboard
 $routes['admin/dashboard'] = 'admin/Dashboard/index';
 
-
+//Stats
+$routes['admin/stat'] = 'admin/StatsController/index';
 
 // User
 $routes['admin/user'] = 'admin/UserController/index';
