@@ -1,6 +1,7 @@
 <?php
 class OrdersModel
 {
+     private $userId;
      private $orderId;
      function __construct()
      {
@@ -19,24 +20,43 @@ class OrdersModel
      {
           $this->orderId = $orderId;
      }
+     public function setUserId($userId)
+     {
+          $this->userId = $userId;
+     }
+     public function getOrdersId()
+     {
+          try {
+               global $db;
+               $result = $db->get(table: "orders", condition: "user_id = " . $this->userId);
+               $orders = [];
+               foreach ($result as $row) {
+                    $order = (object) $row;
+                    $orders[] = $order;
+               }
+               return $orders;
+          } catch (Exception $e) {
+               return $e->getMessage() . " OrdersModel, getOrdersId exception";
+          }
+     }
 
      public function getOrdersById()
      {
           try {
                global $db;
-               $result = $db->get("orders",  "*", "id = $this->orderId");
-               $row = $result[0];
-               $order = (object) $row;
-               return $order;
+               $result = $db->get(table: "orders", condition: "user_id = " . $this->userId);
+               $orders = [];
+               foreach ($result as $row) {
+                    $order = (object) $row;
+                    $orders[] = $order;
+               }
+               return $orders;
           } catch (Exception $e) {
                return $e->getMessage() . " OrdersModel, getOrdersId exception";
           }
      }
-     public function getOrder($id)
-     {
-          try {
 
-     public function updateStatus($status)
+     public function getOrder($id)
      {
           try {
                global $db;
@@ -45,13 +65,8 @@ class OrdersModel
                return $order;
           } catch (Exception $e) {
                echo $e->getMessage() . " OrdersModel, getOrder exception";
-               $result = $db->update("orders", ["order_status" => $status], "id = $this->orderId");
-               return $result;
-          } catch (Exception $e) {
-               return $e->getMessage() . " OrdersModel, updateStatus exception";
           }
      }
-
      public function getMaxId()
      {
           global $db;
@@ -66,5 +81,16 @@ class OrdersModel
           global $db;
           $db->insert('orders', $data);
           return true;
+     }
+
+     public function updateStatus($status)
+     {
+          try {
+               global $db;
+               $result = $db->update("orders", ["order_status" => $status], "id = $this->orderId");
+               return $result;
+          } catch (Exception $e) {
+               return $e->getMessage() . " OrdersModel, updateStatus exception";
+          }
      }
 }
