@@ -25,6 +25,18 @@ class ProductModel
         return $sanPham;
     }
 
+    public function getStockByProductId($id)
+    {
+        global $db;
+        $result = $db->get("products", "stock", "id = $id");
+        $row = $result[0];
+        $sanPham = (object) $row;
+        if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
+            $sanPham->thumb_image = "product-default.png";
+        }
+        return $sanPham;
+    }
+
     public function getNumberOfPages($idDanhMuc = "all", $minMucGia = 0, $maxMucGia = -1, $noiDung = "")
     { // hàm đếm số trang
 

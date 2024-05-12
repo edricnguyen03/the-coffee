@@ -5,6 +5,7 @@ class ReceiptController extends Controller {
     public $receiptModel;
     public $providerModel;
     public $productModel;
+    public $productsReceipts;
 
     public function __construct()
     {
@@ -12,6 +13,7 @@ class ReceiptController extends Controller {
         $this->receiptModel = $this->model('ReceiptModel');
         $this->providerModel = $this->model('ProviderModel');
         $this->productModel = $this->model('ProductModel');
+        $this->productsReceipts = $this->model('ProductsReceipts');
     }
 
       // Function to show user data from the database
@@ -38,10 +40,20 @@ class ReceiptController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $providerId = $_POST['provider'];
-            $total = $_POST['total'];
-            $product = $_POST['product'];
-            $price = $_POST['price'];
-            
+            $quantity = $_POST['item_quantity'];
+            $productId = $_POST['item_name'];
+            $price = $_POST['item_price'];
+
+            //xử lý total = quantity từng phần + lại
+            $total = 0;
+            foreach ($quantity as $value) {
+                $total += $value;
+            }
+            // echo $total;
+            // echo '<pre>';
+            // print_r($productId);
+            // echo '<pre>'; 
+            // die();
             $this->data['nameOfProvider'] = $this->providerModel->getAllProvidersName();
             $this->data['nameOfProduct']= $this->productModel->getAllProductsName();;
 
@@ -49,25 +61,69 @@ class ReceiptController extends Controller {
             // Get the current max id
             $maxId = $this->receiptModel->getMaxId();
             $newId = $maxId + 1;
-
+           
             $data = [
                 'id' => $newId,
                 'name' => $name,
                 'provider_id' => $providerId,
                 'total' => $total,
             ];
-            // var_dump($data);
-            // die();
-            if ($this->receiptModel->insertReceipt($data)) { 
-                $_SESSION['success'] = 'Thêm đơn nhập hàng thành công';
-                header('Location: /the-coffee/admin/receipt/index');
-                exit();
+
+            
+            //create new receipt
+            if ($this->receiptModel->insertReceipt($data)){          
+                    global $db;
+                    for($count = 0; $count < count($_POST["item_name"]); $count++)
+                    { 
+                        $data2 = [
+                            'product_id' => $_POST["item_name"][$count],
+                            'receipt_id' => $newId,
+                            'quantity' => $_POST["item_quantity"][$count],
+                        ];
+
+                        $this->productsReceipts->insertPR($data2);
+
+                        // $query = "
+                        // INSERT INTO product_receipt 
+                        // (product_id, receipt_id, quantity) 
+                        // VALUES (:product_id, :receipt_id, :quantity)
+                        // ";
+
+                        // $query3 = "
+                        // INSERT INTO products 
+                        // (item_price) 
+                        // VALUES (:item_price)
+                        // ";
+                        // $connect = new PDO("mysql:host=localhost; dbname=the-coffe","root","");
+                        // $query = "INSERT INTO product_receipt (id, product_id, receipt_id, quantity) VALUES (:id, :product_id, :receipt_id, :quantity)";
+                        // // $query = "INSERT INTO product_receipt (id, product_id, receipt_id, quantity) VALUES (:product_id, :quantity)";
+                        // $statement1 = $connect->prepare($query);
+                        // $statement1->bindParam(':product_id', $_POST["item_name"][$count]);
+                        // $statement1->bindParam(':receipt_id', $newId);
+                        // $statement1->bindParam(':quantity', $_POST["item_quantity"][$count]);
+                        // $statement1->execute();
+
+                    }  
+                echo 'oke';
+                // $result = $statement1->fetchAll();
+
+                //     if(isset($result))
+                //     {
+                //         echo 'ok';
+                //     }
+                // echo '<pre>';
+                // print_r($_POST);
+                // echo '<pre>'; 
+                // $_SESSION['success'] = 'Thêm đơn nhập hàng thành công';
+                // header('Location: /the-coffee/admin/receipt/index');
+                // exit();
+                
                 //tao session
                 //them exit()
             } else {
-                $_SESSION['error'] = 'Xóa đơn nhập hàng thất bại';
+                $_SESSION['error'] = 'Thêm đơn nhập hàng thành công thật bại';
             };
-        }  
+        }   
     }
 
     // Function to edit an existing user in the database
