@@ -483,7 +483,7 @@
     //function validate using jQuery
     function validate(field, value) {
         $.post(
-            "/Login_Regis/validation", {
+            "/the-coffee/Login_Regis/validation", {
                 field: field,
                 value: value
             },
@@ -493,3 +493,4 @@
         );
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

@@ -28,6 +28,8 @@
                </center>
                <!-- button trong form dang ky -->
                <button id="registerButton" name="registerButton" onclick="validForm()">Đăng Kí</button>
+
+
           </form>
      </div>
      <div class="form-wrapper sign-in">
@@ -37,7 +39,7 @@
                <div id="responseEmail" class="responseText"></div>
                <input type="password" placeholder="Mật khẩu" id='loginPassword' name="login-password">
                <div id="responsePassword" class="responseText"></div>
-               <a href="#">Quên mật khẩu ?</a>
+               <a href="/the-coffee/ForgotPassword">Quên mật khẩu ?</a>
                <button id="loginButton">Đăng Nhập</button>
           </form>
      </div>
@@ -59,9 +61,10 @@
      </div>
 </div>
 <style>
-     .responseText{
+     .responseText {
           color: red;
      }
+
      .login-wrapper {
           background-color: #fff;
           border-radius: 30px;
@@ -330,3 +333,4 @@
           xmlhttp.send(params);
      }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

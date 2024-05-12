@@ -41,7 +41,9 @@ INSERT INTO `carts` (`id`, `user_id`, `cart_items`) VALUES
 (1, 1, '[{\"idProduct\":\"3\",\"quantity\":1}]');
 
 -- --------------------------------------------------------
-
+INSERT INTO `carts` (`id`, `user_id`, `cart_items`) VALUES
+(1, 2, '[{\"idProduct\":\"1\",\"quantity\":7},{\"idProduct\":\"2\",\"quantity\":10},{\"idProduct\":\"3\",\"quantity\":16},{\"idProduct\":\"4\",\"quantity\":7}]'),
+(2, 5, '[{\"idProduct\":\"2\",\"quantity\":8},{\"idProduct\":\"3\",\"quantity\":9}]');
 --
 -- Cấu trúc bảng cho bảng `categories`
 --
