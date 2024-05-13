@@ -36,39 +36,40 @@
                                     <p>Tài khoản</p>
                                     <span></span>
                                 </a>
-                                <?php
-                                if ($_SESSION['login']['id'] != 1) {
-                                ?>
-                                    <a href="/the-coffee/cart" class="sub-menu-link">
-                                        <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                        <p>Giỏ hàng</p>
-                                        <span></span>
-                                    </a>
-                                    <a href="/the-coffee/orders" class="sub-menu-link">
-                                        <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
-                                        <p>Đơn hàng</p>
-                                        <span></span>
-                                    </a>
-                                <?php
-                                } else {
-                                ?>
-                                    <a href="admin/dashboard/" class="sub-menu-link">
-                                        <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                        <p>Cài đặt</p>
-                                        <span></span>
-                                    </a>
-                                <?php
-                                }
-                                ?>
-                                <a href="Login_Regis/Logout" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
-                                    <p>Đăng xuất</p>
+                            <?php
+                        }
+                        if (UserModel::hasAdminPermission($_SESSION['login']['id']) == true) {
+                            ?>
+                                <a href="admin/dashboard/" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
+                                    <p>Cài đặt</p>
                                     <span></span>
                                 </a>
+                            <?php
+                        } else {
+                            ?>
+                                <a href="/the-coffee/cart" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
+                                    <p>Giỏ hàng</p>
+                                    <span></span>
+                                </a>
+                                <a href="/the-coffee/orders" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
+                                    <p>Đơn hàng</p>
+                                    <span></span>
+                                </a>
+                            <?php
+                        }
+                            ?>
+                            <a href="Login_Regis/Logout" class="sub-menu-link">
+                                <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
+                                <p>Đăng xuất</p>
+                                <span></span>
+                            </a>
                             </div>
                         </div>
                     <?php
-                    } else if ($_SESSION['login']['status'] == -1) {
+                } else if ($_SESSION['login']['status'] == -1) {
                     ?>
                         <li class="nav-item ms-3">
                             <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
@@ -77,8 +78,8 @@
                             <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                         </div>
                     <?php
-                        unset($_SESSION['login']['status']);
-                    } else if ($_SESSION['login']['status'] == 0) {
+                    unset($_SESSION['login']['status']);
+                } else if ($_SESSION['login']['status'] == 0) {
                     ?>
                         <li class="nav-item ms-3">
                             <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
@@ -94,19 +95,18 @@
                             });
                         </script>
                     <?php
-                        unset($_SESSION['login']['status']);
-                    }
+                    unset($_SESSION['login']['status']);
                 } else {
                     ?>
-                    <li class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
-                    </li>
-                    <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
-                    </div>
-                <?php
+                        <li class="nav-item ms-3">
+                            <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                        </li>
+                        <div class="nav-item ms-3">
+                            <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                        </div>
+                    <?php
                 }
-                ?>
+                    ?>
             </ul>
         </div>
     </div>

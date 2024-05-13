@@ -255,4 +255,15 @@ class UserModel
         }
         return false;
     }
+
+    public static function hasAdminPermission($userId)
+    {
+         $numberOfPermission = 10;
+        for ($i = 1; $i <= $numberOfPermission; $i++) {
+            if (UserModel::checkPermission($userId,$i) == true) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

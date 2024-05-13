@@ -9,7 +9,6 @@ class StatsController extends Controller
 
     public $statModel;
 
-    public $userModel;
 
     public function __construct()
     {
@@ -18,29 +17,16 @@ class StatsController extends Controller
         $this->orderProductModel = $this->model('OrderProductsModel');
         $this->productModel = $this->model('ProductModel');
         $this->statModel = $this->model('StatModel');
-        $this->userModel = $this->model('UserModel');
     }
 
     public function index()
     {   
-        if($this->userModel->checkPermission($_SESSION['login']['id'], 6) == false){
-            echo "<script>alert('Bạn không có quyền truy cập vào trang này','danger','/the-coffee/admin')</script>";
-            require_once './App/errors/404.php';
-            return;
-        }
-
         $this->view('/Admin/pages/stats/index',);
     }
 
     public function income()
     {
-        if($this->userModel->checkPermission($_SESSION['login']['id'], 6) == false){
-            echo "<script>alert('Bạn không có quyền truy cập vào trang này','danger','/the-coffee/admin')</script>";
-            require_once './App/errors/404.php';
-            return;
-        }
-        $this->data['userModel'] = $this->userModel;
-        $this->view('/Admin/pages/stats/income', $this->data);
+        $this->view('/Admin/pages/stats/income');
     }
 
     public function getIncomeCategories()

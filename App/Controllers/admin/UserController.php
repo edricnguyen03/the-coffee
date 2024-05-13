@@ -15,7 +15,6 @@ class UserController extends Controller
     public function index()
     {
         $this->data['users'] = $this->userModel->getAllUsers();
-        $this->data['userModel'] = $this->model('UserModel');
         $this->view('/Admin/pages/users/index', $this->data);
     }
 

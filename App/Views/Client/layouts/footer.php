@@ -36,7 +36,7 @@
                         if ($_SESSION['login']['status'] == 1) {
                     ?>
                             <?php
-                            if ($_SESSION['login']['id'] != 1) {
+                            if (UserModel::hasAdminPermission($_SESSION['login']['id']) == false) {
                             ?>
                                 <p>
                                     <a href="/the-coffee/cart" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
