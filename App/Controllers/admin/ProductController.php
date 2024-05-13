@@ -187,14 +187,14 @@ class productController extends Controller
         $product = $this->productModel->getById($productId);
         if ($this->productModel->deleteProduct($productId) && unlink("resources/images/products/" . $product->thumb_image)) {
             // If the deletion was successful, save success message to session
-            $_SESSION['success'] = 'Xóa nhà cung cấp thành công';
+            $_SESSION['success'] = 'Xóa nhà sản phẩm thành công';
             // Then redirect to the index page
             header('Location: /the-coffee/admin/product/');
             exit();
         } else {
             // If the deletion failed, show an error message and stay on the current page
             // You can also save the error message to session and display it on the current page
-            $_SESSION['error'] = 'Xóa nhà cung cấp thất bại';
+            $_SESSION['error'] = 'Xóa nhà sản phẩm thất bại';
         }
     }
 

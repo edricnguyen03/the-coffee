@@ -40,9 +40,9 @@ class RoleController extends Controller
                 'description' => $description,
             ];
             if ($this->roleModel->insertRole($data)) {
-                $this->view('/Admin/pages/roles/create', ['success' => 'Thêm nhà cung cấp thành công']);
+                $this->view('/Admin/pages/roles/create', ['success' => 'Thêm vai trò mới thành công']);
             } else {
-                $this->view('/Admin/pages/roles/create', ['error' => 'Thêm nhà cung cấp thất bại']);
+                $this->view('/Admin/pages/roles/create', ['error' => 'Thêm vài trò mới thất bại']);
             };
         }
     }
@@ -71,11 +71,11 @@ class RoleController extends Controller
             if ($this->roleModel->updateRole($roleId, $updateData)) {
                 $role = $this->roleModel->getRoleById($roleId);
                 $this->data['role'] = $role[0];
-                $_SESSION['success'] = 'Chỉnh sửa nhà cung cấp thành công';
+                $_SESSION['success'] = 'Chỉnh sửa vai trò thành công';
                 $this->view('/Admin/pages/roles/edit', $this->data);
                 exit();
             } else {
-                $this->view('/Admin/pages/roles/edit', ['error' => 'Chỉnh sửa nhà cung cấp thất bại']);
+                $this->view('/Admin/pages/roles/edit', ['error' => 'Chỉnh sửa vai trò thất bại']);
             };
         }
     }

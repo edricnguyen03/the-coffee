@@ -60,10 +60,6 @@ class UserController extends Controller
     public function edit($userId)
     {
         $user = $this->userModel->getUserById($userId);
-        // echo '<pre>';
-        // print_r($user);
-        // echo '<pre>'; ;
-
         $this->data['user'] = $user[0];
         $this->view('/Admin/pages/users/edit', $this->data);
         // Redirect to the index page or show a success message
@@ -97,7 +93,7 @@ class UserController extends Controller
                 echo json_encode(['success' => false]);
             }
         } else {
-            echo json_encode(['success' => false, 'error' => 'Missing required fields']);
+            echo json_encode(['success' => false, 'error' => 'Không được để trống dữ liệu']);
         }
     }
 

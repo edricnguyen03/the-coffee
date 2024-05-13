@@ -40,9 +40,9 @@ class PermissionController extends Controller
                 'description' => $description,
             ];
             if ($this->permissionModel->insertPermission($data)) {
-                $this->view('/Admin/pages/permissions/create', ['success' => 'Thêm nhà cung cấp thành công']);
+                $this->view('/Admin/pages/permissions/create', ['success' => 'Thêm phân quyền mới thành công']);
             } else {
-                $this->view('/Admin/pages/permissions/create', ['error' => 'Thêm nhà cung cấp thất bại']);
+                $this->view('/Admin/pages/permissions/create', ['error' => 'Thêm phân quyền mới thất bại']);
             };
         }
     }
@@ -71,11 +71,11 @@ class PermissionController extends Controller
             if ($this->permissionModel->updatePermission($permissionId, $updateData)) {
                 $permission = $this->permissionModel->getPermissionById($permissionId);
                 $this->data['permission'] = $permission[0];
-                $_SESSION['success'] = 'Chỉnh sửa nhà cung cấp thành công';
+                $_SESSION['success'] = 'Chỉnh sửa phân quyền thành công';
                 $this->view('/Admin/pages/permissions/edit', $this->data);
                 exit();
             } else {
-                $this->view('/Admin/pages/permissions/edit', ['error' => 'Chỉnh sửa nhà cung cấp thất bại']);
+                $this->view('/Admin/pages/permissions/edit', ['error' => 'Chỉnh sửa phân quyền thất bại']);
             };
         }
     }
@@ -85,14 +85,14 @@ class PermissionController extends Controller
     {
         if ($this->permissionModel->deletePermission($permissionId)) {
             // If the deletion was successful, save success message to session
-            $_SESSION['success'] = 'Xóa quyền thành công';
+            $_SESSION['success'] = 'Xóa phân quyền thành công';
             // Then redirect to the index page
             header('Location: /the-coffee/admin/permission/');
             exit();
         } else {
             // If the deletion failed, show an error message and stay on the current page
             // You can also save the error message to session and display it on the current page
-            $_SESSION['error'] = 'Xóa quyền thất bại';
+            $_SESSION['error'] = 'Xóa phân quyền thất bại';
         }
     }
 

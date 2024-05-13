@@ -85,7 +85,15 @@ require_once('./App/Views/Admin/layouts/header.php');
                                                     <button class="btn btn-danger">Inactive</button>
                                                 <?php } ?>
                                             </td>
-                                            <td><?php echo $user['role_id']; ?></td>
+                                            <td>
+                                                <?php
+                                                $role_id = $user['role_id'];
+                                                $query = $db->query("SELECT * FROM roles WHERE id = $role_id");
+                                                $query->execute();
+                                                $role = $query->fetch();
+                                                echo $role['name'];
+                                                ?>
+                                            </td>
                                             <td>
                                                 <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
                                                 <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
@@ -118,7 +126,15 @@ require_once('./App/Views/Admin/layouts/header.php');
                                                 <button class="btn btn-danger">Inactive</button>
                                             <?php } ?>
                                         </td>
-                                        <td><?php echo $user['role_id']; ?></td>
+                                        <td>
+                                            <?php
+                                            $role_id = $user['role_id'];
+                                            $query = $db->query("SELECT * FROM roles WHERE id = $role_id");
+                                            $query->execute();
+                                            $role = $query->fetch();
+                                            echo $role['name'];
+                                            ?>
+                                        </td>
                                         <td>
                                             <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
                                             <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
