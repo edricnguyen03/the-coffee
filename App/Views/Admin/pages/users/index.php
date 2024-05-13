@@ -55,11 +55,11 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Name</th>
+                                <th scope="col">Tên người dùng</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Role_id</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Vai trò</th>
+                                <th scope="col">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -136,8 +136,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             ?>
                                         </td>
                                         <td>
-                                            <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
+                                            <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Sửa</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>
                             <?php
                                 }

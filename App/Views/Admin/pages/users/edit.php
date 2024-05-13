@@ -223,7 +223,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="role_id" class="form-label">Role ID</label>
+                                    <label for="role_id" class="form-label">Vai trò</label>
                                     <select class="form-select" id="role_id" name="role_id" required>
                                         <option value="1" <?php echo $user['role_id'] == 1 ? 'selected' : ''; ?>>Super Admin</option>
                                         <option value="2" <?php echo $user['role_id'] == 2 ? 'selected' : ''; ?>>User</option>

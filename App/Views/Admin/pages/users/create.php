@@ -65,7 +65,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="role_id" class="form-label">ID chức vụ</label>
+                                    <label for="role_id" class="form-label">Chức vụ</label>
                                     <select class="form-select" id="role_id" name=" role_id" required>
                                         <option value="1">Super Admin</option>
                                         <option value="2">User</option>

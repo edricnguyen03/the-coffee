@@ -57,10 +57,10 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Tên nhà cung cấp</th>
+                                <th scope="col">Mô tả</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
