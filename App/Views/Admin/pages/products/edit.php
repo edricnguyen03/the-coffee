@@ -208,7 +208,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 </div>
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Image</label>
-                                    <input class="form-control" value=" type=" file" name="upload-file" id="file-input" value="" />
+                                    <input class="form-control" type="file" name="upload-file" id="file-input" value="" />
                                     <label for="image" class="form-label">Preview Image: </label>
                                     <img src="../../../resources/images/products/<?php echo $product->thumb_image ?>" id="img-preview" style="width: 250px; height: auto; margin: 10px 20px;">
                                     <input type="hidden" value="<?php echo $product->thumb_image ?>" name="old-image" id="old-image" class="form-control">
