@@ -45,139 +45,22 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 <p><input type="datetime-local" class="form-control" name="to" placeholder="Đến ngày" required> </p>
                             </div>
                             <div class="form-group">
-                                <p><button class="btn btn-primary" type="submit">Thống kê</button></p>
+                                <p><button class="btn btn-primary" type="button" id="btnThongKe">Thống kê</button></p>
                             </div>
                         </form>
                     </div>
 
-                    <div class="mb-3">
-
-
-                        <?php
-                        global $db;
-
-                        if (!isset($_GET['from']) || !isset($_GET['to'])) {
-                            echo "<div class='alert alert-danger text-center' role='alert'>Vui lòng chọn khoảng thời gian để thống kê</div>";
-                        } else {
-                            $from_date = $_GET['from'];
-                            $to_date = $_GET['to'];
-
-
-                            $query = $db->query("SELECT op.product_id, SUM(op.qty) AS quantity_sold
-                                FROM orders o
-                                JOIN order_products op ON o.id = op.order_id
-                                WHERE o.create_at BETWEEN '$from_date' AND '$to_date'
-                                GROUP BY op.product_id  
-                                ORDER BY `quantity_sold` DESC
-                                LIMIT 5");
-
-                            $query->execute();
-                            $data = $query->fetchAll();
-                            if ($query->rowCount() > 0) {
-
-                        ?>
-
-                                <canvas id="myChart" width="800" height="800"></canvas>
-                                <script>
-                                    var ctx = document.getElementById('myChart').getContext('2d');
-                                    var myChart = new Chart(ctx, {
-                                        type: 'pie',
-                                        data: {
-                                            labels: [
-                                                <?php
-                                                foreach ($data as $item) {
-
-                                                    echo "'" . $item['product_id'] . "', ";
-                                                }
-                                                ?>
-                                            ],
-                                            datasets: [{
-                                                label: 'Số sản phẩm bán được',
-                                                data: [
-                                                    <?php
-                                                    foreach ($data as $item) {
-                                                        echo $item['quantity_sold'] . ", ";
-                                                    }
-                                                    ?>
-                                                ],
-                                                backgroundColor: [
-                                                    'rgba(255, 99, 132, 0.2)',
-                                                    'rgba(54, 162, 235, 0.2)',
-                                                    'rgba(255, 206, 86, 0.2)',
-                                                    'rgba(75, 192, 192, 0.2)',
-                                                    'rgba(153, 102, 255, 0.2)'
-                                                ],
-                                                borderColor: [
-                                                    'rgba(255, 99, 132, 1)',
-                                                    'rgba(54, 162, 235, 1)',
-                                                    'rgba(255, 206, 86, 1)',
-                                                    'rgba(75, 192, 192, 1)',
-                                                    'rgba(153, 102, 255, 1)'
-                                                ],
-                                                borderWidth: 1,
-                                                hoverBorderWidth: 3,
-                                                hoverBorderColor: '#000'
-                                            }]
-                                        },
-                                        options: {
-                                            title: {
-                                                display: true,
-                                                text: 'Top sản phẩm bán chạy nhất',
-                                                fontSize: 20
-                                            },
-                                            legend: {
-                                                display: true,
-                                                position: 'right',
-                                                labels: {
-                                                    fontColor: '#000'
-                                                }
-                                            },
-                                            responsive: false,
-                                            scales: {
-                                                y: {
-                                                    beginAtZero: true
-                                                }
-                                            },
-                                            layout: {
-                                                padding: {
-                                                    left: 50,
-                                                    right: 0,
-                                                    top: 0,
-                                                    bottom: 0
-                                                }
-                                            }
-
-                                        }
-                                    });
-                                </script>
-
-                            <?php
-                            }
-                            ?>
-
-
-                        <?php
-                        }
-                        ?>
-
-
+                    <div class="mb-3" id="content">
 
                     </div>
+
+                    <canvas id="myChart" width="100%" height="50%"></canvas>
+
 
                 </div>
             </div>
         </div>
 
-        <div class="card border-0">
-            <div class="card-header">
-                <h5 class="card-title">
-                    Thống kê tình hình kinh doanh</h5>
-            </div>
-
-            <div class="card-body">
-
-            </div>
-        </div>
 
     </main>
     <?php
@@ -188,6 +71,148 @@ require_once('./App/Views/Admin/layouts/header.php');
 </div>
 <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./../../resources/js/script.js"></script>
+
+<script>
+    // vẽ biểu đồ
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var btnThongKe = document.getElementById('btnThongKe');
+        var content = document.getElementById('content');
+        var chart = null;
+
+        //them su kien cho nut thong ke
+        btnThongKe.addEventListener('click', function() {
+
+            //kiem tra xem nguoi dung da chon khoang thoi gian chua
+            if (document.querySelector('input[name="from"]').value == '' || document.querySelector('input[name="to"]').value == '') {
+                content.innerHTML = '<div class="alert alert-danger text-center" role="alert">Vui lòng chọn khoảng thời gian để thống kê</div>';
+                return;
+            }
+
+            //lay du lieu cua 2 ngay
+            var fromDate = document.querySelector('input[name="from"]').value;
+            var toDate = document.querySelector('input[name="to"]').value;
+
+            //kiem tra tu ngay phai nho hon hoac bang den ngay
+            if (fromDate > toDate) {
+                content.innerHTML = '<div class="alert alert-danger text-center" role="alert">Từ ngày phải nhỏ hơn hoặc bằng đến ngày</div>';
+                return;
+            }
+
+            // cắt chuỗi đại diện cho thời gian từ vị trí 0 đến vị trí 15, bao gồm năm, tháng, ngày, giờ và phút, để lấy thời gian hiện tại ở dạng "YYYY-MM-DDThh:mm
+            if (fromDate > new Date().toISOString().slice(0, 16)) {
+                content.innerHTML = '<div class="alert alert-danger text-center" role="alert">Từ ngày không được lớn hơn ngày hiện tại</div>';
+                return;
+            }
+
+            //từ ngày không được quá 20 năm
+            if (fromDate < new Date(new Date().getFullYear() - 20, new Date().getMonth(), new Date().getDate()).toISOString().slice(0, 16)) {
+                content.innerHTML = '<div class="alert alert-danger text-center" role="alert">Từ ngày không được nhỏ hơn 20 năm trước</div>';
+                return;
+            }
+
+            //đến ngày không được là ngày tương lai
+            if (toDate > new Date().toISOString().slice(0, 16)) {
+                content.innerHTML = '<div class="alert alert-danger text-center" role="alert">Đến ngày không được lớn hơn ngày hiện tại</div>';
+                return;
+            }
+
+            $.ajax({
+                url: '/the-coffee/admin/stat/getTopProducts',
+                type: 'POST',
+                data: {
+                    from: fromDate,
+                    to: toDate
+                },
+                success: function(response) {
+                    let index = 0;
+
+                    let html = '<table class="table">' +
+                        '<thead>' +
+                        '<tr>' +
+                        '<th scope="col">STT</th>' +
+                        '<th scope="col">Tên sản phẩm</th>' +
+                        '<th scope="col">Số lượng bán được</th>' +
+                        '</tr>' +
+                        '</thead>' +
+                        '<tbody>';
+
+                    JSON.parse(response).forEach((item, index = 0) => {
+
+                        html += '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + item['name'] + '</td>' +
+                            '<td>' + item['quantity_sold'] + '</td>' +
+                            '</tr>';
+                    });
+
+                    content.innerHTML = html;
+                    drawChart(JSON.parse(response));
+                }
+
+            });
+
+        });
+
+        function drawChart($data) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+            // Nếu biểu đồ đã tồn tại, hủy nó trước khi vẽ biểu đồ mới
+
+
+            // Lấy số lượng cột của data
+            var numOfColumns = $data.length;
+
+            // tạo mảng các nhãn cho các cột
+            var labels = [];
+            $data.forEach((item) => {
+                labels.push(item['name']);
+            });
+
+            //tạo mảng giá trị cho các cột
+
+            var value = [];
+            $data.forEach((item) => {
+                value.push(item['quantity_sold']);
+            });
+
+            // vẽ biểu đồ
+            chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels, // tên các cột
+                    datasets: [{
+                        label: 'Số lượng sản phẩm bán được',
+                        data: value, // giá trị của các cột
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
 
 </body>
 

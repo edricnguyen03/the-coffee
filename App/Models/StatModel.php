@@ -1,6 +1,25 @@
 <?php
 class StatModel
 {
+    //ham lay du lieu thong ke san pham ban chay
+    public function getTopProducts($fromDate, $toDate)
+    {
+        global $db;
+
+        $query = $db->query("SELECT p.name, SUM(op.qty) AS quantity_sold
+                                FROM orders o
+                                JOIN order_products op ON o.id = op.order_id
+                                JOIN products p ON op.product_id = p.id
+                                WHERE o.create_at BETWEEN '$fromDate' AND '$toDate'
+                                GROUP BY p.name 
+                                ORDER BY `quantity_sold` DESC
+                                LIMIT 5");
+
+        $query->execute();
+        $data = $query->fetchAll();
+        return $data;
+    }
+
     public function getIncomeCategories($fromDate, $toDate)
     {
         global $db;
