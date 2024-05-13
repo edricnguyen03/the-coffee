@@ -164,7 +164,7 @@ class UserModel
         global $db;
         try {
             $password = $db->get('users', 'password', 'id = ' . $userId);
-            if ($password[0]['password'] != $currentPassword) {
+            if (password_verify($currentPassword, $password[0]['password']) == false) {
                 return "Mật khẩu cũ không đúng";
             }
             if ($currentPassword == $newPassword) {

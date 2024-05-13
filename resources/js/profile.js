@@ -1,6 +1,6 @@
 $(document).ready(function () {
   var btnLuuThongTin = document.getElementById("btn-LuuThongTin");
-  var btnDoiMatKhau = document.getElementById("btn-DoiMatKhau");
+  let btnDoiMatKhau = document.getElementById("btn-DoiMatKhau");
 
   // Đổi mật khẩu
   btnDoiMatKhau.addEventListener("click", function (event) {
@@ -33,35 +33,37 @@ $(document).ready(function () {
         newPassword: newPassword,
       },
       success: function (response) {
-        switch (response) {
-          case "fail": {
-            Swal.fire({
-              icon: "error",
-              title: "Đổi mật khẩu thất bại",
-              text: "Lỗi không xác định",
-            });
-            break;
-          }
-          case "success": {
-            Swal.fire({
-              icon: "success",
-              title: "Đổi mật khẩu thành công",
-              text: "Mật khẩu của bạn đã được thay đổi",
-            });
-            document.getElementById("current-password").value = "";
-            document.getElementById("new-password").value = "";
-            document.getElementById("confirm-password").value = "";
-            break;
-          }
-          default: {
-            Swal.fire({
-              icon: "error",
-              title: "Đổi mật khẩu thất bại",
-              text: response,
-            });
-            break;
-          }
-        }
+        response = response.trim();
+        alert(response);
+        // switch (response) {
+        //   case "fail": {
+        //     Swal.fire({
+        //       icon: "error",
+        //       title: "Đổi mật khẩu thất bại",
+        //       text: "Lỗi không xác định",
+        //     });
+        //     break;
+        //   }
+        //   case "success": {
+        //     Swal.fire({
+        //       icon: "success",
+        //       title: "Đổi mật khẩu thành công",
+        //       text: "Mật khẩu của bạn đã được thay đổi",
+        //     });
+        //     document.getElementById("current-password").value = "";
+        //     document.getElementById("new-password").value = "";
+        //     document.getElementById("confirm-password").value = "";
+        //     break;
+        //   }
+        //   default: {
+        //     Swal.fire({
+        //       icon: "error",
+        //       title: "Đổi mật khẩu thất bại123",
+        //       text: response,
+        //     });
+        //     break;
+        //   }
+        // }
       },
       error: function (xhr, status, error) {
         console.error(xhr.responseText);
@@ -81,6 +83,7 @@ $(document).ready(function () {
         userName: userName,
       },
       success: function (response) {
+        response = response.trim();
         switch (response) {
           case "fail": {
             Swal.fire({
