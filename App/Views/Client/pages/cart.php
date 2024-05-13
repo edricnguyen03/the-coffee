@@ -11,7 +11,7 @@
                         <!-- Name -->
                         <div class="col-12">
                             <div class="form-group">
-                                <p> <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên" onblur="validation('name_result', this.value)" required value="<?php echo $this->data['user']['name'] ?>"> </p>
+                                <p> <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên" onblur="validation('name_result', this.value)" required value="<?php echo $_SESSION['login']['username'] ?>"> </p>
                             </div>
                             <div>
                                 <span class=" text-danger" id="name_result"></span>
