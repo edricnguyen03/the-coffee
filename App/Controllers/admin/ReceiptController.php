@@ -37,13 +37,51 @@ class ReceiptController extends Controller {
 
     public function store()
     {
+        // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //     global $db;
+        //     $order = $_POST["order"];
+        //     $column = $_POST["column_name"];
+        //     $output = '';
+        //     // echo $column;
+        //     // die();
+        //     if($order == 'desc') {
+        //         $order = 'asc';
+        //     }
+        //     else {
+        //         $order = 'desc';
+        //     }
+        //     $query = $db->query("SELECT * FROM receipts ORDER BY ".$_POST["column_name"]." ".$_POST["order"]."");
+        //     $result = $query->execute();
+        //     $output .= '  
+        //     <table class="table">
+        //     <thead>
+        //         <tr>
+        //             <th scope="col" class="column_sort" id="id" data-order="'.$order.'">ID</th>
+        //             <th scope="col" class="column_sort" id="name" data-order="'.$order.'">Name</th>
+        //             <th scope="col">Provider</th>
+        //             <th scope="col">Total</th>
+        //             <th scope="col">create_at</th>
+        //             <th scope="col">Action</th>
+        //         </tr>
+        //     </thead>
+        //     ';  
+        //     while($row = mysqli_fetch_all($result)) {
+        //         $output .= '
+                
+        //         ';
+        //     }
+        // }
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $providerId = $_POST['provider'];
             $quantity = $_POST['item_quantity'];
             $productId = $_POST['item_name'];
             $price = $_POST['item_price'];
-
+            //phần sắp xếp
+            
+            
+            
             //xử lý total = quantity từng phần + lại
             $total = 0;
             foreach ($quantity as $value) {
@@ -83,7 +121,8 @@ class ReceiptController extends Controller {
                         ];
 
                         $this->productsReceipts->insertPR($data2);
-
+                        //cập nhật stock
+                        $this->productModel->changeStock($_POST["item_name"][$count], -$_POST["item_quantity"][$count]);
                         // $query = "
                         // INSERT INTO product_receipt 
                         // (product_id, receipt_id, quantity) 

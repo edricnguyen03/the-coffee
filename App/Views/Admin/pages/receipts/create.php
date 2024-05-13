@@ -3,6 +3,9 @@
 
         global $db;
 
+        // $query5 = "SELECT * FROM receipts ORDER BY id DESC";
+        
+
         function fill_unit_select_box ($db) {
             $output = '';
             $query = $db->query("SELECT * FROM products");
@@ -283,7 +286,7 @@
                             {
                                 $('.alert-success').text('Thêm phiếu nhập thành công').css('display', 'block');
 
-
+                                $('#name').val('');
 
                                 $('#item_table').find('tr:gt(0)').remove();
 
@@ -296,9 +299,8 @@
                                 $('#submit_button').attr('disabled', false);
                             }
                     }).fail(function(response) {
-                        $('.alert-danger').text('Thêm người dùng thất bại').css('display', 'block');
+                        $('.alert-danger').text('Thêm phiếu nhập thất bại').css('display', 'block');
                     });
-
                 }else   {
                     $('#error').html('<div class="alert alert-danger"><ul>'+error+'</ul></div>');
                     

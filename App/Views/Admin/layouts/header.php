@@ -70,7 +70,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     </li>
                     <!-- Receipt -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#receipt" data-bs-toggle="collapse" aria-expanded="false"><i class="fas fa-receipt"></i>
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#receipt" data-bs-toggle="collapse" aria-expanded="false"><i class="fas fa-receipt pe-2"></i>
                             Phiếu nhập
                         </a>
                         <ul id="receipt" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
