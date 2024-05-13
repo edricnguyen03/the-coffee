@@ -9,7 +9,6 @@ $routes['admin/logout'] = 'Login_Regis/Logout';
 //Dashboard
 $routes['admin/dashboard'] = 'admin/Dashboard/index';
 
-<<<<<<< HEAD
 // Product
 $routes['admin/product'] = 'admin/ProductController/index';
 $routes['admin/product/search'] = 'admin/ProductController/search';
@@ -22,13 +21,11 @@ $routes['admin/product/edit'] = 'admin/ProductController/edit';
 $routes['admin/product/update'] = 'admin/ProductController/update';
 //Delete product
 $routes['admin/product/delete'] = 'admin/ProductController/delete';
-=======
 //Stats
 $routes['admin/stat'] = 'admin/StatsController/index';
 $routes['admin/stat/income'] = 'admin/StatsController/income';
 $routes['admin/stat/income/getIncomeCategories'] = 'admin/StatsController/getIncomeCategories';
 
->>>>>>> nam_branch
 
 
 // User

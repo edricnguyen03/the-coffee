@@ -30,7 +30,7 @@ class StatsController extends Controller
 
     public function getIncomeCategories()
     {
-        if(!isset($_POST['fromDate']) || !isset($_POST['toDate'])){
+        if (!isset($_POST['fromDate']) || !isset($_POST['toDate'])) {
             echo '';
         }
         $fromDate = $_POST['fromDate'];
