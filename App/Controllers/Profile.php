@@ -52,7 +52,6 @@ class Profile extends Controller
         $userId = $_POST["userId"];
         $currentPassword = $_POST["currentPassword"];
         $newPassword = $_POST["newPassword"];
-
         echo $this->userModel->changePassword($userId, $currentPassword, $newPassword);
     }
 }
