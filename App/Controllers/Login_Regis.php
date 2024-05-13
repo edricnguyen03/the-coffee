@@ -67,14 +67,7 @@ class Login_Regis extends Controller
           //goi ham o usermodel
           $this->userModel->insertUser($data);
 
-          // Add SweetAlert to show register success
-          echo "<script>
-               Swal.fire({
-                    icon: 'success',
-                    title: 'Đăng ký ',
-                    text: 'Đăng ký thành công',
-               });
-          </script>";
+
           header('Location: /the-coffee');
      }
      //add a validation function here
