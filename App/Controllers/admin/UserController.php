@@ -4,11 +4,13 @@ class UserController extends Controller
 {
     public $data;
     public $userModel;
+    public $orderModel;
 
     public function __construct()
     {
         $this->data = [];
         $this->userModel = $this->model('UserModel');
+        $this->orderModel = $this->model('OrdersModel');
     }
 
     // Function to show user data from the database
@@ -98,18 +100,42 @@ class UserController extends Controller
     }
 
     // Function to delete a user from the database
+    // public function delete($userId)
+    // {
+    //     if ($this->userModel->deleteUser($userId)) {
+    //         // If the deletion was successful, save success message to session
+    //         $_SESSION['success'] = 'Xóa người dùng thành công';
+    //         // Then redirect to the index page
+    //         header('Location: /the-coffee/admin/user/');
+    //         exit();
+    //     } else {
+    //         // If the deletion failed, show an error message and stay on the current page
+    //         // You can also save the error message to session and display it on the current page
+    //         $_SESSION['error'] = 'Xóa người dùng thất bại';
+    //     }
+    // }
     public function delete($userId)
     {
-        if ($this->userModel->deleteUser($userId)) {
-            // If the deletion was successful, save success message to session
-            $_SESSION['success'] = 'Xóa người dùng thành công';
-            // Then redirect to the index page
-            header('Location: /the-coffee/admin/user/');
-            exit();
+        // Check if user is in order table
+        $isInOrder = $this->orderModel->checkUserInOrder($userId);
+        if (!$isInOrder) {
+            // If user is not in order table, delete it
+            if ($this->userModel->deleteUser($userId)) {
+                $_SESSION['success'] = 'Xóa người dùng thành công';
+                header('Location: /the-coffee/admin/user/');
+                exit();
+            } else {
+                $_SESSION['error'] = 'Xóa người dùng thất bại';
+            }
         } else {
-            // If the deletion failed, show an error message and stay on the current page
-            // You can also save the error message to session and display it on the current page
-            $_SESSION['error'] = 'Xóa người dùng thất bại';
+            // If user is in order table, set its status to 'Inactive'
+            if ($this->userModel->setUserStatus($userId, 'Inactive')) {
+                $_SESSION['success'] = 'Người dùng đã được chuyển thành trạng thái Inactive vì có trong đơn hàng';
+                header('Location: /the-coffee/admin/user/');
+                exit();
+            } else {
+                $_SESSION['error'] = 'Không thể chuyển người dùng thành trạng thái Inactive';
+            }
         }
     }
 

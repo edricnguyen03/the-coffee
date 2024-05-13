@@ -7,7 +7,7 @@ class ProviderModel
     // public function login($username, $password)
     // {
     //     global $db;
-    //     $userArr = $db->get('users');
+    //     $userArr = $db->get('providers');
     //     foreach ($userArr as $user) {
     //         if ($user['email'] == $username && $user['password'] != $password) {
     //             return "wrongPassword";
@@ -22,7 +22,7 @@ class ProviderModel
     //     }
     //     return "notFound";
     // }
-    
+
     public function getProviderById($ProviderId)
     {
         global $db;
@@ -37,16 +37,17 @@ class ProviderModel
         return $provider;
     }
 
-    function getAllProvidersName() {
+    function getAllProvidersName()
+    {
         global $db;
         $providers = $db->get('providers', 'name');
         return $providers;
     }
-    
+
     public function getMaxId()
     {
         global $db;
-        $query = $db->query("SELECT MAX(id) as max_id FROM users");
+        $query = $db->query("SELECT MAX(id) as max_id FROM providers");
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['max_id'];
@@ -61,21 +62,27 @@ class ProviderModel
     public function insertProvider($data)
     {
         global $db;
-        $db->insert('users', $data);
+        $db->insert('providers', $data);
         return true;
     }
 
-    public function updateProvider($userId, $newUserData)
+    public function updateProvider($providerId, $newUserData)
     {
         global $db;
-        $db->update('users', $newUserData, 'id = ' . $userId);
+        $db->update('providers', $newUserData, 'id = ' . $providerId);
         return true;
     }
 
     public function deleteProvider($userId)
     {
         global $db;
-        $db->delete('users', 'id = ' . $userId);
+        $db->delete('providers', 'id = ' . $userId);
         return true;
+    }
+    public function setProviderStatus($providerId, $status)
+    {
+        global $db;
+        $result = $db->update("providers", ["status" => $status], "id = $providerId");
+        return $result;
     }
 }

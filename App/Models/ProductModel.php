@@ -212,4 +212,19 @@ class ProductModel
         $result = $db->update("products", ["stock" => $stock], "id = $id");
         return $result;
     }
+    public function setProductStatus($id, $status)
+    {
+        global $db;
+        return $db->update("products", ["status" => $status], "id = $id");
+    }
+
+    public function checkProductNameExists($name)
+    {
+        global $db;
+        $result = $db->get("products", "*", "name = '$name'");
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
+    }
 }

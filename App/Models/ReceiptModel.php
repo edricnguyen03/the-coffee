@@ -50,7 +50,7 @@ class ReceiptModel
         $receipts = $db->get('receipts');
         return $receipts;
     }
-    
+
     public function getMaxId()
     {
         global $db;
@@ -116,5 +116,13 @@ class ReceiptModel
         global $db;
         $db->delete('receipts', 'id = ' . $receiptId);
         return true;
+    }
+    public function checkProviderInReceipt($providerId)
+    {
+        global $db;
+        $query = $db->query("SELECT * FROM receipts WHERE provider_id = $providerId");
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result ? true : false;
     }
 }

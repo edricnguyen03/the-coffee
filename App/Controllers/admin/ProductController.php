@@ -5,12 +5,14 @@ class productController extends Controller
     public $data;
     public $productModel;
     public $categoryModel;
+    public $orderProductModel;
 
     public function __construct()
     {
         $this->data = [];
         $this->productModel = $this->model('ProductModel');
         $this->categoryModel = $this->model('CategoryModel');
+        $this->orderProductModel = $this->model('OrderProductsModel');
     }
 
     // Function to show product data from the database
@@ -105,15 +107,17 @@ class productController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $name = $_POST['name'];
-            // Check if the product name already exists
-            if ($this->productModel->checkProductNameExists($name)) {
-                $_SESSION['error'] = 'Tên sản phẩm đã tồn tại';
-                $this->data['categories'] = $this->categoryModel->get();
-                $this->data['product'] =  $this->productModel->getById($productId);
-                $this->view('/Admin/pages/products/edit', $this->data);
-                exit();
+            $oldName = $this->productModel->getById($productId)->name;
+            if ($name != $oldName) {
+                // Check if the product name already exists
+                if ($this->productModel->checkProductNameExists($name)) {
+                    $_SESSION['error'] = 'Tên sản phẩm đã tồn tại';
+                    $this->data['categories'] = $this->categoryModel->get();
+                    $this->data['product'] =  $this->productModel->getById($productId);
+                    $this->view('/Admin/pages/products/edit', $this->data);
+                    exit();
+                }
             }
-
             $old_image = $_POST['old-image'];
             $filename = $old_image; // default to old image
 
@@ -185,16 +189,25 @@ class productController extends Controller
     public function delete($productId)
     {
         $product = $this->productModel->getById($productId);
-        if ($this->productModel->deleteProduct($productId) && unlink("resources/images/products/" . $product->thumb_image)) {
-            // If the deletion was successful, save success message to session
-            $_SESSION['success'] = 'Xóa nhà sản phẩm thành công';
-            // Then redirect to the index page
-            header('Location: /the-coffee/admin/product/');
-            exit();
+        $isInOrderProduct = $this->orderProductModel->checkProductInOrder($productId);
+        if (!$isInOrderProduct) {
+            // If product is not in order_product table, delete it
+            if ($this->productModel->deleteProduct($productId) && unlink("resources/images/products/" . $product->thumb_image)) {
+                $_SESSION['success'] = 'Xóa nhà sản phẩm thành công';
+                header('Location: /the-coffee/admin/product/');
+                exit();
+            } else {
+                $_SESSION['error'] = 'Xóa nhà sản phẩm thất bại';
+            }
         } else {
-            // If the deletion failed, show an error message and stay on the current page
-            // You can also save the error message to session and display it on the current page
-            $_SESSION['error'] = 'Xóa nhà sản phẩm thất bại';
+            // If product is in order_product table, set its status to 'Inactive'
+            if ($this->productModel->setProductStatus($productId, 'Inactive')) {
+                $_SESSION['success'] = 'Sản phẩm đã được chuyển thành trạng thái Inactive vì có trong đơn hàng';
+                header('Location: /the-coffee/admin/product/');
+                exit();
+            } else {
+                $_SESSION['error'] = 'Không thể chuyển sản phẩm thành trạng thái Inactive';
+            }
         }
     }
 

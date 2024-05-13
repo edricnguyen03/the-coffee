@@ -89,4 +89,12 @@ class OrdersModel
                return $e->getMessage() . " OrdersModel, updateStatus exception";
           }
      }
+     public function checkUserInOrder($userId)
+     {
+          global $db;
+          $query = $db->query("SELECT * FROM orders WHERE user_id = $userId");
+          $query->execute();
+          $result = $query->fetch(PDO::FETCH_ASSOC);
+          return $result ? true : false;
+     }
 }

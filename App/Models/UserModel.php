@@ -142,7 +142,7 @@ class UserModel
         $users = $db->get('users');
         return $users;
     }
-    
+
     public function getMaxId()
     {
         global $db;
@@ -155,7 +155,7 @@ class UserModel
     public function updatePassword($userId, $newPassword)
     {
         global $db;
-        try {            
+        try {
             if ($db->update('users', ['password' => password_hash($newPassword, PASSWORD_DEFAULT)], 'id = ' . $userId)) {
                 return "success";
             };
@@ -247,5 +247,11 @@ class UserModel
         global $db;
         $user = $db->get('users', '*', "email = '$email'");
         return $user;
+    }
+    public function setUserStatus($userId, $status)
+    {
+        global $db;
+        $result = $db->update("users", ["status" => $status], "id = $userId");
+        return $result;
     }
 }

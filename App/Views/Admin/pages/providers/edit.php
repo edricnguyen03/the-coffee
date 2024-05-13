@@ -208,6 +208,13 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                     <label for="description" class="form-label">Description</label>
                                     <input value="<?php echo $provider['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select value="<?php echo $provider['status'] ?>" class="form-select" id="status" name="status" required>
+                                        <option value="1" <?php echo $provider['status'] == 1 ? 'selected' : ''; ?>>Active</option>
+                                        <option value="0" <?php echo $provider['status'] == 0 ? 'selected' : ''; ?>>Inactive</option>
+                                    </select>
+                                </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
                             </form>
                         </div>

@@ -59,6 +59,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -78,6 +79,13 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             <th scope="row"><?php echo $provider['id']; ?></th>
                                             <td><?php echo $provider['name']; ?></td>
                                             <td><?php echo $provider['description']; ?></td>
+                                            <td>
+                                                <?php if ($provider['status'] == '1') { ?>
+                                                    <button class="btn btn-success">Active</button>
+                                                <?php } else { ?>
+                                                    <button class="btn btn-danger">Inactive</button>
+                                                <?php } ?>
+                                            </td>
                                             <td>
                                                 <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
                                                 <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>
@@ -101,6 +109,13 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <th scope="row"><?php echo $provider['id']; ?></th>
                                         <td><?php echo $provider['name']; ?></td>
                                         <td><?php echo $provider['description']; ?></td>
+                                        <td>
+                                            <?php if ($provider['status'] == '1') { ?>
+                                                <button class="btn btn-success">Active</button>
+                                            <?php } else { ?>
+                                                <button class="btn btn-danger">Inactive</button>
+                                            <?php } ?>
+                                        </td>
                                         <td>
                                             <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
                                             <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>

@@ -48,4 +48,12 @@ class OrderProductsModel
           $db->insert('order_products', $data);
           return true;
      }
+     public function checkProductInOrder($productId)
+     {
+          global $db;
+          $query = $db->query("SELECT * FROM order_products WHERE product_id = $productId");
+          $query->execute();
+          $result = $query->fetch(PDO::FETCH_ASSOC);
+          return $result ? true : false;
+     }
 }
