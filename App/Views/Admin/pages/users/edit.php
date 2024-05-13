@@ -64,7 +64,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../order/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -196,7 +196,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </div>
                             <form id="edit_user" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Tên người dùng</label>
                                     <input value="<?php echo $user['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                     <span class="error" id="name_error" style="color: red;"></span>
                                 </div>
@@ -206,17 +206,17 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                     <span class="error" id="email_error" style="color: red;"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label">mật khẩu</label>
                                     <input type="password" class="form-control" id="password" name="password" required>
                                     <span class="error" id="password_error" style="color: red;"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">Confirm Password</label>
+                                    <label for="confirm_password" class="form-label">Xác nhận mật khẩu</label>
                                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                                     <span class="error" id="confirm_password_error" style="color: red;"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
+                                    <label for="status" class="form-label">Trạng thái</label>
                                     <select value="<?php echo $user['status'] ?>" class="form-select" id="status" name="status" required>
                                         <option value="1" <?php echo $user['status'] == 1 ? 'selected' : ''; ?>>Active</option>
                                         <option value="0" <?php echo $user['status'] == 0 ? 'selected' : ''; ?>>Inactive</option>

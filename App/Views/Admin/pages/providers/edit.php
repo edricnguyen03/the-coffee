@@ -63,7 +63,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../order/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -201,11 +201,11 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             <?php endif; ?>
                             <form action="../update/<?php echo $provider['id'] ?>" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Tên nhà cung cấp</label>
                                     <input value="<?php echo $provider['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class=" mb-3">
-                                    <label for="description" class="form-label">Description</label>
+                                    <label for="description" class="form-label">Mô tả</label>
                                     <input value="<?php echo $provider['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>

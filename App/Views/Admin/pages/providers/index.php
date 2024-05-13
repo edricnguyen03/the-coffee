@@ -38,7 +38,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <form method="GET">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên nhà cung cấp">
-                                <button class="btn btn-primary" type="submit">Search</button>
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                             </div>
                         </form>
                     </div>
@@ -57,9 +57,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Tên nhà cung cấp</th>
+                                <th scope="col">Mô tả</th>
+                                <th scope="col">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,8 +79,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             <td><?php echo $provider['name']; ?></td>
                                             <td><?php echo $provider['description']; ?></td>
                                             <td>
-                                                <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>
+                                                <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Sửa</a>
+                                                <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Xóa</a>
                                         </tr>
                                     <?php
                                     }
@@ -102,8 +102,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <td><?php echo $provider['name']; ?></td>
                                         <td><?php echo $provider['description']; ?></td>
                                         <td>
-                                            <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Edit</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Delete</a>
+                                            <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Sửa</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>
                             <?php
                                 }

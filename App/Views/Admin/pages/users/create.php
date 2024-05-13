@@ -38,7 +38,7 @@
                             </div>
                             <form id="create_user" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Tên người dùng</label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Tên tối thiểu 4 ký tự, tối đa 40 ký tự và không chứa ký tự đặc biệt " required>
                                     <span class="error" id="name_error" style="color: red;"></span>
                                 </div>
@@ -48,30 +48,30 @@
                                     <span class="error" id="email_error" style="color: red;"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label">Mật khẩu</label>
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Tối thiểu 6 ký tự và tối đa 20 ký tự" required>
                                     <span class="error" id="password_error" style="color: red;"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">Confirm Password</label>
+                                    <label for="confirm_password" class="form-label">Xác nhận mật khẩu</label>
                                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                                     <span class="error" id="confirm_password_error" style="color: red;"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
+                                    <label for="status" class="form-label">Trạng thái</label>
                                     <select class="form-select" id="status" name="status" required>
                                         <option value="1">Active</option>
                                         <option value="0">Inactive</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="role_id" class="form-label">Role ID</label>
+                                    <label for="role_id" class="form-label">ID chức vụ</label>
                                     <select class="form-select" id="role_id" name=" role_id" required>
                                         <option value="1">Super Admin</option>
                                         <option value="2">User</option>
                                     </select>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Create User</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Tạo mới người dùng</button>
                             </form>
                         </div>
                     </div>

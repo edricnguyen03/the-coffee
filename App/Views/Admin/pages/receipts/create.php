@@ -62,26 +62,24 @@
                                     <span id="error"></span>
                                     <table class="table table-bordered" id="item_table">
                                         <tr>
-                                            <th>Enter Item Name</th>
-                                            <th>Enter Quantity</th>
-                                            <th>Price (đ)</th>
-                                            <th><button type="button" name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá (đồng)</th>
+                                            <th><button type="button"  name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th>
                                         </tr>
                                     </table>
-                                    <div>
-								        <input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Insert" />
-							        </div>
+                                    
                                     <!-- </form> -->
                                     <br> <br>  
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Name</label>
+                                        <label for="name" class="form-label">Tên</label>
                                         <input type="text" class="form-control" id="name" name="name" placeholder="Tên tối thiểu 4 ký tự, tối đa 40 ký tự và không chứa ký tự đặc biệt " required>
                                         <span class="error" id="name_error" style="color: red;"></span>
                                     </div>
 
                                     <div class="mb-3">
                                             
-                                        <label for="provider" class="form-label">Provider</label>
+                                        <label for="provider" class="form-label">Nhà cung cấp</label>
                                         <select class="form-select" id="provider" name="provider" required>
                                         <?php
                                                 // echo '<pre>';
@@ -107,7 +105,9 @@
                                         <!-- id="submit_button -->  
                                     </div>   
                                 <!-- nhập sản phẩm --> 
-                                
+                                    <div>
+								        <input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Tạo mới phiếu nhập" />
+							        </div>        
                                     
                                 <!-- <form method="post" id="insert_form"> -->
                                  
@@ -155,8 +155,8 @@
                 html += '<tr>';
 
                 html += '<td><select name="item_name[]" type="text" class="form-control selectpicker item_name" data-live-search="true"><option value="">Select Name</option><?php echo fill_unit_select_box($db); ?> </select></td>';
-                html += '<td><input type="text" name="item_quantity[]" class="form-control item_quantity" /></td>';
-                html += '<td><input type="text" name="item_price[]" class="form-control item_price" /></td>';                        
+                html += '<td><input type="number" name="item_quantity[]" class="form-control item_quantity" /></td>';
+                html += '<td><input type="number" name="item_price[]" class="form-control item_price" /></td>';                        
                 
 
                 var remove_button = '';
@@ -204,7 +204,7 @@
                     if($(this).val() == '')
                     {
 
-                        error += "<li>Select Name at "+count+" Row</li>";
+                        error += "<li>Chọn tên sản phẩm được nhập tại dòng "+count+"</li>";
 
                     }
 
@@ -219,7 +219,7 @@
                     if($(this).val() == '')
                     {
 
-                        error += "<li>Enter Item Name at "+count+" Row</li>";
+                        error += "<li>Nhập số lượng nhập tại dòng "+count+" </li>";
 
                     }
 
@@ -231,14 +231,15 @@
 
                 $('.item_price').each(function(){
 
-                    if($(this).val() == '')
-                    {
+                    var price = $(this).val(); // Lấy giá trị của phần tử hiện tại
 
-                        error += "<li>Enter Item Quantity at "+count+" Row</li>";
-
+                    if(price === '') {
+                        error += "<li>Nhập giá tiền tại dòng " + count + " </li>"; // Thêm lỗi nếu giá trị trống
+                    } else if(parseFloat(price) <= 1000) {
+                        error += "<li>Giá tiền tại dòng " + count + " phải lớn hơn hoặc bằng 1000 (đồng)</li>"; // Thêm lỗi nếu giá trị không lớn hơn 1000
                     }
 
-                    count = count + 1;
+                    count = count + 1; // Tăng biến đếm
 
                 });
 
@@ -284,13 +285,15 @@
                     }).done(function(response) {
                         if(response)
                             {
-                                $('.alert-success').text('Thêm phiếu nhập thành công').css('display', 'block');
+                                // $('.alert-success').text('Thêm phiếu nhập thành công').css('display', 'block');
 
                                 $('#name').val('');
 
+                                $('#name_error').text('');
+
                                 $('#item_table').find('tr:gt(0)').remove();
 
-                                // $('#error').html('<div class="alert alert-success">Item Details Saved</div>');
+                                $('#error').html('<div  style="text-align: center;" class="alert alert-success">Thêm phiếu nhập thành công</div>');
 
                                 $('#item_table').append(add_input_field(0));
 

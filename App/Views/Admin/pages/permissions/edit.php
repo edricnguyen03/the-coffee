@@ -53,7 +53,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 <a href="../../product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../../product/ " class="sidebar-link">Danh sách</a>
+                                <a href="../../product/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -63,7 +63,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../order/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -177,14 +177,14 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             </nav>
             <main class="content px-3 py-2">
                 <div class="text-center my-3 py-2">
-                    <h3>QUẢN LÝ NHÀ CUNG CẤP</h3>
+                    <h3>QUẢN LÝ QUYỀN</h3>
                 </div>
                 <div class="container-fluid">
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title my-3 py-2">
-                                Chinh sửa nhà cung cấp
+                                Chinh sửa quyền
                             </h5>
                         </div>
                         <div class="card-body">
@@ -201,11 +201,11 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             <?php endif; ?>
                             <form action="../update/<?php echo $permission['id'] ?>" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Tên quyền</label>
                                     <input value="<?php echo $permission['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class=" mb-3">
-                                    <label for="description" class="form-label">Description</label>
+                                    <label for="description" class="form-label">Mô tả</label>
                                     <input value="<?php echo $permission['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
