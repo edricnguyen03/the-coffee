@@ -455,17 +455,44 @@
                 cartTotal: cartTotal,
                 payment: payment
             },
+            // xử lý kết quả trả về từ server
             success: function(response) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Đặt hàng thành công',
-                    text: 'Cảm ơn bạn đã mua hàng tại The Coffee',
-                    showConfirmButton: false,
-                    timer: 2000
-                }).then(function() {
-                    window.location.href = '/the-coffee';
-                });
-            }
+                response = response.trim();
+                switch (response) {
+                    // nếu giỏ hàng rỗng 
+                    case 'empty':
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Giỏ hàng của bạn đang trống',
+                            text: 'Vui lòng chọn sản phẩm để mua',
+                        });
+                        break;
+                        // nếu số lượng sản phẩm trong giỏ hàng vượt quá số lượng trong kho
+                    case 'error':
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Số lượng sản phẩm trong giỏ hàng vượt quá số lượng trong kho',
+                            text: 'Vui lòng kiểm tra lại số lượng sản phẩm trong giỏ hàng',
+                        });
+                        break;
+                        // nếu đặt hàng thành công
+                    case 'success':
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đặt hàng thành công',
+                            text: 'Cảm ơn bạn đã mua hàng tại The Coffee',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(function() {
+                            window.location.href = '/the-coffee';
+                        });
+                        break;
+                }
+
+
+            },
+
+
         });
     });
 </script>

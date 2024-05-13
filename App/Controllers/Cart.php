@@ -85,6 +85,20 @@ class Cart extends Controller
         $date_order = date('Y-m-d H:i:s');
 
         $products = $this->cartModel->getProductsInCart($user_id);
+        // kiểm tra xem giỏ hàng có rỗng hay không
+        if (empty($products)) {
+            echo 'empty';
+            return;
+        }
+
+        //kiểm tra số lượng sản phẩm trong giỏ hàng có vượt quá số lượng trong kho không
+        foreach ($products as $product) {
+            $productInStock = $this->productModel->getById($product->idProduct);
+            if ($product->quantity > $productInStock->stock) {
+                echo 'error';
+                return;
+            }
+        }
 
         $data = [
             'id' => $id + 1,
