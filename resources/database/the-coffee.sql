@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 13, 2024 lúc 12:15 PM
+-- Thời gian đã tạo: Th5 13, 2024 lúc 02:47 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -51,8 +51,6 @@ INSERT INTO `carts` (`id`, `user_id`, `cart_items`) VALUES
 CREATE TABLE `categories` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `icon` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -60,12 +58,12 @@ CREATE TABLE `categories` (
 -- Đang đổ dữ liệu cho bảng `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `slug`, `icon`, `status`) VALUES
-(1, 'Cà Phê đóng gói', 'ca-phe-dong-goi', 'fas fa-coffee', 1),
-(2, 'Quà tặng cao cấp', 'qua-tang-cao-cap', 'fas fa-gift', 1),
-(3, 'Vật phẩm bán lẻ', 'vat-pham-ban-le', 'fas fa-prescription-bottle', 1),
-(4, 'Cà phê nhập khẩu', 'ca-phe-nhap-khau', 'fas fa-gift', 1),
-(5, 'Đặc sản bản địa', 'dac-san-ban-dia', 'fas fa-gift', 1);
+INSERT INTO `categories` (`id`, `name`, `status`) VALUES
+(1, 'Cà Phê đóng gói', 1),
+(2, 'Quà tặng cao cấp', 1),
+(3, 'Vật phẩm bán lẻ', 1),
+(4, 'Cà phê nhập khẩu', 1),
+(5, 'Đặc sản bản địa', 1);
 
 -- --------------------------------------------------------
 
@@ -208,7 +206,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `slug`, `thumb_image`, `category_id`, `description`, `content`, `weight`, `price`, `status`, `stock`) VALUES
-(1, 'Cà Phê Hoà Tan Đậm Vị Việt (18 gói x 16 gam)', 'ca-phe-hoa-tan', '1.jpg', 1, 'Cà Phê Hoà Tan Đậm Vị Việt', 'tặng kèm phin nhôm', 500, 337000, 1, 152),
+(1, 'Cà Phê Hoà Tan Đậm Vị Việt (18 gói x 16 gam)', 'c-a-ph-e-ho-a-tan-dm-v-vit-18-g-oi-x-16-gam', '1.jpg', 1, 'Cà Phê Hoà Tan Đậm Vị Việt', 'tặng kèm phin nhôm', 500, 337000, 1, 152),
 (2, 'Cà Phê Sữa Đá Hòa Tan Túi 25x22G', 'ca-phe-sua-da', '2.jpg', 1, 'Cà Phê Sữa Đá Hòa Tan Túi', 'tặng kèm phin nhôm', 390, 110000, 1, 147),
 (3, 'Thùng 24 Lon Cà Phê Sữa Đá', 'thung-24-lon', '3.jpg', 2, 'Thùng 24 Lon Cà Phê Sữa Đá', 'tặng kèm phin nhôm', 400, 190000, 1, 101),
 (4, 'Cà Phê Đen Đá Túi (30 gói x 16g)', 'ca-phe-den-da-tui', '4.jpg', 1, 'Cà Phê Đen Đá Túi (30 gói x 16g)', 'tặng kèm phin nhôm', 150, 99000, 1, 101),
@@ -282,18 +280,19 @@ INSERT INTO `product_receipt` (`id`, `product_id`, `receipt_id`, `quantity`, `pr
 CREATE TABLE `providers` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL
+  `description` varchar(255) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `providers`
 --
 
-INSERT INTO `providers` (`id`, `name`, `description`) VALUES
-(1, 'Cà phê Trung Nguyên', 'Nhà cung cấp chính của của hàng'),
-(2, 'Cà phê chồn DakLak', 'Nhà cung cấp sản phẩm sấy khô hàng đầu'),
-(3, 'Công ty cà phê Quyết Thắng', 'Sản phẩm chất lượng hàng đầu'),
-(4, 'Cà phê Việt Nam VinaCoffee', 'Giá cả đi kèm với chất lượng');
+INSERT INTO `providers` (`id`, `name`, `description`, `status`) VALUES
+(1, 'Cà phê Trung Nguyên', 'Nhà cung cấp chính của của hàng', 1),
+(2, 'Cà phê chồn DakLak', 'Nhà cung cấp sản phẩm sấy khô hàng đầu', 1),
+(3, 'Công ty cà phê Quyết Thắng', 'Sản phẩm chất lượng hàng đầu', 1),
+(4, 'Cà phê Việt Nam VinaCoffee', 'Giá cả đi kèm với chất lượng', 1);
 
 -- --------------------------------------------------------
 
