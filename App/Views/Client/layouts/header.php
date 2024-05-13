@@ -21,15 +21,14 @@
                         </div>
                         <div class="sub-menu-wrapper" id="subMenu">
                             <div class="sub-menu">
-                                <div class="user-info">
-                                    <img></img>
-                                    <h3>
+                                <div class="user-info text-center">
+                                    <h5>
                                         <?php
                                         if (isset($_SESSION['login']['username'])) {
                                             echo $_SESSION['login']['username'];
                                         }
                                         ?>
-                                    </h3>
+                                    </h5>
                                 </div>
                                 <hr>
                                 <a href="/the-coffee/profile" class="sub-menu-link" id="user-profile-button">
@@ -37,19 +36,21 @@
                                     <p>Tài khoản</p>
                                     <span></span>
                                 </a>
-                                <a href="/the-coffee/cart" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                    <p>Giỏ hàng</p>
-                                    <span></span>
-                                </a>
-                                <a href="/the-coffee/orders" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
-                                    <p>Đơn hàng</p>
-                                    <span></span>
-                                </a>
-
                                 <?php
-                                if ($_SESSION['login']['id'] == 1) {
+                                if ($_SESSION['login']['id'] != 1) {
+                                ?>
+                                    <a href="/the-coffee/cart" class="sub-menu-link">
+                                        <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
+                                        <p>Giỏ hàng</p>
+                                        <span></span>
+                                    </a>
+                                    <a href="/the-coffee/orders" class="sub-menu-link">
+                                        <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
+                                        <p>Đơn hàng</p>
+                                        <span></span>
+                                    </a>
+                                <?php
+                                } else {
                                 ?>
                                     <a href="admin/dashboard/" class="sub-menu-link">
                                         <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
@@ -59,41 +60,6 @@
                                 <?php
                                 }
                                 ?>
-                                <a href="Login_Regis/Logout" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
-                                    <p>Đăng xuất</p>
-                                    <span></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="sub-menu-wrapper" id="subMenu">
-                            <div class="sub-menu">
-                                <div class="user-info">
-                                    <img></img>
-                                    <h3>
-                                        <?php
-                                        if (isset($_SESSION['login']['username'])) {
-                                            echo $_SESSION['login']['username'];
-                                        }
-                                        ?>
-                                    </h3>
-                                </div>
-                                <hr>
-                                <a href="/the-coffee/profile" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/profile.png" alt="">
-                                    <p>Tài khoản</p>
-                                    <span></span>
-                                </a>
-                                <a href="/the-coffee/cart" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                    <p>Giỏ hàng</p>
-                                    <span></span>
-                                </a>
-                                <a href="/the-coffee/orders" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
-                                    <p>Đơn hàng</p>
-                                    <span></span>
-                                </a>
                                 <a href="Login_Regis/Logout" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
                                     <p>Đăng xuất</p>

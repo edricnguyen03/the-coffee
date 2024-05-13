@@ -36,6 +36,7 @@ class Login_Regis extends Controller
                          default: {
                                    $_SESSION['login']['id'] = $user;
                                    $_SESSION['login']['status'] = 1;
+                                   $_SESSION['login']['username'] = $this->userModel->getUserByEmail($email)[0]['name'];
                                    echo "success";
                                    break;
                               }
