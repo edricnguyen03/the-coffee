@@ -147,8 +147,6 @@ require_once('./App/Views/Admin/layouts/header.php');
                                                 }
                                             }
 
-
-
                                         }
                                     });
                                 </script>
@@ -173,7 +171,7 @@ require_once('./App/Views/Admin/layouts/header.php');
         <div class="card border-0">
             <div class="card-header">
                 <h5 class="card-title">
-                    Thống kê các sản phẩm thuộc một loại/tất cả sản phẩm</h5>
+                    Thống kê tình hình kinh doanh</h5>
             </div>
 
             <div class="card-body">

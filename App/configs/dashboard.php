@@ -11,6 +11,10 @@ $routes['admin/dashboard'] = 'admin/Dashboard/index';
 
 //Stats
 $routes['admin/stat'] = 'admin/StatsController/index';
+$routes['admin/stat/income'] = 'admin/StatsController/income';
+$routes['admin/stat/income/getIncomeCategories'] = 'admin/StatsController/getIncomeCategories';
+
+
 
 // User
 $routes['admin/user'] = 'admin/UserController/index';
