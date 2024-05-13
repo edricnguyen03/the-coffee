@@ -223,13 +223,12 @@ INSERT INTO `products` (`id`, `name`, `slug`, `thumb_image`, `category_id`, `des
 (12, 'Espresso Nóng', 'espresso', '10.jpg', 1, 'Cà phê đậm đà hương vị Ý', 'tặng kèm phin nhôm', 390, 110000, 1, 150),
 (13, 'Americano Nóng', 'americano', '11.jpg', 1, 'Hương vị nhẹ nhàng americano', 'tặng kèm phin nhôm', 400, 190000, 1, 101),
 (14, 'Cold Brew Truyền Thống', 'cold-brew', '12.jpg', 1, 'Độc lạ cà phê ủ lạnh', 'tặng kèm phin nhôm', 500, 800000, 1, 103),
-(15, 'Cold Brew Sữa Tươi', 'cold-brew-sua-tuoi' '13.jpg', 1, 'Hương vị chồn ngào ngạt', 'tặng kèm phin nhôm', 500, 5000000, 1, 98),
-(16, 'Cold Brew Phúc Bồn Tử', 'cold-brew-phuc-bon-tu', '14.jpg', 1, 'Cà phê sinh viên nổi tiếng', 'tặng kèm phin nhôm', 560, 45000, 1, 101),
-(17, 'Phin Sữa Tươi Bánh Flan', 'phin-sua-tuoi-banh-flan', '15.jpg', 1, 'Món quà ý nghĩa cho cha mẹ', 'tặng kèm phin nhôm', 770, 559000, 1, 100),
-(18, 'Trà Xanh Espresso Marble', 'tra-xanh-espresso-marble', '16.jpg', 1, 'Đặc sắc bản địa người việt nam', 'tặng kèm phin nhôm', 1000, 60000, 1, 100),
-(19, 'Cà Phê Đen Đá Không Đường', 'den-da-khong-duong', '17.jpg', 1, 'Tận hưởng vị đắng mát lạnh của cà phê', 'tặng kèm phin nhôm', 200, 45000, 1, 100),
-(20, 'Cà Phê Sữa Đá', 'ca-phe-sua-da', '18.jpg', 1, 'Thức uống hoàn hảo cho phố phường', 'tặng kèm phin nhôm', 300, 50000, 1, 100),
-(21, 'Cappuccino Đá', 'cappuccino', '19.jpg', 4, 'Béo ngậy cappuccino', 'Tặng kèm pin nhôm', 500, 300000, 1, 200);
+(15, 'Cold Brew Phúc Bồn Tử', 'cold-brew-phuc-bon-tu', '14.jpg', 1, 'Cà phê sinh viên nổi tiếng', 'tặng kèm phin nhôm', 560, 45000, 1, 101),
+(16, 'Phin Sữa Tươi Bánh Flan', 'phin-sua-tuoi-banh-flan', '15.jpg', 1, 'Món quà ý nghĩa cho cha mẹ', 'tặng kèm phin nhôm', 770, 559000, 1, 100),
+(17, 'Trà Xanh Espresso Marble', 'tra-xanh-espresso-marble', '16.jpg', 1, 'Đặc sắc bản địa người việt nam', 'tặng kèm phin nhôm', 1000, 60000, 1, 100),
+(18, 'Cà Phê Đen Đá Không Đường', 'den-da-khong-duong', '17.jpg', 1, 'Tận hưởng vị đắng mát lạnh của cà phê', 'tặng kèm phin nhôm', 200, 45000, 1, 100),
+(19, 'Cà Phê Sữa Đá', 'ca-phe-sua-da', '18.jpg', 1, 'Thức uống hoàn hảo cho phố phường', 'tặng kèm phin nhôm', 300, 50000, 1, 100),
+(20, 'Cappuccino Đá', 'cappuccino', '19.jpg', 4, 'Béo ngậy cappuccino', 'Tặng kèm pin nhôm', 500, 300000, 1, 200);
 
 -- --------------------------------------------------------
 
