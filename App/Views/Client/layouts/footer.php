@@ -35,9 +35,16 @@
                     if (isset($_SESSION['login']['status'])) {
                         if ($_SESSION['login']['status'] == 1) {
                     ?>
-                            <p>
-                                <a href="/the-coffee/cart" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
-                            </p>
+                            <?php
+                            if ($_SESSION['login']['id'] != 1) {
+                            ?>
+                                <p>
+                                    <a href="/the-coffee/cart" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
+                                </p>
+                            <?php
+                            }
+                            ?>
+
                             <p>
                                 <a href="/the-coffee/profile" class="text-white" style="text-decoration: none;">Tài Khoản</a>
                             </p>

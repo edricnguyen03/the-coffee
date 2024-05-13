@@ -4,6 +4,7 @@ class CartModel
     //them cac san pham da them vo database bang carts
     public function addToCart($User_id, $idProduct, $soLuongMua)
     {
+        $productModel = new ProductModel();
         $cartItem[] = array(
             'idProduct' => $idProduct,
             'quantity' => $soLuongMua
@@ -24,6 +25,9 @@ class CartModel
             foreach ($cartItemsArray as &$item) {
                 if ($item->idProduct == $idProduct) {
                     // Tăng số lượng sản phẩm nếu đã tồn tại
+                    if($item->quantity + $soLuongMua > $productModel->getById($idProduct)->stock){
+                        return 'Số lượng sản phẩm trong giỏ hàng đã vượt quá số lượng tồn kho. Vui lòng giảm số lượng mua hoặc chọn sản phẩm khác !';
+                    }
                     $item->quantity += $soLuongMua;
                     $itemFound = true;
                     break;

@@ -11,7 +11,7 @@
                         <!-- Name -->
                         <div class="col-12">
                             <div class="form-group">
-                                <p> <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên" onblur="validation('name_result', this.value)" required> </p>
+                                <p> <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên" onblur="validation('name_result', this.value)" required value="<?php echo $_SESSION['login']['username'] ?>"> </p>
                             </div>
                             <div>
                                 <span class=" text-danger" id="name_result"></span>
@@ -29,14 +29,14 @@
                         </div>
 
                         <!-- Email -->
-                        <div class="col-12">
+                        <!-- <div class="col-12">
                             <div class="form-group">
                                 <p> <input type="email" class="form-control" id="email" name="email" placeholder="Email" onblur="validation('email_result', this.value)"> </p>
                             </div>
                             <div>
                                 <span class="text-danger" id="email_result"></span>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Note -->
                         <div class="col-12">
@@ -258,11 +258,11 @@
 
     // thêm hàm để kiểm tra số lượng nhập từ người dùng
     function checkQuantityInput(event) {
+        //chuyen so luong ve so nguyen
         var quantity = parseInt(event.target.value);
 
         var stock = parseInt(event.target.getAttribute('max'));
-        var idProduct = event.target.getAttribute('productid'); // Get the idProduct attribute
-
+        var idProduct = event.target.getAttribute('productid'); // lay id cua san pham da them
         // Kiểm tra số lượng nhập vào phải lớn hơn 0, nhỏ hơn hoặc bằng số lượng tồn kho và phải là số
         if (quantity < 1 || quantity > stock || isNaN(quantity)) {
             Swal.fire({
@@ -270,7 +270,14 @@
                 title: 'Số lượng không hợp lệ',
                 text: "Số lượng phải nằm trong khoảng từ 1 đến " + stock,
             });
-            return;
+
+            // nếu người dùng nhập vào một chuỗi rỗng thì ngắt chương trình để nhập lại
+            if (event.target.value == '') {
+                return;
+            } else {
+                // nếu người dùng nhập vào một số lượng lớn hơn số lượng tồn kho thì gán số lượng là 1
+                event.target.value = 1;
+            }
         } else {
             //gọi hàm cập nhật số lượng sản phẩm trong giỏ hàng
             updateQuantity(idProduct, quantity);
@@ -358,7 +365,7 @@
                 }
             }
         }
-
+        $('#name').val = ""
         //check the phone number
         if (field == 'phone_result') {
             if (!/^0(\d{9}|9\d{8})$/.test(value)) {
@@ -369,20 +376,20 @@
         }
 
         //check the email
-        if (field == 'email_result') {
-            if (value == '') {
-                $('#email_result').html('');
-            } else {
-                if (!/([\w\-]+\@[\w\-]+\.[\w\-]+)/.test(value)) {
-                    $('#email_result').html('Email không hợp lệ');
-                } else if (value.length > 40) {
-                    $('#email_result').html('Email dài quá 40 ký tự');
-                } else {
-                    $('#email_result').html('');
-                }
-            }
+        // if (field == 'email_result') {
+        //     if (value == '') {
+        //         $('#email_result').html('');
+        //     } else {
+        //         if (!/([\w\-]+\@[\w\-]+\.[\w\-]+)/.test(value)) {
+        //             $('#email_result').html('Email không hợp lệ');
+        //         } else if (value.length > 40) {
+        //             $('#email_result').html('Email dài quá 40 ký tự');
+        //         } else {
+        //             $('#email_result').html('');
+        //         }
+        //     }
 
-        }
+        // }
 
         //check selected item of combobox province
         if (field == 'province_result') {
@@ -426,7 +433,7 @@
         e.preventDefault();
         var name = $('#name').val();
         var phone = $('#phone').val();
-        var email = $('#email').val();
+        // var email = $('#email').val();
         var province = $('#province option:selected').text();
         var district = $('#district option:selected').text();
         var ward = $('#ward option:selected').text();
@@ -440,7 +447,7 @@
             data: {
                 name: name,
                 phone: phone,
-                email: email,
+                // email: email,
                 province_name: province,
                 district_name: district,
                 ward_name: ward,

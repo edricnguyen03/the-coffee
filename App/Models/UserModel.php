@@ -91,13 +91,13 @@ class UserModel
             }
         }
 
-        if ($field == "phone_result") {
-            if (!preg_match("/^0(\d{9}|9\d{8})$/", $val)) {
-                $result = 'Số điện thoại không hợp lệ';
-            } else {
-                $result = '<label class="text-success">Hợp lệ</label>';    //return
-            }
-        }
+        // if ($field == "phone_result") {
+        //     if (!preg_match("/^0(\d{9}|9\d{8})$/", $val)) {
+        //         $result = 'Số điện thoại không hợp lệ';
+        //     } else {
+        //         $result = '<label class="text-success">Hợp lệ</label>';    //return
+        //     }
+        // }
 
 
         if ($field == "password_result") {
@@ -170,7 +170,7 @@ class UserModel
         global $db;
         try {
             $password = $db->get('users', 'password', 'id = ' . $userId);
-            if ($password[0]['password'] != $currentPassword) {
+            if (password_verify($currentPassword, $password[0]['password']) == false) {
                 return "Mật khẩu cũ không đúng";
             }
             if ($currentPassword == $newPassword) {
