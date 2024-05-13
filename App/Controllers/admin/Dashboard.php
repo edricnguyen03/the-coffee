@@ -3,6 +3,7 @@ class Dashboard extends Controller
 {
     public function index()
     {
-        $this->view('/Admin/index', []);
+        $data['userModel'] = $this->model('UserModel');
+        $this->view('/Admin/index', $data);
     }
 }

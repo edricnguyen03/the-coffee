@@ -179,6 +179,7 @@
               title: "Đổi tên thành công",
               text: "Tên của bạn đã được thay đổi",
             });
+            $_SESSION['login']['name'] = userName;
             return;
           }
           if(response.includes("fail")) {
