@@ -44,15 +44,11 @@ class OrdersModel
      {
           try {
                global $db;
-               $result = $db->get(table: "orders", condition: "user_id = " . $this->userId);
-               $orders = [];
-               foreach ($result as $row) {
-                    $order = (object) $row;
-                    $orders[] = $order;
-               }
-               return $orders;
+               $result = $db->get(table: "orders", condition: "id = " . $this->orderId);
+               $order = (object) $result[0];
+               return $order;
           } catch (Exception $e) {
-               return $e->getMessage() . " OrdersModel, getOrdersId exception";
+               return $e->getMessage() . " OrdersModel, getOrdersById exception";
           }
      }
 
