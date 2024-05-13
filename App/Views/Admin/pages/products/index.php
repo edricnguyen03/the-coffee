@@ -37,7 +37,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <form action="search" method="GET">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên sản phẩm">
-                                <button class="btn btn-primary" type="submit">Search</button>
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                             </div>
                         </form>
                     </div>
@@ -56,14 +56,14 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Weight</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Stock</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Hình ảnh</th>
+                                <th scope="col">Giá tiền</th>
+                                <th scope="col">Cân nặng</th>
+                                <th scope="col">Loại sản phẩm</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Số lượng tồn</th>
+                                <th scope="col">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>

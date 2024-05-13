@@ -54,7 +54,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 <a href="../../product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../../product/ " class="sidebar-link">Danh sách</a>
+                                <a href="../../product/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -64,7 +64,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../order/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -203,7 +203,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             <?php endif; ?>
                             <form action="../update/ <?php echo $product->id ?>" method="POST" enctype="multipart/form-data">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Tên sản phẩm</label>
                                     <input value="<?php echo $product->name ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
@@ -214,7 +214,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                     <input type="hidden" value="<?php echo $product->thumb_image ?>" name="old-image" id="old-image" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="status" class="form-label">Category</label>
+                                    <label for="status" class="form-label">Loại sản phẩm</label>
                                     <select value="<?php echo $product->category_id ?>" class="form-select" id="category_id" name="category_id" required>
                                         <?php foreach ($categories as $category) : ?>
                                             <option value="<?php echo $category->id ?>" <?php echo $product->category_id == $category->id ? 'selected' : ''; ?>><?php echo $category->name ?></option>
@@ -222,15 +222,15 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="price" class="form-label">Price</label>
+                                    <label for="price" class="form-label">Giá</label>
                                     <input value="<?php echo $product->price ?>" type="number" class="form-control" id="price" name="price" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="weight" class="form-label">Weight</label>
+                                    <label for="weight" class="form-label">Cân nặng</label>
                                     <input value="<?php echo $product->weight ?>" type="number" class="form-control" id="weight" name="weight" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
+                                    <label for="status" class="form-label">Trạng thái</label>
                                     <select value="<?php echo $product->status ?>" class="form-select" id="status" name="status" required>
                                         <option value="1" <?php echo $product->status == 1 ? 'selected' : ''; ?>>Active</option>
                                         <option value="0" <?php echo $product->status == 0 ? 'selected' : ''; ?>>Inactive</option>
@@ -241,7 +241,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                     <input value="<?php echo $product->content ?>" type="text" class="form-control" id="content" name="content" required>
                                 </div>
                                 <div class=" mb-3">
-                                    <label for="description" class="form-label">Description</label>
+                                    <label for="description" class="form-label">Mô tả</label>
                                     <input value="<?php echo $product->description ?>" type="text" class="form-control" id=" description" name="description" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>

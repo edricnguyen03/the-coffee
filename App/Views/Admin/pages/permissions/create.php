@@ -44,14 +44,14 @@
                             <?php endif; ?>
                             <form action="store" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Tên quyền</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="description" class="form-label">Description</label>
+                                    <label for="description" class="form-label">Mô tả</label>
                                     <input type="text" class="form-control" id="description" name="description" required>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Create Permission</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Tạo mới quyền</button>
                             </form>
                         </div>
                     </div>

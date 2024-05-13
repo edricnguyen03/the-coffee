@@ -36,7 +36,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <div class="mb-3">
                         <form method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên ">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên đơn nhập hàng">
                                 <button class="btn btn-primary" type="submit">Search</button>
                             </div>
                         </form>
@@ -57,11 +57,11 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Provider</th>
-                                <th scope="col">Total</th>
-                                <th scope="col">create_at</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Tên phiếu nhập</th>
+                                <th scope="col">Nhà cung cấp</th>
+                                <th scope="col">Tổng số lượng</th>
+                                <th scope="col">Thời gian tạo</th>
+                                <th scope="col">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,13 +69,12 @@ require_once('./App/Views/Admin/layouts/header.php');
                             global $db;
                             if (isset($_GET['search'])) {
                                 $filterValues = $_GET['search'];
-                                $query = $db->query("SELECT * FROM receipts WHERE CONCAT( name ) LIKE '%$filterValues%'");
+                                $query = $db->query("SELECT * FROM receipts WHERE CONCAT( id , name ) LIKE '%$filterValues%'");
                                 $query->execute();
                                 $receipts = $query->fetchAll();
                                 if ($query->rowCount() > 0) {
                                     foreach ($receipts as $receipt) {
                                 ?>
-
                                         <tr>
                                             <th scope="row"><?php echo $receipt['id']; ?></th>
                                             <td><?php echo $receipt['name']; ?></td>
@@ -83,8 +82,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             <td><?php echo $receipt['total']; ?></td>
                                             <td><?php echo $receipt['create_at']; ?></td>
                                             <td>
-                                                <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
+                                                <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Sửa</a>
+                                                <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Xóa</a>
                                         </tr>
                                     <?php
                                     }
@@ -110,8 +109,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <td><?php echo $receipt['total']; ?></td>
                                         <td><?php echo $receipt['create_at']; ?></td>
                                         <td>
-                                            <a href="edit/<?php echo $receipt['id']; ?>" class="btn btn-primary">Edit</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa đơn nhập hàng này không ?')" href="delete/<?php echo $receipt['id']; ?>" class="btn btn-danger">Delete</a>
+                                            <a href="edit/<?php echo $receipt['id']; ?>" class="btn btn-primary">Sửa</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa đơn nhập hàng này không ?')" href="delete/<?php echo $receipt['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>
                             <?php
                                 }

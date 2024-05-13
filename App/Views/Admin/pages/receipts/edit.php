@@ -64,7 +64,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../order/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -202,11 +202,11 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             <?php endif; ?>
                             <form action="../update/<?php echo $receipt['id'] ?>" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Tên phiếu nhập</label>
                                     <input value="<?php echo $nameOfReceipt = $name[0]['name']; ?> " type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="provider" class="form-label">Provider</label>
+                                    <label for="provider" class="form-label">Nhà cung cấp</label>
                                     <select id="select" class="form-select" id="provider" name="provider" required>
                                         <?php
 
@@ -227,7 +227,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                     <br> <br>
                                 </div>
                                 <div class=" mb-3">
-                                    <label for="total" class="form-label">Total</label>
+                                    <label for="total" class="form-label">Tổng số lượng sản phẩm của phiếu nhập</label>
                                     <input value="<?php echo $receipt['total'] ?>" type="text" class="form-control" id=" total" name="total" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>

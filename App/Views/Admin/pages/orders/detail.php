@@ -53,7 +53,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 <a href="../../product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../../product/ " class="sidebar-link">Danh sách</a>
+                                <a href="../../product/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -63,7 +63,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="posts" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Danh sách</a>
+                                <a href="../../order/ " class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -211,10 +211,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Image</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Hình ảnh</th>
+                                        <th scope="col">Tiêu đề </th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col">Số lượng</th>
                                     </tr>
                                 </thead>
                                 <tbody>

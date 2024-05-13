@@ -44,21 +44,21 @@
                             <?php endif; ?>
                             <form action="store" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Tên nhà cung cấp</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="description" class="form-label">Description</label>
+                                    <label for="description" class="form-label">Mô tả</label>
                                     <input type="text" class="form-control" id="description" name="description" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
+                                    <label for="status" class="form-label">Trạng thái</label>
                                     <select class="form-select" id="status" name="status" required>
                                         <option value="1">Active</option>
                                         <option value="0">Inactive</option>
                                     </select>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Create Provider</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Tạo nhà cung cấp</button>
                             </form>
                         </div>
                     </div>

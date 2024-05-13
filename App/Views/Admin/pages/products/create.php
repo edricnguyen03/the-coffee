@@ -46,17 +46,17 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <?php endif; ?>
                     <form action="store" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Tên sản phẩm</label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="mb-3">
-                            <label for="image" class="form-label">Image</label>
+                            <label for="image" class="form-label">Hình ảnh</label>
                             <input class="form-control" type="file" name="uploadfile" id="file-input" value="" />
-                            <label for="image" class="form-label">Preview Image: </label>
+                            <label for="image" class="form-label">Hình ảnh xem trước: </label>
                             <img src="../../resources/images/products/placeholder.png" id="img-preview" style="width: 250px; height: auto; margin: 10px 20px;">
                         </div>
                         <div class="mb-3">
-                            <label for="status" class="form-label">Category</label>
+                            <label for="status" class="form-label">Loại sản phẩm</label>
                             <select class="form-select" id="category_id" name="category_id" required>
                                 <?php foreach ($categories as $category) : ?>
                                     <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
@@ -64,30 +64,30 @@ require_once('./App/Views/Admin/layouts/header.php');
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="price" class="form-label">Price</label>
+                            <label for="price" class="form-label">Giá</label>
                             <input type="number" class="form-control" id="price" name="price" required>
                         </div>
                         <div class="mb-3">
-                            <label for="weight" class="form-label">Weight</label>
+                            <label for="weight" class="form-label">Cân nặng</label>
                             <input type="number" class="form-control" id="weight" name="weight" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
+                            <label for="status" class="form-label">Trạng thái</label>
                             <select class="form-select" id="status" name="status" required>
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="content" class="form-label">Content</label>
+                            <label for="content" class="form-label">Nội dung</label>
                             <input type="text" class="form-control" id="content" name="content" required>
                         </div>
                         <div class=" mb-3">
-                            <label for="description" class="form-label">Description</label>
+                            <label for="description" class="form-label">Miêu tả</label>
                             <input type="text" class="form-control" id=" description" name="description" required>
                         </div>
-                        <button type="submit" name="submit" class="btn btn-primary">Create Product</button>
+                        <button type="submit" name="submit" class="btn btn-primary">Tạo sản phẩm</button>
                     </form>
                 </div>
             </div>
