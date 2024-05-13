@@ -258,11 +258,11 @@
 
     // thêm hàm để kiểm tra số lượng nhập từ người dùng
     function checkQuantityInput(event) {
+        //chuyen so luong ve so nguyen
         var quantity = parseInt(event.target.value);
 
         var stock = parseInt(event.target.getAttribute('max'));
-        var idProduct = event.target.getAttribute('productid'); // Get the idProduct attribute
-
+        var idProduct = event.target.getAttribute('productid'); // lay id cua san pham da them
         // Kiểm tra số lượng nhập vào phải lớn hơn 0, nhỏ hơn hoặc bằng số lượng tồn kho và phải là số
         if (quantity < 1 || quantity > stock || isNaN(quantity)) {
             Swal.fire({
@@ -270,7 +270,14 @@
                 title: 'Số lượng không hợp lệ',
                 text: "Số lượng phải nằm trong khoảng từ 1 đến " + stock,
             });
-            return;
+
+            // nếu người dùng nhập vào một chuỗi rỗng thì ngắt chương trình để nhập lại
+            if (event.target.value == '') {
+                return;
+            } else {
+                // nếu người dùng nhập vào một số lượng lớn hơn số lượng tồn kho thì gán số lượng là 1
+                event.target.value = 1;
+            }
         } else {
             //gọi hàm cập nhật số lượng sản phẩm trong giỏ hàng
             updateQuantity(idProduct, quantity);
