@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 07, 2024 lúc 05:41 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Thời gian đã tạo: Th5 13, 2024 lúc 06:50 AM
+-- Phiên bản máy phục vụ: 8.0.36
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,32 +28,33 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `carts` (
-  `id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
-  `cart_items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`cart_items`))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` bigint NOT NULL,
+  `user_id` bigint NOT NULL,
+  `cart_items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
+) ;
 
 --
 -- Đang đổ dữ liệu cho bảng `carts`
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `cart_items`) VALUES
-(1, 1, '[{\"idProduct\":\"3\",\"quantity\":1}]');
+(1, 2, '[{\"idProduct\":\"3\",\"quantity\":27},{\"idProduct\":\"4\",\"quantity\":8}]'),
+(2, 5, '[{\"idProduct\":\"2\",\"quantity\":8},{\"idProduct\":\"3\",\"quantity\":9}]'),
+(3, 4, '[{\"idProduct\":\"2\",\"quantity\":3},{\"idProduct\":\"3\",\"quantity\":2},{\"idProduct\":\"1\",\"quantity\":1}]'),
+(4, 25, '[]');
 
 -- --------------------------------------------------------
-INSERT INTO `carts` (`id`, `user_id`, `cart_items`) VALUES
-(1, 2, '[{\"idProduct\":\"1\",\"quantity\":7},{\"idProduct\":\"2\",\"quantity\":10},{\"idProduct\":\"3\",\"quantity\":16},{\"idProduct\":\"4\",\"quantity\":7}]'),
-(2, 5, '[{\"idProduct\":\"2\",\"quantity\":8},{\"idProduct\":\"3\",\"quantity\":9}]');
+
 --
 -- Cấu trúc bảng cho bảng `categories`
 --
 
 CREATE TABLE `categories` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `icon` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1
+  `id` bigint NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -63,7 +64,9 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `name`, `slug`, `icon`, `status`) VALUES
 (1, 'Cà Phê đóng gói', 'ca-phe-dong-goi', 'fas fa-coffee', 1),
 (2, 'Quà tặng cao cấp', 'qua-tang-cao-cap', 'fas fa-gift', 1),
-(3, 'Vật phẩm bán lẻ', 'vat-pham-ban-le', 'fas fa-prescription-bottle', 1);
+(3, 'Vật phẩm bán lẻ', 'vat-pham-ban-le', 'fas fa-prescription-bottle', 1),
+(4, 'Cà phê nhập khẩu', 'ca-phe-nhap-khau', 'fas fa-gift', 1),
+(5, 'Đặc sản bản địa', 'dac-san-ban-dia', 'fas fa-gift', 1);
 
 -- --------------------------------------------------------
 
@@ -72,30 +75,33 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `icon`, `status`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id` bigint(20) NOT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
-  `name_receiver` varchar(255) NOT NULL,
-  `address_receiver` text NOT NULL,
-  `phone_receiver` varchar(255) NOT NULL,
-  `note` text DEFAULT NULL,
+  `id` bigint NOT NULL,
+  `user_id` bigint DEFAULT NULL,
+  `name_receiver` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `address_receiver` text COLLATE utf8mb4_general_ci NOT NULL,
+  `phone_receiver` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `note` text COLLATE utf8mb4_general_ci,
   `total` double NOT NULL,
-  `payment_status` tinyint(1) NOT NULL DEFAULT 0,
-  `order_status` tinyint(4) NOT NULL DEFAULT 0
+  `payment_status` tinyint(1) NOT NULL DEFAULT '0',
+  `order_status` tinyint NOT NULL DEFAULT '1',
+  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `name_receiver`, `address_receiver`, `phone_receiver`, `note`, `total`, `payment_status`, `order_status`) VALUES
-(1, 2, 'Nguyễn Thanh Duy', 'Long an 1, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0334202221', NULL, 100000, 1, 1),
-(2, 3, 'Nguyễn Hòa', 'Long an 2, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0334202331', NULL, 200000, 0, 1),
-(3, 5, 'Tiến Phan', 'Phạm Văn Hai, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0334202331', NULL, 300000, 1, 1),
-(4, 7, 'Nguyễn Hoàng', 'Đường 835, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0332231331', NULL, 400000, 1, 1),
-(5, 2, 'Huy Lê', 'Đường CMT8, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0342221414', NULL, 500000, 1, 1),
-(6, 4, 'Nguyễn Minh', 'Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0981214422', NULL, 600000, 1, 1),
-(7, 5, 'Nguyễn Bí', 'Đường 835, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0332231331', NULL, 700000, 1, 1),
-(8, 6, 'Nguyễn Hoàng', 'Đường 835, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0332231331', NULL, 1000000, 1, 1);
+INSERT INTO `orders` (`id`, `user_id`, `name_receiver`, `address_receiver`, `phone_receiver`, `note`, `total`, `payment_status`, `order_status`, `create_at`) VALUES
+(1, 2, 'Nguyễn Thanh Duy', 'Long an 1, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0334202221', NULL, 100000, 1, 5, '2024-04-30 07:02:42'),
+(2, 3, 'Nguyễn Hòa', 'Long an 2, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0334202331', NULL, 200000, 0, 5, '2024-04-30 07:02:42'),
+(3, 5, 'Tiến Phan', 'Phạm Văn Hai, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0334202331', NULL, 300000, 1, 5, '2024-04-30 07:02:42'),
+(4, 7, 'Nguyễn Hoàng', 'Đường 835, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0332231331', NULL, 400000, 1, 5, '2024-04-30 07:02:42'),
+(5, 2, 'Huy Lê', 'Đường CMT8, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0342221414', NULL, 500000, 1, 2, '2024-04-30 07:02:42'),
+(6, 4, 'Nguyễn Minh', 'Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0981214422', NULL, 600000, 1, 4, '2024-04-30 07:02:42'),
+(7, 5, 'Nguyễn Bí', 'Đường 835, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0332231331', NULL, 700000, 1, 5, '2024-04-30 07:02:42'),
+(8, 6, 'Nguyễn Hoàng', 'Đường 835, Thị trấn Tân Túc, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0332231331', NULL, 1000000, 1, 1, '2024-04-30 07:02:42'),
+(9, 25, 'Đăng Nam', 'Tổ 11, Xã Vĩnh Lộc B, Huyện Bình Chánh, Thành phố Hồ Chí Minh', '0123456789', '', 330000, 1, 1, '2024-05-12 19:55:02'),
+(10, 25, 'Đăng Nam', 'Tổ 12, Phường Bình Trị Đông B, Quận Bình Tân, Thành phố Hồ Chí Minh', '0123456789', '', 0, 1, 1, '2024-05-12 20:02:44');
 
 -- --------------------------------------------------------
 
@@ -104,10 +110,10 @@ INSERT INTO `orders` (`id`, `user_id`, `name_receiver`, `address_receiver`, `pho
 --
 
 CREATE TABLE `order_products` (
-  `id` bigint(20) NOT NULL,
-  `order_id` bigint(20) NOT NULL,
-  `product_id` bigint(20) NOT NULL,
-  `qty` int(11) NOT NULL
+  `id` bigint NOT NULL,
+  `order_id` bigint NOT NULL,
+  `product_id` bigint NOT NULL,
+  `qty` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -126,7 +132,8 @@ INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `qty`) VALUES
 (9, 6, 3, 2),
 (10, 7, 5, 1),
 (11, 7, 2, 1),
-(12, 8, 6, 2);
+(12, 8, 6, 2),
+(13, 9, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -135,9 +142,9 @@ INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `qty`) VALUES
 --
 
 CREATE TABLE `permissions` (
-  `id` bigint(20) NOT NULL,
-  `name` text NOT NULL,
-  `description` text DEFAULT NULL
+  `id` bigint NOT NULL,
+  `name` text COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -145,12 +152,13 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
-(1, 'admin.user', 'Quản lý người dùng 1'),
+(1, 'admin.user', 'Quản lý người dùng'),
 (2, 'admin.category', 'Quản lý danh mục'),
 (3, 'admin.product', 'Quản lý sản phẩm'),
 (4, 'admin.order', 'Xử lý đơn hàng'),
 (5, 'admin.role', 'Quản lý vai trò'),
-(6, 'admin.dashboard', 'Xem thống kê');
+(6, 'admin.dashboard', 'Xem thống kê'),
+(7, 'Abcd', 'acnd');
 
 -- --------------------------------------------------------
 
@@ -159,9 +167,9 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `permission_role` (
-  `id` bigint(20) NOT NULL,
-  `role_id` bigint(20) NOT NULL,
-  `permission_id` bigint(20) NOT NULL
+  `id` bigint NOT NULL,
+  `role_id` bigint NOT NULL,
+  `permission_id` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -183,17 +191,17 @@ INSERT INTO `permission_role` (`id`, `role_id`, `permission_id`) VALUES
 --
 
 CREATE TABLE `products` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `thumb_image` text NOT NULL,
-  `category_id` bigint(20) NOT NULL,
-  `description` text NOT NULL,
-  `content` text NOT NULL,
-  `weight` int(11) NOT NULL DEFAULT 500,
+  `id` bigint NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `thumb_image` text COLLATE utf8mb4_general_ci NOT NULL,
+  `category_id` bigint NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `content` text COLLATE utf8mb4_general_ci NOT NULL,
+  `weight` int NOT NULL DEFAULT '500',
   `price` double NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
-  `stock` int(11) NOT NULL DEFAULT 0
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `stock` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -201,15 +209,27 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `slug`, `thumb_image`, `category_id`, `description`, `content`, `weight`, `price`, `status`, `stock`) VALUES
-(1, 'Tri Ân Thầy Cô 1', 'tri-an-thay-co-1', '1.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 500, 337000, 1, 148),
-(2, 'Tri Ân Thầy Cô 2', 'tri-an-thay-co-2', '2.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 390, 110000, 1, 149),
-(3, 'Tri Ân Thầy Cô 3', 'tri-an-thay-co-3', '3.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 400, 190000, 1, 97),
-(4, 'Tri Ân Thầy Cô 4', 'tri-an-thay-co-4', '4.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 150, 99000, 1, 96),
-(5, 'Tri Ân Thầy Cô 5', 'tri-an-thay-co-5', '5.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 520, 346000, 1, 96),
-(6, 'Tri Ân Thầy Cô 6', 'tri-an-thay-co-6', '6.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 430, 200000, 1, 98),
-(7, 'Tri Ân Thầy Cô 7', 'tri-an-thay-co-7', '7.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 560, 400000, 1, 99),
-(8, 'Tri Ân Thầy Cô 8', 'tri-an-thay-co-8', '8.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 770, 559000, 1, 100),
-(9, 'Tri Ân Thầy Cô 9', 'tri-an-thay-co-9', '9.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 1000, 700000, 1, 100);
+(1, 'Cà Phê Hoà Tan Đậm Vị Việt (18 gói x 16 gam)', 'ca-phe-hoa-tan', '1.jpg', 1, 'Cà Phê Hoà Tan Đậm Vị Việt', 'tặng kèm phin nhôm', 500, 337000, 1, 152),
+(2, 'Cà Phê Sữa Đá Hòa Tan Túi 25x22G', 'ca-phe-sua-da', '2.jpg', 1, 'Cà Phê Sữa Đá Hòa Tan Túi', 'tặng kèm phin nhôm', 390, 110000, 1, 147),
+(3, 'Thùng 24 Lon Cà Phê Sữa Đá', 'thung-24-lon', '3.jpg', 1, 'Thùng 24 Lon Cà Phê Sữa Đá', 'tặng kèm phin nhôm', 400, 190000, 1, 101),
+(4, 'Cà Phê Đen Đá Túi (30 gói x 16g)', 'ca-phe-den-da-tui', '4.jpg', 1, 'Cà Phê Đen Đá Túi (30 gói x 16g)', 'tặng kèm phin nhôm', 150, 99000, 1, 101),
+(5, 'Cà Phê Sữa Đá Chai Fresh 250ML', 'ca-phe-sua-da', '5.jpg', 1, 'Cà Phê Sữa Đá Chai Fresh 250ML', 'tặng kèm phin nhôm', 520, 346000, 1, 103),
+(6, 'Trà Sữa Oolong Nướng Trân Châu Chai Fresh 500ML', 'tra-sua-o-long', '6.jpg', 1, 'Trà Sữa Oolong Nướng Trân Châu Chai Fresh 500ML', 'tặng kèm phin nhôm', 430, 200000, 1, 98),
+(7, 'Trà Đào Cam Sả Chai Fresh 500ML', 'tra-dao-cam-sa', '7.jpg', 2, 'Trà Đào Cam Sả Chai Fresh 500ML', 'tặng kèm phin nhôm', 560, 400000, 1, 101),
+(8, 'Cà Phê Sữa Đá Hòa Tan (10 gói x 22g)', 'ca-phe-sua-hoa-tan', '8.jpg', 1, 'Cà Phê Sữa Đá Hòa Tan (10 gói x 22g)', 'tặng kèm phin nhôm', 770, 559000, 1, 100),
+(9, 'Cà Phê Sữa Đá Pack 6 Lon', 'ca-phe-sua-da-pack', '9.jpg', 1, 'Cà Phê Sữa Đá Pack 6 Lon', 'tặng kèm phin nhôm', 1000, 700000, 1, 100),
+(10, 'Tri Ân Thầy Cô Loại A', 'tri-an-thay-co-loai-a', 'product-default.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 200, 95000, 1, 100),
+(11, 'Tri Ân Thầy Cô Loại B', 'tri-an-thay-co-loai-b', 'product-default.jpg', 1, 'Món quà ý nghĩa ngày nhà giáo', 'tặng kèm phin nhôm', 600, 500000, 1, 100),
+(12, 'Espresso Nóng', 'espresso', '10.jpg', 1, 'Cà phê đậm đà hương vị Ý', 'tặng kèm phin nhôm', 390, 110000, 1, 150),
+(13, 'Americano Nóng', 'americano', '11.jpg', 1, 'Hương vị nhẹ nhàng americano', 'tặng kèm phin nhôm', 400, 190000, 1, 101),
+(14, 'Cold Brew Truyền Thống', 'cold-brew', '12.jpg', 1, 'Độc lạ cà phê ủ lạnh', 'tặng kèm phin nhôm', 500, 800000, 1, 103),
+(15, 'Cold Brew Sữa Tươi', 'cold-brew-sua-tuoi' '13.jpg', 1, 'Hương vị chồn ngào ngạt', 'tặng kèm phin nhôm', 500, 5000000, 1, 98),
+(16, 'Cold Brew Phúc Bồn Tử', 'cold-brew-phuc-bon-tu', '14.jpg', 1, 'Cà phê sinh viên nổi tiếng', 'tặng kèm phin nhôm', 560, 45000, 1, 101),
+(17, 'Phin Sữa Tươi Bánh Flan', 'phin-sua-tuoi-banh-flan', '15.jpg', 1, 'Món quà ý nghĩa cho cha mẹ', 'tặng kèm phin nhôm', 770, 559000, 1, 100),
+(18, 'Trà Xanh Espresso Marble', 'tra-xanh-espresso-marble', '16.jpg', 1, 'Đặc sắc bản địa người việt nam', 'tặng kèm phin nhôm', 1000, 60000, 1, 100),
+(19, 'Cà Phê Đen Đá Không Đường', 'den-da-khong-duong', '17.jpg', 1, 'Tận hưởng vị đắng mát lạnh của cà phê', 'tặng kèm phin nhôm', 200, 45000, 1, 100),
+(20, 'Cà Phê Sữa Đá', 'ca-phe-sua-da', '18.jpg', 1, 'Thức uống hoàn hảo cho phố phường', 'tặng kèm phin nhôm', 300, 50000, 1, 100),
+(21, 'Cappuccino Đá', 'cappuccino', '19.jpg', 4, 'Béo ngậy cappuccino', 'Tặng kèm pin nhôm', 500, 300000, 1, 200);
 
 -- --------------------------------------------------------
 
@@ -218,10 +238,10 @@ INSERT INTO `products` (`id`, `name`, `slug`, `thumb_image`, `category_id`, `des
 --
 
 CREATE TABLE `product_receipt` (
-  `id` bigint(20) NOT NULL,
-  `product_id` bigint(20) NOT NULL,
-  `receipt_id` bigint(20) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT 0
+  `id` bigint NOT NULL,
+  `product_id` bigint NOT NULL,
+  `receipt_id` bigint NOT NULL,
+  `quantity` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -238,6 +258,8 @@ INSERT INTO `product_receipt` (`id`, `product_id`, `receipt_id`, `quantity`) VAL
 (7, 7, 2, 50),
 (8, 8, 2, 50),
 (9, 9, 3, 50),
+(10, 10, 3, 50),
+(11, 11, 3, 50),
 (12, 1, 3, 50),
 (13, 2, 4, 50),
 (14, 3, 4, 50),
@@ -247,6 +269,8 @@ INSERT INTO `product_receipt` (`id`, `product_id`, `receipt_id`, `quantity`) VAL
 (18, 7, 5, 50),
 (19, 8, 5, 50),
 (20, 9, 5, 50),
+(21, 10, 6, 50),
+(22, 11, 6, 50),
 (23, 1, 6, 50),
 (24, 2, 6, 50);
 
@@ -257,9 +281,9 @@ INSERT INTO `product_receipt` (`id`, `product_id`, `receipt_id`, `quantity`) VAL
 --
 
 CREATE TABLE `providers` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL
+  `id` bigint NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -270,8 +294,7 @@ INSERT INTO `providers` (`id`, `name`, `description`) VALUES
 (1, 'Cà phê Trung Nguyên', 'Nhà cung cấp chính của của hàng'),
 (2, 'Cà phê chồn DakLak', 'Nhà cung cấp sản phẩm sấy khô hàng đầu'),
 (3, 'Công ty cà phê Quyết Thắng', 'Sản phẩm chất lượng hàng đầu'),
-(4, 'Cà phê Việt Nam VinaCoffee', 'Giá cả đi kèm với chất lượng'),
-(5, 'Nhà cung cấp Hà Nội', 'ádas');
+(4, 'Cà phê Việt Nam VinaCoffee', 'Giá cả đi kèm với chất lượng');
 
 -- --------------------------------------------------------
 
@@ -280,10 +303,10 @@ INSERT INTO `providers` (`id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `receipts` (
-  `id` bigint(20) NOT NULL,
-  `name` text NOT NULL,
-  `provider_id` bigint(20) NOT NULL,
-  `total` int(11) NOT NULL DEFAULT 0
+  `id` bigint NOT NULL,
+  `name` text COLLATE utf8mb4_general_ci NOT NULL,
+  `provider_id` bigint NOT NULL,
+  `total` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -305,18 +328,19 @@ INSERT INTO `receipts` (`id`, `name`, `provider_id`, `total`) VALUES
 --
 
 CREATE TABLE `roles` (
-  `id` bigint(20) NOT NULL,
-  `name` text NOT NULL,
-  `description` text DEFAULT NULL
+  `id` bigint NOT NULL,
+  `name` text COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `is_employee` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `roles`
 --
 
-INSERT INTO `roles` (`id`, `name`, `description`) VALUES
-(1, 'Super Admin', 'Quản trị viên'),
-(2, 'User', 'Người dùng cơ bản');
+INSERT INTO `roles` (`id`, `name`, `description`, `is_employee`) VALUES
+(1, 'Super Admin', NULL, 1),
+(2, 'User', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -325,12 +349,12 @@ INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
-  `password` varchar(255) NOT NULL DEFAULT '$2y$10$1DrA6DFLnvGNiwxDuwLKT.LmAnRir1J51q4ii41pw.08pNKoL8JfC',
-  `role_id` bigint(20) NOT NULL
+  `id` bigint NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '$2y$10$1DrA6DFLnvGNiwxDuwLKT.LmAnRir1J51q4ii41pw.08pNKoL8JfC',
+  `role_id` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -348,8 +372,15 @@ INSERT INTO `users` (`id`, `name`, `email`, `status`, `password`, `role_id`) VAL
 (8, 'Tài khoản bị khoá', 'ban2@gmail.com', 0, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
 (9, 'Tài khoản bị khoá', 'ban3@gmail.com', 0, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
 (10, 'Tài khoản bị khoá', 'ban4@gmail.com', 0, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
-(11, 'Edric', 'test123@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
-(12, 'Edric Nguyen', 'user44@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2);
+(11, 'Người dùng', 'tester@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 1),
+(12, 'Người dùng', 'coffeelover@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(13, 'Người dùng', 'coffeehater@gmail.com', 1, '1$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(14, 'Người dùng', 'undefined@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(15, 'Người dùng', '404notfound4@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(16, 'Người dùng', 'coffeelar@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(17, 'Edric', 'test123@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(18, 'Tien Pham', 'tienphan09098@gmail.com', 1, '$2y$10$.sZWPnW8jj2WWuC48E.i1enl7M3grP6MQxPffW6iNyphs2UZjk7qO', 2),
+(19, 'Đăng Nam', 'trandangnam056@gmail.com', 1, '$2y$10$LXuvHiCDxx2dT7dUygRK6u/09RN6fRfGB0kIDihw7y8eBuQDe02VW', 2);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -446,13 +477,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `order_products`
+--
+ALTER TABLE `order_products`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `permission_role`
 --
 ALTER TABLE `permission_role`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
