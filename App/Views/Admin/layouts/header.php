@@ -1,4 +1,5 @@
 <?php
+require_once './App/Models/UserModel.php';
 // Start the session
 // Check if the user is logged in
 if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {

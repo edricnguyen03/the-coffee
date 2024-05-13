@@ -1,7 +1,14 @@
+<?php
+    require_once './App/Models/UserModel.php';
+    if(UserModel::hasAdminPermission($_SESSION['login']['id']) == true){
+        echo '<script> alert("Bạn không được vào trang này"); </script>';
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head>  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Coffee</title>

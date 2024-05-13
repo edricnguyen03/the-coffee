@@ -1,3 +1,7 @@
+<?php
+require_once './App/Models/UserModel.php';
+
+?>
 <footer class="footer" style="background-color: #262626; color: white;">
     <div class="bg-dark text-white pt5 pb-4">
         <div class="container text-md-left">
