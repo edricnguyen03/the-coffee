@@ -18,9 +18,9 @@
 <main class="content px-3 py-2">
     <div class="container-fluid">
         <div class="mb-3">
-            <h4>Admin Dashboard</h4>
+            <h4>CHÀO MỪNG BẠN ĐẾN VỚI TRANG QUẢN LÝ</h4>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-12 col-md-6 d-flex">
                 <div class="card flex-fill border-0 illustration">
                     <div class="card-body p-0 d-flex flex-fill">
@@ -62,9 +62,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Table Element -->
-        <div class="card border-0">
+        <!-- <div class="card border-0">
             <div class="card-header">
                 <h5 class="card-title">
                     Basic Table
@@ -105,6 +105,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
     </div>
 </main>

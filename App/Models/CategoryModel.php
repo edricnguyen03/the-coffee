@@ -1,11 +1,9 @@
 <?php
 class CategoryModel
 {
-    public function __construct()
+    function __construct()
     {
     }
-
-
     function get()
     {
         global $db;
@@ -19,45 +17,51 @@ class CategoryModel
         return $categories;
     }
 
-    function getCategoryById($categoryId)
+    public function getCategoryById($categoryId)
     {
         global $db;
-        $result = $db->get('categories', '*', "id = $categoryId");
-        $category = [];
-        foreach ($result as $row) {
-            $category = (object) $row;
-        }
-
+        $category = $db->get('categories', '*', 'id = ' . $categoryId);
         return $category;
     }
 
-    // function getCategoryByProductId($productId)
-    // {
-    //     global $db;
-    //     $result = $db->query("SELECT c.* FROM categories c INNER JOIN products p ON c.id = p.category_id WHERE p.id = $productId");
-    //     $category = [];
-    //     foreach ($result as $row) {
-    //         $category = (object) $row;
-    //     }
-
-    //     return $category;
-    // }
-
-    function insertCategory($data)
+    public function getAllCategories()
     {
         global $db;
-        return $db->insert('categories', $data);
+        $categories = $db->get('categories');
+        return $categories;
+    }
+    public function getMaxId()
+    {
+        global $db;
+        $query = $db->query("SELECT MAX(id) as max_id FROM categories");
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result['max_id'];
+    }
+    public function insertCategory($data)
+    {
+        global $db;
+        $db->insert('categories', $data);
+        return true;
     }
 
-    function updateCategory($categoryId, $data)
+    public function updateCategory($categoryId, $newData)
     {
         global $db;
-        return $db->update('categories', $data, "id = $categoryId");
+        $db->update('categories', $newData, 'id = ' . $categoryId);
+        return true;
     }
 
-    function deleteCategory($categoryId)
+    public function deleteCategory($categoryId)
     {
         global $db;
-        return $db->delete('categories', "id = $categoryId");
+        $db->delete('categories', 'id = ' . $categoryId);
+        return true;
+    }
+    public function setCategoryStatus($categoryId, $status)
+    {
+        global $db;
+        $result = $db->update("categories", ["status" => $status], "id = $categoryId");
+        return $result;
     }
 }

@@ -21,6 +21,20 @@ $routes['admin/product/edit'] = 'admin/ProductController/edit';
 $routes['admin/product/update'] = 'admin/ProductController/update';
 //Delete product
 $routes['admin/product/delete'] = 'admin/ProductController/delete';
+
+// Category
+$routes['admin/category'] = 'admin/CategoryController/index';
+$routes['admin/category/alert'] = 'admin/CategoryController/alert';
+//Create Category
+$routes['admin/category/create'] = 'admin/CategoryController/create';
+$routes['admin/category/store'] = 'admin/CategoryController/store';
+//Update Category
+$routes['admin/category/edit'] = 'admin/CategoryController/edit';
+$routes['admin/category/update'] = 'admin/CategoryController/update';
+//Delete Category
+$routes['admin/category/delete'] = 'admin/CategoryController/delete';
+
+
 //Stats
 $routes['admin/stat'] = 'admin/StatsController/index';
 $routes['admin/stat/getTopProducts'] = 'admin/StatsController/getTopProducts';
@@ -43,7 +57,7 @@ $routes['admin/user/update'] = 'admin/UserController/update';
 $routes['admin/user/delete'] = 'admin/UserController/delete';
 
 
-// Provider
+// Category
 $routes['admin/provider'] = 'admin/ProviderController/index';
 $routes['admin/provider/alert'] = 'admin/ProviderController/alert';
 //Create Provider

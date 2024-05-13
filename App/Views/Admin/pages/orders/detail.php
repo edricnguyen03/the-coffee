@@ -39,10 +39,21 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         Danh sách chức năng
                     </li>
                     <li class="sidebar-item">
-                        <a href="../../dashboard/" class="sidebar-link">
-                            <i class="fa-solid fa-list pe-2"></i>
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#stat" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
                             Thống kê
                         </a>
+                        <ul id="stat" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../stat/" class="sidebar-link">
+                                    Sản phẩm bán chạy
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../stat/income" class="sidebar-link">
+                                    Doanh thu
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
@@ -104,6 +115,19 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                             <li class="sidebar-item">
                                 <a href="../../provider/" class="sidebar-link">Danh sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#category" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-tags pe-2"></i>
+                            Danh mục
+                        </a>
+                        <ul id="category" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../../category/create" class="sidebar-link">Thêm danh mục</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../../category/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -274,12 +298,14 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </div>
                     </div>
                 </div>
+            </main>
+            <?php
+            require_once('./App/Views/Admin/layouts/footer.php');
+            ?>
         </div>
-        </main>
+
         <!-- Modal -->
-        <?php
-        //require_once('./App/Views/Admin/layouts/footer.php');
-        ?>
+
     </div>
     </div>
     <script src="./../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

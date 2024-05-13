@@ -24,14 +24,14 @@ require_once('./App/Views/Admin/layouts/header.php');
     </nav>
     <main class="content px-3 py-2">
         <div class="text-center my-3 py-2">
-            <h3>QUẢN LÝ QUYỀN</h3>
+            <h3>QUẢN LÝ DANH MỤC</h3>
         </div>
         <div class="container-fluid">
             <!-- Table Element -->
             <div class="card border-0">
                 <div class="card-header">
                     <h5 class="card-title">
-                        Danh sách quyền
+                        Danh sách danh mục
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
@@ -43,12 +43,12 @@ require_once('./App/Views/Admin/layouts/header.php');
                         </form>
                     </div>
                     <?php if (isset($_SESSION['error'])) : ?>
-                        <div class="alert alert-danger text-center" permission="alert">
+                        <div class="alert alert-danger text-center" category="alert">
                             <?php echo $_SESSION['error']; ?>
                         </div>
                     <?php endif; ?>
                     <?php if (isset($_SESSION['success'])) : ?>
-                        <div class="alert alert-success text-center" permission="alert">
+                        <div class="alert alert-success text-center" category="alert">
                             <?php echo $_SESSION['success']; ?>
                         </div>
                         <?php unset($_SESSION['success']); ?>
@@ -57,8 +57,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Tên quyền</th>
-                                <th scope="col">Mô tả</th>
+                                <th scope="col">Tên Danh Mục</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,42 +67,55 @@ require_once('./App/Views/Admin/layouts/header.php');
                             global $db;
                             if (isset($_GET['search'])) {
                                 $filterValues = $_GET['search'];
-                                $query = $db->query("SELECT * FROM permissions WHERE CONCAT( name ) LIKE '%$filterValues%'");
+                                $query = $db->query("SELECT * FROM categories WHERE CONCAT( name ) LIKE '%$filterValues%'");
                                 $query->execute();
-                                $permissions = $query->fetchAll();
+                                $categories = $query->fetchAll();
                                 if ($query->rowCount() > 0) {
-                                    foreach ($permissions as $permission) {
+                                    foreach ($categories as $category) {
                             ?>
 
                                         <tr>
-                                            <th scope="row"><?php echo $permission['id']; ?></th>
-                                            <td><?php echo $permission['name']; ?></td>
-                                            <td><?php echo $permission['description']; ?></td>
+                                            <th scope="row"><?php echo $category['id']; ?></th>
+                                            <td><?php echo $category['name']; ?></td>
                                             <td>
-                                                <a href="edit/<?php echo $permission['id']; ?>" class="btn btn-primary">Sửa</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $permission['id']; ?>" class="btn btn-danger">Xóa</a>
+                                                <?php if ($category['status'] == '1') { ?>
+                                                    <button class="btn btn-success">Active</button>
+                                                <?php } else { ?>
+                                                    <button class="btn btn-danger">Inactive</button>
+                                                <?php } ?>
+                                            </td>
+                                            <td>
+                                                <a href="edit/<?php echo $category['id']; ?>" class="btn btn-primary">Sửa</a>
+                                                <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $category['id']; ?>" class="btn btn-danger">Xóa</a>
                                         </tr>
                                     <?php
                                     }
                                 } else {
                                     ?>
                                     <tr>
-                                        <td colspan="6" class="text-center">KHÔNG TÌM THẤY QUYỀN</td>
+                                        <td colspan="6" class="text-center">KHÔNG TÌM THẤY DANH MỤC</td>
                                     </tr>
                                 <?php
                                 }
                             } else {
-                                $query = $db->query("SELECT * FROM permissions");
+                                $query = $db->query("SELECT * FROM categories");
                                 $query->execute();
-                                $permissions = $query->fetchAll();
-                                foreach ($permissions as $permission) {
+                                $categories = $query->fetchAll();
+                                foreach ($categories as $category) {
                                 ?>
                                     <tr>
-                                        <th scope="row"><?php echo $permission['id']; ?></th>
-                                        <td><?php echo $permission['name']; ?></td>
-                                        <td><?php echo $permission['description']; ?></td>
+                                        <th scope="row"><?php echo $category['id']; ?></th>
+                                        <td><?php echo $category['name']; ?></td>
                                         <td>
-
+                                            <?php if ($category['status'] == '1') { ?>
+                                                <button class="btn btn-success">Active</button>
+                                            <?php } else { ?>
+                                                <button class="btn btn-danger">Inactive</button>
+                                            <?php } ?>
+                                        </td>
+                                        <td>
+                                            <a href="edit/<?php echo $category['id']; ?>" class="btn btn-primary">Sửa</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $category['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>
                             <?php
                                 }

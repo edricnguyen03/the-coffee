@@ -227,4 +227,12 @@ class ProductModel
         }
         return false;
     }
+    public function checkCategoryInProduct($categoryId)
+    {
+        global $db;
+        $query = $db->query("SELECT * FROM products WHERE category_id = $categoryId");
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result ? true : false;
+    }
 }
