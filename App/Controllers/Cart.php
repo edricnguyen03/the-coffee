@@ -6,6 +6,7 @@ class Cart extends Controller
     public $productModel;
     public $orderModel;
     public $orderProductModel;
+    private $userModel;
 
 
     public function __construct()
@@ -15,6 +16,7 @@ class Cart extends Controller
         $this->productModel = $this->model('ProductModel');
         $this->orderModel = $this->model('OrdersModel');
         $this->orderProductModel = $this->model('OrderProductsModel');
+        $this->userModel = $this->model('UserModel');
     }
 
     public function index()
@@ -26,7 +28,8 @@ class Cart extends Controller
 
         $productsInCart = $this->cartModel->getProductsInCart($_SESSION['login']['id']);
         $products = $this->productModel->getAllProducts();
-
+        $user = $this->userModel->getUserById($_SESSION['login']['id']);
+        $this->data['user'] = $user[0];
         $this->data['productsInCart'] = $productsInCart;
         $this->data['products'] = $products;
         $this->view('/Client/Cart', $this->data);
