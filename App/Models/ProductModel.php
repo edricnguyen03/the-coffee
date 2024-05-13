@@ -26,6 +26,30 @@ class ProductModel
         return $sanPham;
     }
 
+    // public function getStockByProductId($id)
+    // {
+    //     global $db;
+    //     $result = $db->get("products", "stock", "id = $id");
+    //     $row = $result[0];
+    //     $sanPham = (object) $row;
+    //     if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
+    //         $sanPham->thumb_image = "noimage.jpg";
+    //     }
+    //     return $sanPham;
+    // }
+
+    public function getStockByProductId($id)
+    {
+        global $db;
+        $result = $db->get("products", "stock", "id = $id");
+        $row = $result[0];
+        $sanPham = (object) $row;
+        if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
+            $sanPham->thumb_image = "product-default.png";
+        }
+        return $sanPham;
+    }
+
     public function getNumberOfPages($idDanhMuc = "all", $minMucGia = 0, $maxMucGia = -1, $noiDung = "")
     { // hàm đếm số trang
 
@@ -179,13 +203,13 @@ class ProductModel
         return $result;
     }
 
-    public function checkProductNameExists($name)
+    public function addStock($id, $quantity)
     {
         global $db;
-        $result = $db->get("products", "*", "name = '$name'");
-        if (count($result) > 0) {
-            return true;
-        }
-        return false;
+        $product = $db->get("products", "*", "id = $id")[0];
+        $stock = $product['stock'];
+        $stock += $quantity;
+        $result = $db->update("products", ["stock" => $stock], "id = $id");
+        return $result;
     }
 }
