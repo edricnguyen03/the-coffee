@@ -86,13 +86,13 @@ class UserModel
             }
         }
 
-        if ($field == "phone_result") {
-            if (!preg_match("/^0(\d{9}|9\d{8})$/", $val)) {
-                $result = 'Số điện thoại không hợp lệ';
-            } else {
-                $result = '<label class="text-success">Hợp lệ</label>';    //return
-            }
-        }
+        // if ($field == "phone_result") {
+        //     if (!preg_match("/^0(\d{9}|9\d{8})$/", $val)) {
+        //         $result = 'Số điện thoại không hợp lệ';
+        //     } else {
+        //         $result = '<label class="text-success">Hợp lệ</label>';    //return
+        //     }
+        // }
 
 
         if ($field == "password_result") {

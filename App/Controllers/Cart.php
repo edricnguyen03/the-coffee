@@ -26,7 +26,6 @@ class Cart extends Controller
 
         $productsInCart = $this->cartModel->getProductsInCart($_SESSION['login']['id']);
         $products = $this->productModel->getAllProducts();
-
         $this->data['productsInCart'] = $productsInCart;
         $this->data['products'] = $products;
         $this->view('/Client/Cart', $this->data);

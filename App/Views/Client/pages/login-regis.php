@@ -12,10 +12,10 @@
                     <div class="text-danger" id="email_result"></div>
                </center>
 
-               <input type="text" id="phone" name="phone" placeholder="Số điện thoại" onblur="validate('phone_result', this.value)">
+               <!-- <input type="text" id="phone" name="phone" placeholder="Số điện thoại" onblur="validate('phone_result', this.value)">
                <center>
                     <div class="text-danger" id="phone_result"></div>
-               </center>
+               </center> -->
 
                <input type="password" id="password" name="password" placeholder="Mật khẩu" onblur="validate('password_result', this.value)">
                <center>
@@ -286,14 +286,14 @@
           } else {
                var name_result = document.getElementById('name_result');
                var email_result = document.getElementById('email_result');
-               var phone_result = document.getElementById('phone_result');
+               // var phone_result = document.getElementById('phone_result');
                var password_result = document.getElementById('password_result');
                var repassword_result = document.getElementById('repassword_result');
 
                if (
                     name_result.innerHTML == "Tên phải lớn hơn 4 ký tự" ||
                     email_result.innerHTML == "Email không hợp lệ" ||
-                    phone_result.innerHTML == "Số điện thoại không hợp lệ" ||
+                    // phone_result.innerHTML == "Số điện thoại không hợp lệ" ||
                     password_result.innerHTML == "Mật khẩu phải lớn hơn 4 ký tự" ||
                     repassword_result.innerHTML == "Mật khẩu không khớp"
 
