@@ -52,7 +52,6 @@ require_once('./App/Views/Admin/layouts/header.php');
 
                     <div class="mb-3" id="content">
 
-                        <canvas id="myChart" width="100%" height="50%"></canvas>
                     </div>
 
 
@@ -80,6 +79,7 @@ require_once('./App/Views/Admin/layouts/header.php');
         var btnThongKe = document.getElementById('btnThongKe');
         var content = document.getElementById('content');
         var chart = null;
+        var chartBox = document.getElementById('chartBox');
 
         //them su kien cho nut thong ke
         btnThongKe.addEventListener('click', function() {
@@ -148,10 +148,13 @@ require_once('./App/Views/Admin/layouts/header.php');
                     });
 
                     // tạo thẻ canvas để vẽ biểu đồ
-                    var chartTag = '<canvas id="myChart" width="100%" height="50%"></canvas>';
+                    var chartTag = '<div class="mb-3" style="width:60%;" id="chartBox">' + '<canvas id="myChart" width="600px" height = "600px"></canvas></div>';
+
+
                     //innerHTML 2 lần
 
                     content.innerHTML = html;
+                    //content.innerHTML += chartTag;
                     content.innerHTML += chartTag;
                     drawChart(JSON.parse(response));
                 }
