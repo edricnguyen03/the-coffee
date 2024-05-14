@@ -285,7 +285,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                     <label for="provider" class="form-label">Nhà cung cấp</label>
                                     <select id="select" class="form-select" id="provider" name="provider" required>
                                         <?php
-
+                                    
                                         $names = array_map(function ($row) {
                                             return $row['name'];
                                         }, $nameOfProvider);

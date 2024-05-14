@@ -124,7 +124,6 @@ $routes['admin/receipt/alert'] = 'admin/ReceiptController/alert';
 $routes['admin/receipt/create'] = 'admin/ReceiptController/create';
 $routes['admin/receipt/store'] = 'admin/ReceiptController/store';
 ////Update User
-$routes['admin/receipt/edit'] = 'admin/ReceiptController/edit';
-$routes['admin/receipt/update'] = 'admin/ReceiptController/update';
+$routes['admin/receipt/detail'] = 'admin/ReceiptController/edit';
 //Delete User
 $routes['admin/receipt/delete'] = 'admin/ReceiptController/delete';

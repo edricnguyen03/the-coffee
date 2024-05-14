@@ -7,7 +7,7 @@ class ProviderModel
     // public function login($username, $password)
     // {
     //     global $db;
-    //     $userArr = $db->get('providers');
+    //     $userArr = $db->get('users');
     //     foreach ($userArr as $user) {
     //         if ($user['email'] == $username && $user['password'] != $password) {
     //             return "wrongPassword";
@@ -22,12 +22,12 @@ class ProviderModel
     //     }
     //     return "notFound";
     // }
-
-    public function getProviderById($ProviderId)
+    
+    public function getProviderById($providerId)
     {
         global $db;
-        $provider = $db->get('providers', '*', 'id = ' . $ProviderId);
-        return $provider;
+        $providerName = $db->get('providers', 'name', 'id = ' . $providerId);
+        return $providerName;
     }
 
     public function getAllProviders()
@@ -37,17 +37,22 @@ class ProviderModel
         return $provider;
     }
 
-    function getAllProvidersName()
-    {
+    function getProvidersName($ProviderId) {
+        global $db;
+        $providers = $db->get('providers', 'name' ,'id = ' . $ProviderId);
+        return $providers;
+    }
+
+    function getAllProvidersName() {
         global $db;
         $providers = $db->get('providers', 'name');
         return $providers;
     }
-
+    
     public function getMaxId()
     {
         global $db;
-        $query = $db->query("SELECT MAX(id) as max_id FROM providers");
+        $query = $db->query("SELECT MAX(id) as max_id FROM users");
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['max_id'];
@@ -62,27 +67,21 @@ class ProviderModel
     public function insertProvider($data)
     {
         global $db;
-        $db->insert('providers', $data);
+        $db->insert('users', $data);
         return true;
     }
 
-    public function updateProvider($providerId, $newUserData)
+    public function updateProvider($userId, $newUserData)
     {
         global $db;
-        $db->update('providers', $newUserData, 'id = ' . $providerId);
+        $db->update('users', $newUserData, 'id = ' . $userId);
         return true;
     }
 
     public function deleteProvider($userId)
     {
         global $db;
-        $db->delete('providers', 'id = ' . $userId);
+        $db->delete('users', 'id = ' . $userId);
         return true;
-    }
-    public function setProviderStatus($providerId, $status)
-    {
-        global $db;
-        $result = $db->update("providers", ["status" => $status], "id = $providerId");
-        return $result;
     }
 }
