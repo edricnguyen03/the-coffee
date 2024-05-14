@@ -78,7 +78,7 @@
                                     <br> <br>  
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Tên</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="" required>
+                                        <input type="text" class="form-control" id="name1" name="name" placeholder="" required>
                                         <span class="error" id="name_error" style="color: red;"></span>
                                     </div>
 
@@ -147,9 +147,43 @@
         </body>
 
         <!-- phần code jquery -->
-        <script type="text/javascript">    
-        $(document).ready(function(){
+        <script type="text/javascript">  
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     let name = document.getElementById('name1');
+            
+        //     name.addEventListener('focusout', function() {
+        //         let value = name.value;
+        //         validate(value);
+        //         // console.log(value);
+        //     });
+        //     // document.getElementById('submit').addEventListener('click', function() {
+        //     //     if (validate()) {
+        //     //         document.querySelector('form').submit();
+        //     //     }
+        //     // });
+            
+        // });
+        // function validate(data) {
+        //         name = data.trim();
+        //         // let name = document.getElementById('name').value.trim();
+        //         // let description = document.getElementById('description').value.trim();
+        //         if(name == '' || description == '') {
+        //             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
+        //             return false;
+        //         }
+        //         if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name)) {
+        //             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ</div>';
+        //             return false;
+        //         }
+        //         if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(description)) {
+        //             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ</div>';
+        //             return false;
+        //         }
+        //         return true;
+        //     }  
 
+        $(document).ready(function(){
+            
             var count = 0;
 
             function add_input_field(count)
@@ -227,6 +261,10 @@
                         error += "<li>Nhập số lượng nhập tại dòng "+count+" </li>";
 
                     }
+                    if($(this).val() < 0  || $(this).val()>1000)
+                    {
+                        error += "<li>Số lượng phải lớn hơn 0 và nhỏ hơn 1000 ở dòng "+count+" </li>";
+                    }
 
                     count = count + 1;
 
@@ -237,20 +275,22 @@
                 $('.item_price').each(function(){
 
                     var price = $(this).val(); // Lấy giá trị của phần tử hiện tại
-
                     if(price === '') {
                         error += "<li>Nhập giá tiền tại dòng " + count + " </li>"; // Thêm lỗi nếu giá trị trống
                     } else if(parseFloat(price) <= 1000) {
                         error += "<li>Giá tiền tại dòng " + count + " phải lớn hơn hoặc bằng 1000 (đồng)</li>"; // Thêm lỗi nếu giá trị không lớn hơn 1000
                     }
-
                     count = count + 1; // Tăng biến đếm
 
                 });
 
-                if(document.getElementById('name').value.trim() === '')
+                if(document.getElementById('name1').value.trim() === '')
                 {
+                    
                     error += "<li>Nhập tên phiếu nhập</li>";
+                }
+                else {
+                    document.getElementById('name1').value = document.getElementById('name1').value.trim();
                 }
 
                 var form_data = $(this).serialize();

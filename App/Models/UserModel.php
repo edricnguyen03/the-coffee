@@ -68,6 +68,11 @@ class UserModel
                 $result = 'Tên không được quá 40 ký tự';
             }
 
+            // kiểm tra tên có chứa khoảng trắng ở đầu hoặc cuối chuỗi không
+            else if (trim($val) != $val) {
+                $result = 'Tên không được chứa khoảng trắng';
+            }
+
             //kiem tra ten co chua ki tu dac biet hoac so khong
             else if (!preg_match("/^[\p{L} ]*$/u", $val) || preg_match("/\d/", $val)) {
                 $result = 'Tên không được chứa ký tự đặc biệt hoặc số';

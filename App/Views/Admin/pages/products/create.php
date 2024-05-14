@@ -74,7 +74,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                         </div>
                         <div class=" mb-3">
                             <label for="description" class="form-label">Miêu tả</label>
-                            <input type="text" class="form-control" id=" description" name="description" required>
+                            <input type="text" class="form-control" id="description" name="description" required>
                         </div>
                         <button type="submit" id="submit" name="submit" class="btn btn-primary">Tạo sản phẩm</button>
                     </form>
@@ -108,7 +108,7 @@ require_once('./App/Views/Admin/layouts/header.php');
     var txtDescription = document.getElementById('description');
 
     function validate(){
-        if(txtProductName.value == '' || txtPrice.value == '' || txtWeight.value == '' || txtContent.value == '' || txtDescription.value == '') {
+        if(txtProductName.value.trim() == '' || txtPrice.value.trim() == '' || txtWeight.value.trim() == '' || txtContent.value.trim() == '' || txtDescription.value.trim() == '') {
             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
             return false;
         }

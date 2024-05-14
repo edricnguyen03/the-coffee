@@ -2,27 +2,24 @@
      <div class="form-wrapper sign-up">
           <form id="regisForm" action="Login_Regis/Register" method="post">
                <h1>Tạo Tài Khoản</h1>
-               <input type="text" id="name" name="name" placeholder="Tên" onblur="validate('name_result', this.value)">
+               <input type="text" id="name" name="name" placeholder="Tên" onblur="validate('name_result', this.value)" required>
                <center>
                     <div class="text-danger" id="name_result"></div>
                </center>
 
-               <input type="email" id="email" name="email" placeholder="Email" onblur="validate('email_result', this.value)">
+               <input type="email" id="email" name="email" placeholder="Email" onblur="validate('email_result', this.value)" required>
                <center>
                     <div class="text-danger" id="email_result"></div>
                </center>
 
-               <!-- <input type="text" id="phone" name="phone" placeholder="Số điện thoại" onblur="validate('phone_result', this.value)">
-               <center>
-                    <div class="text-danger" id="phone_result"></div>
-               </center> -->
 
-               <input type="password" id="password" name="password" placeholder="Mật khẩu" onblur="validate('password_result', this.value)">
+
+               <input type="password" id="password" name="password" placeholder="Mật khẩu" onblur="validate('password_result', this.value)" required>
                <center>
                     <div class="text-danger" id="password_result"></div>
                </center>
 
-               <input type="password" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu" onblur="validate('repassword_result', this.value)">
+               <input type="password" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu" onblur="validate('repassword_result', this.value)" required>
                <center>
                     <div class="text-danger" id="repassword_result"></div>
                </center>
@@ -269,9 +266,20 @@
           font-size: 12px;
      }
 </style>
-</script>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+     // kiểm tra mật khẩu có trùng khớp không
+     var password = document.getElementById("password").value;
+     var repassword = document.getElementById("repassword").value;
+     if (password != repassword) {
+          Swal.fire({
+               icon: "error",
+               title: "Mật khẩu không khớp",
+               text: "Vui lòng nhập lại mật khẩu",
+          });
+          return;
+     }
      //function validForm
      function validForm() {
           var name = document.getElementById('name').value;
@@ -332,5 +340,33 @@
           var params = "field=" + field + "&value=" + value;
           xmlhttp.send(params);
      }
+
+     $.ajax({
+          type: 'POST',
+          url: 'Login_Regis/Register',
+          data: {
+               name: name,
+               email: email,
+               password: password,
+               repassword: repassword
+          },
+          success: function(response) {
+
+               if (response == 'Fail') {
+                    Swal.fire({
+                         icon: 'error',
+                         title: 'Đăng kí thất bại!',
+                         text: 'Mật khẩu không khớp!',
+                    })
+               } else {
+                    Swal.fire({
+                         icon: 'success',
+                         title: 'Đăng kí thành công!',
+                         showConfirmButton: false,
+                         timer: 1500
+                    })
+               }
+          }
+     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
