@@ -52,6 +52,11 @@ class productController extends Controller
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();
             }
+            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+                $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
 
 
 
@@ -133,6 +138,12 @@ class productController extends Controller
                     exit();
                 }
             }
+            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+                $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
+
             $old_image = $_POST['old-image'];
             $filename = $old_image; // default to old image
 
