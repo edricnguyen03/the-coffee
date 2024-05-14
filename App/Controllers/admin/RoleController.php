@@ -46,6 +46,11 @@ class RoleController extends Controller
             $description = $_POST['description'];
             $permissions = $_POST['permissions'];
 
+            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+                $_SESSION['error'] = 'Tên vai trò không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
             // Get the current max id
             $maxId = $this->roleModel->getMaxId();
             $newId = $maxId + 1;
@@ -103,6 +108,11 @@ class RoleController extends Controller
             $description = $_POST['description'];
             $permissions = $_POST['permissions'];
 
+            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+                $_SESSION['error'] = 'Tên vai trò không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
             $updateData = [
                 'name' => $name,
                 'description' => $description,

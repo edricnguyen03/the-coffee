@@ -42,6 +42,11 @@ class CategoryController extends Controller
             $name = $_POST['name'];
             $status = $_POST['status'];
 
+            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+                $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
             // Get the current max id
             $maxId = $this->categoryModel->getMaxId();
             $newId = $maxId + 1;
@@ -80,6 +85,12 @@ class CategoryController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $status = $_POST['status'];
+
+            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+                $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
 
             $updateData = [
                 'name' => $name,
