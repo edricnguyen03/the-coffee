@@ -37,7 +37,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <form method="GET">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên đơn nhập hàng">
-                                <button class="btn btn-primary" type="submit">Search</button>
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                             </div>
                         </form>
                     </div>
@@ -74,7 +74,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 $receipts = $query->fetchAll();
                                 if ($query->rowCount() > 0) {
                                     foreach ($receipts as $receipt) {
-                                ?>
+                            ?>
                                         <tr>
                                             <th scope="row"><?php echo $receipt['id']; ?></th>
                                             <td><?php echo $receipt['name']; ?></td>
@@ -110,7 +110,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <td><?php echo $receipt['create_at']; ?></td>
                                         <td>
                                             <a href="detail/<?php echo $receipt['id']; ?>" class="btn btn-primary">Hiển thị</a>
-                                            <!-- <a onclick="return confirm('Bạn có muốn xóa đơn nhập hàng này không ?')" href="delete/<?php //echo $receipt['id']; ?>" class="btn btn-danger">Xóa</a> -->
+                                            <!-- <a onclick="return confirm('Bạn có muốn xóa đơn nhập hàng này không ?')" href="delete/<?php //echo $receipt['id']; 
+                                                                                                                                        ?>" class="btn btn-danger">Xóa</a> -->
                                     </tr>
                             <?php
                                 }
@@ -140,7 +141,7 @@ require_once('./App/Views/Admin/layouts/header.php');
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </body>
 <!-- <script type="text/javascript">    
 $(document).ready(function(){
@@ -172,4 +173,5 @@ $(document).ready(function(){
 })
     
 </script> -->
+
 </html>
