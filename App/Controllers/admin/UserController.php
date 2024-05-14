@@ -5,12 +5,14 @@ class UserController extends Controller
     public $data;
     public $userModel;
     public $orderModel;
+    public $roleModel;
 
     public function __construct()
     {
         $this->data = [];
         $this->userModel = $this->model('UserModel');
         $this->orderModel = $this->model('OrdersModel');
+        $this->roleModel = $this->model('RoleModel');
     }
 
     // Function to show user data from the database
@@ -23,8 +25,8 @@ class UserController extends Controller
     // Function to create a new user in the database
     public function create()
     {
-
-        $this->view('/Admin/pages/users/create',);
+        $this->data['roles'] = $this->roleModel->getAllRoles();
+        $this->view('/Admin/pages/users/create', $this->data);
     }
 
     public function store()
@@ -63,6 +65,7 @@ class UserController extends Controller
     {
         $user = $this->userModel->getUserById($userId);
         $this->data['user'] = $user[0];
+        $this->data['roles'] = $this->roleModel->getAllRoles();
         $this->view('/Admin/pages/users/edit', $this->data);
         // Redirect to the index page or show a success message
     }

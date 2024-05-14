@@ -4,11 +4,15 @@ class RoleController extends Controller
 {
     public $data;
     public $roleModel;
+    public $permissionModel;
+    public $permissionRoleModel;
 
     public function __construct()
     {
         $this->data = [];
         $this->roleModel = $this->model('RoleModel');
+        $this->permissionModel = $this->model('PermissionModel');
+        $this->permissionRoleModel = $this->model('PermissionRoleModel');
     }
 
     // Function to show role data from the database
@@ -21,7 +25,8 @@ class RoleController extends Controller
     // Function to create a new role in the database
     public function create()
     {
-        $this->view('/Admin/pages/roles/create',);
+        $this->data['permissions'] = $this->permissionModel->getAllPermissions();
+        $this->view('/Admin/pages/roles/create', $this->data);
     }
 
     public function store()
@@ -29,6 +34,7 @@ class RoleController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $description = $_POST['description'];
+            $permissions = $_POST['permissions'];
 
             // Get the current max id
             $maxId = $this->roleModel->getMaxId();
@@ -40,9 +46,21 @@ class RoleController extends Controller
                 'description' => $description,
             ];
             if ($this->roleModel->insertRole($data)) {
-                $this->view('/Admin/pages/roles/create', ['success' => 'Thêm vai trò mới thành công']);
+                if ((is_array($permissions)) || is_object($permissions)) {
+                    foreach ($permissions as $permissionId) {
+                        $data_permision_role = [
+                            'role_id' => $newId,
+                            'permission_id' => $permissionId
+                        ];
+                        $this->permissionRoleModel->insertPermissionRole($data_permision_role);
+                    }
+                }
+                $_SESSION['success'] = 'Thêm vai trò thành công';
+                $this->data['permissions'] = $this->permissionModel->getAllPermissions();
+                // If role is inserted successfully, update permission_role model
+                $this->view('/Admin/pages/roles/create', $this->data);
             } else {
-                $this->view('/Admin/pages/roles/create', ['error' => 'Thêm vài trò mới thất bại']);
+                $this->view('/Admin/pages/roles/create', ['error' => 'Thêm vai trò thất bại']);
             };
         }
     }
@@ -52,7 +70,12 @@ class RoleController extends Controller
     public function edit($roleId)
     {
         $role = $this->roleModel->getRoleById($roleId);
-
+        $this->data['permissions'] = $this->permissionModel->getAllPermissions();
+        $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
+        // Convert the result to an array of permission ids
+        $this->data['rolePermissions'] = array_map(function ($permission) {
+            return $permission['permission_id'];
+        }, $rolePermissions);
         $this->data['role'] = $role[0];
         $this->view('/Admin/pages/roles/edit', $this->data);
         // Redirect to the index page or show a success message
@@ -63,13 +86,32 @@ class RoleController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $description = $_POST['description'];
+            $permissions = $_POST['permissions'];
 
             $updateData = [
                 'name' => $name,
                 'description' => $description,
             ];
             if ($this->roleModel->updateRole($roleId, $updateData)) {
+                // Delete all current permissions of the role
+                $this->permissionRoleModel->deletePermissionsByRoleId($roleId);
+
+                if ((is_array($permissions)) || is_object($permissions)) {
+                    foreach ($permissions as $permissionId) {
+                        $data_permision_role = [
+                            'role_id' => $roleId,
+                            'permission_id' => $permissionId
+                        ];
+                        $this->permissionRoleModel->insertPermissionRole($data_permision_role);
+                    }
+                }
                 $role = $this->roleModel->getRoleById($roleId);
+                $this->data['permissions'] = $this->permissionModel->getAllPermissions();
+                $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
+                // Convert the result to an array of permission ids
+                $this->data['rolePermissions'] = array_map(function ($permission) {
+                    return $permission['permission_id'];
+                }, $rolePermissions);
                 $this->data['role'] = $role[0];
                 $_SESSION['success'] = 'Chỉnh sửa vai trò thành công';
                 $this->view('/Admin/pages/roles/edit', $this->data);
