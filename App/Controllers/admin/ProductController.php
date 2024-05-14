@@ -140,20 +140,6 @@ class productController extends Controller
             $this->data['categories'] = $this->categoryModel->get();
             $this->data['product'] =  $this->productModel->getById($productId);
 
-            if ($price > 5000 || $price < 10000000) {
-                $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
-                $this->view('/Admin/pages/products/edit', $this->data);
-                exit();
-            }
-
-            if ($weight > 0 || $weight < 20000) {
-                $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
-                $this->view('/Admin/pages/products/edit', $this->data);
-                exit();
-            }
-
-
-
             $old_image = $_POST['old-image'];
             $filename = $old_image; // default to old image
 

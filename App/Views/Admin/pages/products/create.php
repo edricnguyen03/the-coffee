@@ -33,6 +33,18 @@ require_once('./App/Views/Admin/layouts/header.php');
                 </div>
                 <div class="card-body">
                     <span id="error"></span>
+                    <?php if (isset($_SESSION['success'])) : ?>
+                        <div class="alert alert-success text-center" role="alert">
+                            <?php echo $_SESSION['success']; ?>
+                        </div>
+                        <?php unset($_SESSION['success']); ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['error'])) : ?>
+                        <div class="alert alert-danger text-center" role="alert">
+                            <?php echo $_SESSION['error']; ?>
+                        </div>
+                        <?php unset($_SESSION['error']); ?>
+                    <?php endif; ?>
                     <form action="store" method="POST" onsubmit="return validate()" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên sản phẩm</label>
@@ -107,8 +119,8 @@ require_once('./App/Views/Admin/layouts/header.php');
     var txtContent = document.getElementById('content');
     var txtDescription = document.getElementById('description');
 
-    function validate(){
-        if(txtProductName.value.trim() == '' || txtPrice.value.trim() == '' || txtWeight.value.trim() == '' || txtContent.value.trim() == '' || txtDescription.value.trim() == '') {
+    function validate() {
+        if (txtProductName.value.trim() == '' || txtPrice.value.trim() == '' || txtWeight.value.trim() == '' || txtContent.value.trim() == '' || txtDescription.value.trim() == '') {
             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
             return false;
         }

@@ -262,6 +262,18 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </div>
                         <div class="card-body">
                             <span id="error"></span>
+                            <?php if (isset($_SESSION['success'])) : ?>
+                                <div class="alert alert-success text-center" role="alert">
+                                    <?php echo $_SESSION['success']; ?>
+                                </div>
+                                <?php unset($_SESSION['success']); ?>
+                            <?php endif; ?>
+                            <?php if (isset($_SESSION['error'])) : ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <?php echo $_SESSION['error']; ?>
+                                </div>
+                                <?php unset($_SESSION['error']); ?>
+                            <?php endif; ?>
                             <form action="../update/ <?php echo $product->id ?>" onsubmit="return validate()" method="POST" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên sản phẩm</label>
