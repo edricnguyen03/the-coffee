@@ -127,7 +127,10 @@ require_once('./App/Views/Admin/layouts/header.php');
                 },
                 success: function(response) {
                     let index = 0;
-
+                    let maxSold = -1;
+                    let maxSoldName = '';
+                    let secondSold = -1;
+                    let secondSoldName = '';
                     let html = '<table class="table">' +
                         '<thead>' +
                         '<tr>' +
@@ -145,6 +148,15 @@ require_once('./App/Views/Admin/layouts/header.php');
                             '<td>' + item['name'] + '</td>' +
                             '<td>' + item['quantity_sold'] + '</td>' +
                             '</tr>';
+                        if (parseInt(item['quantity_sold']) > maxSold) {
+                            secondSold = maxSold;
+                            secondSoldName = maxSoldName;
+                            maxSold = parseInt(item['quantity_sold']);
+                            maxSoldName = item['name'];
+                        } else if (parseInt(item['quantity_sold']) > secondSold) {
+                            secondSold = parseInt(item['quantity_sold']);
+                            secondSoldName = item['name'];
+                        }
                     });
 
                     // tạo thẻ canvas để vẽ biểu đồ
@@ -152,8 +164,10 @@ require_once('./App/Views/Admin/layouts/header.php');
 
 
                     //innerHTML 2 lần
-
-                    content.innerHTML = html;
+                    let topSale = '<div class="alert alert-success text-center" role="alert">Sản phẩm bán chạy nhất: ' + maxSoldName + ' với số lượng bán được là ' + maxSold + '</div>';
+                    topSale += '<div class="alert alert-success text-center" role="alert">Sản phẩm bán chạy thứ 2: ' + secondSoldName + ' với số lượng bán được là ' + secondSold + '</div>';
+                    content.innerHTML = topSale;
+                    content.innerHTML += html;
                     //content.innerHTML += chartTag;
                     content.innerHTML += chartTag;
                     drawChart(JSON.parse(response));
