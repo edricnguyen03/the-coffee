@@ -109,7 +109,7 @@
                     if (password != confirm_password) {
                         $('#confirm_password_error').text('Mật khẩu không trùng khớp').css('display', 'block');
                         return;
-                    } else if (name.length > 40 || name.length < 4 || /[^A-Za-z ]/.test(name)) {
+                    } else if (name.length > 40 || name.length < 4 || /^[a-zA-Z\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/.test(name)) {
                         $('#name_error').text('Tên không hợp lệ - Tối thiểu 4 ký tự, tối đa 40  ký tự và không chứa ký tự đặc biệt').css('display', 'block');
                         return;
                     } else if (password.length < 4 || password.length > 10) {

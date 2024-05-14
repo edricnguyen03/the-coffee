@@ -62,7 +62,7 @@ class RoleController extends Controller
             } else {
                 $permissions = $_POST['permissions'];
             }
-            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên vai trò không được chứa ký tự đặc biệt';
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();
@@ -114,7 +114,7 @@ class RoleController extends Controller
             $name = $_POST['name'];
             $description = $_POST['description'];
 
-            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên vai trò không được chứa ký tự đặc biệt';
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();
