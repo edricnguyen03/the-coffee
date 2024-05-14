@@ -37,7 +37,7 @@ class ReceiptController extends Controller {
 
     public function store()
     {
-        
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $providerId = $_POST['provider'];
@@ -60,8 +60,6 @@ class ReceiptController extends Controller {
             // die();
             $this->data['nameOfProvider'] = $this->providerModel->getAllProvidersName();
             $this->data['nameOfProduct']= $this->productModel->getAllProductsName();;
-
-
             // Get the current max id
             $maxId = $this->receiptModel->getMaxId();
             $newId = $maxId + 1;
@@ -72,7 +70,6 @@ class ReceiptController extends Controller {
                 'provider_id' => $providerId,
                 'total' => $total,
             ];
-
             
             //create new receipt
             if ($this->receiptModel->insertReceipt($data)){          
@@ -83,15 +80,48 @@ class ReceiptController extends Controller {
                             'product_id' => $_POST["item_name"][$count],
                             'receipt_id' => $newId,
                             'quantity' => $_POST["item_quantity"][$count],
-                            'producr_price' => $_POST["item_price"][$count],
+                            'product_price' => $_POST["item_price"][$count],
                         ];
-
+                        // echo '<pre>';
+                        // print_r($_POST);
+                        // echo '<pre>'; 
                         $this->productsReceipts->insertPR($data2);
                         //cập nhật stock
                         $this->productModel->changeStock($_POST["item_name"][$count], -$_POST["item_quantity"][$count]);
-
+                        // $query = "
+                        // INSERT INTO product_receipt 
+                        // (product_id, receipt_id, quantity) 
+                        // VALUES (:product_id, :receipt_id, :quantity)
+                        // ";
+                        // $query3 = "
+                        // INSERT INTO products 
+                        // (item_price) 
+                        // VALUES (:item_price)
+                        // ";
+                        // $connect = new PDO("mysql:host=localhost; dbname=the-coffe","root","");
+                        // $query = "INSERT INTO product_receipt (id, product_id, receipt_id, quantity) VALUES (:id, :product_id, :receipt_id, :quantity)";
+                        // // $query = "INSERT INTO product_receipt (id, product_id, receipt_id, quantity) VALUES (:product_id, :quantity)";
+                        // $statement1 = $connect->prepare($query);
+                        // $statement1->bindParam(':product_id', $_POST["item_name"][$count]);
+                        // $statement1->bindParam(':receipt_id', $newId);
+                        // $statement1->bindParam(':quantity', $_POST["item_quantity"][$count]);
+                        // $statement1->execute();
                     }  
                 echo 'oke';
+                // $result = $statement1->fetchAll();
+                //     if(isset($result))
+                //     {
+                //         echo 'ok';
+                //     }
+                // echo '<pre>';
+                // print_r($_POST);
+                // echo '<pre>'; 
+                // $_SESSION['success'] = 'Thêm đơn nhập hàng thành công';
+                // header('Location: /the-coffee/admin/receipt/index');
+                // exit();
+                
+                //tao session
+                //them exit()
             } else {
                 $_SESSION['error'] = 'Thêm đơn nhập hàng thành công thật bại';
             };
