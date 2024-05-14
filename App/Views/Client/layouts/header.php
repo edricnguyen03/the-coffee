@@ -1,6 +1,6 @@
 <!------------------------------------------------------Sticky header---------------------------------------------------------------->
 <?php
-require_once './App/Models/UserModel.php';
+require_once './App/Models/Auth.php';
 
 ?>
 <nav class="navbar sticky-top navbar-expand-lg" style="background: linear-gradient(to right, #ffad3d, #fb8d17); z-index:10;">
@@ -41,8 +41,8 @@ require_once './App/Models/UserModel.php';
                                     <span></span>
                                 </a>
                             <?php
-                        }
-                        if (UserModel::hasAdminPermission($_SESSION['login']['id']) == true) {
+                        
+                        if (Auth::hasAdminPermission($_SESSION['login']['id']) == true) {
                             ?>
                                 <a href="admin/dashboard/" class="sub-menu-link">
                                     <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
@@ -100,7 +100,7 @@ require_once './App/Models/UserModel.php';
                         </script>
                     <?php
                     unset($_SESSION['login']['status']);
-                } else {
+                }} else {
                     ?>
                         <li class="nav-item ms-3">
                             <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>

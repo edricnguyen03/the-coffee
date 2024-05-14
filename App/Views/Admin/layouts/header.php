@@ -1,5 +1,5 @@
 <?php
-require_once './App/Models/UserModel.php';
+require_once './App/Models/Auth.php';
 // Start the session
 // Check if the user is logged in
 if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
@@ -40,7 +40,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         Danh sách chức năng
                     </li>
                     <?php
-                     if(UserModel::checkPermission($_SESSION['login']['id'], 6) == true){
+                     if(Auth::checkPermission($_SESSION['login']['id'], 6) == true){
                     ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#stat" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
@@ -63,7 +63,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     }
                     ?>
                     <?php
-                     if(UserModel::checkPermission($_SESSION['login']['id'], 3) == true){
+                     if(Auth::checkPermission($_SESSION['login']['id'], 3) == true){
                     ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
@@ -82,7 +82,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     }
                     ?>
                     <?php
-                     if(UserModel::checkPermission($_SESSION['login']['id'], 4) == true){
+                     if(Auth::checkPermission($_SESSION['login']['id'], 4) == true){
                     ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#posts" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-sliders pe-2"></i>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     }
                     ?>
                     <?php
-                     if(UserModel::checkPermission($_SESSION['login']['id'], 1) == true){
+                     if(Auth::checkPermission($_SESSION['login']['id'], 1) == true){
                     ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
@@ -117,7 +117,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     }
                     ?>
                     <?php
-                     if(UserModel::checkPermission($_SESSION['login']['id'], 7) == true){
+                     if(Auth::checkPermission($_SESSION['login']['id'], 7) == true){
                     ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>

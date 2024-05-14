@@ -1,7 +1,7 @@
 <?php
-require_once './App/Models/UserModel.php';
-if (isset($_SESSION['login']['status']) && UserModel::hasAdminPermission($_SESSION['login']['id']) == true) {
-    if (UserModel::checkPermission($_SESSION['login']['id'], 3) == false) { // là admin mà ko có chức năng quảnt lý sản phẩm
+require_once './App/Models/Auth.php';
+if (isset($_SESSION['login']['status']) && Auth::hasAdminPermission($_SESSION['login']['id']) == true) {
+    if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) { // là admin mà ko có chức năng quảnt lý sản phẩm
         foreach ($sanPhams as $sanPham) {
             echo '<!------------san pham--------------->';
             echo '<div class="col-lg-3 col-md-4 col-sm-6 mb-4">

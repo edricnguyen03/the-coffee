@@ -1,5 +1,5 @@
 <?php
-require_once './App/Models/UserModel.php';
+require_once './App/Models/Auth.php';
 
 ?>
 <footer class="footer" style="background-color: #262626; color: white;">
@@ -40,7 +40,7 @@ require_once './App/Models/UserModel.php';
                         if ($_SESSION['login']['status'] == 1) {
                     ?>
                             <?php
-                            if (UserModel::hasAdminPermission($_SESSION['login']['id']) == false) {
+                            if (Auth::hasAdminPermission($_SESSION['login']['id']) == false) {
                             ?>
                                 <p>
                                     <a href="/the-coffee/cart" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>

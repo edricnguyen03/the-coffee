@@ -42,7 +42,7 @@
                                 <h2 class="fs-6 fw-normal text-center text-secondary m-0 px-md-5">Vui lòng nhập địa chỉ email đã đăng kí tài khoản</h2>
                             </div>
                         </div>
-                        <div class="row gy-3 gy-md-4 overflow-hidden">
+                        <div class="row gy-3 gy-md-4 overflow-hidden" id="content">
                             <div class="col-12">
                                 <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                 <div class="input-group">
@@ -90,6 +90,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        var email;
         $('#btnGuiMaXacNhan').click(function() {
             var email = $('#email').val();
             if (email == '') {
@@ -106,7 +107,7 @@
                         email: email
                     },
                     success: function(response) {
-                        if (response.trim() == 'success'){
+                        if (response.trim() == 'success') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Thành công',
@@ -125,7 +126,7 @@
         });
 
         $('#btnDatLaiMatKhau').click(function() {
-            var email = $('#email').val();
+            email = $('#email').val();
             var otp = $('#otp').val();
             if (email == '' || otp == '') {
                 Swal.fire({
@@ -142,17 +143,80 @@
                         otp: otp
                     },
                     success: function(response) {
-                        console.log(response);
+
                         if (response.trim() == 'success') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Thành công',
-                                text: 'Mật khẩu của bạn đã được đặt lại thành "123456" vui lòng đổi mật khẩu lại để tránh lỗ hỏng bảo mật',
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = '/the-coffee';
-                                }
-                            });
+                            let content = document.getElementById('content');
+                            content.innerHTML = '<h5 class="card-title py-4 text-center">Đổi mật khẩu</h5>' +
+                                '<div class="form-group py-2">' +
+                                '<label for="newPassword">Mật khẩu mới:</label>' +
+                                '<input type="password" class="form-control" id="new-password" required>' +
+                                '</div>' +
+                                '<div class="form-group py-2">' +
+                                '<label for="confirmPassword">Xác nhận mật khẩu mới:</label>' +
+                                '<input type="password" class="form-control" id="confirm-password" required>' +
+                                '</div>' +
+                                '<div class="form-group py-2 text-center">' +
+                                '<button type="button" id="btn-DoiMatKhau" class="btn-LuuThongTin btn px-3 py-2" style="border-radius: 5px;">Đổi mật khẩu</button>' +
+                                '</div>';
+                            var btnDoiMatKhau = document.getElementById('btn-DoiMatKhau');
+                            if (btnDoiMatKhau != null) {
+                                btnDoiMatKhau.addEventListener("click", function(event) {
+                                    var newPassword = document.getElementById("new-password").value;
+                                    var confirmPassword = document.getElementById("confirm-password").value;
+                                    if (newPassword.trim() == "" || confirmPassword.trim() == "") {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Không được bỏ trống các ô",
+                                            text: "Vui lòng nhập đầy đủ 2 ô mật khẩu",
+                                        });
+                                        return;
+                                    }
+                                    if (newPassword != confirmPassword) {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Mật khẩu không khớp",
+                                            text: "Vui lòng nhập lại mật khẩu",
+                                        });
+                                        return;
+                                    }
+                                    if (newPassword.trim().length < 4 || newPassword.trim().length > 10) {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Mật khẩu phải có ít nhất 4 ký tự và tối đa là 10 ký tự",
+                                            text: "Vui lòng nhập lại mật khẩu",
+                                        });
+                                        return;
+                                    }
+                                    $.ajax({
+                                        url: '/the-coffee/ForgotPassword/doiMatKhau',
+                                        type: 'POST',
+                                        data: {
+                                            email: email,
+                                            password: newPassword.trim(),
+                                        },
+                                        success: function(response) {
+                                            if (response.trim() == 'success') {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Thành công',
+                                                    text: 'Đổi mật khẩu thành công',
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        window.location.href = '/the-coffee';
+                                                    }
+                                                });
+                                            } else {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Thất bại',
+                                                    text: response,
+                                                });
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -160,9 +224,12 @@
                                 text: response,
                             });
                         }
+
                     }
                 });
             }
+
         });
+
     });
 </script>
