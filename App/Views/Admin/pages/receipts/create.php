@@ -43,9 +43,14 @@
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
-                            <h4 class="card-title">
-                                Thêm đơn nhập hàng vào danh sách
+                            <h4 class="card-title alert alert-warning text-center">
+                                Lưu ý, hãy nhập và điền đơn nhập hàng thật kĩ vì bạn chỉ được phép xem đơn sau khi tạo! 
                             </h4>
+                        </div>
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                Thêm đơn nhập hàng vào danh sách
+                            </h5>
                         </div>
                         <div class="card-body">
                             <div class="alert alert-danger text-center " style="display: none;" role="alert">

@@ -212,7 +212,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
 
                             <div class="alert alert-success text-center" style="display: none;" role="alert">
                             </div>
-
+                            
                             <form method="POST" id="insert_form"> 
                                 <div class="card-header">
                                     <h6 class="card-title">
@@ -281,9 +281,9 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
 
                 html += '<tr>';
 
-                html += '<td><input type="text" name="item_quantity[]" class="form-control item_quantity" value="' + jsArray[i].product_name + '" /></td>';
-                html += '<td><input type="number" name="item_quantity[]" class="form-control item_quantity" value="' + jsArray[i].quantity + '"/></td>';
-                html += '<td><input type="number" name="item_price[]" class="form-control item_price" value="' + jsArray[i].product_price + '"/></td>'; 
+                html += '<td><input type="text" name="item_name[]" class="form-control item_name" value="' + jsArray[i].product_name + '" readonly /></td>';
+    html += '<td><input type="number" name="item_quantity[]" class="form-control item_quantity" value="' + jsArray[i].quantity + '" readonly /></td>';
+    html += '<td><input type="number" name="item_price[]" class="form-control item_price" value="' + jsArray[i].product_price + '" readonly /></td>';
                                        
                 var remove_button = '';
 
