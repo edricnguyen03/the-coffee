@@ -10,7 +10,7 @@ class StatModel
                                 FROM orders o
                                 JOIN order_products op ON o.id = op.order_id
                                 JOIN products p ON op.product_id = p.id
-                                WHERE o.create_at BETWEEN '$fromDate' AND '$toDate'
+                                WHERE o.order_status = 4 AND o.create_at BETWEEN '$fromDate' AND '$toDate'
                                 GROUP BY p.name 
                                 ORDER BY `quantity_sold` DESC
                                 LIMIT 5");
@@ -28,7 +28,7 @@ class StatModel
                             JOIN order_products ON orders.id = order_products.order_id
                             JOIN products ON products.id = order_products.product_id
                             JOIN categories ON categories.id = products.category_id
-                            WHERE DATE(orders.create_at) BETWEEN '$fromDate' AND '$toDate'
+                            WHERE orders.order_status = 4 AND DATE(orders.create_at) BETWEEN '$fromDate' AND '$toDate'
                             GROUP BY categories.id");
         $query->execute();
         $data = $query->fetchAll();

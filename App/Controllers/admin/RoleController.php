@@ -98,7 +98,7 @@ class RoleController extends Controller
 
     public function update($roleId)
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['permissions'])) {
             $name = $_POST['name'];
             $description = $_POST['description'];
             $permissions = $_POST['permissions'];
