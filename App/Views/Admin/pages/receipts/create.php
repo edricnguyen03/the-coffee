@@ -248,6 +248,11 @@
 
                 });
 
+                if(document.getElementById('name').value.trim() === '')
+                {
+                    error += "<li>Nhập tên phiếu nhập</li>";
+                }
+
                 var form_data = $(this).serialize();
 
                 if(error == '')

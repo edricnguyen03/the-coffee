@@ -179,7 +179,7 @@ class UserModel
             if (strlen($newPassword) < 4 || strlen($newPassword) > 10) {
                 return "Mật khẩu mới phải từ 4 đến 10 ký tự";
             }
-            if (trim($newPassword) !== $newPassword) {
+            if (strpos($newPassword, ' ') !== false) {
                 return 'Mật khẩu mới không được chứa khoảng trắng';
             }
             if ($db->update('users', ['password' => password_hash($newPassword, PASSWORD_DEFAULT)], 'id = ' . $userId)) {
@@ -214,6 +214,7 @@ class UserModel
                 return "Tên không được quá 40 ký tự";
             }
             if ($db->update('users', ['name' => $userName], 'id = ' . $userId)) {
+                $_SESSION['login']['username'] = $userName;
                 return "success";
             }
             return "fail";

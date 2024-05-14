@@ -42,17 +42,6 @@ require_once('./App/Views/Admin/layouts/header.php');
                             </div>
                         </form>
                     </div>
-                    <?php if (isset($_SESSION['error'])) : ?>
-                        <div class="alert alert-danger text-center" role="alert">
-                            <?php echo $_SESSION['error']; ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if (isset($_SESSION['success'])) : ?>
-                        <div class="alert alert-success text-center" role="alert">
-                            <?php echo $_SESSION['success']; ?>
-                        </div>
-                        <?php unset($_SESSION['success']); ?>
-                    <?php endif; ?>
                     <table class="table">
                         <thead>
                             <tr>
@@ -81,9 +70,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             <td><?php echo $provider['description']; ?></td>
                                             <td>
                                                 <?php if ($provider['status'] == '1') { ?>
-                                                    <button class="btn btn-success">Active</button>
+                                                    <button class="btn btn-success" disabled>Active</button>
                                                 <?php } else { ?>
-                                                    <button class="btn btn-danger">Inactive</button>
+                                                    <button class="btn btn-danger" disabled>Inactive</button>
                                                 <?php } ?>
                                             </td>
                                             <td>
@@ -111,9 +100,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <td><?php echo $provider['description']; ?></td>
                                         <td>
                                             <?php if ($provider['status'] == '1') { ?>
-                                                <button class="btn btn-success">Active</button>
+                                                <button class="btn btn-success" disabled>Active</button>
                                             <?php } else { ?>
-                                                <button class="btn btn-danger">Inactive</button>
+                                                <button class="btn btn-danger" disabled>Inactive</button>
                                             <?php } ?>
                                         </td>
                                         <td>

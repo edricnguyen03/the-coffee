@@ -32,19 +32,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                     </h5>
                 </div>
                 <div class="card-body">
-                    <?php if (isset($_SESSION['success'])) : ?>
-                        <div class="alert alert-success text-center" role="alert">
-                            <?php echo $_SESSION['success']; ?>
-                        </div>
-                        <?php unset($_SESSION['success']); ?>
-                    <?php endif; ?>
-                    <?php if (isset($_SESSION['error'])) : ?>
-                        <div class="alert alert-danger text-center" role="alert">
-                            <?php echo $_SESSION['error']; ?>
-                        </div>
-                        <?php unset($_SESSION['error']); ?>
-                    <?php endif; ?>
-                    <form action="store" method="POST" enctype="multipart/form-data">
+                    <span id="error"></span>
+                    <form action="store" method="POST" onsubmit="return validate()" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên sản phẩm</label>
                             <input type="text" class="form-control" id="name" name="name" required>
@@ -87,7 +76,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                             <label for="description" class="form-label">Miêu tả</label>
                             <input type="text" class="form-control" id=" description" name="description" required>
                         </div>
-                        <button type="submit" name="submit" class="btn btn-primary">Tạo sản phẩm</button>
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Tạo sản phẩm</button>
                     </form>
                 </div>
             </div>
@@ -111,6 +100,65 @@ require_once('./App/Views/Admin/layouts/header.php');
             image.src = src;
         }
     });
+
+    var txtProductName = document.getElementById('name');
+    var txtPrice = document.getElementById('price');
+    var txtWeight = document.getElementById('weight');
+    var txtContent = document.getElementById('content');
+    var txtDescription = document.getElementById('description');
+
+    function validate(){
+        if(txtProductName.value == '' || txtPrice.value == '' || txtWeight.value == '' || txtContent.value == '' || txtDescription.value == '') {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
+            return false;
+        }
+        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtProductName.value)) {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+            return false;
+        }
+        //giá chỉ từ 5000 đến 10000000 
+        if (txtPrice.value < 5000 || txtPrice.value > 10000000) {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Giá không hợp lệ từ 5000 đến 10000000đ</div>';
+            return false;
+        }
+        if (!/^[0-9]{1,10}$/.test(txtPrice.value)) {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Giá không hợp lệ từ 1 đến 10 kí tự số</div>';
+            return false;
+        }
+        //cân nặng chỉ từ 1 đến 20000
+        if (txtWeight.value < 1 || txtWeight.value > 20000) {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Cân nặng không hợp lệ từ 1 đến 20000 gam</div>';
+            return false;
+        }
+        if (!/^[0-9]{1,10}$/.test(txtWeight.value)) {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Cân nặng không hợp lệ từ 1 đến 10 kí tự số</div>';
+            return false;
+        }
+        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtContent.value)) {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Nội dung không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+            return false;
+        }
+        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtDescription.value)) {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+            return false;
+        }
+        if (input.value == '') {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Hình ảnh không được để trống</div>';
+            return false;
+        }
+        //tệp đã chọn không phải hình ảnh
+        if (!/\.(jpe?g|png|gif|bmp)$/i.test(input.value)) {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Hình ảnh không hợp lệ</div>';
+            return false;
+        }
+        txtProductName.value = txtProductName.value.trim();
+        txtPrice.value = txtPrice.value.trim();
+        txtWeight.value = txtWeight.value.trim();
+        txtContent.value = txtContent.value.trim();
+        txtDescription.value = txtDescription.value.trim();
+        input.value = input.value.trim();
+        return true;
+    }
 </script>
 </body>
 

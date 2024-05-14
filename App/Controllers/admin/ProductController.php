@@ -177,17 +177,17 @@ class productController extends Controller
             //     exit();
             // }
 
-            // if ($price < 5000 || $price > 10000000) {
-            //     $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
-            //     $this->view('/Admin/pages/products/edit', $this->data);
-            //     exit();
-            // }
+            if ($price > 5000 || $price < 10000000) {
+                $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
+                $this->view('/Admin/pages/products/edit', $this->data);
+                exit();
+            }
 
-            // if ($weight < 0 || $weight > 20000) {
-            //     $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
-            //     $this->view('/Admin/pages/products/edit', $this->data);
-            //     exit();
-            // }
+            if ($weight > 0 || $weight < 20000) {
+                $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
+                $this->view('/Admin/pages/products/edit', $this->data);
+                exit();
+            }
 
 
 

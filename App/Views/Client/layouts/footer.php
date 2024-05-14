@@ -73,7 +73,7 @@ require_once './App/Models/Auth.php';
                 <div class="col-md-4 col-lg-3 mx-auto mt-3 text-center">
                     <h5 class="text-uppercase text-center mb-4 font-weight-bold text-warning">Thành Viên</h5>
                     <p>
-                        <a href="https://www.facebook.com/profile.php?id=100027954192211" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Dat Nguyen</a>
+                        <a href="https://web.facebook.com/dnh09" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Dat Nguyen</a>
                     </p>
                     <p>
                         <a href="https://www.facebook.com/profile.php?id=100009295230748" class="text-white" style="text-decoration: none;"> <i class="fa-solid fa-user icon"></i>Tien Phan</a>

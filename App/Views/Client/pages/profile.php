@@ -105,7 +105,10 @@
             Swal.fire({
               icon: "success",
               title: "Đổi mật khẩu thành công",
-              text: "Mật khẩu của bạn đã được thay đổi",
+              text: "Mật khẩu của bạn đã được thay đổi, bạn sẽ được chuyển hướng về trang đăng nhập",
+              didClose: function() {
+                window.location.href = "/the-coffee/Login_Regis/Logout";
+              }
             });
             document.getElementById("current-password").value = "";
             document.getElementById("new-password").value = "";
@@ -178,6 +181,9 @@
               icon: "success",
               title: "Đổi tên thành công",
               text: "Tên của bạn đã được thay đổi",
+              didClose: function() {
+                window.location.reload();
+              }
             });
             $_SESSION['login']['username'] = userName;
 

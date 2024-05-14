@@ -84,7 +84,7 @@ class ProductModel
         }
     }
 
-    public function get($page = 1, $idDanhMuc = "all", $minMucGia = 0, $maxMucGia = -1, $noiDung = "")
+    public function get($page = 1, $idDanhMuc = "all", $minMucGia = 0, $maxMucGia = -1,$sortOption="", $noiDung = "")
     {
         $offset = ($page - 1) * $this->numberOfProductsInOnePage;
         // Bắt đầu chuỗi SQL với điều kiện cơ bản
@@ -110,7 +110,14 @@ class ProductModel
             $condition .= " AND price <= $maxMucGia";
         }
 
+        // Nếu $sortOption được cung cấp, sắp xếp sản phẩm theo $sortOption
+        if($sortOption != ""){
+            $condition .= " ORDER BY " . $sortOption;
+        }
+
         $condition .= " LIMIT $this->numberOfProductsInOnePage OFFSET $offset";
+
+        
         //chổ này code chạy sql lấy ds sản phẩm----------------------------------------------
         global $db;
         $result = $db->get("products", "*", $condition);

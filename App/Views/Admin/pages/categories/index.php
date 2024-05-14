@@ -79,9 +79,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             <td><?php echo $category['name']; ?></td>
                                             <td>
                                                 <?php if ($category['status'] == '1') { ?>
-                                                    <button class="btn btn-success">Active</button>
+                                                    <button class="btn btn-success" disabled>Active</button>
                                                 <?php } else { ?>
-                                                    <button class="btn btn-danger">Inactive</button>
+                                                    <button class="btn btn-danger" disabled>Inactive</button>
                                                 <?php } ?>
                                             </td>
                                             <td>
@@ -108,9 +108,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <td><?php echo $category['name']; ?></td>
                                         <td>
                                             <?php if ($category['status'] == '1') { ?>
-                                                <button class="btn btn-success">Active</button>
+                                                <button class="btn btn-success" disabled>Active</button>
                                             <?php } else { ?>
-                                                <button class="btn btn-danger">Inactive</button>
+                                                <button class="btn btn-danger" disabled>Inactive</button>
                                             <?php } ?>
                                         </td>
                                         <td>

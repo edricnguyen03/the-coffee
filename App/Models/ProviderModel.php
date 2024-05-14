@@ -30,6 +30,13 @@ class ProviderModel
         return $providerName;
     }
 
+    public function getById($providerId)
+    {
+        global $db;
+        $provider = $db->get('providers', '*', 'id = ' . $providerId);
+        return $provider;
+    }
+
     public function getAllProviders()
     {
         global $db;
@@ -67,21 +74,27 @@ class ProviderModel
     public function insertProvider($data)
     {
         global $db;
-        $db->insert('users', $data);
+        $db->insert('providers', $data);
         return true;
     }
 
-    public function updateProvider($userId, $newUserData)
+    public function updateProvider($Id, $newProviderData)
     {
         global $db;
-        $db->update('users', $newUserData, 'id = ' . $userId);
+        $db->update('providers', $newProviderData, 'id = ' . $Id);
         return true;
     }
 
-    public function deleteProvider($userId)
+    public function deleteProvider($Id)
     {
         global $db;
-        $db->delete('users', 'id = ' . $userId);
+        $db->delete('providers', 'id = ' . $Id);
+        return true;
+    }
+    public function setProviderStatus($Id, $status)
+    {
+        global $db;
+        $db->update('providers', ['status' => $status], 'id = ' . $Id);
         return true;
     }
 }
