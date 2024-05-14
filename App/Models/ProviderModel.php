@@ -23,11 +23,11 @@ class ProviderModel
     //     return "notFound";
     // }
     
-    public function getProviderById($ProviderId)
+    public function getProviderById($providerId)
     {
         global $db;
-        $provider = $db->get('providers', '*', 'id = ' . $ProviderId);
-        return $provider;
+        $providerName = $db->get('providers', 'name', 'id = ' . $providerId);
+        return $providerName;
     }
 
     public function getAllProviders()
@@ -35,6 +35,12 @@ class ProviderModel
         global $db;
         $provider = $db->get('providers');
         return $provider;
+    }
+
+    function getProvidersName($ProviderId) {
+        global $db;
+        $providers = $db->get('providers', 'name' ,'id = ' . $ProviderId);
+        return $providers;
     }
 
     function getAllProvidersName() {
