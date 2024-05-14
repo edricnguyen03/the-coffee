@@ -375,18 +375,6 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 },
                                 // ...
                             }).done(function(response) {
-                                $('#name').val('');
-
-                                $('#email').val('');
-
-                                $('#password').val('');
-
-                                $('#confirm_password').val('');
-                                        
-                                $('#status').val('1');
-
-                                $('#role_id').val('1');
-
                                 $('.alert-success').text('Chỉnh sửa người dùng thành công').css('display', 'block');
                             }).fail(function(jqXHR, textStatus, errorThrown) {
                                 console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
