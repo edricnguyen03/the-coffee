@@ -45,8 +45,6 @@ class UserController extends Controller
             $name = $_POST['name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-
-            // Hash the password
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
             $status = $_POST['status'];
@@ -65,6 +63,9 @@ class UserController extends Controller
                 'status' => $status, // '1' or '0
                 'role_id' => $role
             ];
+            // echo '<pre>';
+            // print_r($data);
+            // echo '<pre>';
             $this->userModel->insertUser($data);
         }
     }

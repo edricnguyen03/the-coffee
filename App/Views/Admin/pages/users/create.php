@@ -73,7 +73,7 @@
                                 </div> -->
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Vai trò</label>
-                                    <select class="form-select" id="rold_id" name="role_id" required>
+                                    <select class="form-select" id="role_id" name="role_id" required>
                                         <?php foreach ($roles as $role) : ?>
                                             <option value="<?php echo $role['id'] ?>"><?php echo $role['name'] ?></option>
                                         <?php endforeach; ?>
@@ -94,6 +94,9 @@
         <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./../../resources/js/script.js"></script>
         <script type="text/javascript">
+
+
+
             $(document).ready(function() {
                 $('#create_user').submit(function(e) {
                     e.preventDefault();
@@ -103,7 +106,7 @@
                     var confirm_password = $('#confirm_password').val();
                     var status = $('#status').val();
                     var role_id = $('#role_id').val();
-
+                    // console.log(role_id);
                     $('.error').text('');
 
                     if (password != confirm_password) {
@@ -113,6 +116,7 @@
                         $('#name_error').text('Tên không được để trống').css('display', 'block');
                         return;
                     } else if (name.length > 40 || name.length < 4 || !/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name)) {
+                        
                         $('#name_error').text('Tên không hợp lệ - Tối thiểu 4 ký tự, tối đa 40  ký tự và không chứa ký tự đặc biệt').css('display', 'block');
                         return;
                     } else if (password.length < 4 || password.length > 10) {
@@ -140,14 +144,28 @@
                                         url: 'store',
                                         type: 'POST',
                                         data: {
-                                            name: name,
-                                            email: email,
-                                            password: password,
-                                            confirm_password: confirm_password,
+                                            name: name.trim(),
+                                            email: email.trim(),
+                                            password: password.trim(),
+                                            confirm_password: confirm_password.trim(),
                                             status: status,
-                                            role_id: role_id
+                                            role_id: role_id,
                                         },
+                                       
                                     }).done(function(response) {
+
+                                        $('#name').val('');
+
+                                        $('#email').val('');
+
+                                        $('#password').val('');
+
+                                        $('#confirm_password').val('');
+                                        
+                                        $('#status').val('1');
+
+                                        $('#role_id').val('1');
+
                                         $('.alert-success').text('Thêm người dùng thành công').css('display', 'block');
                                     }).fail(function(response) {
                                         $('.alert-danger').text('Thêm người dùng thất bại').css('display', 'block');
