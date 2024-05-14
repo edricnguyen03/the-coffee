@@ -46,6 +46,15 @@ class productController extends Controller
             $this->data['categories'] = $this->categoryModel->get();
 
             $name = $_POST['name'];
+
+            $slug = $this->createSlug($name);
+            $category_id = $_POST['category_id'];
+            $price = $_POST['price'];
+            $weight = $_POST['weight'];
+            $status = $_POST['status'];
+            $content = $_POST['content'];
+            $description = $_POST['description'];
+
             // Check if the product name already exists
             if ($this->productModel->checkProductNameExists($name)) {
                 $_SESSION['error'] = 'Tên sản phẩm đã tồn tại';
@@ -54,6 +63,18 @@ class productController extends Controller
             }
             if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
+
+            if ($price > 5000 || $price < 10000000) {
+                $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
+
+            if ($weight > 0 || $weight < 20000) {
+                $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();
             }
@@ -70,13 +91,6 @@ class productController extends Controller
                 exit();
             }
 
-            $slug = $this->createSlug($name);
-            $category_id = $_POST['category_id'];
-            $price = $_POST['price'];
-            $weight = $_POST['weight'];
-            $status = $_POST['status'];
-            $content = $_POST['content'];
-            $description = $_POST['description'];
 
             // Get the current max id
             $maxId = $this->productModel->getMaxId();
@@ -127,6 +141,15 @@ class productController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $name = $_POST['name'];
+            $slug = $this->createSlug($name);
+            $category_id = $_POST['category_id'];
+            $price = $_POST['price'];
+            $weight = $_POST['weight'];
+            $status = $_POST['status'];
+            $content = $_POST['content'];
+            $description = $_POST['description'];
+
+
             $oldName = $this->productModel->getById($productId)->name;
             if ($name != $oldName) {
                 // Check if the product name already exists
@@ -138,11 +161,34 @@ class productController extends Controller
                     exit();
                 }
             }
+            $this->data['categories'] = $this->categoryModel->get();
+            $this->data['product'] =  $this->productModel->getById($productId);
+
             if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/products/create', $this->data);
+                $this->view('/Admin/pages/products/edit', $this->data);
                 exit();
             }
+
+            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+                $_SESSION['error'] = 'Tên sản phẩm không được vượt quá 4-50 ký tự';
+                $this->view('/Admin/pages/roles/edit', $this->data);
+                exit();
+            }
+
+            if ($price > 5000 || $price < 10000000) {
+                $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
+                $this->view('/Admin/pages/products/edit', $this->data);
+                exit();
+            }
+
+            if ($weight > 0 || $weight < 20000) {
+                $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
+                $this->view('/Admin/pages/products/edit', $this->data);
+                exit();
+            }
+
+
 
             $old_image = $_POST['old-image'];
             $filename = $old_image; // default to old image
@@ -175,13 +221,7 @@ class productController extends Controller
 
 
 
-            $slug = $this->createSlug($name);
-            $category_id = $_POST['category_id'];
-            $price = $_POST['price'];
-            $weight = $_POST['weight'];
-            $status = $_POST['status'];
-            $content = $_POST['content'];
-            $description = $_POST['description'];
+
 
             $updateData = [
                 'name' => $name,

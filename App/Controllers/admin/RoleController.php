@@ -64,7 +64,12 @@ class RoleController extends Controller
             }
             if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên vai trò không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/products/create', $this->data);
+                $this->view('/Admin/pages/roles/create', $this->data);
+                exit();
+            }
+            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+                $_SESSION['error'] = 'Tên vai trò không được vượt quá 4-50 ký tự';
+                $this->view('/Admin/pages/roles/create', $this->data);
                 exit();
             }
 
@@ -115,10 +120,32 @@ class RoleController extends Controller
             $description = $_POST['description'];
 
             if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
+                $this->data['permissions'] = $this->permissionModel->getAllPermissions();
+                $role = $this->roleModel->getRoleById($roleId);
+                $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
+                // Convert the result to an array of permission ids
+                $this->data['rolePermissions'] = array_map(function ($permission) {
+                    return $permission['permission_id'];
+                }, $rolePermissions);
+                $this->data['role'] = $role[0];
                 $_SESSION['error'] = 'Tên vai trò không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/products/create', $this->data);
+                $this->view('/Admin/pages/roles/edit', $this->data);
                 exit();
             }
+            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+                $this->data['permissions'] = $this->permissionModel->getAllPermissions();
+                $role = $this->roleModel->getRoleById($roleId);
+                $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
+                // Convert the result to an array of permission ids
+                $this->data['rolePermissions'] = array_map(function ($permission) {
+                    return $permission['permission_id'];
+                }, $rolePermissions);
+                $this->data['role'] = $role[0];
+                $_SESSION['error'] = 'Tên vai trò không được vượt quá 4-50 ký tự';
+                $this->view('/Admin/pages/roles/edit', $this->data);
+                exit();
+            }
+
             $updateData = [
                 'name' => $name,
                 'description' => $description,
