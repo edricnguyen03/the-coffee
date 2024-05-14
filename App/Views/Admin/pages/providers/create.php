@@ -32,6 +32,7 @@
                             </h5>
                         </div>
                         <div class="card-body">
+                            <span id="error"></span>
                             <?php if (isset($_SESSION['error'])) : ?>
                                 <div class="alert alert-danger text-center" role="alert">
                                     <?php echo $_SESSION['error'];?>
@@ -42,7 +43,7 @@
                                     <?php echo $success; ?>
                                 </div>
                             <?php endif; ?>
-                            <form action="store" method="POST">
+                            <form action="store" onsubmit="return validate()" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên nhà cung cấp</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
@@ -58,7 +59,7 @@
                                         <option value="0">Inactive</option>
                                     </select>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Tạo nhà cung cấp</button>
+                                <button type="submit" name="submit" id="submit" class="btn btn-primary">Tạo nhà cung cấp</button>
                             </form>
                         </div>
                     </div>
@@ -72,6 +73,27 @@
         </div>
         <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./../../resources/js/script.js"></script>
+        <script>
+            function validate() {
+                let name = document.getElementById('name').value.trim();
+                let description = document.getElementById('description').value.trim();
+                if (name == '' || description == '') {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
+                    return false;
+                }
+                if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(name)) {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+                    return false;
+                }
+                if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(description)) {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+                    return false;
+                }
+                document.getElementById('name').value = document.getElementById('name').value.trim();
+                document.getElementById('description').value = document.getElementById('description').value.trim();
+                return true;
+            }
+        </script>
         </body>
 
         </html>

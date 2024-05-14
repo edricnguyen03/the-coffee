@@ -55,7 +55,7 @@
                                 </div>
                                 <?php unset($_SESSION['error']); ?>
                             <?php endif; ?>
-                            <form action="store" method="POST">
+                            <form action="store" onsubmit="return validate()" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên chức vụ</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
@@ -75,7 +75,7 @@
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
-                                <button type="button" name="submit" id="submit" class="btn btn-primary">Tạo mới chức vụ</button>
+                                <button type="submit" name="submit" id="submit" class="btn btn-primary">Tạo mới chức vụ</button>
                             </form>
                         </div>
                     </div>
@@ -90,11 +90,6 @@
         <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./../../resources/js/script.js"></script>
         <script>
-            document.getElementById('submit').addEventListener('click', function() {
-                if (validate()) {
-                    document.querySelector('form').submit();
-                }
-            });
             function validate() {
                 let name = document.getElementById('name').value.trim();
                 let description = document.getElementById('description').value.trim();
@@ -103,11 +98,11 @@
                     return false;
                 }
                 if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name)) {
-                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ</div>';
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ gồm 4 đến 40 kí tự chữ</div>';
                     return false;
                 }
                 if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(description)) {
-                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ</div>';
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ gồm 4 đến 40 kí tự chữ</div>';
                     return false;
                 }
                 return true;
