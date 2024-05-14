@@ -66,6 +66,10 @@ $routes['admin/provider/update'] = 'admin/ProviderController/update';
 //Delete Provider
 $routes['admin/provider/delete'] = 'admin/ProviderController/delete';
 
+//Stats
+$routes['admin/stat'] = 'admin/StatsController/index';
+$routes['admin/stat/income'] = 'admin/StatsController/income';
+$routes['admin/stat/income/getIncomeCategories'] = 'admin/StatsController/getIncomeCategories';
 
 // Role
 $routes['admin/role'] = 'admin/RoleController/index';

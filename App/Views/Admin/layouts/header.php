@@ -48,12 +48,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="stat" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="../stat/" class="sidebar-link">
+                                <a href="/the-coffee/admin/stat/index" class="sidebar-link">
                                     Sản phẩm bán chạy
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../stat/income" class="sidebar-link">
+                                <a href="/the-coffee/admin/stat/income" class="sidebar-link">
                                     Doanh thu
                                 </a>
                             </li>
@@ -71,10 +71,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="../product/create" class="sidebar-link">Thêm sản phẩm</a>
+                                <a href="/the-coffee/admin/product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../product/" class="sidebar-link">Danh sách</a>
+                                <a href="/the-coffee/admin/product/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -90,10 +90,16 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="order" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="../order/" class="sidebar-link">Danh sách</a>
+                                <a href="/the-coffee/admin/order/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 8) == true){
+                    ?>
                     <!-- Receipt -->
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#receipt" data-bs-toggle="collapse" aria-expanded="false"><i class="fas fa-receipt"></i>
@@ -101,10 +107,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="receipt" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="../receipt/create" class="sidebar-link">Thêm phiếu nhập</a>
+                                <a href="/the-coffee/admin/receipt/create" class="sidebar-link">Thêm phiếu nhập</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../receipt/" class="sidebar-link">Danh sách</a>
+                                <a href="/the-coffee/admin/receipt/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -120,10 +126,10 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="../user/create" class="sidebar-link">Thêm người dùng</a>
+                                <a href="/the-coffee/admin/user/create" class="sidebar-link">Thêm người dùng</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../user/" class="sidebar-link">Danh sách</a>
+                                <a href="/the-coffee/admin/user/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -146,6 +152,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 9) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#role" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-user-shield"></i>
                             Vai trò
@@ -172,6 +184,9 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
                     <!-- <li class="sidebar-header">
                         Multi Level Menu
                     </li>
