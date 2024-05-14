@@ -9,6 +9,7 @@ class StatsController extends Controller
 
     public $statModel;
 
+
     public function __construct()
     {
         $this->data = [];
@@ -19,7 +20,7 @@ class StatsController extends Controller
     }
 
     public function index()
-    {
+    {   
         $this->view('/Admin/pages/stats/index',);
     }
 

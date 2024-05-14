@@ -1,4 +1,8 @@
 <!------------------------------------------------------Sticky header---------------------------------------------------------------->
+<?php
+require_once './App/Models/Auth.php';
+
+?>
 <nav class="navbar sticky-top navbar-expand-lg" style="background: linear-gradient(to right, #ffad3d, #fb8d17); z-index:10;">
     <div class="container-fluid px-5 py-2">
         <div class="col-md-4 col-sm-12 justify-content-small-center">
@@ -36,39 +40,40 @@
                                     <p>Tài khoản</p>
                                     <span></span>
                                 </a>
-                                <?php
-                                if ($_SESSION['login']['id'] != 1) {
-                                ?>
-                                    <a href="/the-coffee/cart" class="sub-menu-link">
-                                        <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                        <p>Giỏ hàng</p>
-                                        <span></span>
-                                    </a>
-                                    <a href="/the-coffee/orders" class="sub-menu-link">
-                                        <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
-                                        <p>Đơn hàng</p>
-                                        <span></span>
-                                    </a>
-                                <?php
-                                } else {
-                                ?>
-                                    <a href="admin/dashboard/" class="sub-menu-link">
-                                        <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                        <p>Cài đặt</p>
-                                        <span></span>
-                                    </a>
-                                <?php
-                                }
-                                ?>
-                                <a href="Login_Regis/Logout" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
-                                    <p>Đăng xuất</p>
+                            <?php
+                        
+                        if (Auth::hasAdminPermission($_SESSION['login']['id']) == true) {
+                            ?>
+                                <a href="admin/dashboard/" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
+                                    <p>Cài đặt</p>
                                     <span></span>
                                 </a>
+                            <?php
+                        } else {
+                            ?>
+                                <a href="/the-coffee/cart" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
+                                    <p>Giỏ hàng</p>
+                                    <span></span>
+                                </a>
+                                <a href="/the-coffee/orders" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
+                                    <p>Đơn hàng</p>
+                                    <span></span>
+                                </a>
+                            <?php
+                        }
+                            ?>
+                            <a href="Login_Regis/Logout" class="sub-menu-link">
+                                <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
+                                <p>Đăng xuất</p>
+                                <span></span>
+                            </a>
                             </div>
                         </div>
                     <?php
-                    } else if ($_SESSION['login']['status'] == -1) {
+                } else if ($_SESSION['login']['status'] == -1) {
                     ?>
                         <li class="nav-item ms-3">
                             <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
@@ -77,8 +82,8 @@
                             <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                         </div>
                     <?php
-                        unset($_SESSION['login']['status']);
-                    } else if ($_SESSION['login']['status'] == 0) {
+                    unset($_SESSION['login']['status']);
+                } else if ($_SESSION['login']['status'] == 0) {
                     ?>
                         <li class="nav-item ms-3">
                             <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
@@ -94,19 +99,18 @@
                             });
                         </script>
                     <?php
-                        unset($_SESSION['login']['status']);
-                    }
-                } else {
+                    unset($_SESSION['login']['status']);
+                }} else {
                     ?>
-                    <li class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
-                    </li>
-                    <div class="nav-item ms-3">
-                        <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
-                    </div>
-                <?php
+                        <li class="nav-item ms-3">
+                            <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                        </li>
+                        <div class="nav-item ms-3">
+                            <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                        </div>
+                    <?php
                 }
-                ?>
+                    ?>
             </ul>
         </div>
     </div>

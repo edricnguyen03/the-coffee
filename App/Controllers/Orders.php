@@ -1,4 +1,6 @@
 <?php
+require_once './App/Models/Auth.php';
+
 class Orders extends Controller
 {
      private $orderProductsModel;
@@ -15,25 +17,30 @@ class Orders extends Controller
      }
      public function index()
      {
+          if (Auth::hasAdminPermission($_SESSION['login']['id']) == true) {
+               echo '<script> alert("Admin không có quyền vào trang này"); </script>';
+               require_once './App/errors/404.php';
+               return;
+          }
           if (!isset($_SESSION['login']['status'])) {
                $this->__loadError();
           } else {
                $userId = $_SESSION['login']['id'];
                $this->ordersModel->setUserId($userId);
                $orderId = $this->ordersModel->getOrdersId();
-               if (isset($orderId)){
-                    if(!empty($orderId)){
+               if (isset($orderId)) {
+                    if (!empty($orderId)) {
                          $order_product = $this->orderProductsModel->getOrderProducts($orderId[0]->id);
                          $data['orders'] = $orderId;
                          $data['order'] = $this->ordersModel->getOrder($orderId[0]->id);
                          $data['order_products'] = $order_product;
                          $data['product'] = [];
-                         foreach($order_product as $product){
+                         foreach ($order_product as $product) {
                               $result = $this->productModel->getById($product->product_id);
-                              array_push($data['product'],$result);
+                              array_push($data['product'], $result);
                          }
                          $this->view('/Client/Orders', $data);
-                    }else{
+                    } else {
                          $data['orders'] = $orderId;
                          $this->view('/Client/Orders', $data);
                     }
