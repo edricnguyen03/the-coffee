@@ -1,4 +1,5 @@
 <?php
+include_once './App/Models/Auth.php';
 class ReceiptController extends Controller {
 
     public $data;
@@ -19,6 +20,11 @@ class ReceiptController extends Controller {
       // Function to show user data from the database
     public function index()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 8) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->view('/Admin/pages/receipts/index',);
 
     }
@@ -26,6 +32,11 @@ class ReceiptController extends Controller {
     // Function to create a new user in the database
     public function create()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 8) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->data['nameOfProvider'] = $this->providerModel->getAllProvidersName();
         $this->data['nameOfProduct']= $this->productModel->getAllProductsName();;
         // echo '<pre>';
@@ -169,7 +180,11 @@ class ReceiptController extends Controller {
     // Function to edit an existing user in the database
     public function edit($receiptId)
     {
-        
+        if (Auth::checkPermission($_SESSION['login']['id'], 8) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $receipt = $this->receiptModel->getReceiptById($receiptId);
        
         $this->data['name'] = $this->receiptModel->getReceiptNameById($receiptId);
@@ -211,6 +226,11 @@ class ReceiptController extends Controller {
 
     public function delete($receiptId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 8) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         if($this->receiptModel->deleteReceipt($receiptId)){
             // If the deletion was successful, save success message to session
             $_SESSION['success'] = 'Xóa đơn nhập hàng thành công';

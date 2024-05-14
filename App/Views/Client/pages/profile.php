@@ -173,15 +173,17 @@
           userName: userName,
         },
         success: function(response) {
-          if(response.includes("success")) {
+          if (response.includes("success")) {
             Swal.fire({
               icon: "success",
               title: "Đổi tên thành công",
               text: "Tên của bạn đã được thay đổi",
             });
+            $_SESSION['login']['username'] = userName;
+
             return;
           }
-          if(response.includes("fail")) {
+          if (response.includes("fail")) {
             Swal.fire({
               icon: "error",
               title: "Đổi tên thất bại",

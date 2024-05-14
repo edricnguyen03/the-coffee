@@ -17,6 +17,17 @@ class CategoryModel
         return $categories;
     }
 
+    function getAllCategoryExist(){
+        global $db;
+        $result = $db->get('categories','*','status = 1');
+        $categories = [];
+        foreach ($result as $row) {
+            $category = (object) $row;
+            $categories[] = $category;
+        }
+        return $categories;
+    }
+
     public function getCategoryById($categoryId)
     {
         global $db;

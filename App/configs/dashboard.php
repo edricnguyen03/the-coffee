@@ -41,6 +41,18 @@ $routes['admin/stat/getTopProducts'] = 'admin/StatsController/getTopProducts';
 $routes['admin/stat/income'] = 'admin/StatsController/income';
 $routes['admin/stat/income/getIncomeCategories'] = 'admin/StatsController/getIncomeCategories';
 
+// Product
+$routes['admin/product'] = 'admin/ProductController/index';
+$routes['admin/product/search'] = 'admin/ProductController/search';
+$routes['admin/product/alert'] = 'admin/ProductController/alert';
+//Create product
+$routes['admin/product/create'] = 'admin/ProductController/create';
+$routes['admin/product/store'] = 'admin/ProductController/store';
+//Update product
+$routes['admin/product/edit'] = 'admin/ProductController/edit';
+$routes['admin/product/update'] = 'admin/ProductController/update';
+//Delete product
+$routes['admin/product/delete'] = 'admin/ProductController/delete';
 
 
 // User
@@ -69,6 +81,10 @@ $routes['admin/provider/update'] = 'admin/ProviderController/update';
 //Delete Provider
 $routes['admin/provider/delete'] = 'admin/ProviderController/delete';
 
+//Stats
+$routes['admin/stat'] = 'admin/StatsController/index';
+$routes['admin/stat/income'] = 'admin/StatsController/income';
+$routes['admin/stat/income/getIncomeCategories'] = 'admin/StatsController/getIncomeCategories';
 
 // Role
 $routes['admin/role'] = 'admin/RoleController/index';

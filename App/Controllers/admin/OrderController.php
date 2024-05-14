@@ -1,4 +1,5 @@
 <?php
+include_once './App/Models/Auth.php';
 class OrderController extends Controller
 {
 
@@ -19,6 +20,11 @@ class OrderController extends Controller
     // Function to show user data from the database
     public function index()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 4) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         // $this->data['orders'] = $this->orderModel->getAllOrders();
         $this->view('/Admin/pages/orders/index',);
     }
@@ -35,8 +41,13 @@ class OrderController extends Controller
     }
 
     // Function to edit an existing user in the database
-    public function edit($orderId)
+    public function edit($orderId) // hàm này là xem chi tiết á
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 4) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         // echo $orderId;
         $oderProducts = $this->ordersProducts->getOrderProducts2($orderId);
         $this->orderModel->setOrderId($orderId);

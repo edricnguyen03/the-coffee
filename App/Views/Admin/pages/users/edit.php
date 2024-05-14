@@ -1,4 +1,5 @@
 <?php
+require_once './App/Models/Auth.php';
 // Start the session
 // Check if the user is logged in
 if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
@@ -39,6 +40,9 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     <li class="sidebar-header">
                         Danh sách chức năng
                     </li>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 6) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#stat" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
                             Thống kê
@@ -56,6 +60,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 3) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
                             Sản phẩm
@@ -69,6 +79,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 4) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#posts" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-sliders pe-2"></i>
                             Đơn hàng
@@ -79,6 +95,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 8) == true){
+                    ?>
                     <!-- Receipt -->
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#receipt" data-bs-toggle="collapse" aria-expanded="false"><i class="fas fa-receipt"></i>
@@ -93,6 +115,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 1) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
                             Người dùng
@@ -106,6 +134,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 7) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-truck pe-2"></i>
                             Nhà cung cấp
@@ -119,6 +153,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 2) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#category" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-tags pe-2"></i>
                             Danh mục
@@ -132,6 +172,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 5) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#role" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-user-shield"></i>
                             Vai trò
@@ -145,6 +191,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 9) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#permission" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>
                             Phân quyền
@@ -155,6 +207,9 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
                     <!-- 
                     <li class="sidebar-header">
                         Multi Level Menu
