@@ -260,6 +260,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </h5>
                         </div>
                         <div class="card-body">
+                            <span id="error"></span>
                             <?php if (isset($error)) : ?>
                                 <div class="alert alert-danger text-center" role="alert">
                                     <?php echo $error; ?>
@@ -271,14 +272,14 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 </div>
                                 <?php unset($_SESSION['success']); ?>
                             <?php endif; ?>
-                            <form action="../update/<?php echo $role['id'] ?>" method="POST">
+                            <form action="../update/<?php echo $role['id'] ?>" id="form1"  method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên vai trò</label>
                                     <input value="<?php echo $role['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class=" mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
-                                    <input value="<?php echo $role['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
+                                    <input value="<?php echo $role['description'] ?>" type="text" class="form-control" id="description" name="description" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="permission" class="form-label">Quyền</label>
@@ -292,7 +293,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
+                                <button type="button" id="submit1" name="submit1" class="btn btn-primary">Cập nhật</button>
                             </form>
                         </div>
                     </div>
@@ -306,6 +307,32 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
     </div>
     <script src="./../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./../../../resources/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('submit1').addEventListener('click', function() {
+                if (validate()) {
+                    document.getElementById('form1').submit();
+                }
+            });
+            function validate() {
+                let name = document.getElementById('name').value.trim();
+                let description = document.getElementById('description').value.trim();
+                if(name == '' || description == '') {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
+                    return false;
+                }
+                if (!/^[a-zA-ZáàảãạăắằặẳẵâầấẩẫậèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\s]+$/.test(name)) {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ</div>';
+                    return false;
+                }
+                if (!/^[a-zA-ZáàảãạăắằặẳẵâầấẩẫậèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\s]+$/.test(description)) {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ</div>';
+                    return false;
+                }
+                return true;
+            }
+        });
+        </script>
 </body>
 
 </html>

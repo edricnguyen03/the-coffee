@@ -32,6 +32,7 @@
                             </h5>
                         </div>
                         <div class="card-body">
+                            <span id="error"></span>
                             <?php if (isset($error)) : ?>
                                 <div class="alert alert-danger text-center" role="alert">
                                     <?php echo $error; ?>
@@ -74,7 +75,7 @@
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Tạo mới chức vụ</button>
+                                <button type="button" name="submit" id="submit" class="btn btn-primary">Tạo mới chức vụ</button>
                             </form>
                         </div>
                     </div>
@@ -88,6 +89,30 @@
         </div>
         <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./../../resources/js/script.js"></script>
+        <script>
+            document.getElementById('submit').addEventListener('click', function() {
+                if (validate()) {
+                    document.querySelector('form').submit();
+                }
+            });
+            function validate() {
+                let name = document.getElementById('name').value.trim();
+                let description = document.getElementById('description').value.trim();
+                if(name == '' || description == '') {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
+                    return false;
+                }
+                if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name)) {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ</div>';
+                    return false;
+                }
+                if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(description)) {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ</div>';
+                    return false;
+                }
+                return true;
+            }
+        </script>
         </body>
 
         </html>

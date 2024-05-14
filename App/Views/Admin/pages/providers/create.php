@@ -32,9 +32,9 @@
                             </h5>
                         </div>
                         <div class="card-body">
-                            <?php if (isset($error)) : ?>
+                            <?php if (isset($_SESSION['error'])) : ?>
                                 <div class="alert alert-danger text-center" role="alert">
-                                    <?php echo $error; ?>
+                                    <?php echo $_SESSION['error'];?>
                                 </div>
                             <?php endif; ?>
                             <?php if (isset($success)) : ?>
