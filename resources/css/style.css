@@ -159,6 +159,11 @@ a {
   border-radius: 4px;
 }
 
+.cart_item_price {
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .cart_action {
   display: block;
   width: 100%;

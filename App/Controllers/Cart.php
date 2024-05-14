@@ -90,6 +90,7 @@ class Cart extends Controller
             return;
         }
 
+
         //kiểm tra số lượng sản phẩm trong giỏ hàng có vượt quá số lượng trong kho không
         foreach ($products as $product) {
             $productInStock = $this->productModel->getById($product->idProduct);
