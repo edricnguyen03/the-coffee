@@ -31,7 +31,6 @@ class PermissionModel
         $db->insert('permissions', $data);
         return true;
     }
-
     public function updatePermission($permissionId, $newData)
     {
         global $db;

@@ -18,7 +18,7 @@ class Product extends Controller
     public function index()
     {
         $sanPhams = $this->productModel->get();
-        $danhMucs = $this->categoryModel->get();
+        $danhMucs = $this->categoryModel->getAllCategoryExist();
         $data['sanPhams'] = $sanPhams;
         $data['danhMucs'] = $danhMucs;
         $this->view('/Client/Product', $data);

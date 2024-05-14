@@ -43,9 +43,14 @@
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
-                            <h4 class="card-title">
-                                Thêm đơn nhập hàng vào danh sách
+                            <h4 class="card-title alert alert-warning text-center">
+                                Lưu ý, hãy nhập và điền đơn nhập hàng thật kĩ vì bạn chỉ được phép xem đơn sau khi tạo! 
                             </h4>
+                        </div>
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                Thêm đơn nhập hàng vào danh sách
+                            </h5>
                         </div>
                         <div class="card-body">
                             <div class="alert alert-danger text-center " style="display: none;" role="alert">
@@ -73,7 +78,7 @@
                                     <br> <br>  
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Tên</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Tên tối thiểu 4 ký tự, tối đa 40 ký tự và không chứa ký tự đặc biệt " required>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="" required>
                                         <span class="error" id="name_error" style="color: red;"></span>
                                     </div>
 

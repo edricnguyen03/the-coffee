@@ -1,5 +1,5 @@
 <?php
-
+include_once './App/Models/Auth.php';
 class productController extends Controller
 {
     public $data;
@@ -18,6 +18,11 @@ class productController extends Controller
     // Function to show product data from the database
     public function index()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->data['categories'] = $this->categoryModel->get();
         $this->data['products'] = $this->productModel->getAllProducts();
         $this->view('/Admin/pages/products/index', $this->data);
@@ -26,6 +31,11 @@ class productController extends Controller
     // Function to create a new product in the database
     public function create()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->data['categories'] = $this->categoryModel->get();
         $this->view('/Admin/pages/products/create', $this->data);
     }
@@ -96,6 +106,11 @@ class productController extends Controller
     // Function to edit an existing product in the database
     public function edit($productId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->data['categories'] = $this->categoryModel->get();
         $this->data['product'] =  $this->productModel->getById($productId);
         $this->view('/Admin/pages/products/edit', $this->data);
@@ -188,6 +203,11 @@ class productController extends Controller
     // Function to delete a product from the database
     public function delete($productId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $product = $this->productModel->getById($productId);
         $isInOrderProduct = $this->orderProductModel->checkProductInOrder($productId);
         if (!$isInOrderProduct) {
@@ -222,6 +242,11 @@ class productController extends Controller
 
     public function search()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         if (isset($_GET['search'])) {
             $key = $_GET['search'];
             $this->data['categories'] = $this->categoryModel->get();

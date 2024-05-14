@@ -37,11 +37,18 @@ class ReceiptModel
         return $receiptName;
     }
 
+    public function getReceiptTotalById($receiptId)
+    {
+        global $db;
+        $receiptName = $db->get('receipts', 'total', 'id = ' . $receiptId);
+        return $receiptName;
+    }
+
     public function getProviderIdById($receiptId)
     {
         global $db;
-        $receiptName = $db->get('receipts', 'provider_id', 'id = ' . $receiptId);
-        return $receiptName;
+        $receiptId = $db->get('receipts', 'provider_id', 'id = ' . $receiptId);
+        return $receiptId;
     }
 
     public function getAllReceipts()

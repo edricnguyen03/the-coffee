@@ -304,25 +304,25 @@ INSERT INTO `providers` (`id`, `name`, `description`, `status`) VALUES
 --
 -- Cấu trúc bảng cho bảng `receipts`
 --
-
 CREATE TABLE `receipts` (
-  `id` bigint(20) NOT NULL,
-  `name` text NOT NULL,
-  `provider_id` bigint(20) NOT NULL,
-  `total` int(11) NOT NULL DEFAULT 0
+  `id` bigint NOT NULL,
+  `name` text COLLATE utf8mb4_general_ci NOT NULL,
+  `provider_id` bigint NOT NULL,
+  `total` int NOT NULL DEFAULT '0',
+  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `receipts`
+-- Dumping data for table `receipts`
 --
 
-INSERT INTO `receipts` (`id`, `name`, `provider_id`, `total`) VALUES
-(1, 'Hóa đơn nhập hàng 1', 1, 200),
-(2, 'Hóa đơn nhập hàng 2', 2, 200),
-(3, 'Hóa đơn nhập hàng 3', 3, 200),
-(4, 'Hóa đơn nhập hàng 4', 4, 200),
-(5, 'Hóa đơn nhập hàng 5', 3, 200),
-(6, 'Hóa đơn nhập hàng 6', 1, 200);
+INSERT INTO `receipts` (`id`, `name`, `provider_id`, `total`, `create_at`) VALUES
+(1, 'Hóa đơn nhập hàng 1', 1, 200, '2024-05-14 11:25:18'),
+(2, 'Hóa đơn nhập hàng 2', 2, 200, '2024-05-14 11:25:18'),
+(3, 'Hóa đơn nhập hàng 3', 3, 200, '2024-05-14 11:25:18'),
+(4, 'Hóa đơn nhập hàng 4', 4, 200, '2024-05-14 11:25:18'),
+(5, 'Hóa đơn nhập hàng 5', 3, 200, '2024-05-14 11:25:18'),
+(6, 'Hóa đơn nhập hàng 6', 1, 200, '2024-05-14 11:25:18');
 
 -- --------------------------------------------------------
 

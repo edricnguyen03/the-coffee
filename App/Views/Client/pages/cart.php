@@ -195,10 +195,10 @@
                                         <span>
                                             <h4 class="product_title">' . $cartProduct->name . '</h4>
                                         </span>
-                                        <span class="number_of_item">Số lượng: <input type="number" name="soLuong" productid = "' . $cartProduct->idProduct . '"  class="product_quantity" min="1" max="' . $cartProduct->stock . '" value="' . $cartProduct->quantity  . '"> </span>
-                                        <strong class=" cart_item_price">' . $cartProduct->price . '</strong>
+                                        <span class="number_of_item"><b>Số lượng: </b><input type="number" name="soLuong" productid = "' . $cartProduct->idProduct . '"  class="product_quantity" min="1" max="' . $cartProduct->stock . '" value="' . $cartProduct->quantity  . '"> </span>
+                                         <span class=" cart_item_price" style="font-size: 14px"><b>Giá tiền: </b>' . $cartProduct->price . '</span>
 
-                                        <button class="text-danger cart_item_remove" id="delete" onclick="deleteProductInCart(' .  $_SESSION['login']['id'] . ' , ' . $cartProduct->idProduct . ')">Xóa</button>
+                                        <button class="text-danger cart_item_remove" id="delete" style="border: none;" onclick="deleteProductInCart(' .  $_SESSION['login']['id'] . ' , ' . $cartProduct->idProduct . ')">Xóa</button>
 
                                     </div>
                                 </div> ';
@@ -223,6 +223,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    const total_price = 0;
     //thêm một hàm để xóa một sản phẩm khỏi giỏ hàng và tải lại trang
     function deleteProductInCart(User_id, idProduct) {
         $.ajax({
@@ -258,6 +259,16 @@
 
     // thêm hàm để kiểm tra số lượng nhập từ người dùng
     function checkQuantityInput(event) {
+
+        //kiểm tra số lượng nhập vào có rỗng hay không
+        if (isNaN(event.target.value)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Số lượng không hợp lệ',
+                text: 'Vui lòng nhập số lượng sản phẩm',
+            });
+
+        }
         //chuyen so luong ve so nguyen
         var quantity = parseInt(event.target.value);
 
@@ -269,18 +280,17 @@
                 icon: 'error',
                 title: 'Số lượng không hợp lệ',
                 text: "Số lượng phải nằm trong khoảng từ 1 đến " + stock,
+                didClose: () => {
+                    event.target.value = 1;
+                }
             });
 
-            // nếu người dùng nhập vào một chuỗi rỗng thì ngắt chương trình để nhập lại
-            if (event.target.value == '') {
-                return;
-            } else {
-                // nếu người dùng nhập vào một số lượng lớn hơn số lượng tồn kho thì gán số lượng là 1
-                event.target.value = 1;
-            }
+
+
         } else {
             //gọi hàm cập nhật số lượng sản phẩm trong giỏ hàng
             updateQuantity(idProduct, quantity);
+            calculateTotalPrice();
         }
 
 
@@ -288,18 +298,19 @@
 
 
 
+
     // thêm sự kiện để kiểm tra tất cả các input nhập số lượng
     document.addEventListener('DOMContentLoaded', function() {
         var quantityInputs = document.querySelectorAll('.product_quantity');
         quantityInputs.forEach(function(input) {
-            input.addEventListener('input', checkQuantityInput);
+            input.addEventListener('focusout', checkQuantityInput);
         });
     });
 
     // thêm hàm để tính tổng giá trị của giỏ hàng
     function calculateTotalPrice() {
         var quantityInputs = document.querySelectorAll('.product_quantity');
-        var currentTotal = 0;
+        // var currentTotal = 0;
 
         quantityInputs.forEach(function(input) {
             if (input.value.includes('.')) {
@@ -309,23 +320,23 @@
             var priceElement = input.closest('.cart_item').querySelector('.cart_item_price');
             var price = parseInt(priceElement.innerText);
             var total = quantity * price;
-            currentTotal += total;
+            total_price += total;
         });
-        if (isNaN(currentTotal)) {
-            currentTotal = 0;
-        }
+        // if (isNaN(currentTotal)) {
+        //     currentTotal = 0;
+        // }
         document.querySelector('.cartSub').innerText = formatCurrency(currentTotal);
         document.querySelector('.cartTotal').innerText = formatCurrency(currentTotal);
     }
 
     //thêm sự kiện để tính tổng giá trị của giỏ hàng
-    document.addEventListener('DOMContentLoaded', function() {
-        var quantityInputs = document.querySelectorAll('.product_quantity');
-        quantityInputs.forEach(function(input) {
-            input.addEventListener('input', calculateTotalPrice);
-        });
-        calculateTotalPrice();
-    });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     var quantityInputs = document.querySelectorAll('.product_quantity');
+    //     quantityInputs.forEach(function(input) {
+    //         input.addEventListener('input', calculateTotalPrice);
+    //     });
+    //     calculateTotalPrice();
+    // });
 
     // thêm code Jquery để chuyển giá trị tổng tiền vào trường input ẩn để post dữ liệu
     $('.product_quantity').on('input', function() {
@@ -475,7 +486,8 @@
                             text: 'Vui lòng kiểm tra lại số lượng sản phẩm trong giỏ hàng',
                         });
                         break;
-                        // nếu đặt hàng thành công
+
+
                     case 'success':
                         Swal.fire({
                             icon: 'success',

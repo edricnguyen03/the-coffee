@@ -1,5 +1,5 @@
 <?php
-
+include_once './App/Models/Auth.php';
 class PermissionController extends Controller
 {
     public $data;
@@ -14,6 +14,11 @@ class PermissionController extends Controller
     // Function to show permission data from the database
     public function index()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 9) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->data['permissions'] = $this->permissionModel->getAllPermissions();
         $this->view('/Admin/pages/permissions/index', $this->data);
     }
@@ -21,6 +26,11 @@ class PermissionController extends Controller
     // Function to create a new permission in the database
     public function create()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 9) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->view('/Admin/pages/permissions/create',);
     }
 
@@ -51,6 +61,11 @@ class PermissionController extends Controller
     // Function to edit an existing permission in the database
     public function edit($permissionId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 9) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $permission = $this->permissionModel->getPermissionById($permissionId);
 
         $this->data['permission'] = $permission[0];
@@ -83,6 +98,11 @@ class PermissionController extends Controller
     // Function to delete a permission from the database
     public function delete($permissionId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 9) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         if ($this->permissionModel->deletePermission($permissionId)) {
             // If the deletion was successful, save success message to session
             $_SESSION['success'] = 'Xóa phân quyền thành công';

@@ -185,6 +185,8 @@
                 window.location.reload();
               }
             });
+            $_SESSION['login']['username'] = userName;
+
             return;
           }
           if (response.includes("fail")) {

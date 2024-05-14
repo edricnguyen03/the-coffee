@@ -21,14 +21,14 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="text-center my-3 py-2">
-                    <h3>QUẢN LÝ VAI TRÒ</h3>
+                    <h3>QUẢN LÝ QUYỀN</h3>
                 </div>
                 <div class="container-fluid">
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Thêm vai trò vào danh sách
+                                Thêm quyền vào danh sách
                             </h5>
                         </div>
                         <div class="card-body">
@@ -42,39 +42,19 @@
                                     <?php echo $success; ?>
                                 </div>
                             <?php endif; ?>
-                            <?php if (isset($_SESSION['success'])) : ?>
-                                <div class="alert alert-success text-center" role="alert">
-                                    <?php echo $_SESSION['success']; ?>
-                                </div>
-                                <?php unset($_SESSION['success']); ?>
-                            <?php endif; ?>
-                            <?php if (isset($_SESSION['error'])) : ?>
-                                <div class="alert alert-danger text-center" role="alert">
-                                    <?php echo $_SESSION['error']; ?>
-                                </div>
-                                <?php unset($_SESSION['error']); ?>
-                            <?php endif; ?>
                             <form action="store" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Tên chức vụ</label>
+                                    <label for="name" class="form-label">Tên Danh mục</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="description" class="form-label">Mô tả</label>
-                                    <input type="text" class="form-control" id="description" name="description" required>
+                                    <label for="status" class="form-label">Trạng thái</label>
+                                    <select class="form-select" id="status" name="status" required>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="permission" class="form-label">Quyền</label>
-                                    <?php foreach ($permissions as $permission) : ?>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="<?php echo $permission['id']; ?>" id="permission<?php echo $permission['id']; ?>" name="permissions[]">
-                                            <label class="form-check-label" for="permission<?php echo $permission['id']; ?>">
-                                                <?php echo $permission['name']; ?>
-                                            </label>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Tạo mới chức vụ</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Tạo mới quyền</button>
                             </form>
                         </div>
                     </div>

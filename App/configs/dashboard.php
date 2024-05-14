@@ -21,12 +21,38 @@ $routes['admin/product/edit'] = 'admin/ProductController/edit';
 $routes['admin/product/update'] = 'admin/ProductController/update';
 //Delete product
 $routes['admin/product/delete'] = 'admin/ProductController/delete';
+
+// Category
+$routes['admin/category'] = 'admin/CategoryController/index';
+$routes['admin/category/alert'] = 'admin/CategoryController/alert';
+//Create Category
+$routes['admin/category/create'] = 'admin/CategoryController/create';
+$routes['admin/category/store'] = 'admin/CategoryController/store';
+//Update Category
+$routes['admin/category/edit'] = 'admin/CategoryController/edit';
+$routes['admin/category/update'] = 'admin/CategoryController/update';
+//Delete Category
+$routes['admin/category/delete'] = 'admin/CategoryController/delete';
+
+
 //Stats
 $routes['admin/stat'] = 'admin/StatsController/index';
 $routes['admin/stat/getTopProducts'] = 'admin/StatsController/getTopProducts';
 $routes['admin/stat/income'] = 'admin/StatsController/income';
 $routes['admin/stat/income/getIncomeCategories'] = 'admin/StatsController/getIncomeCategories';
 
+// Product
+$routes['admin/product'] = 'admin/ProductController/index';
+$routes['admin/product/search'] = 'admin/ProductController/search';
+$routes['admin/product/alert'] = 'admin/ProductController/alert';
+//Create product
+$routes['admin/product/create'] = 'admin/ProductController/create';
+$routes['admin/product/store'] = 'admin/ProductController/store';
+//Update product
+$routes['admin/product/edit'] = 'admin/ProductController/edit';
+$routes['admin/product/update'] = 'admin/ProductController/update';
+//Delete product
+$routes['admin/product/delete'] = 'admin/ProductController/delete';
 
 
 // User
@@ -43,7 +69,7 @@ $routes['admin/user/update'] = 'admin/UserController/update';
 $routes['admin/user/delete'] = 'admin/UserController/delete';
 
 
-// Provider
+// Category
 $routes['admin/provider'] = 'admin/ProviderController/index';
 $routes['admin/provider/alert'] = 'admin/ProviderController/alert';
 //Create Provider
@@ -55,6 +81,10 @@ $routes['admin/provider/update'] = 'admin/ProviderController/update';
 //Delete Provider
 $routes['admin/provider/delete'] = 'admin/ProviderController/delete';
 
+//Stats
+$routes['admin/stat'] = 'admin/StatsController/index';
+$routes['admin/stat/income'] = 'admin/StatsController/income';
+$routes['admin/stat/income/getIncomeCategories'] = 'admin/StatsController/getIncomeCategories';
 
 // Role
 $routes['admin/role'] = 'admin/RoleController/index';
@@ -94,7 +124,6 @@ $routes['admin/receipt/alert'] = 'admin/ReceiptController/alert';
 $routes['admin/receipt/create'] = 'admin/ReceiptController/create';
 $routes['admin/receipt/store'] = 'admin/ReceiptController/store';
 ////Update User
-$routes['admin/receipt/edit'] = 'admin/ReceiptController/edit';
-$routes['admin/receipt/update'] = 'admin/ReceiptController/update';
+$routes['admin/receipt/detail'] = 'admin/ReceiptController/edit';
 //Delete User
 $routes['admin/receipt/delete'] = 'admin/ReceiptController/delete';

@@ -74,7 +74,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 <a href="../../product/create" class="sidebar-link">Thêm sản phẩm</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="../../product/ " class="sidebar-link">Danh sách</a>
+                                <a href="../../product/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
@@ -253,48 +253,39 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             </nav>
             <main class="content px-3 py-2">
                 <div class="text-center my-3 py-2">
-                    <h3>QUẢN LÝ NHÀ CUNG CẤP</h3>
+                    <h3>QUẢN LÝ DANH MỤC</h3>
                 </div>
                 <div class="container-fluid">
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title my-3 py-2">
-                                Chinh sửa nhà cung cấp
+                                Chinh sửa danh mục
                             </h5>
                         </div>
                         <div class="card-body">
                             <?php if (isset($error)) : ?>
-                                <div class="alert alert-danger text-center" role="alert">
+                                <div class="alert alert-danger text-center" category="alert">
                                     <?php echo $error; ?>
                                 </div>
                             <?php endif; ?>
                             <?php if (isset($_SESSION['success'])) : ?>
-                                <div class="alert alert-success text-center" role="alert">
+                                <div class="alert alert-success text-center" category="alert">
                                     <?php echo $_SESSION['success']; ?>
                                 </div>
                                 <?php unset($_SESSION['success']); ?>
                             <?php endif; ?>
-                            <form action="../update/<?php echo $role['id'] ?>" method="POST">
+                            <form action="../update/<?php echo $category['id'] ?>" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Tên vai trò</label>
-                                    <input value="<?php echo $role['name'] ?>" type="text" class="form-control" id="name" name="name" required>
-                                </div>
-                                <div class=" mb-3">
-                                    <label for="description" class="form-label">Mô tả</label>
-                                    <input value="<?php echo $role['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
+                                    <label for="name" class="form-label">Tên quyền</label>
+                                    <input value="<?php echo $category['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="permission" class="form-label">Quyền</label>
-                                    <?php
-                                    foreach ($permissions as $permission) :  ?>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="<?php echo $permission['id']; ?>" id="permission<?php echo $permission['id']; ?>" name="permissions[]" <?php echo in_array((int)$permission['id'], array_map('intval', $rolePermissions)) ? 'checked' : ''; ?>>
-                                            <label class="form-check-label" for="permission<?php echo $permission['id']; ?>">
-                                                <?php echo $permission['name']; ?>
-                                            </label>
-                                        </div>
-                                    <?php endforeach; ?>
+                                    <label for="status" class="form-label">Trạng thái</label>
+                                    <select value="<?php echo $category['status'] ?>" class="form-select" id="status" name="status" required>
+                                        <option value="1" <?php echo $category['status'] == 1 ? 'selected' : ''; ?>>Active</option>
+                                        <option value="0" <?php echo $category['status'] == 0 ? 'selected' : ''; ?>>Inactive</option>
+                                    </select>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
                             </form>

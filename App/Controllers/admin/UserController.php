@@ -1,21 +1,28 @@
 <?php
-
+include_once './App/Models/Auth.php';
 class UserController extends Controller
 {
     public $data;
     public $userModel;
     public $orderModel;
+    public $roleModel;
 
     public function __construct()
     {
         $this->data = [];
         $this->userModel = $this->model('UserModel');
         $this->orderModel = $this->model('OrdersModel');
+        $this->roleModel = $this->model('RoleModel');
     }
 
     // Function to show user data from the database
     public function index()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 1) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->data['users'] = $this->userModel->getAllUsers();
         $this->view('/Admin/pages/users/index', $this->data);
     }
@@ -23,8 +30,13 @@ class UserController extends Controller
     // Function to create a new user in the database
     public function create()
     {
-
-        $this->view('/Admin/pages/users/create',);
+        if (Auth::checkPermission($_SESSION['login']['id'], 1) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
+        $this->data['roles'] = $this->roleModel->getAllRoles();
+        $this->view('/Admin/pages/users/create', $this->data);
     }
 
     public function store()
@@ -61,8 +73,14 @@ class UserController extends Controller
     // Function to edit an existing user in the database
     public function edit($userId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 1) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $user = $this->userModel->getUserById($userId);
         $this->data['user'] = $user[0];
+        $this->data['roles'] = $this->roleModel->getAllRoles();
         $this->view('/Admin/pages/users/edit', $this->data);
         // Redirect to the index page or show a success message
     }
@@ -116,6 +134,11 @@ class UserController extends Controller
     // }
     public function delete($userId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 1) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         // Check if user is in order table
         $isInOrder = $this->orderModel->checkUserInOrder($userId);
         if (!$isInOrder) {

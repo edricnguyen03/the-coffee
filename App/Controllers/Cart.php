@@ -1,4 +1,5 @@
 <?php
+require_once './App/Models/Auth.php';
 class Cart extends Controller
 {
     public $cartModel;
@@ -20,6 +21,11 @@ class Cart extends Controller
     public function index()
     {
         if (!isset($_SESSION['login']['id'])) {
+            require_once './App/errors/404.php';
+            return;
+        }
+        if (Auth::hasAdminPermission($_SESSION['login']['id']) == true) {
+            echo '<script> alert("Admin không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
         }
@@ -87,6 +93,7 @@ class Cart extends Controller
             echo 'empty';
             return;
         }
+
 
         //kiểm tra số lượng sản phẩm trong giỏ hàng có vượt quá số lượng trong kho không
         foreach ($products as $product) {

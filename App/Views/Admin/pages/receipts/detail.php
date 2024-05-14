@@ -1,5 +1,4 @@
 <?php
-require_once './App/Models/Auth.php';
 // Start the session
 // Check if the user is logged in
 if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
@@ -13,7 +12,24 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
     exit;
 }
 ?>
+<?php
 
+
+        
+
+        // $query5 = "SELECT * FROM receipts ORDER BY id DESC";
+        global $db;
+        function fill_unit_select_box ($db) {
+            $output = '';
+            $query = $db->query("SELECT * FROM products");
+            $query->execute();
+            foreach ($query as $row) {
+                $output .= '<option value="' . $row["id"]. '">'.$row["name"] . '</option>' ;
+            }
+            return $output;
+        }
+
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 
@@ -40,32 +56,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     <li class="sidebar-header">
                         Danh sách chức năng
                     </li>
-                    <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 6) == true){
-                    ?>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#stat" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                        <a href="../../dashboard/" class="sidebar-link">
+                            <i class="fa-solid fa-list pe-2"></i>
                             Thống kê
                         </a>
-                        <ul id="stat" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="../../stat/" class="sidebar-link">
-                                    Sản phẩm bán chạy
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="../../stat/income" class="sidebar-link">
-                                    Doanh thu
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 3) == true){
-                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
                             Sản phẩm
@@ -79,12 +75,6 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 4) == true){
-                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#posts" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-sliders pe-2"></i>
                             Đơn hàng
@@ -95,12 +85,6 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 8) == true){
-                    ?>
                     <!-- Receipt -->
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#receipt" data-bs-toggle="collapse" aria-expanded="false"><i class="fas fa-receipt"></i>
@@ -115,12 +99,6 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 1) == true){
-                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
                             Người dùng
@@ -134,12 +112,6 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 7) == true){
-                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-truck pe-2"></i>
                             Nhà cung cấp
@@ -153,31 +125,6 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 2) == true){
-                    ?>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#category" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-tags pe-2"></i>
-                            Danh mục
-                        </a>
-                        <ul id="category" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="../../category/create" class="sidebar-link">Thêm danh mục</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="../../category/" class="sidebar-link">Danh sách</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 5) == true){
-                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#role" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-user-shield"></i>
                             Vai trò
@@ -191,25 +138,19 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 9) == true){
-                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#permission" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>
                             Phân quyền
                         </a>
                         <ul id="permission" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
+                                <a href="../../permission/create" class="sidebar-link">Thêm phân quyền</a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a href="../../permission/" class="sidebar-link">Danh sách</a>
                             </li>
                         </ul>
                     </li>
-                    <?php
-                    }
-                    ?>
                     <!-- 
                     <li class="sidebar-header">
                         Multi Level Menu
@@ -268,45 +209,40 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                         <div class="card-body">
                             <div class="alert alert-danger text-center " style="display: none;" role="alert">
                             </div>
+
                             <div class="alert alert-success text-center" style="display: none;" role="alert">
                             </div>
-                            <form id="edit_user" method="POST">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Tên người dùng</label>
-                                    <input value="<?php echo $user['name'] ?>" type="text" class="form-control" id="name" name="name" required>
-                                    <span class="error" id="name_error" style="color: red;"></span>
+                            
+                            <form method="POST" id="insert_form"> 
+                                <div class="card-header">
+                                    <h6 class="card-title">
+                                        Danh sách sản phẩm nhập
+                                    </h6>
                                 </div>
-                                <div class=" mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input value="<?php echo $user['email'] ?>" type="email" class="form-control" id="email" name="email" required>
-                                    <span class="error" id="email_error" style="color: red;"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">mật khẩu</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                    <span class="error" id="password_error" style="color: red;"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">Xác nhận mật khẩu</label>
-                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                                    <span class="error" id="confirm_password_error" style="color: red;"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Trạng thái</label>
-                                    <select value="<?php echo $user['status'] ?>" class="form-select" id="status" name="status" required>
-                                        <option value="1" <?php echo $user['status'] == 1 ? 'selected' : ''; ?>>Active</option>
-                                        <option value="0" <?php echo $user['status'] == 0 ? 'selected' : ''; ?>>Inactive</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Vai trò</label>
-                                    <select value="<?php echo $user['role_id'] ?>" class="form-select" id="role_id" name="role_id" required>
-                                        <?php foreach ($roles as $role) : ?>
-                                            <option value="<?php echo $role['id'] ?>" <?php echo $user['role_id'] == $role['id'] ? 'selected' : ''; ?>><?php echo $role['name'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
+
+                                <div class="table-repsonsive mb-3">
+                                    <span id="error"></span>
+                                    <table class="table table-bordered" id="item_table">
+                                        <tr>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá (đồng)</th>
+                                            <!-- <th><button type="button"  name="add" class="btn btn-success btn-sm add"><i class="fas fa-plus"></i></button></th> -->
+                                        </tr>
+                                    </table>
+                                    <div class="mb-3">
+                                        <div class="info">
+                                            <p><strong>Tên phiếu nhập:</strong> <?php echo $nameReceipt; ?></p>
+                                            <p><strong>Nhà cung cấp:</strong> <?php echo $nameProvider; ?></p>
+                                            <p><strong>Tổng số sản phẩm:</strong> <?php echo $receiptTotal; ?></p>
+                                            <p><strong>Tổng số tiền:</strong> <?php echo $sum; ?> (đồng)</p>
+                                        </div>
+                                        </select>
+                                        <!-- <button type="submit" name="submit"  class="btn btn-primary">Create Receipt</button>  -->
+                                        <!-- id="submit_button -->  
+                                    </div>   
+								    <!-- <input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Tạo mới phiếu nhập" />  -->
+                                </div>                     
                             </form>
                         </div>
                     </div>
@@ -320,76 +256,193 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
     </div>
     <script src="./../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./../../../resources/js/script.js"></script>
-    <script type="text/javascript">
-        // Edit user
-        $(document).ready(function() {
-            $('#edit_user').submit(function(e) {
-                e.preventDefault();
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 
-                var formData = $(this).serialize();
-                var params = new URLSearchParams(formData);
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
 
-                var name = params.get('name');
-                var email = params.get('email');
-                var password = params.get('password');
-                var confirm_password = params.get('confirm_password');
-                var status = params.get('status');
-                var role_id = params.get('role_id');
-                var userId = <?php echo $user['id']; ?>;
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 
-                $('.error').text('');
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script type="text/javascript" >      
+        $(document).ready(function(){
+            var count = <?php echo $product_count = count($productReceipts); ?>;
+            var jsArray = <?php echo $json_array = json_encode($productReceipts); ?>;
+            console.log(jsArray);
+            // for(var i = 0 ; i<count; i++) {
+            //     console.log(jsArray[i].product_name);
+            // }
+            
+            var hayem = 5454;
+            function add_input_field(i)
+            {
+                console.log(jsArray[i].product_name);
+                var html = '';
 
+                html += '<tr>';
 
-                if (password != confirm_password) {
-                    $('#confirm_password_error').text('Mật khẩu không trùng khớp').css('display', 'block');
-                    return;
-                } else if (name.length > 40 || name.length < 4 || /[^A-Za-z ]/.test(name)) {
-                    $('#name_error').text('Tên không hợp lệ - Tối thiểu 4 ký tự, tối đa 40  ký tự và không chứa ký tự đặc biệt').css('display', 'block');
-                    return;
-                } else if (password.length < 4 || password.length > 10) {
-                    $('#password_error').text('Mật khẩu không hợp lệ - Tối thiểu 6 ký tự và tối đa 20 ký tự').css('display', 'block');
-                    return;
-                } else if (email.length > 50 || !/^\S+@\S+\.\S+$/.test(email)) {
-                    $('#email_error').text('Email không hợp lệ - Tối đa 50 ký tự và phải đúng định dạng email').css('display', 'block');
-                    return;
-                } else {
-                    $.ajax({
-                        url: '../check_email',
-                        type: 'POST',
-                        data: {
-                            email: email,
-                            id: userId,
-                        },
-                        dataType: 'json',
-                    }).done(function(response) {
-                        if (response.email_exists) {
-                            $('#email_error').text('Email đã được sử dụng').css('display', 'block');
-                        } else {
-                            $.ajax({
-                                url: '../update/' + <?php echo $user['id']; ?>,
-                                type: 'POST',
-                                data: {
-                                    name: name,
-                                    email: email,
-                                    password: password,
-                                    status: status,
-                                    role_id: role_id
-                                },
-                                // ...
-                            }).done(function(response) {
-                                $('.alert-success').text('Chỉnh sửa người dùng thành công').css('display', 'block');
-                            }).fail(function(jqXHR, textStatus, errorThrown) {
-                                console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
-                                $('.alert-danger').text('Chỉnh sửa người dùng thất bại').css('display', 'block');
-                            });
-                        }
-                    }).fail(function(jqXHR, textStatus, errorThrown) {
-                        console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
-                    });
-                }
+                html += '<td><input type="text" name="item_name[]" class="form-control item_name" value="' + jsArray[i].product_name + '" readonly /></td>';
+    html += '<td><input type="number" name="item_quantity[]" class="form-control item_quantity" value="' + jsArray[i].quantity + '" readonly /></td>';
+    html += '<td><input type="number" name="item_price[]" class="form-control item_price" value="' + jsArray[i].product_price + '" readonly /></td>';
+                                       
+                var remove_button = '';
+
+                // if(count > 0)
+                // {
+                //     remove_button = '<button type="button" name="remove" class="btn btn-danger btn-sm remove"><i class="fas fa-minus"></i></button>';
+                // }
+                // html += '<td>'+remove_button+'</td></tr>';
+                html += '</tr>';
+
+                return html;
+
+            }
+
+            for(var i = 0 ; i < count; i++) {
+                $('#item_table').append(add_input_field(i));
+            }
+            
+            // var selectedId = jsArray[0].id;
+        
+            $('.selectpicker').selectpicker('refresh');
+
+            $(document).on('click', '.add', function(){
+
+                count++;
+
+                $('#item_table').append(add_input_field(count));
+
+                $('.selectpicker').selectpicker('refresh');
+
             });
-        });
-    </script>
+
+            $(document).on('click', '.remove', function(){
+
+                $(this).closest('tr').remove();
+
+            });
+
+
+            $('#insert_form').on('submit', function(event){
+                event.preventDefault();
+                var error = '';
+
+                count = 1;
+
+                $("select[name='item_name[]']").each(function(){
+
+                    if($(this).val() == '')
+                    {
+
+                        error += "<li>Chọn tên sản phẩm được nhập tại dòng "+count+"</li>";
+
+                    }
+
+                    count = count + 1;
+
+                    });
+
+                count = 1;
+
+                $('.item_quantity').each(function(){
+
+                    if($(this).val() == '')
+                    {
+
+                        error += "<li>Nhập số lượng nhập tại dòng "+count+" </li>";
+
+                    }
+
+                    count = count + 1;
+
+                });
+
+                count = 1;
+
+                $('.item_price').each(function(){
+
+                    var price = $(this).val(); // Lấy giá trị của phần tử hiện tại
+
+                    if(price === '') {
+                        error += "<li>Nhập giá tiền tại dòng " + count + " </li>"; // Thêm lỗi nếu giá trị trống
+                    } else if(parseFloat(price) <= 1000) {
+                        error += "<li>Giá tiền tại dòng " + count + " phải lớn hơn hoặc bằng 1000 (đồng)</li>"; // Thêm lỗi nếu giá trị không lớn hơn 1000
+                    }
+
+                    count = count + 1; // Tăng biến đếm
+
+                });
+
+                var form_data = $(this).serialize();
+
+                if(error == '')
+                {
+                    $.ajax({
+
+                        url:"store",
+
+                        method:"POST",
+
+                        data:form_data,
+
+                        beforeSend:function()
+                        {
+
+                            $('#submit_button').attr('disabled', 'disabled');
+
+                        },
+
+                        // success:function(data)
+                        // {
+
+                            // if(data == 'ok')
+                            // {
+                            //     // $_SESSION['success'] = 'Thêm đơn nhập hàng thành công';
+                            //     // header('Location: /the-coffee/admin/receipt/index');
+                            //     // exit();
+                            //     $('#item_table').find('tr:gt(0)').remove();
+
+                            //     $('#error').html('<div class="alert alert-success">Item Details Saved</div>');
+
+                            //     $('#item_table').append(add_input_field(0));
+
+                            //     $('.selectpicker').selectpicker('refresh');
+
+                            //     $('#submit_button').attr('disabled', false);
+                            // }
+
+                        // }
+                    }).done(function(response) {
+                        if(response)
+                            {
+                                // $('.alert-success').text('Thêm phiếu nhập thành công').css('display', 'block');
+
+                                $('#name').val('');
+
+                                $('#name_error').text('');
+
+                                $('#item_table').find('tr:gt(0)').remove();
+
+                                $('#error').html('<div  style="text-align: center;" class="alert alert-success">Thêm phiếu nhập thành công</div>');
+
+                                $('#item_table').append(add_input_field(0));
+
+                                $('.selectpicker').selectpicker('refresh');
+
+                                $('#submit_button').attr('disabled', false);
+                            }
+                    }).fail(function(response) {
+                        $('.alert-danger').text('Thêm phiếu nhập thất bại').css('display', 'block');
+                    });
+                }else   {
+                    $('#error').html('<div class="alert alert-danger"><ul>'+error+'</ul></div>');
+                    
+                }
+
+            });
+            
+            });
+        </script>                        
 
 </body>
 

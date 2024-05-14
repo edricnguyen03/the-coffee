@@ -17,7 +17,7 @@ class ProductModel
     public function getById($id)
     {
         global $db;
-        $result = $db->get("products", "*", "id = $id");
+        $result = $db->get("products", "*", "id = $id AND status = 1");
         $row = $result[0];
         $sanPham = (object) $row;
         if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
@@ -226,5 +226,13 @@ class ProductModel
             return true;
         }
         return false;
+    }
+    public function checkCategoryInProduct($categoryId)
+    {
+        global $db;
+        $query = $db->query("SELECT * FROM products WHERE category_id = $categoryId");
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result ? true : false;
     }
 }

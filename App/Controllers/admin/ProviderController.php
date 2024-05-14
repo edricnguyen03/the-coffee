@@ -1,5 +1,5 @@
 <?php
-
+include_once './App/Models/Auth.php';
 class ProviderController extends Controller
 {
     public $data;
@@ -16,6 +16,11 @@ class ProviderController extends Controller
     // Function to show provider data from the database
     public function index()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->data['providers'] = $this->providerModel->getAllProviders();
         $this->view('/Admin/pages/providers/index', $this->data);
     }
@@ -23,6 +28,11 @@ class ProviderController extends Controller
     // Function to create a new provider in the database
     public function create()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         // $this->data['name'] = $this->providerModel->getAllProvidersName();
         $this->view('/Admin/pages/providers/create', $this->data);
     }
@@ -56,6 +66,11 @@ class ProviderController extends Controller
     // Function to edit an existing provider in the database
     public function edit($providerId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $provider = $this->providerModel->getProviderById($providerId);
 
         $this->data['provider'] = $provider[0];
@@ -105,6 +120,11 @@ class ProviderController extends Controller
     // }
     public function delete($providerId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         // Check if provider is in receipt table
         $isInReceipt = $this->receiptModel->checkProviderInReceipt($providerId);
 
