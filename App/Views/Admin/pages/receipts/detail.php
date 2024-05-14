@@ -241,7 +241,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                         <!-- <button type="submit" name="submit"  class="btn btn-primary">Create Receipt</button>  -->
                                         <!-- id="submit_button -->  
                                     </div>   
-								    <input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Tạo mới phiếu nhập" /> 
+								    <!-- <input type="submit" name="submit" id="submit_button" class="btn btn-primary" value="Tạo mới phiếu nhập" />  -->
                                 </div>                     
                             </form>
                         </div>
