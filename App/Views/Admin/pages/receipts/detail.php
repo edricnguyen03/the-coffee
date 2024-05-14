@@ -260,7 +260,15 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <script type="text/javascript" >      
+    <script type="text/javascript" >  
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var quantityInputs = document.querySelectorAll('.product_quantity');
+            quantityInputs.forEach(function(input) {
+                input.addEventListener('focusout', checkQuantityInput);
+            });
+        });
+
         $(document).ready(function(){
             var count = <?php echo $product_count = count($productReceipts); ?>;
             var jsArray = <?php echo $json_array = json_encode($productReceipts); ?>;
