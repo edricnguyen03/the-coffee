@@ -44,15 +44,6 @@ class ProviderController extends Controller
             $description = $_POST['description'];
             $status = $_POST['status'];
 
-            // if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-            //     $_SESSION['error'] = 'Tên nhà cung cấp không được chứa ký tự đặc biệt';
-            //     $this->view('/Admin/pages/providers/create', $this->data);
-            //     exit();
-            // }
-            // if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
-            //     $_SESSION['error'] = 'Tên nhà cung cấp không được vượt quá 4-50 ký tự';
-            //     $this->view('/Admin/pages/providers/create', $this->data);
-            // }
             // Get the current max id
             $maxId = $this->providerModel->getMaxId();
             $newId = $maxId + 1;
@@ -94,21 +85,6 @@ class ProviderController extends Controller
             $description = $_POST['description'];
             $status = $_POST['status'];
 
-            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-                $provider = $this->providerModel->getById($providerId);
-                $this->data['provider'] = $provider[0];
-                $_SESSION['error'] = 'Tên nhà cung cấp không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/providers/edit', $this->data);
-                exit();
-            }
-            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
-                $provider = $this->providerModel->getById($providerId);
-                $this->data['provider'] = $provider[0];
-                $_SESSION['error'] = 'Tên nhà cung cấp không được vượt quá 4-50 ký tự';
-                $this->view('/Admin/pages/providers/edit', $this->data);
-                exit();
-            }
-
             $updateData = [
                 'name' => $name,
                 'description' => $description,
@@ -126,22 +102,6 @@ class ProviderController extends Controller
         }
     }
 
-    // Function to delete a provider from the database
-    // public function delete($providerId)
-    // {
-    //     $provider = $this->providerModel->getProviderById($providerId);
-    //     if ($this->providerModel->deleteProvider($providerId)) {
-    //         // If the deletion was successful, save success message to session
-    //         $_SESSION['success'] = 'Xóa nhà cung cấp thành công';
-    //         // Then redirect to the index page
-    //         header('Location: /the-coffee/admin/provider/');
-    //         exit();
-    //     } else {
-    //         // If the deletion failed, show an error message and stay on the current page
-    //         // You can also save the error message to session and display it on the current page
-    //         $_SESSION['error'] = 'Xóa nhà cung cấp thất bại';
-    //     }
-    // }
     public function delete($providerId)
     {
         if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
