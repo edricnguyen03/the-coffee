@@ -7,10 +7,6 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
     // header('Location: alert');
     header('Location: ../../../Login_Regis/logout');
     exit;
-} else if ($_SESSION['login']['role'] != 1) {
-    // If not, redirect them to the login page
-    header('Location: ../alert');
-    exit;
 }
 ?>
 
