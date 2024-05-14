@@ -365,7 +365,7 @@
                 }
             }
         }
-        $('#name').val = ""
+
         //check the phone number
         if (field == 'phone_result') {
             if (!/^0(\d{9}|9\d{8})$/.test(value)) {

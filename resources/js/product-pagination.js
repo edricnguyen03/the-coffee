@@ -141,6 +141,15 @@ $("#btn-search").click(function (e) {
   $(".page-number").trigger("change");
 });
 
+//thêm sự kiện cho nút tìm kiếm khi ấn nút enter
+$("#searchInput").keypress(function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevent the default form submission
+    filter_Data();
+    $(".page-number").trigger("change");
+  }
+});
+
 function filter_Data(page = 1) {
   var idDanhMuc = $("#searchbar-dropdown-category").val();
   var minMucGia, maxMucGia;

@@ -22,7 +22,7 @@
           <select class="form-control form-select" id="searchbar-dropdown-price">
             <option value="all">Mức giá</option>
             <option value="1">Dưới 100.000 VND</option>
-            <option value="2">100.0000 đến 500.000 VND</option>
+            <option value="2">100.000 đến 500.000 VND</option>
             <option value="3">500.000 đến 1.000.000 VND</option>
             <option value="4">1.000.000 VND</option>
           </select>
@@ -67,7 +67,7 @@
 
       <!----------------------------Phân trang------------------------->
       <?php
-        require_once('pagination.php');
+      require_once('pagination.php');
       ?>
       <!---------------------------------------------------------------->
 
@@ -79,8 +79,15 @@
 
     <!-------------------------------------------------Xử lý phân trang----------------------------------------------------------------------->
     <script src="/the-coffee/resources/js/product-pagination.js"></script>
-    
 
-
-
+    <!-------------------------------------------------Xử lý tìm kiếm nhấn Enter----------------------------------------------------------------------->
+    <script>
+      $("#searchInput").keypress(function(event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Prevent the default form submission
+          filter_Data();
+          $(".page-number").trigger("change");
+        }
+      });
+    </script>
 </section>
