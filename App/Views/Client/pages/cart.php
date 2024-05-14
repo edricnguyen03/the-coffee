@@ -368,6 +368,12 @@
                 if (value.length > 40) {
                     $('#name_result').html('Tên không được quá 40 ký tự');
                 }
+
+                // kiem tra ten co chua khoang trang o 2 dau khong
+                else if (value.trim() !== value) {
+                    $('#name_result').html('Tên không được chứa khoảng trắng');
+                }
+
                 //kiem tra chu cai tieng viet 
                 else if (!/^[a-zA-ZáàảãạăắằặẳẵâầấẩẫậèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\s]+$/.test(value)) {
                     $('#name_result').html('Tên không được chứa ký tự đặc biệt hoặc số');
@@ -386,21 +392,6 @@
             }
         }
 
-        //check the email
-        // if (field == 'email_result') {
-        //     if (value == '') {
-        //         $('#email_result').html('');
-        //     } else {
-        //         if (!/([\w\-]+\@[\w\-]+\.[\w\-]+)/.test(value)) {
-        //             $('#email_result').html('Email không hợp lệ');
-        //         } else if (value.length > 40) {
-        //             $('#email_result').html('Email dài quá 40 ký tự');
-        //         } else {
-        //             $('#email_result').html('');
-        //         }
-        //     }
-
-        // }
 
         //check selected item of combobox province
         if (field == 'province_result') {
