@@ -222,12 +222,24 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             <?php endif; ?>
                             <form action="../update/<?php echo $role['id'] ?>" method="POST">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Tên vai trò</label>
                                     <input value="<?php echo $role['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class=" mb-3">
-                                    <label for="description" class="form-label">Description</label>
+                                    <label for="description" class="form-label">Mô tả</label>
                                     <input value="<?php echo $role['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="permission" class="form-label">Quyền</label>
+                                    <?php
+                                    foreach ($permissions as $permission) :  ?>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="<?php echo $permission['id']; ?>" id="permission<?php echo $permission['id']; ?>" name="permissions[]" <?php echo in_array((int)$permission['id'], array_map('intval', $rolePermissions)) ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="permission<?php echo $permission['id']; ?>">
+                                                <?php echo $permission['name']; ?>
+                                            </label>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
                             </form>

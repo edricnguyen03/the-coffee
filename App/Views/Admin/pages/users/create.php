@@ -64,11 +64,19 @@
                                         <option value="0">Inactive</option>
                                     </select>
                                 </div>
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <label for="role_id" class="form-label">Chức vụ</label>
                                     <select class="form-select" id="role_id" name=" role_id" required>
                                         <option value="1">Super Admin</option>
                                         <option value="2">User</option>
+                                    </select>
+                                </div> -->
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Vai trò</label>
+                                    <select class="form-select" id="rold_id" name="role_id" required>
+                                        <?php foreach ($roles as $role) : ?>
+                                            <option value="<?php echo $role['id'] ?>"><?php echo $role['name'] ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Tạo mới người dùng</button>

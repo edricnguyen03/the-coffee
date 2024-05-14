@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 13, 2024 lúc 02:47 PM
+-- Thời gian đã tạo: Th5 14, 2024 lúc 06:15 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -155,7 +155,9 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 (4, 'admin.order', 'Xử lý đơn hàng'),
 (5, 'admin.role', 'Quản lý vai trò'),
 (6, 'admin.dashboard', 'Xem thống kê'),
-(7, 'Abcd', 'acnd');
+(7, 'admin.provider', 'Quản lý nhà cung cấp'),
+(8, 'admin.receipt', 'Quản lý phiếu nhập'),
+(9, 'admin.permission', 'Phân quyền');
 
 -- --------------------------------------------------------
 
@@ -179,7 +181,10 @@ INSERT INTO `permission_role` (`id`, `role_id`, `permission_id`) VALUES
 (3, 1, 3),
 (4, 1, 4),
 (5, 1, 5),
-(6, 1, 6);
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -361,7 +366,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `status`, `password`, `role_id`) VALUES
 (1, 'Người dùng tối cao', 'admin@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 1),
-(2, 'Người dùng', 'user1@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
+(2, 'Usertest', 'user1@gmail.com', 1, '$2y$10$ars8ZBKnJYi7W7PLlTNG4eT3M1taj7g2bWBdOMYVb.fI1d5AZM95W', 2),
 (3, 'Người dùng', 'user2@gmail.com', 1, '1$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
 (4, 'Người dùng', 'user3@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
 (5, 'Người dùng', 'user4@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2),
@@ -487,7 +492,7 @@ ALTER TABLE `order_products`
 -- AUTO_INCREMENT cho bảng `permission_role`
 --
 ALTER TABLE `permission_role`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT cho bảng `product_receipt`

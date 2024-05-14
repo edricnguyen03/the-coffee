@@ -42,6 +42,18 @@
                                     <?php echo $success; ?>
                                 </div>
                             <?php endif; ?>
+                            <?php if (isset($_SESSION['success'])) : ?>
+                                <div class="alert alert-success text-center" role="alert">
+                                    <?php echo $_SESSION['success']; ?>
+                                </div>
+                                <?php unset($_SESSION['success']); ?>
+                            <?php endif; ?>
+                            <?php if (isset($_SESSION['error'])) : ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <?php echo $_SESSION['error']; ?>
+                                </div>
+                                <?php unset($_SESSION['error']); ?>
+                            <?php endif; ?>
                             <form action="store" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên chức vụ</label>
@@ -50,6 +62,17 @@
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
                                     <input type="text" class="form-control" id="description" name="description" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="permission" class="form-label">Quyền</label>
+                                    <?php foreach ($permissions as $permission) : ?>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="<?php echo $permission['id']; ?>" id="permission<?php echo $permission['id']; ?>" name="permissions[]">
+                                            <label class="form-check-label" for="permission<?php echo $permission['id']; ?>">
+                                                <?php echo $permission['name']; ?>
+                                            </label>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary">Tạo mới chức vụ</button>
                             </form>
