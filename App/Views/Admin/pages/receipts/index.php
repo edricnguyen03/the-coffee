@@ -41,17 +41,17 @@ require_once('./App/Views/Admin/layouts/header.php');
                             </div>
                         </form>
                     </div>
-                    <?php if (isset($_SESSION['error'])) : ?>
-                        <div class="alert alert-danger text-center" role="alert">
-                            <?php echo $_SESSION['error']; ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if (isset($_SESSION['success'])) : ?>
-                        <div class="alert alert-success text-center" role="alert">
-                            <?php echo $_SESSION['success']; ?>
-                        </div>
-                        <?php unset($_SESSION['success']); ?>
-                    <?php endif; ?>
+                    <?php //if (isset($_SESSION['error'])) : ?>
+                        <!-- <div class="alert alert-danger text-center" role="alert">
+                            <?php //echo $_SESSION['error']; ?>
+                        </div> -->
+                    <?php //endif; ?>
+                    <?php //if (isset($_SESSION['success'])) : ?>
+                        <!-- <div class="alert alert-success text-center" role="alert">
+                            <?php //echo $_SESSION['success']; ?>
+                        </div> -->
+                        <?php //unset($_SESSION['success']); ?>
+                    <?php //endif; ?>
 
                     <table class="table">
                         <thead>

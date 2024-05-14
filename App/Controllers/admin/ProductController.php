@@ -177,17 +177,18 @@ class productController extends Controller
             //     exit();
             // }
 
-            if ($price > 5000 || $price < 10000000) {
-                $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
-                $this->view('/Admin/pages/products/edit', $this->data);
-                exit();
-            }
+            // if ($price < 5000 || $price > 10000000) {
+            //     $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
+            //     unset($_SESSION['username']);
+            //     $this->view('/Admin/pages/products/edit', $this->data);
+            //     exit();
+            // }
 
-            if ($weight > 0 || $weight < 20000) {
-                $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
-                $this->view('/Admin/pages/products/edit', $this->data);
-                exit();
-            }
+            // if ($weight < 1 || $weight > 20000) {
+            //     $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
+            //     $this->view('/Admin/pages/products/edit', $this->data);
+            //     exit();
+            // }
 
 
 
@@ -232,6 +233,10 @@ class productController extends Controller
                 'description' => $description,
             ];
 
+            // echo '<pre>';
+            // print_r($updateData);
+            // echo '<pre>';
+            // die();
             if ($this->productModel->updateproduct($productId, $updateData)) {
                 $_SESSION['success'] = 'Chỉnh sửa sản phẩm thành công';
                 $this->data['categories'] = $this->categoryModel->get();
@@ -239,7 +244,7 @@ class productController extends Controller
                 $this->view('/Admin/pages/products/edit', $this->data);
                 exit();
             } else {
-                $_SESSION['error'] = 'Chỉnh sửa sản phẩm không thành công';
+                // $_SESSION['error'] = 'Chỉnh sửa sản phẩm không thành công';
                 $this->data['categories'] = $this->categoryModel->get();
                 $this->data['product'] =  $this->productModel->getById($productId);
                 $this->view('/Admin/pages/products/edit', $this->data);
