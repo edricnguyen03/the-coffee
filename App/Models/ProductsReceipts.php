@@ -23,10 +23,10 @@ class ProductsReceipts
     //     return "notFound";
     // }
     
-    public function getPRById($PR)
+    public function getPRById($PRId)
     {
         global $db;
-        $PR = $db->get('product_receipt', '*', 'id = ' . $PR);
+        $PR = $db->get('product_receipt', '*', 'id = ' . $PRId);
         return $PR;
     }
 
@@ -42,6 +42,16 @@ class ProductsReceipts
         $providers = $db->get('providers', 'name');
         return $providers;
     }
+
+    public function getProductsReceipt($receiptId)
+     {
+          if ($receiptId != null) {
+               global $db;
+               $receipt = $db->get("product_receipt", "*", "receipt_id = " .$receiptId); // Gán kết quả cho $orders
+               return $receipt; // Trả về biến đã gán
+          }
+          return null;
+     }
     
     public function getMaxId()
     {
