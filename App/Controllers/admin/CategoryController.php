@@ -1,5 +1,5 @@
 <?php
-
+include_once './App/Models/Auth.php';
 class CategoryController extends Controller
 {
     public $data;
@@ -16,6 +16,11 @@ class CategoryController extends Controller
     // Function to show permission data from the database
     public function index()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 2) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->data['categories'] = $this->categoryModel->getAllCategories();
         $this->view('/Admin/pages/categories/index', $this->data);
     }
@@ -23,6 +28,11 @@ class CategoryController extends Controller
     // Function to create a new permission in the database
     public function create()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 2) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->view('/Admin/pages/categories/create',);
     }
 
@@ -53,6 +63,11 @@ class CategoryController extends Controller
     // Function to edit an existing permission in the database
     public function edit($categoryId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 2) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $category = $this->categoryModel->getCategoryById($categoryId);
 
         $this->data['category'] = $category[0];
@@ -85,6 +100,11 @@ class CategoryController extends Controller
     // Function to delete a permission from the database
     public function delete($categoryId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 2) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         // Check if category is in product table
         $isInProduct = $this->productModel->checkCategoryInProduct($categoryId);
         if (!$isInProduct) {

@@ -1,4 +1,5 @@
 <?php
+include_once './App/Models/Auth.php';
 
 class StatsController extends Controller
 {
@@ -21,11 +22,21 @@ class StatsController extends Controller
 
     public function index()
     {   
+        if (Auth::checkPermission($_SESSION['login']['id'],6) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->view('/Admin/pages/stats/index',);
     }
 
     public function income()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'],6) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->view('/Admin/pages/stats/income');
     }
 

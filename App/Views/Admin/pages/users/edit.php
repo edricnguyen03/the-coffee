@@ -1,4 +1,5 @@
 <?php
+require_once './App/Models/Auth.php';
 // Start the session
 // Check if the user is logged in
 if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
@@ -156,7 +157,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     }
                     ?>
                     <?php
-                     if(Auth::checkPermission($_SESSION['login']['id'], 9) == true){
+                     if(Auth::checkPermission($_SESSION['login']['id'], 2) == true){
                     ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#category" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-tags pe-2"></i>
@@ -171,6 +172,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 5) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#role" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-user-shield"></i>
                             Vai trò
@@ -184,6 +191,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 9) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#permission" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>
                             Phân quyền

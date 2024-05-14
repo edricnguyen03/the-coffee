@@ -1,5 +1,5 @@
 <?php
-
+include_once './App/Models/Auth.php';
 class RoleController extends Controller
 {
     public $data;
@@ -14,6 +14,11 @@ class RoleController extends Controller
     // Function to show role data from the database
     public function index()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 5) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->data['roles'] = $this->roleModel->getAllRoles();
         $this->view('/Admin/pages/roles/index', $this->data);
     }
@@ -21,6 +26,11 @@ class RoleController extends Controller
     // Function to create a new role in the database
     public function create()
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 5) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $this->view('/Admin/pages/roles/create',);
     }
 
@@ -51,6 +61,11 @@ class RoleController extends Controller
     // Function to edit an existing role in the database
     public function edit($roleId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 5) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         $role = $this->roleModel->getRoleById($roleId);
 
         $this->data['role'] = $role[0];
@@ -83,6 +98,11 @@ class RoleController extends Controller
     // Function to delete a role from the database
     public function delete($roleId)
     {
+        if (Auth::checkPermission($_SESSION['login']['id'], 5) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
         if ($this->roleModel->deleteRole($roleId)) {
             // If the deletion was successful, save success message to session
             $_SESSION['success'] = 'Xóa vai trò thành công';
