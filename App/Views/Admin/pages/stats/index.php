@@ -164,9 +164,12 @@ require_once('./App/Views/Admin/layouts/header.php');
 
 
                     //innerHTML 2 lần
-                    let topSale = '<div class="alert alert-success text-center" role="alert">Sản phẩm bán chạy nhất: ' + maxSoldName + ' với số lượng bán được là ' + maxSold + '</div>';
-                    if (secondSoldName != '' && secondSold != -1) {
-                        topSale += '<div class="alert alert-success text-center" role="alert">Sản phẩm bán chạy thứ 2: ' + secondSoldName + ' với số lượng bán được là ' + secondSold + '</div>';
+                    let topSale = '';
+                    if (maxSoldName != '' && maxSold != -1) {
+                        topSale += '<div class="alert alert-success text-center" role="alert">Sản phẩm bán chạy nhất: ' + maxSoldName + ' với số lượng bán được là ' + maxSold + '</div>';
+                        if (secondSoldName != '' && secondSold != -1) {
+                            topSale += '<div class="alert alert-success text-center" role="alert">Sản phẩm bán chạy thứ 2: ' + secondSoldName + ' với số lượng bán được là ' + secondSold + '</div>';
+                        }
                     }
                     content.innerHTML = topSale;
                     content.innerHTML += html;
