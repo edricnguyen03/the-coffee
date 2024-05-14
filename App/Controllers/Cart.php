@@ -1,4 +1,5 @@
 <?php
+require_once './App/Models/Auth.php';
 class Cart extends Controller
 {
     public $cartModel;
@@ -23,10 +24,14 @@ class Cart extends Controller
             require_once './App/errors/404.php';
             return;
         }
+        if (Auth::hasAdminPermission($_SESSION['login']['id']) == true) {
+            echo '<script> alert("Admin không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
 
         $productsInCart = $this->cartModel->getProductsInCart($_SESSION['login']['id']);
         $products = $this->productModel->getAllProducts();
-
         $this->data['productsInCart'] = $productsInCart;
         $this->data['products'] = $products;
         $this->view('/Client/Cart', $this->data);

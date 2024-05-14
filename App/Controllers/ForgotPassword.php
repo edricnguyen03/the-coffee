@@ -44,7 +44,7 @@ class ForgotPassword extends Controller
                     $mail->Port = 587;
 
                     // Configure email
-                    $mail->setFrom('thekrister123@gmail.com', 'Your Name');
+                    $mail->setFrom('thekrister123@gmail.com', 'The-Coffee');
                     $mail->addAddress($email);
                     $mail->Subject = $subject;
                     $mail->Body    = $message;
@@ -75,8 +75,8 @@ class ForgotPassword extends Controller
                $user = $this->userModel->getUserByEmail($email);
                if ($user) {
                     if ($otp == $_SESSION['otp']) {
-                         $newPassword = '123456';
-                         $this->userModel->updatePassword($user[0]['id'], $newPassword);
+                         // $newPassword = '123456';
+                         // $this->userModel->updatePassword($user[0]['id'], $newPassword);
                          echo 'success';
                     } else {
                          echo 'Mã xác nhận không đúng !';
@@ -86,6 +86,22 @@ class ForgotPassword extends Controller
                }
           } else {
                echo 'Email hoặc mã xác nhận không được để trống !';
+          }
+     }
+
+     public function doiMatKhau(){
+          if(isset($_POST['email']) && isset($_POST['password'])){
+               $email = $_POST['email'];
+               $password = $_POST['password'];
+               $user = $this->userModel->getUserByEmail($email);
+               if($user){
+                    $this->userModel->updatePassword($user[0]['id'], $password);
+                    echo 'success';
+               }else{
+                    echo 'Email không tồn tại trong cơ sở dữ liệu !';
+               }
+          }else{
+               echo 'Email hoặc mật khẩu không được để trống !';
           }
      }
 }

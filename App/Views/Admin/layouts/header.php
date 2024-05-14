@@ -1,4 +1,5 @@
 <?php
+require_once './App/Models/Auth.php';
 // Start the session
 // Check if the user is logged in
 if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
@@ -38,12 +39,32 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                     <li class="sidebar-header">
                         Danh sách chức năng
                     </li>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 6) == true){
+                    ?>
                     <li class="sidebar-item">
-                        <a href="../stat/" class="sidebar-link">
-                            <i class="fa-solid fa-list pe-2"></i>
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#stat" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
                             Thống kê
                         </a>
+                        <ul id="stat" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="../stat/" class="sidebar-link">
+                                    Sản phẩm bán chạy
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="../stat/income" class="sidebar-link">
+                                    Doanh thu
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 3) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
                             Sản phẩm
@@ -57,7 +78,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
-                    <!-- order -->
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 4) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#order" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-sliders pe-2"></i>
                             Đơn hàng
@@ -82,6 +108,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 1) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
                             Người dùng
@@ -95,6 +127,12 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                     if(Auth::checkPermission($_SESSION['login']['id'], 7) == true){
+                    ?>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-truck pe-2"></i>
                             Nhà cung cấp

@@ -1,3 +1,7 @@
+<?php
+require_once './App/Models/Auth.php';
+
+?>
 <footer class="footer" style="background-color: #262626; color: white;">
     <div class="bg-dark text-white pt5 pb-4">
         <div class="container text-md-left">
@@ -35,9 +39,16 @@
                     if (isset($_SESSION['login']['status'])) {
                         if ($_SESSION['login']['status'] == 1) {
                     ?>
-                            <p>
-                                <a href="/the-coffee/cart" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
-                            </p>
+                            <?php
+                            if (Auth::hasAdminPermission($_SESSION['login']['id']) == false) {
+                            ?>
+                                <p>
+                                    <a href="/the-coffee/cart" class="text-white" style="text-decoration: none;">Giỏ Hàng</a>
+                                </p>
+                            <?php
+                            }
+                            ?>
+
                             <p>
                                 <a href="/the-coffee/profile" class="text-white" style="text-decoration: none;">Tài Khoản</a>
                             </p>

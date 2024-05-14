@@ -152,13 +152,12 @@ function addEventForDetailAddToCartButton() {
     var method = "GET";
     var url = "Product/addToCart/" + productId + "/" + quantity;
 
-    // Mở kết nối với file PHP
-    xhttp.open(method, url, true);
-
-    // Xác định hành động khi kết quả trả về từ file PHP
-    xhttp.onreadystatechange = function () {
-      if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
-        var response = xhttp.responseText.trim();
+    // Gửi yêu cầu AJAX
+    $.ajax({
+      url: url,
+      method: method,
+      success: function (response) {
+        response = response.trim();
         switch (response) {
           case "login": {
             Swal.fire({
@@ -171,7 +170,7 @@ function addEventForDetailAddToCartButton() {
           case "1": {
             Swal.fire({
               icon: "success",
-              title: "Success",
+              title: "Thành công",
               text: "Thêm sản phẩm vào giỏ hàng thành công",
             });
             break;
@@ -179,16 +178,21 @@ function addEventForDetailAddToCartButton() {
           default: {
             Swal.fire({
               icon: "error",
-              title: "Error",
+              title: "Lỗi",
               text: "Thêm vào giỏ hàng thất bại\n" + response,
             });
             break;
           }
         }
-      }
-    };
-    // Gửi yêu cầu đến file PHP
-    xhttp.send();
+      },
+      error: function (xhr, status, error) {
+        Swal.fire({
+          icon: "error",
+          title: "Lỗi",
+          text: "Có lỗi xảy ra trong quá trình xử lý yêu cầu",
+        });
+      },
+    });
   });
 
   // Xác định sự kiện khi người dùng nhập số lượng sản phẩm khác số nguyên dương
