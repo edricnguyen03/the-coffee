@@ -88,8 +88,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                                     </td>
                                     <td><?php echo $product->stock; ?></td>
                                     <td>
-                                        <a href="edit/<?php echo $product->id; ?>" class="btn btn-primary">Edit</a>
-                                        <a onclick="return confirm('Bạn có muốn xóa sản phẩm này không ?')" href="delete/<?php echo $product->id; ?>" class="btn btn-danger">Delete</a>
+                                        <a href="edit/<?php echo $product->id; ?>" class="btn btn-primary">Sửa</a>
+                                        <a onclick="return confirm('Bạn có muốn xóa sản phẩm này không ?')" href="delete/<?php echo $product->id; ?>" class="btn btn-danger">Xóa</a>
 
                                 </tr>
                             <?php endforeach; ?>
