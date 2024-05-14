@@ -11,6 +11,9 @@ class CartModel
         );
         global $db;
         try {
+            if($productModel->getById($idProduct)->stock <= 0){
+                return 'Số lượng sản phẩm trong giỏ hàng đã vượt quá số lượng tồn kho. Vui lòng giảm số lượng mua hoặc chọn sản phẩm khác !';
+            }
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng của người dùng hay chưa
             $currentCartItems = $db->get('carts', 'cart_items',  'user_id = ' . $User_id);
             // Nếu chưa có giỏ hàng, thêm một mục mới vào giỏ hàng
