@@ -170,19 +170,12 @@ require_once './App/Models/Auth.php';
     .user-info {
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 
-    .user-info h3 {
+    .user-info h5 {
         font-weight: 500;
     }
-
-    .user-info img {
-        width: 60px;
-        border-radius: 50%;
-        margin-right: 15px;
-
-    }
-
     .sub-menu-link {
         display: flex;
         align-items: center;
