@@ -49,13 +49,6 @@ class Cart extends Controller
         }
     }
 
-    public function validateShip()
-    {
-        $val = $_POST['value'];
-        $field = $_POST['field'];
-        $result = $this->cartModel->validateShip($field, $val);
-        return $result;
-    }
 
     //ham cap nhat so luong san pham trong gio hang
     public function updateQuantityInCart()
@@ -73,6 +66,11 @@ class Cart extends Controller
     // ham thanh toan gio hang
     public function buyNow()
     {
+        if (!isset($_SESSION['login']['id'])) {
+            require_once './App/errors/404.php';
+            return;
+        }
+
         $id = $this->orderModel->getMaxId();
         $user_id = $_SESSION['login']['id'];
         $name = $_POST['name'];

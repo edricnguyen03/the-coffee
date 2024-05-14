@@ -49,9 +49,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                     </form>
                 </div>
                 <div class="mb-3" id="content">
+                    <canvas id="chart" width="100%" height="50%"></canvas>
 
                 </div>
-                <canvas id="chart" width="100%" height="50%"></canvas>
             </div>
         </div>
 
@@ -131,7 +131,13 @@ require_once('./App/Views/Admin/layouts/header.php');
                         '<td>' + mainQty + '</td>' +
                         '<td>' + mainTotal + '</td>' +
                         '</tbody></table>';
+
+                    //tạo thẻ canvas để vẽ biểu đồ
+                    var chartTag = '<canvas id="chart" width="100%" height="50%"></canvas>';
+                    //innerHTML 2 lần
+
                     content.innerHTML = html;
+                    content.innerHTML += chartTag;
                     drawChart(JSON.parse(response));
                 },
                 error: function(xhr, status, error) {
