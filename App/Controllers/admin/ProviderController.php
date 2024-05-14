@@ -44,6 +44,12 @@ class ProviderController extends Controller
             $description = $_POST['description'];
             $status = $_POST['status'];
 
+            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+                $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
+
             // Get the current max id
             $maxId = $this->providerModel->getMaxId();
             $newId = $maxId + 1;
@@ -84,6 +90,12 @@ class ProviderController extends Controller
             $name = $_POST['name'];
             $description = $_POST['description'];
             $status = $_POST['status'];
+
+            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+                $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/products/create', $this->data);
+                exit();
+            }
 
             $updateData = [
                 'name' => $name,

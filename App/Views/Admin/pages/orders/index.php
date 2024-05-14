@@ -36,7 +36,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <form method="GET">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên khách hàng">
-                                <button class="btn btn-primary" type="submit">Search</button>
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                             </div>
                         </form>
                     </div>
@@ -139,7 +139,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             </td>
                                             <td><?php echo $order['create_at']; ?></td>
                                             <td>
-                                                <a href="detail/<?php echo $order['id']; ?>" class="btn btn-primary">Detail</a>
+                                                <a href="detail/<?php echo $order['id']; ?>" class="btn btn-primary">Chi tiết</a>
                                         </tr>
                                     <?php
                                     }
@@ -170,21 +170,22 @@ require_once('./App/Views/Admin/layouts/header.php');
 
                                         <td>
                                             <?php echo $order['total']; ?>
-                                             <?php
-                                                    // $orderId_curr = $order['id'];
-                                                    // $query = $db->query("SELECT order_id, COUNT(*) AS order_count FROM order_products WHERE order_id = '$orderId_curr' GROUP BY order_id");
-                                                    // $query->execute();
-                                                    // $arr = $query->fetchAll();
-                                                    // if (!empty($arr)) {
-                                                    //     // Lấy giá trị của order_count từ mảng
-                                                    //     $orderCount = $arr[0]['order_count'];
-                                                    //     // Hiển thị giá trị order_count
-                                                    //     echo $orderCount;
-                                                    // }
-                                                    // echo '<pre>';
-                                                    // print_r($arr);
-                                                    // echo '<pre>'; ;;
-                                                    //?>
+                                            <?php
+                                            // $orderId_curr = $order['id'];
+                                            // $query = $db->query("SELECT order_id, COUNT(*) AS order_count FROM order_products WHERE order_id = '$orderId_curr' GROUP BY order_id");
+                                            // $query->execute();
+                                            // $arr = $query->fetchAll();
+                                            // if (!empty($arr)) {
+                                            //     // Lấy giá trị của order_count từ mảng
+                                            //     $orderCount = $arr[0]['order_count'];
+                                            //     // Hiển thị giá trị order_count
+                                            //     echo $orderCount;
+                                            // }
+                                            // echo '<pre>';
+                                            // print_r($arr);
+                                            // echo '<pre>'; ;;
+                                            //
+                                            ?>
                                         </td>
 
                                         <td>
@@ -226,7 +227,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         </td>
                                         <td><?php echo $order['create_at']; ?></td>
                                         <td>
-                                            <a href="detail/<?php echo $order['id']; ?>" class="btn btn-primary">Detail</a>
+                                            <a href="detail/<?php echo $order['id']; ?>" class="btn btn-primary">Chi tiết</a>
                                     </tr>
                             <?php
                                 }
