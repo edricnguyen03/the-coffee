@@ -52,7 +52,7 @@ class productController extends Controller
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();
             }
-            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();
@@ -138,7 +138,7 @@ class productController extends Controller
                     exit();
                 }
             }
-            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();

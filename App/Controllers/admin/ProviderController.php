@@ -44,7 +44,7 @@ class ProviderController extends Controller
             $description = $_POST['description'];
             $status = $_POST['status'];
 
-            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();
@@ -91,7 +91,7 @@ class ProviderController extends Controller
             $description = $_POST['description'];
             $status = $_POST['status'];
 
-            if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();
