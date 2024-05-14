@@ -44,9 +44,14 @@ class CategoryController extends Controller
 
             if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/products/create', $this->data);
+                $this->view('/Admin/pages/categories/create', $this->data);
                 exit();
             }
+            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+                $_SESSION['error'] = 'Tên danh mục không được vượt quá 4-50 ký tự';
+                $this->view('/Admin/pages/categories/create', $this->data);
+            }
+
             // Get the current max id
             $maxId = $this->categoryModel->getMaxId();
             $newId = $maxId + 1;
@@ -86,10 +91,17 @@ class CategoryController extends Controller
             $name = $_POST['name'];
             $status = $_POST['status'];
 
+            $category = $this->categoryModel->getCategoryById($categoryId);
+            $this->data['category'] = $category[0];
+
             if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
                 $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/products/create', $this->data);
+                $this->view('/Admin/pages/categories/edit', $this->data);
                 exit();
+            }
+            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+                $_SESSION['error'] = 'Tên danh mục không được vượt quá 4-50 ký tự';
+                $this->view('/Admin/pages/categories/edit', $this->data);
             }
 
             $updateData = [

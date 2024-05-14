@@ -45,11 +45,14 @@ class ProviderController extends Controller
             $status = $_POST['status'];
 
             if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-                $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/products/create', $this->data);
+                $_SESSION['error'] = 'Tên nhà cung cấp không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/providers/create', $this->data);
                 exit();
             }
-
+            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+                $_SESSION['error'] = 'Tên nhà cung cấp không được vượt quá 4-50 ký tự';
+                $this->view('/Admin/pages/providers/create', $this->data);
+            }
             // Get the current max id
             $maxId = $this->providerModel->getMaxId();
             $newId = $maxId + 1;
@@ -92,8 +95,17 @@ class ProviderController extends Controller
             $status = $_POST['status'];
 
             if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-                $_SESSION['error'] = 'Tên danh mục không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/products/create', $this->data);
+                $provider = $this->providerModel->getProviderById($providerId);
+                $this->data['provider'] = $provider[0];
+                $_SESSION['error'] = 'Tên nhà cung cấp không được chứa ký tự đặc biệt';
+                $this->view('/Admin/pages/providers/edit', $this->data);
+                exit();
+            }
+            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+                $provider = $this->providerModel->getProviderById($providerId);
+                $this->data['provider'] = $provider[0];
+                $_SESSION['error'] = 'Tên nhà cung cấp không được vượt quá 4-50 ký tự';
+                $this->view('/Admin/pages/providers/edit', $this->data);
                 exit();
             }
 
