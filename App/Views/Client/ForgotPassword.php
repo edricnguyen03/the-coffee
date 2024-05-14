@@ -187,6 +187,15 @@
                                         });
                                         return;
                                     }
+                                    //mật khẩu không có dấu cách
+                                    if (newPassword.indexOf(" ") != -1) {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Mật khẩu không được chứa dấu cách",
+                                            text: "Vui lòng nhập lại mật khẩu",
+                                        });
+                                        return;
+                                    }
                                     $.ajax({
                                         url: '/the-coffee/ForgotPassword/doiMatKhau',
                                         type: 'POST',

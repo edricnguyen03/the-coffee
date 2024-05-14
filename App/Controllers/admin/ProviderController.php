@@ -44,15 +44,15 @@ class ProviderController extends Controller
             $description = $_POST['description'];
             $status = $_POST['status'];
 
-            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-                $_SESSION['error'] = 'Tên nhà cung cấp không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/providers/create', $this->data);
-                exit();
-            }
-            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
-                $_SESSION['error'] = 'Tên nhà cung cấp không được vượt quá 4-50 ký tự';
-                $this->view('/Admin/pages/providers/create', $this->data);
-            }
+            // if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
+            //     $_SESSION['error'] = 'Tên nhà cung cấp không được chứa ký tự đặc biệt';
+            //     $this->view('/Admin/pages/providers/create', $this->data);
+            //     exit();
+            // }
+            // if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+            //     $_SESSION['error'] = 'Tên nhà cung cấp không được vượt quá 4-50 ký tự';
+            //     $this->view('/Admin/pages/providers/create', $this->data);
+            // }
             // Get the current max id
             $maxId = $this->providerModel->getMaxId();
             $newId = $maxId + 1;
@@ -80,7 +80,7 @@ class ProviderController extends Controller
             require_once './App/errors/404.php';
             return;
         }
-        $provider = $this->providerModel->getProviderById($providerId);
+        $provider = $this->providerModel->getById($providerId);
 
         $this->data['provider'] = $provider[0];
         $this->view('/Admin/pages/providers/edit', $this->data);
@@ -95,14 +95,14 @@ class ProviderController extends Controller
             $status = $_POST['status'];
 
             if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-                $provider = $this->providerModel->getProviderById($providerId);
+                $provider = $this->providerModel->getById($providerId);
                 $this->data['provider'] = $provider[0];
                 $_SESSION['error'] = 'Tên nhà cung cấp không được chứa ký tự đặc biệt';
                 $this->view('/Admin/pages/providers/edit', $this->data);
                 exit();
             }
             if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
-                $provider = $this->providerModel->getProviderById($providerId);
+                $provider = $this->providerModel->getById($providerId);
                 $this->data['provider'] = $provider[0];
                 $_SESSION['error'] = 'Tên nhà cung cấp không được vượt quá 4-50 ký tự';
                 $this->view('/Admin/pages/providers/edit', $this->data);
@@ -115,7 +115,7 @@ class ProviderController extends Controller
                 'status' => $status,
             ];
             if ($this->providerModel->updateProvider($providerId, $updateData)) {
-                $provider = $this->providerModel->getProviderById($providerId);
+                $provider = $this->providerModel->getById($providerId);
                 $this->data['provider'] = $provider[0];
                 $_SESSION['success'] = 'Chỉnh sửa nhà cung cấp thành công';
                 $this->view('/Admin/pages/providers/edit', $this->data);
@@ -163,7 +163,7 @@ class ProviderController extends Controller
             }
         } else {
             // If provider is in receipt table, set its status to 'Inactive'
-            if ($this->providerModel->setProviderStatus($providerId, 'Inactive')) {
+            if ($this->providerModel->setProviderStatus($providerId, 0)) {
                 $_SESSION['success'] = 'Nhà cung cấp đã được chuyển thành trạng thái Inactive vì có trong phiếu nhập';
                 header('Location: /the-coffee/admin/provider/');
                 exit();

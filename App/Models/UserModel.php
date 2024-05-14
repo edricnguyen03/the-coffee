@@ -184,7 +184,7 @@ class UserModel
             if (strlen($newPassword) < 4 || strlen($newPassword) > 10) {
                 return "Mật khẩu mới phải từ 4 đến 10 ký tự";
             }
-            if (trim($newPassword) !== $newPassword) {
+            if (strpos($newPassword, ' ') !== false) {
                 return 'Mật khẩu mới không được chứa khoảng trắng';
             }
             if ($db->update('users', ['password' => password_hash($newPassword, PASSWORD_DEFAULT)], 'id = ' . $userId)) {

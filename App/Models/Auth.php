@@ -15,7 +15,7 @@ Class Auth{
 
     public static function hasAdminPermission($userId)
     {
-         $numberOfPermission = 10;
+         $numberOfPermission = 9;
         for ($i = 1; $i <= $numberOfPermission; $i++) {
             if (Auth::checkPermission($userId,$i) == true) {
                 return true;

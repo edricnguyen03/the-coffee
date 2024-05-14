@@ -2,6 +2,18 @@
   <!----------------------------------------Thanh tìm kiếm----------------------------------------------------->
   <div class="fluid-container w-100 bg-light py-2 px-4 shadow-sm searchbar-container" style="z-index: 10;">
     <div class="row align-items-end justify-content-end">
+      <!-------------------------------Combobox sắp xếp------------------------------->
+      <div class="col-md-2">
+        <div class="form-group mb-md-0">
+          <select class="form-control form-select" id="searchbar-dropdown-sort">
+            <option value="all">Sắp xếp</option>
+            <option value="1">Tên từ A đến Z</option>
+            <option value="2">Tên từ Z đến A</option>
+            <option value="3">Giá tăng dần</option> 
+            <option value="4">Giá giảm dần</option> 
+          </select>
+        </div>
+      </div>
       <!-------------------------------Combobox thương hiệu------------------------------->
       <div class="col-md-2">
         <div class="form-group mb-md-0 rounded w-100">
@@ -24,7 +36,7 @@
             <option value="1">Dưới 100.000 VND</option>
             <option value="2">100.000 đến 500.000 VND</option>
             <option value="3">500.000 đến 1.000.000 VND</option>
-            <option value="4">1.000.000 VND</option>
+            <option value="4">Trên 1.000.000 VND</option>
           </select>
         </div>
       </div>

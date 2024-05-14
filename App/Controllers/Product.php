@@ -100,8 +100,13 @@ class Product extends Controller
         } else {
             $noiDung = "";
         }
+        if(isset($_POST['sortOption'])){
+            $sortOption = $_POST['sortOption'];
+        }else{
+            $sortOption = "";
+        }
 
-        $sanPhams = $this->productModel->get($page, $idDanhMuc, $minMucGia, $maxMucGia, $noiDung);
+        $sanPhams = $this->productModel->get($page, $idDanhMuc, $minMucGia, $maxMucGia,$sortOption, $noiDung);
         $data['sanPhams'] = $sanPhams;
 
         return  $this->view('/Client/pages/product-list', $data);

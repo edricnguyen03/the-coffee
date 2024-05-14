@@ -62,16 +62,16 @@ class RoleController extends Controller
             } else {
                 $permissions = $_POST['permissions'];
             }
-            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-                $_SESSION['error'] = 'Tên vai trò không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/roles/create', $this->data);
-                exit();
-            }
-            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
-                $_SESSION['error'] = 'Tên vai trò không được vượt quá 4-50 ký tự';
-                $this->view('/Admin/pages/roles/create', $this->data);
-                exit();
-            }
+            // if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
+            //     $_SESSION['error'] = 'Tên vai trò không được chứa ký tự đặc biệt';
+            //     $this->view('/Admin/pages/roles/create', $this->data);
+            //     exit();
+            // }
+            // if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+            //     $_SESSION['error'] = 'Tên vai trò không được vượt quá 4-50 ký tự';
+            //     $this->view('/Admin/pages/roles/create', $this->data);
+            //     exit();
+            // }
 
             if ($this->roleModel->insertRole($data)) {
                 if ((is_array($permissions)) || is_object($permissions)) {
@@ -120,7 +120,6 @@ class RoleController extends Controller
             $description = $_POST['description'];
 
             // if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-            //     $this->data['permissions'] = $this->permissionModel->getAllPermissions();
             //     $role = $this->roleModel->getRoleById($roleId);
             //     $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
             //     // Convert the result to an array of permission ids

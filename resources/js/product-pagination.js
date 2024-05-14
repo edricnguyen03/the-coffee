@@ -104,7 +104,6 @@ $(document).ready(function () {
     getNumberOfPage();
     // Code xử lý khi giá trị của '.page-number' thay đổi
     var currentPage = parseInt($(".page-number").text());
-    console.log($numberOfPages + " " + currentPage);
     if (currentPage == 1 && $numberOfPages > 1) {
       //$('#previous-icon').css('color', '#ccc');
       //$('#next-icon').css('color', '#fb8e18');
@@ -153,7 +152,7 @@ $("#searchInput").keypress(function (event) {
 function filter_Data(page = 1) {
   var idDanhMuc = $("#searchbar-dropdown-category").val();
   var minMucGia, maxMucGia;
-
+  var sortOption;
   switch ($("#searchbar-dropdown-price").val()) {
     case "1":
       minMucGia = 0;
@@ -175,6 +174,22 @@ function filter_Data(page = 1) {
       minMucGia = 0;
       maxMucGia = -1;
   }
+  switch ($("#searchbar-dropdown-sort").val()) {
+    case "1":
+      sortOption = "name ASC";
+      break;
+    case "2":
+      sortOption = "name DESC";
+      break;
+    case "3":
+      sortOption = "price ASC";
+      break;
+    case "4":
+      sortOption = "price DESC";
+      break;
+    default:
+      sortOption = "";
+  }
 
   var noiDung = $("#searchInput").val();
 
@@ -185,6 +200,7 @@ function filter_Data(page = 1) {
       idDanhMuc: idDanhMuc,
       minMucGia: minMucGia,
       maxMucGia: maxMucGia,
+      sortOption: sortOption,
       noiDung: noiDung,
       page: page,
     },

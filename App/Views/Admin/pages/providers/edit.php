@@ -260,6 +260,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                             </h5>
                         </div>
                         <div class="card-body">
+                            <span id="error"></span>
                             <?php if (isset($error)) : ?>
                                 <div class="alert alert-danger text-center" role="alert">
                                     <?php echo $error; ?>
@@ -271,14 +272,14 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                 </div>
                                 <?php unset($_SESSION['success']); ?>
                             <?php endif; ?>
-                            <form action="../update/<?php echo $provider['id'] ?>" method="POST">
+                            <form action="../update/<?php echo $provider['id'] ?>" onsubmit="return validate()" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên nhà cung cấp</label>
                                     <input value="<?php echo $provider['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class=" mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
-                                    <input value="<?php echo $provider['description'] ?>" type="text" class="form-control" id=" description" name="description" required>
+                                    <input value="<?php echo $provider['description'] ?>" type="text" class="form-control" id="description" name="description" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Trạng thái</label>
@@ -287,7 +288,7 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
                                         <option value="0" <?php echo $provider['status'] == 0 ? 'selected' : ''; ?>>Inactive</option>
                                     </select>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
+                                <button type="submit" id= "submit"name="submit" class="btn btn-primary">Cập nhật</button>
                             </form>
                         </div>
                     </div>
@@ -301,6 +302,27 @@ if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
     </div>
     <script src="./../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./../../../resources/js/script.js"></script>
+    <script>
+            function validate() {
+                let name = document.getElementById('name').value.trim();
+                let description = document.getElementById('description').value.trim();
+                if (name == '' || description == '') {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
+                    return false;
+                }
+                if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(name)) {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+                    return false;
+                }
+                if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(description)) {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+                    return false;
+                }
+                document.getElementById('name').value = document.getElementById('name').value.trim();
+                document.getElementById('description').value = document.getElementById('description').value.trim();
+                return true;
+            }
+        </script>
 </body>
 
 </html>

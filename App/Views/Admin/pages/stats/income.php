@@ -147,8 +147,11 @@ require_once('./App/Views/Admin/layouts/header.php');
                     //tạo thẻ canvas để vẽ biểu đồ
                     var chartTag = '<canvas id="chart" width="100%" height="50%"></canvas>';
                     //innerHTML 2 lần
-                    let topSale = '<div class="alert alert-success text-center" role="alert">Danh mục bán chạy nhất: ' + maxQtyName + ' với số lượng bán là ' + maxQty + '</div>';
-                    topSale += '<div class="alert alert-success text-center" role="alert">Danh mục có doanh thu cao nhất: ' + maxTotalName + ' với doanh thu là ' + maxTotal + '</div>';
+                    let topSale = '';
+                    if (maxQty > 0 && maxTotal > 0) {
+                        topSale = '<div class="alert alert-success text-center" role="alert">Danh mục bán chạy nhất: ' + maxQtyName + ' với số lượng bán là ' + maxQty + '</div>';
+                        topSale += '<div class="alert alert-success text-center" role="alert">Danh mục có doanh thu cao nhất: ' + maxTotalName + ' với doanh thu là ' + maxTotal + '</div>';
+                    }
                     content.innerHTML = topSale;
                     content.innerHTML += html;
                     content.innerHTML += chartTag;

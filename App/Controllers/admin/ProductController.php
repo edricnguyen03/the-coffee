@@ -56,28 +56,28 @@ class productController extends Controller
             $description = $_POST['description'];
 
             // Check if the product name already exists
-            if ($this->productModel->checkProductNameExists($name)) {
-                $_SESSION['error'] = 'Tên sản phẩm đã tồn tại';
-                $this->view('/Admin/pages/products/create', $this->data);
-                exit();
-            }
-            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-                $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/products/create', $this->data);
-                exit();
-            }
+            // if ($this->productModel->checkProductNameExists($name)) {
+            //     $_SESSION['error'] = 'Tên sản phẩm đã tồn tại';
+            //     $this->view('/Admin/pages/products/create', $this->data);
+            //     exit();
+            // }
+            // if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
+            //     $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
+            //     $this->view('/Admin/pages/products/create', $this->data);
+            //     exit();
+            // }
 
-            if (!($price > 5000 && $price < 10000000)) {
-                $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
-                $this->view('/Admin/pages/products/create', $this->data);
-                exit();
-            }
+            // if ($price > 5000 && $price < 10000000) {
+            //     $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
+            //     $this->view('/Admin/pages/products/create', $this->data);
+            //     exit();
+            // }
 
-            if (!($weight > 0 && $weight < 20000)) {
-                $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
-                $this->view('/Admin/pages/products/create', $this->data);
-                exit();
-            }
+            // if ($weight > 0 && $weight < 20000) {
+            //     $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
+            //     $this->view('/Admin/pages/products/create', $this->data);
+            //     exit();
+            // }
 
 
 
@@ -161,28 +161,29 @@ class productController extends Controller
                     exit();
                 }
             }
+
             $this->data['categories'] = $this->categoryModel->get();
             $this->data['product'] =  $this->productModel->getById($productId);
 
-            if (!preg_match('/^[a-zA-Z0-9\sàáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-                $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
-                $this->view('/Admin/pages/products/edit', $this->data);
-                exit();
-            }
+            // if (!preg_match('/^[a-zA-Z0-9 àáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
+            //     $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
+            //     $this->view('/Admin/pages/products/edit', $this->data);
+            //     exit();
+            // }
 
-            if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
-                $_SESSION['error'] = 'Tên sản phẩm không được vượt quá 4-50 ký tự';
-                $this->view('/Admin/pages/roles/edit', $this->data);
-                exit();
-            }
+            // if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+            //     $_SESSION['error'] = 'Tên sản phẩm không được vượt quá 4-50 ký tự';
+            //     $this->view('/Admin/pages/roles/edit', $this->data);
+            //     exit();
+            // }
 
-            if (!($price > 5000 && $price < 10000000)) {
+            if ($price > 5000 || $price < 10000000) {
                 $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
                 $this->view('/Admin/pages/products/edit', $this->data);
                 exit();
             }
 
-            if (!($weight > 0 && $weight < 20000)) {
+            if ($weight > 0 || $weight < 20000) {
                 $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
                 $this->view('/Admin/pages/products/edit', $this->data);
                 exit();
@@ -218,10 +219,6 @@ class productController extends Controller
                 }
             }
             // $folder = "resources/images/products/" . $filename;
-
-
-
-
 
             $updateData = [
                 'name' => $name,
