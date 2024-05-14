@@ -214,6 +214,7 @@ class UserModel
                 return "Tên không được quá 40 ký tự";
             }
             if ($db->update('users', ['name' => $userName], 'id = ' . $userId)) {
+                $_SESSION['login']['username'] = $userName;
                 return "success";
             }
             return "fail";
