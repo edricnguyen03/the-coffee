@@ -30,14 +30,13 @@ class RoleController extends Controller
     // Function to create a new role in the database
     public function create()
     {
-        $this->data['permissions'] = $this->permissionModel->getAllPermissions();
-        $this->view('/Admin/pages/roles/create', $this->data);
         if (Auth::checkPermission($_SESSION['login']['id'], 5) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
         }
-        $this->view('/Admin/pages/roles/create',);
+        $this->data['permissions'] = $this->permissionModel->getAllPermissions();
+        $this->view('/Admin/pages/roles/create', $this->data);
     }
 
     public function store()

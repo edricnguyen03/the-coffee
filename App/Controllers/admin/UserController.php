@@ -30,15 +30,13 @@ class UserController extends Controller
     // Function to create a new user in the database
     public function create()
     {
-        $this->data['roles'] = $this->roleModel->getAllRoles();
-        $this->view('/Admin/pages/users/create', $this->data);
         if (Auth::checkPermission($_SESSION['login']['id'], 1) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
         }
-
-        $this->view('/Admin/pages/users/create',);
+        $this->data['roles'] = $this->roleModel->getAllRoles();
+        $this->view('/Admin/pages/users/create', $this->data);
     }
 
     public function store()
