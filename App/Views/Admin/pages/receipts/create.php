@@ -78,7 +78,7 @@
                                     <br> <br>  
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Tên</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Tên tối thiểu 4 ký tự, tối đa 40 ký tự và không chứa ký tự đặc biệt " required>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="" required>
                                         <span class="error" id="name_error" style="color: red;"></span>
                                     </div>
 
