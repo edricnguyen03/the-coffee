@@ -108,6 +108,10 @@ require_once('./App/Views/Admin/layouts/header.php');
                 success: function(response) {
                     let mainTotal = 0;
                     let mainQty = 0;
+                    let maxTotal = -1;
+                    let maxTotalName = '';
+                    let maxQty = -1;
+                    let maxQtyName = '';
                     let html = '<table class="table">' +
                         '<thead>' +
                         '<tr>' +
@@ -125,6 +129,14 @@ require_once('./App/Views/Admin/layouts/header.php');
                             '</tr>';
                         mainTotal += parseInt(item['total']);
                         mainQty += parseInt(item['qty']);
+                        if (parseInt(item['total']) > maxTotal) {
+                            maxTotal = parseInt(item['total']);
+                            maxTotalName = item['name'];
+                        }
+                        if (parseInt(item['qty']) > maxQty) {
+                            maxQty = parseInt(item['qty']);
+                            maxQtyName = item['name'];
+                        }
                     });
                     html += '<tr>' +
                         '<td>Tất cả</td>' +
@@ -135,8 +147,10 @@ require_once('./App/Views/Admin/layouts/header.php');
                     //tạo thẻ canvas để vẽ biểu đồ
                     var chartTag = '<canvas id="chart" width="100%" height="50%"></canvas>';
                     //innerHTML 2 lần
-
-                    content.innerHTML = html;
+                    let topSale = '<div class="alert alert-success text-center" role="alert">Danh mục bán chạy nhất: ' + maxQtyName + ' với số lượng bán là ' + maxQty + '</div>';
+                    topSale += '<div class="alert alert-success text-center" role="alert">Danh mục có doanh thu cao nhất: ' + maxTotalName + ' với doanh thu là ' + maxTotal + '</div>';
+                    content.innerHTML = topSale;
+                    content.innerHTML += html;
                     content.innerHTML += chartTag;
                     drawChart(JSON.parse(response));
                 },
