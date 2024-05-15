@@ -233,11 +233,11 @@ class productController extends Controller
         if (!$isInOrderProduct) {
             // If product is not in order_product table, delete it
             if ($this->productModel->deleteProduct($productId) && unlink("resources/images/products/" . $product->thumb_image)) {
-                $_SESSION['success'] = 'Xóa nhà sản phẩm thành công';
+                $_SESSION['success'] = 'Xóa sản phẩm thành công';
                 header('Location: /the-coffee/admin/product/');
                 exit();
             } else {
-                $_SESSION['error'] = 'Xóa nhà sản phẩm thất bại';
+                $_SESSION['error'] = 'Xóa sản phẩm thất bại';
             }
         } else {
             // If product is in order_product table, set its status to 'Inactive'

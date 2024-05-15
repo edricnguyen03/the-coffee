@@ -103,10 +103,6 @@ class UserController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $email = $_POST['email'];
-            $password = $_POST['password'];
-
-            // Hash the password
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
             $status = $_POST['status'];
             $role = $_POST['role_id'];
@@ -114,7 +110,6 @@ class UserController extends Controller
             $updateData = [
                 'name' => $name,
                 'email' => $email,
-                'password' => $password_hash,
                 'status' => $status, // '1' or '0
                 'role_id' => $role
             ];

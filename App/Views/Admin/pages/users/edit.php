@@ -271,16 +271,6 @@ require_once './App/Models/Auth.php';
                                     <span class="error" id="email_error" style="color: red;"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">mật khẩu</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                    <span class="error" id="password_error" style="color: red;"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">Xác nhận mật khẩu</label>
-                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                                    <span class="error" id="confirm_password_error" style="color: red;"></span>
-                                </div>
-                                <div class="mb-3">
                                     <label for="status" class="form-label">Trạng thái</label>
                                     <select value="<?php echo $user['status'] ?>" class="form-select" id="status" name="status" required>
                                         <option value="1" <?php echo $user['status'] == 1 ? 'selected' : ''; ?>>Active</option>
@@ -320,8 +310,6 @@ require_once './App/Models/Auth.php';
 
                 var name = params.get('name');
                 var email = params.get('email');
-                var password = params.get('password');
-                var confirm_password = params.get('confirm_password');
                 var status = params.get('status');
                 var role_id = params.get('role_id');
                 var userId = <?php echo $user['id']; ?>;
@@ -329,14 +317,11 @@ require_once './App/Models/Auth.php';
                 $('.error').text('');
 
 
-                if (password != confirm_password) {
-                    $('#confirm_password_error').text('Mật khẩu không trùng khớp').css('display', 'block');
+                if (name.trim() === '') {
+                    $('#name_error').text('Tên không được để trống').css('display', 'block');
                     return;
                 } else if (name.length > 40 || name.length < 4 || !/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name)) {
                     $('#name_error').text('Tên không hợp lệ - Tối thiểu 4 ký tự, tối đa 40  ký tự và không chứa ký tự đặc biệt').css('display', 'block');
-                    return;
-                } else if (password.length < 4 || password.length > 10) {
-                    $('#password_error').text('Mật khẩu không hợp lệ - Tối thiểu 6 ký tự và tối đa 20 ký tự').css('display', 'block');
                     return;
                 } else if (email.length > 50 || !/^\S+@\S+\.\S+$/.test(email)) {
                     $('#email_error').text('Email không hợp lệ - Tối đa 50 ký tự và phải đúng định dạng email').css('display', 'block');
@@ -360,8 +345,6 @@ require_once './App/Models/Auth.php';
                                 data: {
                                     name: name.trim(),
                                     email: email.trim(),
-                                    password: password.trim(),
-                                    confirm_password: confirm_password.trim(),
                                     status: status,
                                     role_id: role_id
                                 },
