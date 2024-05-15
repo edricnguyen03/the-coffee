@@ -120,11 +120,11 @@ require_once('./App/Views/Admin/layouts/header.php');
     var txtDescription = document.getElementById('description');
 
     function validate() {
-        if (txtProductName.value.trim() == '' || txtPrice.value.trim() == '' || txtWeight.value.trim() == '' || txtContent.value.trim() == '' || txtDescription.value.trim() == '') {
+        if (txtProductName.value == '' || txtPrice.value == '' || txtWeight.value == '' || txtContent.value == '' || txtDescription.value == '') {
             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
             return false;
         }
-        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtProductName.value)) {
+        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtProductName.value.trim())) {
             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
             return false;
         }
@@ -146,11 +146,11 @@ require_once('./App/Views/Admin/layouts/header.php');
             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Cân nặng không hợp lệ từ 1 đến 10 kí tự số</div>';
             return false;
         }
-        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtContent.value)) {
+        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtContent.value.trim())) {
             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Nội dung không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
             return false;
         }
-        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtDescription.value)) {
+        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtDescription.value.trim())) {
             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
             return false;
         }
