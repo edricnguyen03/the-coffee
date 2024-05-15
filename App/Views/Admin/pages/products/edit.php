@@ -253,6 +253,21 @@ require_once './App/Models/Auth.php';
                             </h5>
                         </div>
                         <div class="card-body">
+
+                        <?php //if (isset($_SESSION['error'])) : ?>
+                        <!-- <div class="alert alert-danger text-center" role="alert">
+                            <?php //echo $_SESSION['error']; ?>
+                        </div> -->
+                        <?php //endif; ?>
+                            <?php if (isset($_SESSION['success'])) : ?>
+                        <div class="alert alert-success text-center" role="alert">
+                        <?php 
+                            echo $_SESSION['success']; 
+                            unset($_SESSION['success']); 
+                        ?>
+                        </div>
+                        <?php endif; ?>
+
                             <span id="error"></span>
                             <?php if (isset($_SESSION['success'])) : ?>
                                 <div class="alert alert-success text-center" role="alert">
@@ -335,21 +350,25 @@ require_once './App/Models/Auth.php';
         });
         input.dispatchEvent(new Event('change'));
 
-        var txtProductName = document.getElementById('name');
-        var txtPrice = document.getElementById('price');
-        var txtWeight = document.getElementById('weight');
-        var txtContent = document.getElementById('content');
-        var txtDescription = document.getElementById('description');
-
         function validate() {
+            var txtProductName = document.getElementById('name');
+            var txtPrice = document.getElementById('price');
+            var txtWeight = document.getElementById('weight');
+            var txtContent = document.getElementById('content');
+            var txtDescription = document.getElementById('description');
             if (txtProductName.value.trim() == '' || txtPrice.value.trim() == '' || txtWeight.value.trim() == '' || txtContent.value.trim() == '' || txtDescription.value.trim() == '') {
                 document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
                 return false;
             }
-            if (txtProductName.value.trim().length < 4 || txtProductName.value.trim().length > 40) {
-                document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
-                return false;
+            
+            if (txtProductName.value.trim().length > 40 || 
+                txtProductName.value.trim().length < 4 || 
+                !/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtProductName.value.trim())) {
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+                    return false;
             }
+               
+            
             //giá chỉ từ 5000 đến 10000000 
             if (txtPrice.value < 5000 || txtPrice.value > 10000000) {
                 document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Giá không hợp lệ từ 5000 đến 10000000đ</div>';
@@ -391,6 +410,9 @@ require_once './App/Models/Auth.php';
             txtContent.value = txtContent.value.trim();
             txtDescription.value = txtDescription.value.trim();
             input.value = input.value.trim();
+
+            // document.getElementById('error').innerHTML = '<div class="alert alert-success text-center" role="alert">Chỉnh sửa sản phẩm thành công</div>';
+
             return true;
         }
     </script>

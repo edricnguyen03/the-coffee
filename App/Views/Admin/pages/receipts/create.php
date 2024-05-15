@@ -257,7 +257,7 @@
                             error += "<li>Nhập số lượng nhập tại dòng " + count + " </li>";
 
                         }
-                        if ($(this).val() < 0 || $(this).val() > 1000) {
+                        if ($(this).val() <= 0 || $(this).val() >= 1000) {
                             error += "<li>Số lượng phải lớn hơn 0 và nhỏ hơn 1000 ở dòng " + count + " </li>";
                         }
 
@@ -272,8 +272,8 @@
                         var price = $(this).val(); // Lấy giá trị của phần tử hiện tại
                         if (price === '') {
                             error += "<li>Nhập giá tiền tại dòng " + count + " </li>"; // Thêm lỗi nếu giá trị trống
-                        } else if (parseFloat(price) <= 1000) {
-                            error += "<li>Giá tiền tại dòng " + count + " phải lớn hơn hoặc bằng 1000 (đồng)</li>"; // Thêm lỗi nếu giá trị không lớn hơn 1000
+                        } else if (parseFloat(price) <= 1000 || $(this).val() >= 10000000) {
+                            error += "<li>Giá tiền tại dòng " + count + " phải lớn hơn 1.000 (đồng) và nhỏ hơn 10.000.000 (đồng)</li>"; // Thêm lỗi nếu giá trị không lớn hơn 1000
                         }
                         count = count + 1; // Tăng biến đếm
 

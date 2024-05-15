@@ -157,6 +157,33 @@ class productController extends Controller
             $this->data['categories'] = $this->categoryModel->get();
             $this->data['product'] =  $this->productModel->getById($productId);
 
+            // if (!preg_match('/^[a-zA-Z0-9 àáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
+            //     $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
+            //     $this->view('/Admin/pages/products/edit', $this->data);
+            //     exit();
+            // }
+
+            // if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
+            //     $_SESSION['error'] = 'Tên sản phẩm không được vượt quá 4-50 ký tự';
+            //     $this->view('/Admin/pages/roles/edit', $this->data);
+            //     exit();
+            // }
+
+            // if ($price < 5000 || $price > 10000000) {
+            //     $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
+            //     unset($_SESSION['username']);
+            //     $this->view('/Admin/pages/products/edit', $this->data);
+            //     exit();
+            // }
+
+            // if ($weight < 1 || $weight > 20000) {
+            //     $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
+            //     $this->view('/Admin/pages/products/edit', $this->data);
+            //     exit();
+            // }
+
+
+
             $old_image = $_POST['old-image'];
             $filename = $old_image; // default to old image
 
@@ -198,6 +225,10 @@ class productController extends Controller
                 'description' => $description,
             ];
 
+            // echo '<pre>';
+            // print_r($updateData);
+            // echo '<pre>';
+            // die();
             if ($this->productModel->updateproduct($productId, $updateData)) {
                 $_SESSION['success'] = 'Chỉnh sửa sản phẩm thành công';
                 $this->data['categories'] = $this->categoryModel->get();
@@ -205,7 +236,7 @@ class productController extends Controller
                 $this->view('/Admin/pages/products/edit', $this->data);
                 exit();
             } else {
-                $_SESSION['error'] = 'Chỉnh sửa sản phẩm không thành công';
+                // $_SESSION['error'] = 'Chỉnh sửa sản phẩm không thành công';
                 $this->data['categories'] = $this->categoryModel->get();
                 $this->data['product'] =  $this->productModel->getById($productId);
                 $this->view('/Admin/pages/products/edit', $this->data);
@@ -217,17 +248,17 @@ class productController extends Controller
     // Function to delete a product from the database
     public function delete($productId)
     {
-        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
-            // If not, display an alert message and redirect them to the login page
-            // header('Location: alert');
-            header('Location: ../../Login_Regis/logout');
-            exit;
-        }
-        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
-            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
-            require_once './App/errors/404.php';
-            return;
-        }
+        // if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+        //     // If not, display an alert message and redirect them to the login page
+        //     // header('Location: alert');
+        //     header('Location: ../../Login_Regis/logout');
+        //     exit;
+        // }
+        // if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+        //     echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+        //     require_once './App/errors/404.php';
+        //     return;
+        // }
         $product = $this->productModel->getById($productId);
         $isInOrderProduct = $this->orderProductModel->checkProductInOrder($productId);
         if (!$isInOrderProduct) {
