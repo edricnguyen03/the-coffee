@@ -253,34 +253,7 @@ require_once './App/Models/Auth.php';
                             </h5>
                         </div>
                         <div class="card-body">
-
-                        <?php //if (isset($_SESSION['error'])) : ?>
-                        <!-- <div class="alert alert-danger text-center" role="alert">
-                            <?php //echo $_SESSION['error']; ?>
-                        </div> -->
-                        <?php //endif; ?>
-                            <?php if (isset($_SESSION['success'])) : ?>
-                        <div class="alert alert-success text-center" role="alert">
-                        <?php 
-                            echo $_SESSION['success']; 
-                            unset($_SESSION['success']); 
-                        ?>
-                        </div>
-                        <?php endif; ?>
-
                             <span id="error"></span>
-                            <?php if (isset($_SESSION['success'])) : ?>
-                                <div class="alert alert-success text-center" role="alert">
-                                    <?php echo $_SESSION['success']; ?>
-                                </div>
-                                <?php unset($_SESSION['success']); ?>
-                            <?php endif; ?>
-                            <?php if (isset($_SESSION['error'])) : ?>
-                                <div class="alert alert-danger text-center" role="alert">
-                                    <?php echo $_SESSION['error']; ?>
-                                </div>
-                                <?php unset($_SESSION['error']); ?>
-                            <?php endif; ?>
                             <form action="../update/ <?php echo $product->id ?>" onsubmit="return validate()" method="POST" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên sản phẩm</label>
@@ -338,6 +311,7 @@ require_once './App/Models/Auth.php';
     </div>
     <script src="./../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./../../../resources/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         const input = document.getElementById('file-input');
         const image = document.getElementById('img-preview');
@@ -360,18 +334,17 @@ require_once './App/Models/Auth.php';
                 document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
                 return false;
             }
-            
-            if (txtProductName.value.trim().length > 40 || 
-                txtProductName.value.trim().length < 4 || 
+
+            if (txtProductName.value.trim().length > 40 ||
+                txtProductName.value.trim().length < 4 ||
                 !/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtProductName.value.trim())) {
-                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
-                    return false;
+                document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+                return false;
             }
-               
-            
             //giá chỉ từ 5000 đến 10000000 
             if (txtPrice.value < 5000 || txtPrice.value > 10000000) {
                 document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Giá không hợp lệ từ 5000 đến 10000000đ</div>';
+
                 return false;
             }
             if (!/^[0-9]{1,10}$/.test(txtPrice.value)) {
@@ -399,7 +372,7 @@ require_once './App/Models/Auth.php';
             //     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Hình ảnh không được để trống</div>';
             //     return false;
             // }
-            //tệp đã chọn không phải hình ảnh
+            // tệp đã chọn không phải hình ảnh
             // if (!/\.(jpe?g|png|gif|bmp)$/i.test(input.value)) {
             //     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Hình ảnh không hợp lệ</div>';
             //     return false;
@@ -412,8 +385,8 @@ require_once './App/Models/Auth.php';
             input.value = input.value.trim();
 
             // document.getElementById('error').innerHTML = '<div class="alert alert-success text-center" role="alert">Chỉnh sửa sản phẩm thành công</div>';
+            // return true;
 
-            return true;
         }
     </script>
 </body>

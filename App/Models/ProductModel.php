@@ -26,6 +26,7 @@ class ProductModel
         return $sanPham;
     }
 
+
     // public function getStockByProductId($id)
     // {
     //     global $db;
@@ -84,7 +85,7 @@ class ProductModel
         }
     }
 
-    public function get($page = 1, $idDanhMuc = "all", $minMucGia = 0, $maxMucGia = -1,$sortOption="", $noiDung = "")
+    public function get($page = 1, $idDanhMuc = "all", $minMucGia = 0, $maxMucGia = -1, $sortOption = "", $noiDung = "")
     {
         $offset = ($page - 1) * $this->numberOfProductsInOnePage;
         // Bắt đầu chuỗi SQL với điều kiện cơ bản
@@ -111,13 +112,13 @@ class ProductModel
         }
 
         // Nếu $sortOption được cung cấp, sắp xếp sản phẩm theo $sortOption
-        if($sortOption != ""){
+        if ($sortOption != "") {
             $condition .= " ORDER BY " . $sortOption;
         }
 
         $condition .= " LIMIT $this->numberOfProductsInOnePage OFFSET $offset";
 
-        
+
         //chổ này code chạy sql lấy ds sản phẩm----------------------------------------------
         global $db;
         $result = $db->get("products", "*", $condition);
@@ -168,8 +169,13 @@ class ProductModel
     public function getProductById($productId)
     {
         global $db;
-        $result = $db->get("products", "*", "id = $productId");
-        return $result;
+        $result = $db->get("products", "*", "id = $productId ");
+        $row = $result[0];
+        $sanPham = (object) $row;
+        if (!isset($sanPham->thumb_image) || !file_exists("./resources/images/products/" . $sanPham->thumb_image)) {
+            $sanPham->thumb_image = "noimage.jpg";
+        }
+        return $sanPham;
     }
 
     public function updateProduct($productId, $data)

@@ -120,6 +120,14 @@ require_once('./App/Views/Admin/layouts/header.php');
     var txtDescription = document.getElementById('description');
 
     function validate() {
+        <?php
+        if (isset($_SESSION['error'])) {
+            unset($_SESSION['error']);
+        }
+        if (isset($_SESSION['success'])) {
+            unset($_SESSION['success']);
+        }
+        ?>
         if (txtProductName.value == '' || txtPrice.value == '' || txtWeight.value == '' || txtContent.value == '' || txtDescription.value == '') {
             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
             return false;
@@ -169,6 +177,7 @@ require_once('./App/Views/Admin/layouts/header.php');
         txtContent.value = txtContent.value.trim();
         txtDescription.value = txtDescription.value.trim();
         input.value = input.value.trim();
+
         return true;
     }
 </script>

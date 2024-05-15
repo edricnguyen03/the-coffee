@@ -7,7 +7,7 @@ class Dashboard extends Controller
         if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             // If not, display an alert message and redirect them to the login page
             // header('Location: alert');
-            header('Location: ../../Login_Regis/logout');
+            header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
         if (Auth::hasAdminPermission($_SESSION['login']['id']) == false) {

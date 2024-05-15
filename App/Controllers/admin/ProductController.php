@@ -96,12 +96,36 @@ class productController extends Controller
                 'description' => $description,
             ];
             if ($this->productModel->insertProduct($dataInsert) && move_uploaded_file($_FILES["uploadfile"]["tmp_name"], $folder)) {
-                $_SESSION['success'] = 'Thêm sản phẩm thành công';
-                $this->data['products'] = $this->productModel->getAllProducts();
-                $this->view('/Admin/pages/products/index', $this->data);
-                exit();
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Thêm sản phẩm thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                // $this->data['products'] = $this->productModel->getAllProducts();
+                $this->data['categories'] = $this->categoryModel->get();
+                $this->view('/Admin/pages/products/create', $this->data);
+                // exit();
             } else {
-                $_SESSION['error'] = 'Thêm sản phẩm thất bại';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Thêm sản phẩm thất bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                $this->data['categories'] = $this->categoryModel->get();
                 $this->view('/Admin/pages/products/create', $this->data);
                 exit();
             };
@@ -111,10 +135,11 @@ class productController extends Controller
     // Function to edit an existing product in the database
     public function edit($productId)
     {
+
         if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             // If not, display an alert message and redirect them to the login page
             // header('Location: alert');
-            header('Location: ../../Login_Regis/logout');
+            header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
         if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
@@ -123,7 +148,7 @@ class productController extends Controller
             return;
         }
         $this->data['categories'] = $this->categoryModel->get();
-        $this->data['product'] =  $this->productModel->getById($productId);
+        $this->data['product'] =  $this->productModel->getProductById($productId);
         $this->view('/Admin/pages/products/edit', $this->data);
         // Redirect to the index page or show a success message
     }
@@ -142,47 +167,20 @@ class productController extends Controller
             $description = $_POST['description'];
 
 
-            $oldName = $this->productModel->getById($productId)->name;
+            $oldName = $this->productModel->getProductById($productId)->name;
             if ($name != $oldName) {
                 // Check if the product name already exists
                 if ($this->productModel->checkProductNameExists($name)) {
                     $_SESSION['error'] = 'Tên sản phẩm đã tồn tại';
                     $this->data['categories'] = $this->categoryModel->get();
-                    $this->data['product'] =  $this->productModel->getById($productId);
+                    $this->data['product'] =  $this->productModel->getProductById($productId);
                     $this->view('/Admin/pages/products/edit', $this->data);
                     exit();
                 }
             }
 
             $this->data['categories'] = $this->categoryModel->get();
-            $this->data['product'] =  $this->productModel->getById($productId);
-
-            // if (!preg_match('/^[a-zA-Z0-9 àáâãèéêìíòóôõùúýăđėĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+$/', $name)) {
-            //     $_SESSION['error'] = 'Tên sản phẩm không được chứa ký tự đặc biệt';
-            //     $this->view('/Admin/pages/products/edit', $this->data);
-            //     exit();
-            // }
-
-            // if (strlen(trim($name)) > 50 || strlen(trim($name)) < 4) {
-            //     $_SESSION['error'] = 'Tên sản phẩm không được vượt quá 4-50 ký tự';
-            //     $this->view('/Admin/pages/roles/edit', $this->data);
-            //     exit();
-            // }
-
-            // if ($price < 5000 || $price > 10000000) {
-            //     $_SESSION['error'] = 'Giá sản phẩm phải từ 5000đ đến 10000000đ';
-            //     unset($_SESSION['username']);
-            //     $this->view('/Admin/pages/products/edit', $this->data);
-            //     exit();
-            // }
-
-            // if ($weight < 1 || $weight > 20000) {
-            //     $_SESSION['error'] = 'Khối lượng sản phẩm phải từ 0 đến 20000 gram';
-            //     $this->view('/Admin/pages/products/edit', $this->data);
-            //     exit();
-            // }
-
-
+            $this->data['product'] =  $this->productModel->getProductById($productId);
 
             $old_image = $_POST['old-image'];
             $filename = $old_image; // default to old image
@@ -197,7 +195,7 @@ class productController extends Controller
                 if (!in_array($validation, $extention)) {
                     $_SESSION['error'] = 'Tệp đã chọn không phải là hình ảnh';
                     $this->data['categories'] = $this->categoryModel->get();
-                    $this->data['product'] =  $this->productModel->getById($productId);
+                    $this->data['product'] =  $this->productModel->getProductById($productId);
                     $this->view('/Admin/pages/products/edit', $this->data);
                     exit();
                 } else {
@@ -224,21 +222,44 @@ class productController extends Controller
                 'content' => $content,
                 'description' => $description,
             ];
-
-            // echo '<pre>';
-            // print_r($updateData);
-            // echo '<pre>';
-            // die();
             if ($this->productModel->updateproduct($productId, $updateData)) {
-                $_SESSION['success'] = 'Chỉnh sửa sản phẩm thành công';
+                // $this->data['success'] = 'Chỉnh sửa sản phẩm thành công';
+                // $_SESSION['success'] = 'Chỉnh sửa sản phẩm thành công';
                 $this->data['categories'] = $this->categoryModel->get();
-                $this->data['product'] =  $this->productModel->getById($productId);
+                $this->data['product'] =  $this->productModel->getProductById($productId);
+
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Chỉnh sửa sản phẩm thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+
                 $this->view('/Admin/pages/products/edit', $this->data);
+
                 exit();
             } else {
                 // $_SESSION['error'] = 'Chỉnh sửa sản phẩm không thành công';
                 $this->data['categories'] = $this->categoryModel->get();
-                $this->data['product'] =  $this->productModel->getById($productId);
+                $this->data['product'] =  $this->productModel->getProductById($productId);
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Chỉnh sửa sản phẩm thất bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
                 $this->view('/Admin/pages/products/edit', $this->data);
                 exit();
             };
@@ -248,18 +269,18 @@ class productController extends Controller
     // Function to delete a product from the database
     public function delete($productId)
     {
-        // if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
-        //     // If not, display an alert message and redirect them to the login page
-        //     // header('Location: alert');
-        //     header('Location: ../../Login_Regis/logout');
-        //     exit;
-        // }
-        // if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
-        //     echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
-        //     require_once './App/errors/404.php';
-        //     return;
-        // }
-        $product = $this->productModel->getById($productId);
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: /the-coffee/Login_Regis/logout');
+            exit;
+        }
+        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+            echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
+        $product = $this->productModel->getProductById($productId);
         $isInOrderProduct = $this->orderProductModel->checkProductInOrder($productId);
         if (!$isInOrderProduct) {
             // If product is not in order_product table, delete it
@@ -268,7 +289,18 @@ class productController extends Controller
                 header('Location: /the-coffee/admin/product/');
                 exit();
             } else {
-                $_SESSION['error'] = 'Xóa sản phẩm thất bại';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Xóa sản phẩm thât bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
             }
         } else {
             // If product is in order_product table, set its status to 'Inactive'
