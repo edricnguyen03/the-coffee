@@ -37,7 +37,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <div class="mb-3">
                         <form method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên quyền">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên quyền" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                                 <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                             </div>
                         </form>
