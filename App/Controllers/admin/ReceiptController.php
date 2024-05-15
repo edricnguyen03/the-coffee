@@ -21,6 +21,12 @@ class ReceiptController extends Controller
     // Function to show user data from the database
     public function index()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 8) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -32,6 +38,12 @@ class ReceiptController extends Controller
     // Function to create a new user in the database
     public function create()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 8) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -141,6 +153,12 @@ class ReceiptController extends Controller
     // Function to edit an existing user in the database
     public function edit($receiptId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 8) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -229,6 +247,12 @@ class ReceiptController extends Controller
 
     public function delete($receiptId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 8) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';

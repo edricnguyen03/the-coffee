@@ -18,6 +18,12 @@ class RoleController extends Controller
     // Function to show role data from the database
     public function index()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 5) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -30,6 +36,12 @@ class RoleController extends Controller
     // Function to create a new role in the database
     public function create()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 5) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -86,6 +98,12 @@ class RoleController extends Controller
     // Function to edit an existing role in the database
     public function edit($roleId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 5) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -166,6 +184,12 @@ class RoleController extends Controller
     // Function to delete a role from the database
     public function delete($roleId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 5) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';

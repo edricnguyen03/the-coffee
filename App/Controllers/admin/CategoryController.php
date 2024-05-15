@@ -16,6 +16,12 @@ class CategoryController extends Controller
     // Function to show permission data from the database
     public function index()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 2) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -28,6 +34,12 @@ class CategoryController extends Controller
     // Function to create a new permission in the database
     public function create()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 2) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -41,6 +53,7 @@ class CategoryController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $status = $_POST['status'];
+
 
 
             // Get the current max id
@@ -64,6 +77,12 @@ class CategoryController extends Controller
     // Function to edit an existing permission in the database
     public function edit($categoryId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 2) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -104,6 +123,12 @@ class CategoryController extends Controller
     // Function to delete a permission from the database
     public function delete($categoryId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 2) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';

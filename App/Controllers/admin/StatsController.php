@@ -21,8 +21,14 @@ class StatsController extends Controller
     }
 
     public function index()
-    {   
-        if (Auth::checkPermission($_SESSION['login']['id'],6) == false) {
+    {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
+        if (Auth::checkPermission($_SESSION['login']['id'], 6) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -32,7 +38,13 @@ class StatsController extends Controller
 
     public function income()
     {
-        if (Auth::checkPermission($_SESSION['login']['id'],6) == false) {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
+        if (Auth::checkPermission($_SESSION['login']['id'], 6) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;

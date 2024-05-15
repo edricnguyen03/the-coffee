@@ -18,6 +18,12 @@ class productController extends Controller
     // Function to show product data from the database
     public function index()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -31,6 +37,12 @@ class productController extends Controller
     // Function to create a new product in the database
     public function create()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -96,10 +108,15 @@ class productController extends Controller
         }
     }
 
-
     // Function to edit an existing product in the database
     public function edit($productId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -200,6 +217,12 @@ class productController extends Controller
     // Function to delete a product from the database
     public function delete($productId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -239,6 +262,12 @@ class productController extends Controller
 
     public function search()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';

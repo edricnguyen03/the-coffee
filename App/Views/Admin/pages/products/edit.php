@@ -1,13 +1,5 @@
 <?php
 require_once './App/Models/Auth.php';
-// Start the session
-// Check if the user is logged in
-if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
-    // If not, display an alert message and redirect them to the login page
-    // header('Location: alert');
-    header('Location: ../../../Login_Regis/logout');
-    exit;
-}
 ?>
 
 <!DOCTYPE html>

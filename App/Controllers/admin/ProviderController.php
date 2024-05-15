@@ -16,6 +16,12 @@ class ProviderController extends Controller
     // Function to show provider data from the database
     public function index()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -28,6 +34,12 @@ class ProviderController extends Controller
     // Function to create a new provider in the database
     public function create()
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -66,6 +78,12 @@ class ProviderController extends Controller
     // Function to edit an existing provider in the database
     public function edit($providerId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
@@ -104,6 +122,12 @@ class ProviderController extends Controller
 
     public function delete($providerId)
     {
+        if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
+            // If not, display an alert message and redirect them to the login page
+            // header('Location: alert');
+            header('Location: ../../Login_Regis/logout');
+            exit;
+        }
         if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
