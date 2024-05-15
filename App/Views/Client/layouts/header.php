@@ -300,7 +300,7 @@ require_once './App/Models/Auth.php';
                                                 title: 'Thành công',
                                                 text: 'Đăng nhập thành công !',
                                                 showConfirmButton: false,
-                                                timer: 3000
+                                                timer: 2000
                                             }).then(function() {
                                                 window.location.href = "/the-coffee/";
                                             });
@@ -322,7 +322,7 @@ require_once './App/Models/Auth.php';
                                                 title: 'Error',
                                                 text: 'Tài khoản của bạn đã bị khóa !',
                                                 showConfirmButton: false,
-                                                timer: 3000
+                                                timer: 2000
                                             }).then(function() {
                                                 window.location.href = "/the-coffee/";
                                             });
@@ -487,7 +487,7 @@ require_once './App/Models/Auth.php';
                                     return;
                                 } else {
                                     // kiem tra email co hop le khong (duoi email tu 2 den 3 ki tu)
-                                    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/.test(email)) {
+                                    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/.test(email)) {
                                         $('#email_result').html('Email không hợp lệ.');
                                         $('#name_result').html('');
                                         $('#password_result').html('');
@@ -495,8 +495,17 @@ require_once './App/Models/Auth.php';
                                         return;
                                     }
                                     // kiem tra email co dai qua 40 ki tu hay khong
-                                    else if (!/^[a-zA-Z0-9._%+-]{1,40}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/.test(email)) {
+                                    else if (!/^[a-zA-Z0-9]{1,40}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/.test(email)) {
                                         $('#email_result').html('Email dài quá 40 ký tự.');
+                                        $('#name_result').html('');
+                                        $('#password_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    }
+
+                                    // kiem tra email dung dinh dang hay khong (gioi han mail vn)
+                                    else if (!email.includes('.com') && !/^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.vn$/.test(email) && !email.includes('.org') && !email.includes(' ')) {
+                                        $('#email_result').html('Email không hợp lệ.');
                                         $('#name_result').html('');
                                         $('#password_result').html('');
                                         $('#repassword_result').html('');
@@ -609,7 +618,7 @@ require_once './App/Models/Auth.php';
                                                 title: 'Thành công',
                                                 text: 'Đăng kí thành công !',
                                                 showConfirmButton: false,
-                                                timer: 3000
+                                                timer: 2000
 
                                             }).then(function() {
 
