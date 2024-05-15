@@ -66,9 +66,33 @@ class CategoryController extends Controller
                 'status' => $status,
             ];
             if ($this->categoryModel->insertCategory($data)) {
-                $this->view('/Admin/pages/categories/create', ['success' => 'Thêm danh mục mới thành công']);
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Thêm danh mục thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                $this->view('/Admin/pages/categories/create');
             } else {
-                $this->view('/Admin/pages/categories/create', ['error' => 'Thêm danh mục mới thất bại']);
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Thêm danh mục thất bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                $this->view('/Admin/pages/categories/create');
             };
         }
     }
@@ -111,11 +135,35 @@ class CategoryController extends Controller
             if ($this->categoryModel->updateCategory($categoryId, $updateData)) {
                 $category = $this->categoryModel->getCategoryById($categoryId);
                 $this->data['category'] = $category[0];
-                $_SESSION['success'] = 'Chỉnh sửa danh mục thành công';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Chỉnh sửa danh mục thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
                 $this->view('/Admin/pages/categories/edit', $this->data);
-                exit();
             } else {
-                $this->view('/Admin/pages/categories/edit', ['error' => 'Chỉnh sửa danh mục thất bại']);
+                $category = $this->categoryModel->getCategoryById($categoryId);
+                $this->data['category'] = $category[0];
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Chỉnh sửa danh mục thất bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                $this->view('/Admin/pages/categories/edit', $this->data);
             };
         }
     }
@@ -143,7 +191,18 @@ class CategoryController extends Controller
                 header('Location: /the-coffee/admin/category/');
                 exit();
             } else {
-                $_SESSION['error'] = 'Xóa danh mục thất bại';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Xóa danh mục thât bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
             }
         } else {
             // If category is in product table, set its status to 'Inactive'

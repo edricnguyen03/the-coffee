@@ -67,9 +67,33 @@ class ProviderController extends Controller
                 'status' => $status,
             ];
             if ($this->providerModel->insertProvider($data)) {
-                $this->view('/Admin/pages/providers/create', ['success' => 'Thêm nhà cung cấp thành công']);
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Thêm nhà cung cấp thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                $this->view('/Admin/pages/providers/create');
             } else {
-                $this->view('/Admin/pages/providers/create', ['error' => 'Thêm nhà cung cấp thất bại']);
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Thêm nhà cung cấp thất bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                $this->view('/Admin/pages/providers/create');
             };
         }
     }
@@ -111,11 +135,35 @@ class ProviderController extends Controller
             if ($this->providerModel->updateProvider($providerId, $updateData)) {
                 $provider = $this->providerModel->getById($providerId);
                 $this->data['provider'] = $provider[0];
-                $_SESSION['success'] = 'Chỉnh sửa nhà cung cấp thành công';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Chỉnh sửa nhà cung cấp thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
                 $this->view('/Admin/pages/providers/edit', $this->data);
-                exit();
             } else {
-                $this->view('/Admin/pages/providers/edit', ['error' => 'Chỉnh sửa nhà cung cấp thất bại']);
+                $provider = $this->providerModel->getById($providerId);
+                $this->data['provider'] = $provider[0];
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Chỉnh sửa nhà cung cấp thất bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                $this->view('/Admin/pages/providers/edit',);
             };
         }
     }
@@ -143,7 +191,18 @@ class ProviderController extends Controller
                 header('Location: /the-coffee/admin/provider/');
                 exit();
             } else {
-                $_SESSION['error'] = 'Xóa nhà cung cấp thất bại';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Xóa danh mục thât bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
             }
         } else {
             // If provider is in receipt table, set its status to 'Inactive'

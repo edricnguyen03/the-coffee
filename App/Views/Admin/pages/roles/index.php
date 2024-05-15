@@ -81,7 +81,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             <td><?php echo $role['description']; ?></td>
                                             <td>
                                                 <a href="edit/<?php echo $role['id']; ?>" class="btn btn-primary">Sửa</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $role['id']; ?>" class="btn btn-danger">Xóa</a>
+                                                <a onclick="confirmDelete(event, <?php echo $role['id']; ?>)" href="delete/<?php echo $role['id']; ?>" class="btn btn-danger">Xóa</a>
                                         </tr>
                                     <?php
                                     }
@@ -104,7 +104,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <td><?php echo $role['description']; ?></td>
                                         <td>
                                             <a href="edit/<?php echo $role['id']; ?>" class="btn btn-primary">Sửa</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $role['id']; ?>" class="btn btn-danger">Xóa</a>
+                                            <a onclick="confirmDelete(event, <?php echo $role['id']; ?>)" href="delete/<?php echo $role['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>
                             <?php
                                 }
@@ -124,6 +124,26 @@ require_once('./App/Views/Admin/layouts/header.php');
 </div>
 <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./../../resources/js/script.js"></script>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+    function confirmDelete(event, categoryId) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Bạn có muốn xóa vai trò này?",
+            text: "Bạn sẽ không thể khôi phục lại vai trò này!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "delete/" + categoryId;
+            }
+        });
+    }
+</script>
 
 </html>

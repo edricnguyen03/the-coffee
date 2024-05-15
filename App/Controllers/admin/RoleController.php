@@ -69,10 +69,21 @@ class RoleController extends Controller
                 'description' => $description,
             ];
             if (!isset($_POST['permissions']) || $_POST['permissions'] == null) {
-                $_SESSION['success'] = 'Thêm vai trò thành công';
                 $this->roleModel->insertRole($data);
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Thêm vai trò thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
                 $this->view('/Admin/pages/roles/create', $this->data);
-                exit();
+                // exit();
             } else {
                 $permissions = $_POST['permissions'];
             }
@@ -87,11 +98,34 @@ class RoleController extends Controller
                         $this->permissionRoleModel->insertPermissionRole($data_permision_role);
                     }
                 }
-                $_SESSION['success'] = 'Thêm vai trò thành công';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Thêm vai trò thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
                 // If role is inserted successfully, update permission_role model
                 $this->view('/Admin/pages/roles/create', $this->data);
             } else {
-                $this->view('/Admin/pages/roles/create', ['error' => 'Thêm vai trò thất bại']);
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Thêm vai trò thất bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                $this->view('/Admin/pages/roles/create',);
             };
         }
     }
@@ -136,7 +170,7 @@ class RoleController extends Controller
             ];
             if (!isset($_POST['permissions']) || $_POST['permissions'] == null) {
                 $this->permissionRoleModel->deletePermissionsByRoleId($roleId);
-                $_SESSION['success'] = 'Chỉnh sửa vai trò thành công';
+
                 $this->roleModel->updateRole($roleId, $updateData);
                 $role = $this->roleModel->getRoleById($roleId);
                 $this->data['permissions'] = $this->permissionModel->getAllPermissions();
@@ -146,6 +180,18 @@ class RoleController extends Controller
                     return $permission['permission_id'];
                 }, $rolePermissions);
                 $this->data['role'] = $role[0];
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Chỉnh sửa vai trò thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
                 $this->view('/Admin/pages/roles/edit', $this->data);
                 exit();
             } else {
@@ -174,11 +220,51 @@ class RoleController extends Controller
                     return $permission['permission_id'];
                 }, $rolePermissions);
                 $this->data['role'] = $role[0];
-                $_SESSION['success'] = 'Chỉnh sửa vai trò thành công';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Chỉnh sửa vai trò thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
                 $this->view('/Admin/pages/roles/edit', $this->data);
                 exit();
             } else {
-                $this->view('/Admin/pages/roles/edit', ['error' => 'Chỉnh sửa vai trò thất bại']);
+                if ((is_array($permissions)) || is_object($permissions)) {
+                    foreach ($permissions as $permissionId) {
+                        $data_permision_role = [
+                            'role_id' => $roleId,
+                            'permission_id' => $permissionId
+                        ];
+                        $this->permissionRoleModel->insertPermissionRole($data_permision_role);
+                    }
+                }
+                $role = $this->roleModel->getRoleById($roleId);
+                $this->data['permissions'] = $this->permissionModel->getAllPermissions();
+                $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
+                // Convert the result to an array of permission ids
+                $this->data['rolePermissions'] = array_map(function ($permission) {
+                    return $permission['permission_id'];
+                }, $rolePermissions);
+                $this->data['role'] = $role[0];
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Chỉnh sửa nhà cung cấp thất bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
+                $this->view('/Admin/pages/roles/edit', $this->data);
             };
         }
     }
@@ -205,7 +291,18 @@ class RoleController extends Controller
                 header('Location: /the-coffee/admin/role/');
                 exit();
             } else {
-                $_SESSION['error'] = 'Xóa vai trò thất bại';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                echo "<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Xóa danh mục thât bại',
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    });
+                </script>";
             }
         } else {
             // If role is in user table show an error message

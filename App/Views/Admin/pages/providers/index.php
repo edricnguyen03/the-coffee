@@ -42,6 +42,18 @@ require_once('./App/Views/Admin/layouts/header.php');
                             </div>
                         </form>
                     </div>
+                    <?php if (isset($_SESSION['error'])) : ?>
+                        <div class="alert alert-danger text-center" role="alert">
+                            <?php echo $_SESSION['error']; ?>
+                        </div>
+                        <?php unset($_SESSION['error']); ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['success'])) : ?>
+                        <div class="alert alert-success text-center" role="alert">
+                            <?php echo $_SESSION['success']; ?>
+                        </div>
+                        <?php unset($_SESSION['success']); ?>
+                    <?php endif; ?>
                     <table class="table">
                         <thead>
                             <tr>
@@ -77,7 +89,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             </td>
                                             <td>
                                                 <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Sửa</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Xóa</a>
+                                                <a onclick="confirmDelete(event, <?php echo $provider['id']; ?>)" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Xóa</a>
                                         </tr>
                                     <?php
                                     }
@@ -107,7 +119,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         </td>
                                         <td>
                                             <a href="edit/<?php echo $provider['id']; ?>" class="btn btn-primary">Sửa</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa nhà cung cấp này không ?')" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Xóa</a>
+                                            <a onclick="confirmDelete(event, <?php echo $provider['id']; ?>)" href="delete/<?php echo $provider['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>
                             <?php
                                 }
@@ -127,6 +139,27 @@ require_once('./App/Views/Admin/layouts/header.php');
 </div>
 <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./../../resources/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+    function confirmDelete(event, categoryId) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Bạn có muốn xóa nhà cung cấp này?",
+            text: "Bạn sẽ không thể khôi phục lại nhà cung cấp này!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "delete/" + categoryId;
+            }
+        });
+    }
+</script>
 </body>
 
 </html>
