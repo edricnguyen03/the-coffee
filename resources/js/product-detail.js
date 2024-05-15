@@ -128,10 +128,9 @@ function addEventForDetailAddToCartButton() {
   if (addToCartButton == null) return;
   addToCartButton.addEventListener("click", function (event) {
     event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+    
     // Lấy id sản phẩm từ thuộc tính data-productid
     var productId = this.getAttribute("data-productid");
-    // Tạo một đối tượng XMLHttpRequest
-    var xhttp = new XMLHttpRequest();
 
     var quantity = document.getElementById("product-detail-quantity").value;
 
@@ -140,6 +139,16 @@ function addEventForDetailAddToCartButton() {
         .getElementById("product-detail-stock")
         .getAttribute("data-productstock")
     );
+
+    if(stock == 0){
+      Swal.fire({
+        icon: "error",
+        title: "Sản phẩm đã hết hàng",
+        text: "Sản phẩm này đã hết hàng, vui lòng chọn sản phẩm khác",
+      });
+      return;
+    }
+    alert(stock);
     if (quantity < 1 || quantity > stock || quantity == "" || isNaN(quantity)) {
       Swal.fire({
         icon: "error",
