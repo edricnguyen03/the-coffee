@@ -1,5 +1,12 @@
 <?php
 require_once('./App/Views/Admin/layouts/header.php');
+
+global $db;
+
+?>
+
+<?php
+
 ?>
 <div class="main">
     <nav class="navbar navbar-expand px-3 border-bottom" style="height:100px;">
@@ -31,7 +38,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                         Danh sách đơn nhập hàng
                     </h5>
                 </div>
-                <div class="card-body" id="">
+                <div class="card-body" id="receipt_table">
 
                     <div class="mb-3">
                         <form method="GET">
@@ -56,19 +63,22 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Tên phiếu nhập</th>
-                                <th scope="col">Nhà cung cấp</th>
-                                <th scope="col">Tổng số lượng</th>
-                                <th scope="col">Thời gian tạo</th>
+                                <th scope="col"><a class="column_sort" id="id" data-order="desc" href="#">ID<i class="fas fa-caret-up icon"></i></a></th>
+                                <th scope="col"><a class="column_sort" id="name" data-order="desc" href="#">Tên phiếu nhập</a></th>
+                                <th scope="col"><a class="column_sort" id="provider_id" data-order="desc" href="#">Nhà cung cấp</a></th>
+                                <th scope="col"><a class="column_sort" id="total" data-order="desc" href="#">Tổng số lượng</a></th>
+                                <th scope="col"><a class="column_sort" id="create_at" data-order="desc" href="#">Thời gian tạo</a></th>
                                 <th scope="col">Hành động</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php
+                        <?php
+
                             global $db;
                             if (isset($_GET['search'])) {
                                 $filterValues = $_GET['search'];
+                                // $connect = mysqli_connect('localhost', 'root', '', 'testing');  
+                                $query = "SELECT * FROM tbl_employee ORDER BY id DESC";  
+                                // $result = mysqli_query($connect, $query);
                                 $query = $db->query("SELECT * FROM receipts WHERE CONCAT( id , name ) LIKE '%$filterValues%'");
                                 $query->execute();
                                 $receipts = $query->fetchAll();
@@ -82,18 +92,20 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             <td><?php echo $receipt['total']; ?></td>
                                             <td><?php echo $receipt['create_at']; ?></td>
                                             <td>
-                                                <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Sửa</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Xóa</a>
+                                            <a href="detail/<?php echo $receipt['id']; ?>" class="btn btn-primary">Hiển thị</a>
                                         </tr>
                                     <?php
                                     }
-                                } else {
-                                    ?>
-                                    <tr>
-                                        <td colspan="6" class="text-center">KHÔNG TÌM THẤY NGƯỜI DÙNG</td>
-                                    </tr>
+                                } else {    
+                                ?>
+                                <tr>
+                                    <td colspan="6" class="text-center">KHÔNG TÌM THẤY NGƯỜI DÙNG</td>
+                                </tr>
                                 <?php
                                 }
+                                ?>
+                        <tbody> 
+                        <?php
                             } else {
                                 $query = $db->query("SELECT * FROM receipts");
                                 $query->execute();
@@ -133,7 +145,7 @@ require_once('./App/Views/Admin/layouts/header.php');
 <script src="./../../resources/js/script.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
+<link rel="stylesheet" href="./../../resources/css/style.css">
 
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 
@@ -142,36 +154,37 @@ require_once('./App/Views/Admin/layouts/header.php');
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
 </body>
-<!-- <script type="text/javascript">    
-$(document).ready(function(){
-    $(document).on('click','.column_sort',function(){
-        var column_name = $(this).attr("id");
-        var order = $(this).data("order");
-        // fas fa-sort-amount-up-alt
-        // fas fa-sort-amount-down
-        var arrow = '';
-        if(order == 'desc'){
-            arrow = '&nbsp;,<span class="fas fa-sort-amount-up-down"></span>';
-        }
-        else {
-            arrow = '&nbsp;,<span class="fas fa-sort-amount-up-alt"></span>';
-        }
-        $.ajax({
-            url:"store",
-            method:"POST",
-            data:{
-                column_name:column_name,
-                order:order,
-                success:function(data) {
-                    $('#table').html(data);
-                    $('#'+column_name+'').append(arrow);
-                }
-            }
-        })
-    });
-})
+<script type="text/javascript">    
+    $(document).ready(function(){  
+      $(document).on('click', '.column_sort', function(){  
+           var column_id = $(this).attr("id");  
+           var order = $(this).data("order");  
+           var arrow = '';  
+           //glyphicon glyphicon-arrow-up  
+           //glyphicon glyphicon-arrow-down  
+           if(order == 'desc')  
+           {  
+                arrow = '<i class="fas fa-caret-down icon"></i>';  
+           }  
+           else  
+           {  
+                arrow = '<i class="fas fa-caret-up icon"></i>';  
+           }  
+           $.ajax({  
+                url:"store",  
+                method:"POST",  
+                data:{column_id:column_id, order:order},  
+                success:function(data)  
+                {  
+                     $('#receipt_table').html(data);  
+                     $('#'+column_id+'').append(arrow);  
+                }  
+           })  
+      });  
+ });  
     
-</script> -->
+</script> 
 
 </html>
