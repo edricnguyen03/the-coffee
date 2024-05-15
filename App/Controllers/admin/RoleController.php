@@ -6,6 +6,7 @@ class RoleController extends Controller
     public $roleModel;
     public $permissionModel;
     public $permissionRoleModel;
+    public $userModel;
 
     public function __construct()
     {
@@ -13,6 +14,7 @@ class RoleController extends Controller
         $this->roleModel = $this->model('RoleModel');
         $this->permissionModel = $this->model('PermissionModel');
         $this->permissionRoleModel = $this->model('PermissionRoleModel');
+        $this->userModel = $this->model('UserModel');
     }
 
     // Function to show role data from the database
@@ -195,21 +197,21 @@ class RoleController extends Controller
             require_once './App/errors/404.php';
             return;
         }
-        if ($this->roleModel->deleteRole($roleId)) {
-            // If the deletion was successful, save success message to session
-            $_SESSION['success'] = 'Xóa vai trò thành công';
-            // Then redirect to the index page
+        $isRoleInUser = $this->userModel->checkRoleInUser($roleId);
+        if (!$isRoleInUser) {
+            // If role is not in user table, delete it
+            if ($this->roleModel->deleteRole($roleId)) {
+                $_SESSION['success'] = 'Xóa vai trò thành công';
+                header('Location: /the-coffee/admin/role/');
+                exit();
+            } else {
+                $_SESSION['error'] = 'Xóa vai trò thất bại';
+            }
+        } else {
+            // If role is in user table show an error message
+            $_SESSION['error'] = 'Không thể xóa vai trò này vì có người dùng đang sử dụng';
             header('Location: /the-coffee/admin/role/');
             exit();
-        } else {
-            // If the deletion failed, show an error message and stay on the current page
-            // You can also save the error message to session and display it on the current page
-            $_SESSION['error'] = 'Xóa vai trò thất bại';
         }
-    }
-
-    public function alert()
-    {
-        $this->view('/alert',);
     }
 }

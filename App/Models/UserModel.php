@@ -260,4 +260,13 @@ class UserModel
         $result = $db->update("users", ["status" => $status], "id = $userId");
         return $result;
     }
+    public function checkRoleInUser($roleId)
+    {
+        global $db;
+        $result = $db->get('users', 'id', 'role_id = ' . $roleId);
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
+    }
 }

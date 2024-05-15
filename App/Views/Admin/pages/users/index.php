@@ -44,6 +44,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                         <div class="alert alert-danger text-center" role="alert">
                             <?php echo $_SESSION['error']; ?>
                         </div>
+                        <?php unset($_SESSION['error']); ?>
                     <?php endif; ?>
                     <?php if (isset($_SESSION['success'])) : ?>
                         <div class="alert alert-success text-center" role="alert">

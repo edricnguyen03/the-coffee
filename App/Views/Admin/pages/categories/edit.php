@@ -259,7 +259,7 @@ require_once './App/Models/Auth.php';
                                 </div>
                             <?php endif; ?>
                             <?php if (isset($_SESSION['success'])) : ?>
-                                <div class="alert alert-success text-center" category="alert">
+                                <div class="alert alert-success text-center" role="alert">
                                     <?php echo $_SESSION['success']; ?>
                                 </div>
                                 <?php unset($_SESSION['success']); ?>

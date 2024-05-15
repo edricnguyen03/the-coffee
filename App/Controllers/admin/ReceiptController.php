@@ -271,9 +271,4 @@ class ReceiptController extends Controller
         }
         // Your code to delete the user from the database based on $userId
     }
-
-    public function alert()
-    {
-        $this->view('/alert',);
-    }
 }

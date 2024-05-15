@@ -139,9 +139,4 @@ class PermissionController extends Controller
             $_SESSION['error'] = 'Xóa phân quyền thất bại';
         }
     }
-
-    public function alert()
-    {
-        $this->view('/alert',);
-    }
 }

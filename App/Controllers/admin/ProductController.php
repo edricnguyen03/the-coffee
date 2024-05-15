@@ -280,9 +280,4 @@ class productController extends Controller
             $this->view('/Admin/pages/products/index', $this->data);
         }
     }
-
-    public function alert()
-    {
-        $this->view('/alert',);
-    }
 }

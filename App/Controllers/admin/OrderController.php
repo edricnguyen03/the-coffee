@@ -97,9 +97,4 @@ class OrderController extends Controller
             echo $result;
         }
     }
-
-    public function alert()
-    {
-        $this->view('/alert',);
-    }
 }
