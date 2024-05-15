@@ -1,30 +1,28 @@
 <div class="login-wrapper" id="login-wrapper">
      <div class="form-wrapper sign-up">
-          <form id="regisForm" action="Login_Regis/Register" method="post">
+          <form id="regisForm" method="POST">
                <h1>Tạo Tài Khoản</h1>
-               <input type="text" id="name" name="name" placeholder="Tên" onblur="validate('name_result', this.value)" required>
+               <input type="text" id="name" name="name" placeholder="Tên" required>
                <center>
                     <div class="text-danger" id="name_result"></div>
                </center>
 
-               <input type="email" id="email" name="email" placeholder="Email" onblur="validate('email_result', this.value)" required>
+               <input type="email" id="email" name="email" placeholder="Email" required>
                <center>
                     <div class="text-danger" id="email_result"></div>
                </center>
 
-
-
-               <input type="password" id="password" name="password" placeholder="Mật khẩu" onblur="validate('password_result', this.value)" required>
+               <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
                <center>
                     <div class="text-danger" id="password_result"></div>
                </center>
 
-               <input type="password" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu" onblur="validate('repassword_result', this.value)" required>
+               <input type="password" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu" required>
                <center>
                     <div class="text-danger" id="repassword_result"></div>
                </center>
                <!-- button trong form dang ky -->
-               <button id="registerButton" name="registerButton" onclick="validForm()">Đăng Kí</button>
+               <button id="registerButton" name="registerButton">Đăng Kí</button>
 
 
           </form>
@@ -57,6 +55,7 @@
           </div>
      </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
      .responseText {
           color: red;
@@ -258,7 +257,8 @@
 
      .text-danger {
           color: red;
-          font-size: 12px;
+          font-size: 14px;
+          font-weight: 500;
      }
 
      .text-success {
@@ -266,107 +266,3 @@
           font-size: 12px;
      }
 </style>
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-     // kiểm tra mật khẩu có trùng khớp không
-     var password = document.getElementById("password").value;
-     var repassword = document.getElementById("repassword").value;
-     if (password != repassword) {
-          Swal.fire({
-               icon: "error",
-               title: "Mật khẩu không khớp",
-               text: "Vui lòng nhập lại mật khẩu",
-          });
-          return;
-     }
-     //function validForm
-     function validForm() {
-          var name = document.getElementById('name').value;
-          var email = document.getElementById('email').value;
-          //var phone = document.getElementById('phone').value;
-          var password = document.getElementById('password').value;
-          var repassword = document.getElementById('repassword').value;
-
-          if (name == "" || email == "" || phone == "" || password == "" || repssword == "") {
-               alert('Vui lòng nhập đầy đủ thông tin');
-               document.getElementById('name').focus();
-          } else {
-               var name_result = document.getElementById('name_result');
-               var email_result = document.getElementById('email_result');
-               // var phone_result = document.getElementById('phone_result');
-               var password_result = document.getElementById('password_result');
-               var repassword_result = document.getElementById('repassword_result');
-
-               if (
-                    name_result.innerHTML == "Tên phải lớn hơn 4 ký tự" ||
-                    email_result.innerHTML == "Email không hợp lệ" ||
-                    // phone_result.innerHTML == "Số điện thoại không hợp lệ" ||
-                    password_result.innerHTML == "Mật khẩu phải lớn hơn 4 ký tự" ||
-                    repassword_result.innerHTML == "Mật khẩu không khớp"
-
-               ) {
-                    alert('Vui lòng nhập đúng các thông tin!');
-               } else {
-                    document.getElementById('regisForm').submit();
-               }
-          }
-
-     }
-
-     //function validate using ajax have xmlhttp
-     function validate(field, value) {
-          var xmlhttp;
-          if (window.XMLHttpRequest) {
-               xmlhttp = new XMLHttpRequest();
-          } else {
-               xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-          }
-
-          xmlhttp.onreadystatechange = function() {
-               if (xmlhttp.readyState != 4 && xmlhttp.status == 200) {
-                    document.getElementById(field).innerHTML = "Validating..";
-               } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById(field).innerHTML = xmlhttp.responseText;
-               }
-
-          };
-
-          xmlhttp.open(
-               "GET",
-               "validation.php",
-               true
-          );
-          var params = "field=" + field + "&value=" + value;
-          xmlhttp.send(params);
-     }
-
-     $.ajax({
-          type: 'POST',
-          url: 'Login_Regis/Register',
-          data: {
-               name: name,
-               email: email,
-               password: password,
-               repassword: repassword
-          },
-          success: function(response) {
-
-               if (response == 'Fail') {
-                    Swal.fire({
-                         icon: 'error',
-                         title: 'Đăng kí thất bại!',
-                         text: 'Mật khẩu không khớp!',
-                    })
-               } else {
-                    Swal.fire({
-                         icon: 'success',
-                         title: 'Đăng kí thành công!',
-                         showConfirmButton: false,
-                         timer: 1500
-                    })
-               }
-          }
-     });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

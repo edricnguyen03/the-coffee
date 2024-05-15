@@ -40,40 +40,40 @@ require_once './App/Models/Auth.php';
                                     <p>Tài khoản</p>
                                     <span></span>
                                 </a>
-                            <?php
-                        
-                        if (Auth::hasAdminPermission($_SESSION['login']['id']) == true) {
-                            ?>
-                                <a href="admin/dashboard/" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
-                                    <p>Cài đặt</p>
+                                <?php
+
+                                if (Auth::hasAdminPermission($_SESSION['login']['id']) == true) {
+                                ?>
+                                    <a href="admin/dashboard/" class="sub-menu-link">
+                                        <img src="/the-coffee/resources/images/user-detail/setting.png" alt="">
+                                        <p>Cài đặt</p>
+                                        <span></span>
+                                    </a>
+                                <?php
+                                } else {
+                                ?>
+                                    <a href="/the-coffee/cart" class="sub-menu-link">
+                                        <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
+                                        <p>Giỏ hàng</p>
+                                        <span></span>
+                                    </a>
+                                    <a href="/the-coffee/orders" class="sub-menu-link">
+                                        <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
+                                        <p>Đơn hàng</p>
+                                        <span></span>
+                                    </a>
+                                <?php
+                                }
+                                ?>
+                                <a href="Login_Regis/Logout" class="sub-menu-link">
+                                    <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
+                                    <p>Đăng xuất</p>
                                     <span></span>
                                 </a>
-                            <?php
-                        } else {
-                            ?>
-                                <a href="/the-coffee/cart" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/shopping-cart.png" alt="">
-                                    <p>Giỏ hàng</p>
-                                    <span></span>
-                                </a>
-                                <a href="/the-coffee/orders" class="sub-menu-link">
-                                    <img src="/the-coffee/resources/images/user-detail/order.png" alt="">
-                                    <p>Đơn hàng</p>
-                                    <span></span>
-                                </a>
-                            <?php
-                        }
-                            ?>
-                            <a href="Login_Regis/Logout" class="sub-menu-link">
-                                <img src="/the-coffee/resources/images/user-detail/logout.png" alt="">
-                                <p>Đăng xuất</p>
-                                <span></span>
-                            </a>
                             </div>
                         </div>
                     <?php
-                } else if ($_SESSION['login']['status'] == -1) {
+                    } else if ($_SESSION['login']['status'] == -1) {
                     ?>
                         <li class="nav-item ms-3">
                             <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
@@ -82,8 +82,8 @@ require_once './App/Models/Auth.php';
                             <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
                         </div>
                     <?php
-                    unset($_SESSION['login']['status']);
-                } else if ($_SESSION['login']['status'] == 0) {
+                        unset($_SESSION['login']['status']);
+                    } else if ($_SESSION['login']['status'] == 0) {
                     ?>
                         <li class="nav-item ms-3">
                             <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
@@ -99,18 +99,19 @@ require_once './App/Models/Auth.php';
                             });
                         </script>
                     <?php
-                    unset($_SESSION['login']['status']);
-                }} else {
+                        unset($_SESSION['login']['status']);
+                    }
+                } else {
                     ?>
-                        <li class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
-                        </li>
-                        <div class="nav-item ms-3">
-                            <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
-                        </div>
-                    <?php
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-black btn-rounded" id="header-login-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng nhập</a>
+                    </li>
+                    <div class="nav-item ms-3">
+                        <a class="btn btn-black btn-rounded" id="header-regis-btn" style="border: 2px solid black;width:150px;"><i class="fa-solid fa-user icon"></i>Đăng kí</a>
+                    </div>
+                <?php
                 }
-                    ?>
+                ?>
             </ul>
         </div>
     </div>
@@ -176,6 +177,7 @@ require_once './App/Models/Auth.php';
     .user-info h5 {
         font-weight: 500;
     }
+
     .sub-menu-link {
         display: flex;
         align-items: center;
@@ -211,6 +213,7 @@ require_once './App/Models/Auth.php';
     }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     const loginBtn = document.getElementById('header-login-btn');
@@ -250,8 +253,10 @@ require_once './App/Models/Auth.php';
                         document.body.style.overflow = "hidden";
 
                         const container = document.getElementById('login-wrapper');
+                        // hai nut chuyen form dang nhap va dang ky
                         const toggle_registerBtn = document.getElementById('register');
                         const toggle_loginBtn = document.getElementById('login');
+                        // hai nut xac nhan dang nhap va dang ky
                         const form_loginBtn = document.getElementById('loginButton');
                         const form_registerBtn = document.getElementById('registerButton');
 
@@ -286,7 +291,20 @@ require_once './App/Models/Auth.php';
                                     console.log(response);
                                     switch (response) {
                                         case "success": {
-                                            window.location.reload();
+                                            // an form dang nhap va lop phu cua no
+                                            login_regis_overlay.style.display = 'none';
+                                            inner_login_regis_form.style.display = 'none';
+
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Thành công',
+                                                text: 'Đăng nhập thành công !',
+                                                showConfirmButton: false,
+                                                timer: 3000
+                                            }).then(function() {
+                                                window.location.href = "/the-coffee/";
+                                            });
+
                                             break;
                                         }
                                         case "notFound": {
@@ -295,7 +313,20 @@ require_once './App/Models/Auth.php';
                                             break;
                                         }
                                         case "banned": {
-                                            window.location.reload();
+                                            // an form dang nhap va lop phu cua no
+                                            login_regis_overlay.style.display = 'none';
+                                            inner_login_regis_form.style.display = 'none';
+
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Error',
+                                                text: 'Tài khoản của bạn đã bị khóa !',
+                                                showConfirmButton: false,
+                                                timer: 3000
+                                            }).then(function() {
+                                                window.location.href = "/the-coffee/";
+                                            });
+
                                             break;
                                         }
                                         case "wrongPassword": {
@@ -321,6 +352,8 @@ require_once './App/Models/Auth.php';
 
             });
         }
+
+        // xu ly su kien click vao nut dang ky
         if (regisBtn != null) {
             regisBtn.addEventListener('click', () => {
                 event.preventDefault();
@@ -336,12 +369,12 @@ require_once './App/Models/Auth.php';
                         document.body.style.overflow = "hidden";
 
                         const container = document.getElementById('login-wrapper');
+                        // hai nut chuyen form dang nhap va dang ky
                         const toggle_registerBtn = document.getElementById('register');
                         const toggle_loginBtn = document.getElementById('login');
+                        // hai nut xac nhan dang nhap va dang ky
                         const form_loginBtn = document.getElementById('loginButton');
                         const form_registerBtn = document.getElementById('registerButton');
-
-
 
 
                         form_loginBtn.addEventListener('click', () => {
@@ -381,13 +414,227 @@ require_once './App/Models/Auth.php';
 
                         });
 
+                        //xu ly form dang ky
+                        form_registerBtn.addEventListener('click', () => {
+                            event.preventDefault();
+                            var username = document.getElementById('name').value;
+                            var email = document.getElementById('email').value;
+                            var password = document.getElementById('password').value;
+                            var repassword = document.getElementById('repassword').value;
+
+                            // kiem tra xem cac truong co bi trong hay khong
+                            if (username == "" && email == "" && password == "" && repassword == "") {
+                                $('#name_result').html('Vui lòng nhập tên.');
+                                $('#email_result').html('Vui lòng nhập email.');
+                                $('#password_result').html('Vui lòng nhập mật khẩu.');
+                                $('#repassword_result').html('Vui lòng nhập lại mật khẩu.');
+                                return;
+                            } else {
+                                // kiem tra ten co trong khong
+                                if (username.trim() == "") {
+                                    $('#name_result').html('Vui lòng nhập tên.');
+                                    $('#email_result').html('');
+                                    $('#password_result').html('');
+                                    $('#repassword_result').html('');
+                                    return;
+                                } else {
+
+                                    // kiem tra ten co hop le khong
+                                    // ten phai tu 4 ki tu tro len
+                                    if (username.trim().length < 4) {
+                                        $('#name_result').html('Tên phải lớn hơn 4 ký tự.');
+                                        $('#email_result').html('');
+                                        $('#password_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    }
+
+                                    // ten phai duoi 40 ki tu
+                                    else if (username.trim().length > 40) {
+                                        $('#name_result').html('Tên phải nhỏ hơn 40 ký tự.');
+                                        $('#email_result').html('');
+                                        $('#password_result').html('');
+                                        $('#repassword_result').html('');
+
+                                        return;
+                                    }
+                                    // kiem tra ten co chua khoang trang o dau va cuoi chuoi hay khong
+                                    else if (username.trim() !== username) {
+                                        $('#name_result').html('Tên không được chứa khoảng trắng ở đầu và cuối.');
+                                        $('#email_result').html('');
+                                        $('#password_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    }
+                                    // kiem tra ten co chua so hoac ki tu dac biet hay khong
+                                    else if (!/^[\p{L} ]*$/gu.test(username) || /\d/.test(username)) {
+                                        $('#name_result').html('Tên không được chứa ký tự đặc biệt hoặc số.');
+                                        $('#email_result').html('');
+                                        $('#password_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    } else {
+                                        $('#name_result').html('');
+                                    }
+                                }
+
+                                // kiem tra email co trong khong
+                                if (email.trim() == "") {
+                                    $('#email_result').html('Vui lòng nhập email.');
+                                    $('#name_result').html('');
+                                    $('#password_result').html('');
+                                    $('#repassword_result').html('');
+                                    return;
+                                } else {
+                                    // kiem tra email co hop le khong (duoi email tu 2 den 3 ki tu)
+                                    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/.test(email)) {
+                                        $('#email_result').html('Email không hợp lệ.');
+                                        $('#name_result').html('');
+                                        $('#password_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    }
+                                    // kiem tra email co dai qua 40 ki tu hay khong
+                                    else if (!/^[a-zA-Z0-9._%+-]{1,40}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/.test(email)) {
+                                        $('#email_result').html('Email dài quá 40 ký tự.');
+                                        $('#name_result').html('');
+                                        $('#password_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    } else {
+                                        $('#email_result').html('');
+                                    }
+                                }
+
+                                // kiem tra password co trong khong
+                                if (password.trim() == "") {
+                                    $('#password_result').html('Vui lòng nhập mật khẩu.');
+                                    $('#name_result').html('');
+                                    $('#email_result').html('');
+                                    $('#repassword_result').html('');
+                                    return;
+                                } else {
+                                    // kiem tra password co hop le khong
+                                    // password phai tu 4 den 10 ki tu
+                                    if (password.trim().length < 4 || password.trim().length > 10) {
+                                        $('#password_result').html('Mật khẩu phải từ 4 đến 10 ký tự.');
+                                        $('#name_result').html('');
+                                        $('#email_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    }
+                                    // kiem tra mat khau co chua khoang trang o 2 dau khong
+                                    else if (password.trim() !== password) {
+                                        $('#password_result').html('Mật khẩu không được chứa khoảng trắng ở đầu và cuối.');
+                                        $('#name_result').html('');
+                                        $('#email_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    }
+
+                                    // kiem tra mat khau co chua khoang trang hay khong
+                                    else if (password.includes(' ')) {
+                                        $('#password_result').html('Mật khẩu không được chứa khoảng trắng.');
+                                        $('#name_result').html('');
+                                        $('#email_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    } else {
+                                        $('#password_result').html('');
+                                    }
+                                }
+
+                                // kiem tra repassword co trong khong
+                                if (repassword.trim() == "") {
+                                    $('#repassword_result').html('Vui lòng nhập lại mật khẩu.');
+                                    $('#name_result').html('');
+                                    $('#email_result').html('');
+                                    $('#password_result').html('');
+                                    return;
+                                } else {
+                                    // kiem tra repassword co hop le khong
+                                    // repassword phai trung voi password
+                                    if (repassword.trim() !== password.trim()) {
+                                        $('#repassword_result').html('Mật khẩu không khớp.');
+                                        $('#name_result').html('');
+                                        $('#email_result').html('');
+                                        $('#password_result').html('');
+                                        return;
+                                    } else {
+                                        $('#repassword_result').html('');
+                                    }
+                                }
+
+
+                            }
+
+                            //su dung ajax de gui du lieu len server
+                            $.ajax({
+                                type: 'POST',
+                                url: '/the-coffee/Login_Regis/Register', // replace with your register endpoint
+                                data: {
+                                    name: username,
+                                    email: email,
+                                    password: password,
+                                    repassword: repassword
+                                },
+                                success: function(response) {
+                                    response = response.trim();
+                                    switch (response) {
+
+                                        case 'notmatch':
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Error',
+                                                text: 'Mật khẩu không khớp !'
+                                            });
+                                            break;
+
+
+                                        case 'fail':
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Error',
+                                                text: 'Đăng kí thất bại !'
+                                            });
+                                            break;
+
+                                        case 'success':
+                                            // an form dang ki va lop phu cua no
+                                            login_regis_overlay.style.display = 'none';
+                                            inner_login_regis_form.style.display = 'none';
+
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Thành công',
+                                                text: 'Đăng kí thành công !',
+                                                showConfirmButton: false,
+                                                timer: 3000
+
+                                            }).then(function() {
+
+                                                window.location.href = "/the-coffee/";
+                                            });
+                                            break;
+
+
+                                    }
+                                }
+                            });
+
+                        });
+
+
                         toggle_registerBtn.addEventListener('click', () => {
                             container.classList.add("active");
                         });
                         toggle_loginBtn.addEventListener('click', () => {
                             container.classList.remove("active");
                         });
+
+                        //khi an vao nut dang ki thi form tu overlay trang dang ki
                         toggle_registerBtn.click();
+
                     }
                 }
                 xhttp.send();
@@ -408,40 +655,6 @@ require_once './App/Models/Auth.php';
         inner_login_regis_form.style.display = 'none';
         document.body.style.overflow = 'auto';
     };
-    // form kiem tra dang ky
-    //function validForm
-    function validForm() {
-        var name = document.getElementById('name').value;
-        var email = document.getElementById('email').value;
-        var phone = document.getElementById('phone').value;
-        var password = document.getElementById('password').value;
-        var repassword = document.getElementById('repassword').value;
-
-        if (name == "" || email == "" || phone == "" || password == "" || repssword == "") {
-            alert('Vui lòng nhập đầy đủ thông tin');
-            document.getElementById('name').focus();
-        } else {
-            var name_result = document.getElementById('name_result');
-            var email_result = document.getElementById('email_result');
-            var phone_result = document.getElementById('phone_result');
-            var password_result = document.getElementById('password_result');
-            var repassword_result = document.getElementById('repassword_result');
-
-            if (
-                name_result.innerHTML == "Tên phải lớn hơn 4 ký tự" ||
-                email_result.innerHTML == "Email không hợp lệ" ||
-                phone_result.innerHTML == "Số điện thoại không hợp lệ" ||
-                password_result.innerHTML == "Mật khẩu phải lớn hơn 4 ký tự" ||
-                repassword_result.innerHTML == "Mật khẩu không khớp"
-
-            ) {
-                alert('Vui lòng nhập đúng các thông tin!');
-            } else {
-                document.getElementById('regisForm').submit();
-            }
-        }
-
-    }
 
     //function validate using jQuery
     function validate(field, value) {
@@ -456,4 +669,3 @@ require_once './App/Models/Auth.php';
         );
     }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
