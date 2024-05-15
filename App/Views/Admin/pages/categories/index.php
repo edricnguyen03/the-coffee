@@ -86,7 +86,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             </td>
                                             <td>
                                                 <a href="edit/<?php echo $category['id']; ?>" class="btn btn-primary">Sửa</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $category['id']; ?>" class="btn btn-danger">Xóa</a>
+                                                <a onclick="return confirm('Bạn có muốn xóa danh mục này không ?')" href="delete/<?php echo $category['id']; ?>" class="btn btn-danger">Xóa</a>
                                         </tr>
                                     <?php
                                     }
@@ -115,7 +115,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         </td>
                                         <td>
                                             <a href="edit/<?php echo $category['id']; ?>" class="btn btn-primary">Sửa</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $category['id']; ?>" class="btn btn-danger">Xóa</a>
+                                            <a onclick="return confirm('Bạn có muốn xóa danh mục này không ?')" href="delete/<?php echo $category['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>
                             <?php
                                 }
