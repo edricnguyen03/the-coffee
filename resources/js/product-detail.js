@@ -128,10 +128,9 @@ function addEventForDetailAddToCartButton() {
   if (addToCartButton == null) return;
   addToCartButton.addEventListener("click", function (event) {
     event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+    
     // Lấy id sản phẩm từ thuộc tính data-productid
     var productId = this.getAttribute("data-productid");
-    // Tạo một đối tượng XMLHttpRequest
-    var xhttp = new XMLHttpRequest();
 
     var quantity = document.getElementById("product-detail-quantity").value;
 
@@ -140,12 +139,22 @@ function addEventForDetailAddToCartButton() {
         .getElementById("product-detail-stock")
         .getAttribute("data-productstock")
     );
-    if (quantity < 1 || quantity > stock || quantity == "" || isNaN(quantity)) {
+
+    if(stock == 0){
+      Swal.fire({
+        icon: "error",
+        title: "Sản phẩm đã hết hàng",
+        text: "Sản phẩm này đã hết hàng, vui lòng chọn sản phẩm khác",
+      });
+      return;
+    }
+    if (quantity < 1 || quantity > stock || quantity == "" || isNaN(quantity) || !Number.isInteger(Number(quantity))) {
       Swal.fire({
         icon: "error",
         title: "Số lượng không hợp lệ",
-        text: "Số lượng phải nằm trong khoảng từ 1 đến " + stock,
+        text: "Số lượng phải là số nguyên nằm trong khoảng từ 1 đến " + stock,
       });
+      document.getElementById("product-detail-quantity").value = '1';
       return;
     }
     // Xác định phương thức và URL của file PHP cần include
