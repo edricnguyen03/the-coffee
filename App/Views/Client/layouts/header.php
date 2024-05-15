@@ -655,17 +655,4 @@ require_once './App/Models/Auth.php';
         inner_login_regis_form.style.display = 'none';
         document.body.style.overflow = 'auto';
     };
-
-    //function validate using jQuery
-    function validate(field, value) {
-        $.post(
-            "/the-coffee/Login_Regis/validation", {
-                field: field,
-                value: value
-            },
-            function(data) {
-                $("#" + field).html(data);
-            }
-        );
-    }
 </script>

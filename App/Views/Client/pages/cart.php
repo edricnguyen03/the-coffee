@@ -28,15 +28,6 @@
                             </div>
                         </div>
 
-                        <!-- Email -->
-                        <!-- <div class="col-12">
-                            <div class="form-group">
-                                <p> <input type="email" class="form-control" id="email" name="email" placeholder="Email" onblur="validation('email_result', this.value)"> </p>
-                            </div>
-                            <div>
-                                <span class="text-danger" id="email_result"></span>
-                            </div>
-                        </div> -->
 
                         <!-- Note -->
                         <div class="col-12">
