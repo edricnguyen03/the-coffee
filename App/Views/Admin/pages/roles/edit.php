@@ -280,7 +280,7 @@ require_once './App/Models/Auth.php';
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="<?php echo $permission['id']; ?>" id="permission<?php echo $permission['id']; ?>" name="permissions[]" <?php echo in_array((int)$permission['id'], array_map('intval', $rolePermissions)) ? 'checked' : ''; ?>>
                                             <label class="form-check-label" for="permission<?php echo $permission['id']; ?>">
-                                                <?php echo $permission['name']; ?>
+                                                <?php echo $permission['description']; ?>
                                             </label>
                                         </div>
                                     <?php endforeach; ?>
@@ -315,11 +315,11 @@ require_once './App/Models/Auth.php';
                     return false;
                 }
                 if (!/^[a-zA-ZáàảãạăắằặẳẵâầấẩẫậèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\s]+$/.test(name)) {
-                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ</div>';
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ gồm 4 đến 40 kí tự</div>';
                     return false;
                 }
                 if (!/^[a-zA-ZáàảãạăắằặẳẵâầấẩẫậèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\s]+$/.test(description)) {
-                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ</div>';
+                    document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ gồm 4 đến 40 kí tự chữ</div>';
                     return false;
                 }
                 return true;
