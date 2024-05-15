@@ -148,13 +148,13 @@ function addEventForDetailAddToCartButton() {
       });
       return;
     }
-    alert(stock);
-    if (quantity < 1 || quantity > stock || quantity == "" || isNaN(quantity)) {
+    if (quantity < 1 || quantity > stock || quantity == "" || isNaN(quantity) || !Number.isInteger(Number(quantity))) {
       Swal.fire({
         icon: "error",
         title: "Số lượng không hợp lệ",
-        text: "Số lượng phải nằm trong khoảng từ 1 đến " + stock,
+        text: "Số lượng phải là số nguyên nằm trong khoảng từ 1 đến " + stock,
       });
+      document.getElementById("product-detail-quantity").value = '1';
       return;
     }
     // Xác định phương thức và URL của file PHP cần include
