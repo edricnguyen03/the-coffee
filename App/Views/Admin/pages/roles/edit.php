@@ -241,14 +241,14 @@ require_once './App/Models/Auth.php';
             </nav>
             <main class="content px-3 py-2">
                 <div class="text-center my-3 py-2">
-                    <h3>QUẢN LÝ NHÀ CUNG CẤP</h3>
+                    <h3>QUẢN LÝ VAI TRÒ</h3>
                 </div>
                 <div class="container-fluid">
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title my-3 py-2">
-                                Chinh sửa nhà cung cấp
+                                Chinh sửa vai trò
                             </h5>
                         </div>
                         <div class="card-body">
