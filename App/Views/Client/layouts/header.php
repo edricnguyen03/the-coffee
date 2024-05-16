@@ -504,8 +504,17 @@ require_once './App/Models/Auth.php';
                                     }
 
                                     // kiem tra email dung dinh dang hay khong (gioi han mail vn)
-                                    else if (!email.includes('.com') && !/^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.vn$/.test(email) && !email.includes('.org') && !email.includes(' ')) {
+                                    else if (!email.includes('.com') && !/^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.vn$/.test(email) && !email.includes('.org')) {
                                         $('#email_result').html('Email không hợp lệ.');
+                                        $('#name_result').html('');
+                                        $('#password_result').html('');
+                                        $('#repassword_result').html('');
+                                        return;
+                                    }
+
+                                    // kiem tra email co chua khoang trang hay khong
+                                    else if (/\s/.test(email)) {
+                                        $('#email_result').html('Email không được chứa khoảng trắng.');
                                         $('#name_result').html('');
                                         $('#password_result').html('');
                                         $('#repassword_result').html('');
@@ -563,7 +572,14 @@ require_once './App/Models/Auth.php';
                                 } else {
                                     // kiem tra repassword co hop le khong
                                     // repassword phai trung voi password
-                                    if (repassword.trim() !== password.trim()) {
+
+                                    if (repassword.includes(' ')) {
+                                        $('#repassword_result').html('Mật khẩu không được chứa khoảng trắng.');
+                                        $('#name_result').html('');
+                                        $('#email_result').html('');
+                                        $('#password_result').html('');
+                                        return;
+                                    } else if (repassword.trim() !== password.trim()) {
                                         $('#repassword_result').html('Mật khẩu không khớp.');
                                         $('#name_result').html('');
                                         $('#email_result').html('');
