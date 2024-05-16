@@ -75,6 +75,7 @@ class Cart extends Controller
         $user_id = $_SESSION['login']['id'];
         $name = $_POST['name'];
         $phoneNumber = $_POST['phone'];
+        $note = $_POST['note'];
         $province = $_POST['province_name'];
         $district = $_POST['district_name'];
         $ward = $_POST['ward_name'];
@@ -110,7 +111,7 @@ class Cart extends Controller
             'name_receiver' => $name,
             'address_receiver' => $address . ', ' . $ward . ', ' . $district . ', ' . $province,
             'phone_receiver' => $phoneNumber,
-            'note' => null,
+            'note' => $note,
             'total' => $total,
             'payment_status' => $payment,
             'order_status' => $status,

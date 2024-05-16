@@ -1,4 +1,5 @@
 <?php
+require_once './App/Models/Auth.php';
 class Product extends Controller
 {
     public $productModel;
@@ -39,6 +40,12 @@ class Product extends Controller
         }
 
         $User_id = $_SESSION['login']['id'];
+
+        if(Auth::hasAdminPermission($User_id)){
+            echo '<script> alert("Admin không có quyền vào trang này"); </script>';
+            require_once './App/errors/404.php';
+            return;
+        }
 
         // Gọi hàm addToCart từ model và xử lý kết quả
         $result = $this->cartModel->addToCart($User_id, $productID, $soLuongMua);

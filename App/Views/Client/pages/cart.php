@@ -11,7 +11,7 @@
                         <!-- Name -->
                         <div class="col-12">
                             <div class="form-group">
-                                <p> <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên" onblur="validation('name_result', this.value)" required value="<?php echo $_SESSION['login']['username'] ?>"> </p>
+                                <p> <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên" required value="<?php echo $_SESSION['login']['username'] ?>"> </p>
                             </div>
                             <div>
                                 <span class=" text-danger" id="name_result"></span>
@@ -21,22 +21,13 @@
                         <!-- Phone -->
                         <div class="col-12">
                             <div class="form-group">
-                                <p> <input type="phone" class="form-control" id="phone" name="phone" placeholder="Số điện thoại" onblur="validation('phone_result', this.value)" required> </p>
+                                <p> <input type="phone" class="form-control" id="phone" name="phone" placeholder="Số điện thoại" required> </p>
                             </div>
                             <div>
                                 <span class="text-danger" id="phone_result"></span>
                             </div>
                         </div>
 
-                        <!-- Email -->
-                        <!-- <div class="col-12">
-                            <div class="form-group">
-                                <p> <input type="email" class="form-control" id="email" name="email" placeholder="Email" onblur="validation('email_result', this.value)"> </p>
-                            </div>
-                            <div>
-                                <span class="text-danger" id="email_result"></span>
-                            </div>
-                        </div> -->
 
                         <!-- Note -->
                         <div class="col-12">
@@ -49,7 +40,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <p> <label for="province">Tỉnh/Thành phố</label> </p>
-                                <p> <select class="input_search province" id="province" name="province" onblur="validation('province_result', this.value)" required>
+                                <p> <select class="input_search province" id="province" name="province" required>
                                         <option selected>Bạn chưa chọn</option>
                                         <!-- dung vong lap de in ra cac tinh thanh -->
 
@@ -68,7 +59,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <p> <label for="district">Quận/Huyện</label> </p>
-                                <p> <select class="input_search district" id="district" name="district" onblur="validation('district_result', this.value)" required>
+                                <p> <select class="input_search district" id="district" name="district" required>
 
                                         <!-- chon tinh in ra huyen tuong ung php -->
 
@@ -86,7 +77,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <p> <label for="ward">Phường/Xã</label> </p>
-                                <p> <select class="input_search ward" id="ward" name="ward" onblur="validation('ward_result', this.value)" required>
+                                <p> <select class="input_search ward" id="ward" name="ward" required>
 
                                         <!-- chon huyen in ra xa tuong ung !-->
                                     </select>
@@ -102,7 +93,7 @@
                         <!-- Address Detail -->
                         <div class="col-12">
                             <div class="form-group">
-                                <p> <input type="text" class="form-control" id="address_detail" name="address_detail" placeholder="Địa chỉ chi tiết" onblur="validation('address_result', this.value)" required> </p>
+                                <p> <input type="text" class="form-control" id="address_detail" name="address_detail" placeholder="Địa chỉ chi tiết" required> </p>
                             </div>
 
                             <div>
@@ -285,8 +276,6 @@
                 }
             });
 
-
-
         } else {
             //gọi hàm cập nhật số lượng sản phẩm trong giỏ hàng
             updateQuantity(idProduct, quantity);
@@ -295,8 +284,6 @@
 
 
     }
-
-
 
 
     // thêm sự kiện để kiểm tra tất cả các input nhập số lượng
@@ -325,8 +312,8 @@
         // if (isNaN(currentTotal)) {
         //     currentTotal = 0;
         // }
-        document.querySelector('.cartSub').innerText = formatCurrency(currentTotal);
-        document.querySelector('.cartTotal').innerText = formatCurrency(currentTotal);
+        // document.querySelector('.cartSub').innerText = formatCurrency(currentTotal);
+        // document.querySelector('.cartTotal').innerText = formatCurrency(currentTotal);
     }
 
     //thêm sự kiện để tính tổng giá trị của giỏ hàng
@@ -358,90 +345,212 @@
         }).format(number);
     }
 
-    // thêm hàm để kiểm tra thông tin giao hàng
-    function validation(field, value) {
-        //check the name
-        if (field == 'name_result') {
-            if (value.length < 4) {
-                $('#name_result').html('Tên phải lớn hơn 4 ký tự');
-            } else {
-                if (value.length > 40) {
-                    $('#name_result').html('Tên không được quá 40 ký tự');
-                }
 
-                // kiem tra ten co chua khoang trang o 2 dau khong
-                else if (value.trim() !== value) {
-                    $('#name_result').html('Tên không được chứa khoảng trắng');
-                }
-
-                //kiem tra chu cai tieng viet 
-                else if (!/^[a-zA-ZáàảãạăắằặẳẵâầấẩẫậèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\s]+$/.test(value)) {
-                    $('#name_result').html('Tên không được chứa ký tự đặc biệt hoặc số');
-                } else {
-                    $('#name_result').html('');
-                }
-            }
-        }
-
-        //check the phone number
-        if (field == 'phone_result') {
-            if (!/^0(\d{9}|9\d{8})$/.test(value)) {
-                $('#phone_result').html('Số điện thoại không hợp lệ');
-            } else {
-                $('#phone_result').html('');
-            }
-        }
-
-
-        //check selected item of combobox province
-        if (field == 'province_result') {
-            if (value == 'Bạn chưa chọn') {
-                $('#province_result').html('Vui lòng chọn Tỉnh/Thành phố');
-            } else {
-                $('#province_result').html('');
-            }
-        }
-
-        //check selected item of combobox district
-        if (field == 'district_result') {
-            if (value == '') {
-                $('#district_result').html('Vui lòng chọn Quận/Huyện');
-            } else {
-                $('#district_result').html('');
-            }
-        }
-
-        //check selected item of combobox ward
-        if (field == 'ward_result') {
-            if (value == '') {
-                $('#ward_result').html('Vui lòng chọn Phường/Xã');
-            } else {
-                $('#ward_result').html('');
-            }
-        }
-
-        //check the address detail
-        if (field == 'address_result') {
-            if (value.length < 4) {
-                $('#address_result').html('Địa chỉ phải lớn hơn 4 ký tự');
-            } else if (value.length > 40) {
-                $('#address_result').html('Địa chỉ không được quá 40 ký tự');
-            }
-        }
-    }
-
-    // thêm hàm để thông báo đặt hàng thành công bằng ajax và sweetalert và trỏ về trang chủ
+    // kiểm tra đặt hàng bằng ajax, báo sweetalert nếu thành công và trỏ về trang chủ
     $('form').submit(function(e) {
         e.preventDefault();
         var name = $('#name').val();
         var phone = $('#phone').val();
-        // var email = $('#email').val();
+        var note = $('#note').val();
         var province = $('#province option:selected').text();
         var district = $('#district option:selected').text();
         var ward = $('#ward option:selected').text();
         var address_detail = $('#address_detail').val();
         var cartTotal = $('#cartTotal').val();
-        var payment = 1;
+
+        // kiểm tra dữ liệu nhập vào
+        // kiem tra cac truong co rong hay khong
+        if (name == '' || phone == '' || province == 'Bạn chưa chọn' || district == '' || ward == '' || address_detail == '') {
+            $('#name_result').html('Vui lòng nhập tên');
+            $('#phone_result').html('Vui lòng nhập số điện thoại');
+            $('#province_result').html('Vui lòng chọn Tỉnh/Thành phố');
+            $('#district_result').html('Vui lòng chọn Quận/Huyện');
+            $('#ward_result').html('Vui lòng chọn Phường/Xã');
+            $('#address_result').html('Vui lòng nhập địa chỉ');
+            return;
+
+        } else {
+            //kiem tra ten co rong hay khong
+            if (name.trim() == '') {
+                $('#name_result').html('Vui lòng nhập tên');
+                $('#phone_result').html('');
+                $('#province_result').html('');
+                $('#district_result').html('');
+                $('#ward_result').html('');
+                $('#address_result').html('');
+                return;
+            } else {
+                //kiem tra ten co hop le khong
+                //ten phai lon hon 4 ky tu
+                if (name.trim().length < 4) {
+                    $('#name_result').html('Tên phải lớn hơn 4 ký tự');
+                    $('#phone_result').html('');
+                    $('#province_result').html('');
+                    $('#district_result').html('');
+                    $('#ward_result').html('');
+                    $('#address_result').html('');
+                    return;
+                }
+
+                //ten phai nho hon 40 ki tu
+                else if (name.trim().length > 40) {
+                    $('#name_result').html('Tên không được quá 40 ký tự');
+                    $('#phone_result').html('');
+                    $('#province_result').html('');
+                    $('#district_result').html('');
+                    $('#ward_result').html('');
+                    $('#address_result').html('');
+                    return;
+                }
+
+                //ten co chua khoang trang o dau va cuoi chuoi hay khong
+                else if (name.trim() !== name) {
+                    $('#name_result').html('Tên không được chứa khoảng trắng ở đầu và cuối');
+                    $('#phone_result').html('');
+                    $('#province_result').html('');
+                    $('#district_result').html('');
+                    $('#ward_result').html('');
+                    $('#address_result').html('');
+                    return;
+                }
+
+                //ten co chua so hoac ki tu dac biet hay khong
+                else if (!/^[\p{L} ]*$/gu.test(name) || /\d/.test(name)) {
+                    $('#name_result').html('Tên không được chứa ký tự đặc biệt hoặc số');
+                    $('#phone_result').html('');
+                    $('#province_result').html('');
+                    $('#district_result').html('');
+                    $('#ward_result').html('');
+                    $('#address_result').html('');
+                    return;
+                } else {
+                    $('#name_result').html('');
+                }
+
+            }
+
+            //kiem tra so dien thoai co rong hay khong
+            if (phone.trim() == '') {
+                $('#phone_result').html('Vui lòng nhập số điện thoại');
+                $('#name_result').html('');
+                $('#province_result').html('');
+                $('#district_result').html('');
+                $('#ward_result').html('');
+                $('#address_result').html('');
+                return;
+            } else {
+                //kiem tra so dien thoai co hop le khong
+                if (!/^0(\d{9}|9\d{8})$/.test(phone)) {
+                    $('#phone_result').html('Số điện thoại không hợp lệ');
+                    $('#name_result').html('');
+                    $('#province_result').html('');
+                    $('#district_result').html('');
+                    $('#ward_result').html('');
+                    $('#address_result').html('');
+                    return;
+                } else {
+                    $('#phone_result').html('');
+                }
+            }
+
+            //kiem tra tinh thanh pho co rong hay khong
+            if (province == 'Bạn chưa chọn') {
+                $('#province_result').html('Vui lòng chọn Tỉnh/Thành phố');
+                $('#name_result').html('');
+                $('#phone_result').html('');
+                $('#district_result').html('');
+                $('#ward_result').html('');
+                $('#address_result').html('');
+                return;
+            } else {
+                $('#province_result').html('');
+            }
+
+            //kiem tra quan huyen co rong hay khong
+            if (district == '') {
+                $('#district_result').html('Vui lòng chọn Quận/Huyện');
+                $('#name_result').html('');
+                $('#phone_result').html('');
+                $('#province_result').html('');
+                $('#ward_result').html('');
+                $('#address_result').html('');
+                return;
+            } else {
+                $('#district_result').html('');
+            }
+
+            //kiem tra phuong xa co rong hay khong
+            if (ward == '') {
+                $('#ward_result').html('Vui lòng chọn Phường/Xã');
+                $('#name_result').html('');
+                $('#phone_result').html('');
+                $('#province_result').html('');
+                $('#district_result').html('');
+                $('#address_result').html('');
+                return;
+            } else {
+                $('#ward_result').html('');
+            }
+
+            //kiem tra dia chi co rong hay khong
+            if (address_detail.trim() == '') {
+                $('#address_result').html('Vui lòng nhập địa chỉ');
+                $('#name_result').html('');
+                $('#phone_result').html('');
+                $('#province_result').html('');
+                $('#district_result').html('');
+                $('#ward_result').html('');
+                return;
+            } else {
+                //kiem tra dia chi co hop le khong
+                //dia chi phai lon hon 4 ky tu
+                if (address_detail.trim().length < 4) {
+                    $('#address_result').html('Địa chỉ phải lớn hơn 4 ký tự');
+                    $('#name_result').html('');
+                    $('#phone_result').html('');
+                    $('#province_result').html('');
+                    $('#district_result').html('');
+                    $('#ward_result').html('');
+                    return;
+                }
+
+                //dia chi phai nho hon 40 ki tu
+                else if (address_detail.trim().length > 40) {
+                    $('#address_result').html('Địa chỉ không được quá 40 ký tự');
+                    $('#name_result').html('');
+                    $('#phone_result').html('');
+                    $('#province_result').html('');
+                    $('#district_result').html('');
+                    $('#ward_result').html('');
+                    return;
+                }
+
+                //dia chi co chua khoang trang o dau va cuoi chuoi hay khong
+                else if (address_detail.trim() !== address_detail) {
+                    $('#address_result').html('Địa chỉ không được chứa khoảng trắng ở đầu và cuối');
+                    $('#name_result').html('');
+                    $('#phone_result').html('');
+                    $('#province_result').html('');
+                    $('#district_result').html('');
+                    $('#ward_result').html('');
+                    return;
+                }
+
+                //dia chi co chua ki tu dac biet hay khong (cho nhap so voi dau /)
+                else if (!/^[\p{L}0-9 \/]*$/gu.test(address_detail)) {
+                    $('#address_result').html('Địa chỉ không được chứa ký tự đặc biệt');
+                    $('#name_result').html('');
+                    $('#phone_result').html('');
+                    $('#province_result').html('');
+                    $('#district_result').html('');
+                    $('#ward_result').html('');
+                    return;
+                } else {
+                    $('#address_result').html('');
+                }
+            }
+
+        }
 
         $.ajax({
             url: '/the-coffee/Cart/buyNow',
@@ -449,13 +558,13 @@
             data: {
                 name: name,
                 phone: phone,
-                // email: email,
+                note: note,
                 province_name: province,
                 district_name: district,
                 ward_name: ward,
                 address_detail: address_detail,
                 cartTotal: cartTotal,
-                payment: payment
+
             },
             // xử lý kết quả trả về từ server
             success: function(response) {
