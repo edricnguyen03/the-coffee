@@ -57,6 +57,7 @@ class ReceiptController extends Controller
         $this->view('/Admin/pages/receipts/create', $this->data);
     }
 
+    
 
     public function store()
     {
@@ -105,7 +106,7 @@ class ReceiptController extends Controller
                 ';
                 $receipt2 = $query->fetchAll();
                 //  echo '<pre>';
-                // print_r($row);
+                // print_r($receipt2);
                 // echo '<pre>';
                 // die();
                 foreach ($receipt2 as $row) 

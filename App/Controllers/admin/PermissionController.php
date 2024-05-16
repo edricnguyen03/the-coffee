@@ -49,23 +49,84 @@ class PermissionController extends Controller
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $name = $_POST['name'];
-            $description = $_POST['description'];
-
-            // Get the current max id
-            $maxId = $this->permissionModel->getMaxId();
-            $newId = $maxId + 1;
-
-            $data = [
-                'id' => $newId,
-                'name' => $name,
-                'description' => $description,
-            ];
-            if ($this->permissionModel->insertPermission($data)) {
-                $this->view('/Admin/pages/permissions/create', ['success' => 'Thêm phân quyền mới thành công']);
-            } else {
-                $this->view('/Admin/pages/permissions/create', ['error' => 'Thêm phân quyền mới thất bại']);
-            };
+            if (isset($_POST['column_id']) && !empty($_POST['column_id'])){
+                // echo '<pre>';
+                // print_r($_POST['column_id']);
+                // echo '<pre>';
+                // die();
+                global $db;
+                $output = '';  
+                $order = $_POST["order"];  
+                if($order == 'desc')  
+                {  
+                    $order = 'asc';  
+                }  
+                else  
+                {  
+                    $order = 'desc';  
+                }  
+                // $query = "SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."";  
+                $query = $db->query("SELECT * FROM permissions ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."");
+                $query->execute();
+                $output .= '
+                    <div class="mb-3">
+                        <form method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên quyền">
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                            </div>
+                        </form>
+                    </div>  
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"><a class="column_sort" id="id" data-order="'.$order.'" href="#">ID</a></th>
+                            <th scope="col"><a class="column_sort" id="name" data-order="'.$order.'" href="#">Tên quyền</a></th>
+                            <th scope="col"><a class="column_sort" id="description" data-order="'.$order.'" href="#">Mô tả</a></th>
+                        </tr>
+                    </thead>  
+                ';
+                $permissions2 = $query->fetchAll();
+             //     echo '<pre>';
+             //    print_r($providers2);
+             //    echo '<pre>';
+             //    die();
+                foreach ($permissions2 as $row) 
+                {  
+                    $output .= ' 
+                    <tbody>  
+                    <tr>
+                            <th scope="row">' . $row["id"] . '</th>
+                            <td>' . $row["name"] . '</td>
+                            <td>' . $row["description"] . '</td>
+                    </tr>
+                    </tbody>
+                    ';  
+                }  
+                $output .= '</table>';  
+                echo $output;  
+                //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+            }
+            else {
+                $name = $_POST['name'];
+                $description = $_POST['description'];
+    
+                // Get the current max id
+                $maxId = $this->permissionModel->getMaxId();
+                $newId = $maxId + 1;
+    
+                $data = [
+                    'id' => $newId,
+                    'name' => $name,
+                    'description' => $description,
+                ];
+                if ($this->permissionModel->insertPermission($data)) {
+                    $this->view('/Admin/pages/permissions/create', ['success' => 'Thêm phân quyền mới thành công']);
+                } else {
+                    $this->view('/Admin/pages/permissions/create', ['error' => 'Thêm phân quyền mới thất bại']);
+                };
+            }
+            
         }
     }
 

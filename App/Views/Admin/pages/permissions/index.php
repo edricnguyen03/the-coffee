@@ -4,6 +4,17 @@
 <?php
 require_once('./App/Views/Admin/layouts/header.php');
 ?>
+
+<style>
+.icon {
+    padding: 5px;
+}
+
+.column_sort {
+    text-decoration: none;
+}
+</style>
+
 <div class="main">
     <nav class="navbar navbar-expand px-3 border-bottom">
         <button class="btn" id="sidebar-toggle" type="button">
@@ -33,16 +44,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <h5 class="card-title">
                         Danh sách quyền
                 </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <form method="GET">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên quyền">
-                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
-                            </div>
-                        </form>
-                    </div>
-                    <?php if (isset($_SESSION['error'])) : ?>
+                <?php if (isset($_SESSION['error'])) : ?>
                         <div class="alert alert-danger text-center" permission="alert">
                             <?php echo $_SESSION['error']; ?>
                         </div>
@@ -53,16 +55,24 @@ require_once('./App/Views/Admin/layouts/header.php');
                         </div>
                         <?php unset($_SESSION['success']); ?>
                     <?php endif; ?>
+                <div class="card-body" id="receipt_table">
+                    <div class="mb-3">
+                        <form method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên quyền">
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                            </div>
+                        </form>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Tên quyền</th>
-                                <th scope="col">Mô tả</th>
+                                <th scope="col"><a class="column_sort" id="id" data-order="desc" href="#">ID<i class="fas fa-caret-up icon"></i></a></th>
+                                <th scope="col"><a class="column_sort" id="name" data-order="desc" href="#">Tên quyền</a></th>
+                                <th scope="col"><a class="column_sort" id="description" data-order="desc" href="#">Mô tả</a></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php
+                        <?php
                             global $db;
                             if (isset($_GET['search'])) {
                                 $filterValues = $_GET['search'];
@@ -72,14 +82,10 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 if ($query->rowCount() > 0) {
                                     foreach ($permissions as $permission) {
                             ?>
-
                                         <tr>
                                             <th scope="row"><?php echo $permission['id']; ?></th>
                                             <td><?php echo $permission['name']; ?></td>
                                             <td><?php echo $permission['description']; ?></td>
-                                            <td>
-                                                <a href="edit/<?php echo $permission['id']; ?>" class="btn btn-primary">Sửa</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa vai trò này không ?')" href="delete/<?php echo $permission['id']; ?>" class="btn btn-danger">Xóa</a>
                                         </tr>
                                     <?php
                                     }
@@ -90,6 +96,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                                     </tr>
                                 <?php
                                 }
+                                ?>
+                        <tbody>
+                        <?php
                             } else {
                                 $query = $db->query("SELECT * FROM permissions");
                                 $query->execute();
@@ -100,8 +109,6 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <th scope="row"><?php echo $permission['id']; ?></th>
                                         <td><?php echo $permission['name']; ?></td>
                                         <td><?php echo $permission['description']; ?></td>
-                                        <td>
-
                                     </tr>
                             <?php
                                 }
@@ -121,6 +128,39 @@ require_once('./App/Views/Admin/layouts/header.php');
 </div>
 <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./../../resources/js/script.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </body>
+
+<script type="text/javascript">    
+    $(document).ready(function(){  
+      $(document).on('click', '.column_sort', function(){  
+           var column_id = $(this).attr("id");  
+           var order = $(this).data("order");  
+           var arrow = '';  
+           //glyphicon glyphicon-arrow-up  
+           //glyphicon glyphicon-arrow-down  
+           if(order == 'desc')  
+           {  
+                arrow = '<i class="fas fa-caret-down icon"></i>';  
+           }  
+           else  
+           {  
+                arrow = '<i class="fas fa-caret-up icon"></i>';  
+           }  
+           $.ajax({  
+                url:"store",  
+                method:"POST",  
+                data:{column_id:column_id, order:order},  
+                success:function(data)  
+                {  
+                     $('#receipt_table').html(data);  
+                     $('#'+column_id+'').append(arrow);  
+                }  
+           })  
+      });  
+ });  
+    
+</script> 
 
 </html>

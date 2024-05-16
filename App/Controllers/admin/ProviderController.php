@@ -52,25 +52,102 @@ class ProviderController extends Controller
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $name = $_POST['name'];
-            $description = $_POST['description'];
-            $status = $_POST['status'];
+            
+                //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+            if (isset($_POST['column_id']) && !empty($_POST['column_id'])){
+                   // echo '<pre>';
+                   // print_r($_POST['column_id']);
+                   // echo '<pre>';
+                   // die();
+                   global $db;
+                   $output = '';  
+                   $order = $_POST["order"];  
+                   if($order == 'desc')  
+                   {  
+                       $order = 'asc';  
+                   }  
+                   else  
+                   {  
+                       $order = 'desc';  
+                   }  
+                   // $query = "SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."";  
+                   $query = $db->query("SELECT * FROM providers ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."");
+                   $query->execute();
+                   $output .= '
+                       <div class="mb-3">
+                           <form method="GET">
+                               <div class="input-group">
+                                   <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên nhà cung cấp">
+                                   <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                               </div>
+                           </form>
+                       </div>  
+                       <table class="table">
+                       <thead>
+                           <tr>
+                                <th scope="col"><a class="column_sort" id="id" data-order="'.$order.'" href="#">ID</a></th>
+                                <th scope="col"><a class="column_sort" id="name" data-order="'.$order.'" href="#">Tên nhà cung cấp</a></th>
+                                <th scope="col"><a class="column_sort" id="description" data-order="'.$order.'" href="#">Mô tả</a></th>
+                                <th scope="col"><a class="column_sort" id="status" data-order="'.$order.'" href="#">Trạng thái</a></th>
+                                <th scope="col">Hành động</th>
+                           </tr>
+                       </thead>  
+                   ';
+                   $providers2 = $query->fetchAll();
+                //     echo '<pre>';
+                //    print_r($providers2);
+                //    echo '<pre>';
+                //    die();
+                   foreach ($providers2 as $row) 
+                   {  
+                       $output .= ' 
+                       <tbody>  
+                       <tr>
+                               <th scope="row">' . $row["id"] . '</th>
+                               <td>' . $row["name"] . '</td>
+                               <td>' . $row["description"] . '</td>
+                               <td>';
+                               if ($row['status'] == '1') {
+                                   $output .= '<button class="btn btn-success" disabled>Active</button>';
+                               } else {
+                                   $output .= '<button class="btn btn-danger" disabled>Inactive</button>';
+                               }
+                                $output .= '</td>
+                                <td>
+                               <a href="edit/' . $row['id'] . '" class="btn btn-primary">Sửa</a>
+                               <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
+                           </td>
+                       </tr>
+                       </tbody>
+                       ';  
+                   }  
+                   $output .= '</table>';  
+                   echo $output;  
+                   //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+               } 
+               else 
+               {
+                    $name = $_POST['name'];
+                    $description = $_POST['description'];
+                    $status = $_POST['status'];
 
-            // Get the current max id
-            $maxId = $this->providerModel->getMaxId();
-            $newId = $maxId + 1;
+                    // Get the current max id
+                    $maxId = $this->providerModel->getMaxId();
+                    $newId = $maxId + 1;
 
-            $data = [
-                'id' => $newId,
-                'name' => $name,
-                'description' => $description,
-                'status' => $status,
-            ];
-            if ($this->providerModel->insertProvider($data)) {
-                $this->view('/Admin/pages/providers/create', ['success' => 'Thêm nhà cung cấp thành công']);
-            } else {
-                $this->view('/Admin/pages/providers/create', ['error' => 'Thêm nhà cung cấp thất bại']);
-            };
+                    $data = [
+                        'id' => $newId,
+                        'name' => $name,
+                        'description' => $description,
+                        'status' => $status,
+                    ];
+                    if ($this->providerModel->insertProvider($data)) {
+                        $this->view('/Admin/pages/providers/create', ['success' => 'Thêm nhà cung cấp thành công']);
+                    } else {
+                        $this->view('/Admin/pages/providers/create', ['error' => 'Thêm nhà cung cấp thất bại']);
+                    };
+                }
+            
         }
     }
 

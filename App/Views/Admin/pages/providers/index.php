@@ -4,6 +4,17 @@
 <?php
 require_once('./App/Views/Admin/layouts/header.php');
 ?>
+
+<style>
+.icon {
+    padding: 5px;
+}
+
+.column_sort {
+    text-decoration: none;
+}
+</style>
+
 <div class="main">
     <nav class="navbar navbar-expand px-3 border-bottom">
         <button class="btn" id="sidebar-toggle" type="button">
@@ -33,7 +44,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <h5 class="card-title">
                         Danh sách nhà cung cấp
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="receipt_table">
                     <div class="mb-3">
                         <form method="GET">
                             <div class="input-group">
@@ -45,15 +56,14 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Tên nhà cung cấp</th>
-                                <th scope="col">Mô tả</th>
-                                <th scope="col">Trạng thái</th>
+                                <th scope="col"><a class="column_sort" id="id" data-order="desc" href="#">ID<i class="fas fa-caret-up icon"></i></a></th>
+                                <th scope="col"><a class="column_sort" id="name" data-order="desc" href="#">Tên nhà cung cấp</a></th>
+                                <th scope="col"><a class="column_sort" id="description" data-order="desc" href="#">Mô tả</a></th>
+                                <th scope="col"><a class="column_sort" id="status" data-order="desc" href="#">Trạng thái</a></th>
                                 <th scope="col">Hành động</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php
+                        <?php
                             global $db;
                             if (isset($_GET['search'])) {
                                 $filterValues = $_GET['search'];
@@ -88,6 +98,10 @@ require_once('./App/Views/Admin/layouts/header.php');
                                     </tr>
                                 <?php
                                 }
+                                
+                        ?>
+                        <tbody>
+                        <?php
                             } else {
                                 $query = $db->query("SELECT * FROM providers");
                                 $query->execute();
@@ -127,6 +141,40 @@ require_once('./App/Views/Admin/layouts/header.php');
 </div>
 <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./../../resources/js/script.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
 </body>
 
+<script type="text/javascript">    
+    $(document).ready(function(){  
+      $(document).on('click', '.column_sort', function(){  
+           var column_id = $(this).attr("id");  
+           var order = $(this).data("order");  
+           var arrow = '';  
+           //glyphicon glyphicon-arrow-up  
+           //glyphicon glyphicon-arrow-down  
+           if(order == 'desc')  
+           {  
+                arrow = '<i class="fas fa-caret-down icon"></i>';  
+           }  
+           else  
+           {  
+                arrow = '<i class="fas fa-caret-up icon"></i>';  
+           }  
+           $.ajax({  
+                url:"store",  
+                method:"POST",  
+                data:{column_id:column_id, order:order},  
+                success:function(data)  
+                {  
+                     $('#receipt_table').html(data);  
+                     $('#'+column_id+'').append(arrow);  
+                }  
+           })  
+      });  
+ });  
+    
+</script> 
 </html>
