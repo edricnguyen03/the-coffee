@@ -45,4 +45,11 @@ class RoleModel
         $db->delete('roles', 'id = ' . $RoleId);
         return true;
     }
+
+    public function setRoleStatus($Id, $status)
+    {
+        global $db;
+        $db->update('roles', ['status' => $status], 'id = ' . $Id);
+        return true;
+    }
 }

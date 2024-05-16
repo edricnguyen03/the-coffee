@@ -117,6 +117,13 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <td><?php echo $role['name']; ?></td>
                                         <td><?php echo $role['description']; ?></td>
                                         <td>
+                                            <?php if ($role['status'] == '1') { ?>
+                                                <button class="btn btn-success" disabled>Active</button>
+                                            <?php } else { ?>
+                                                <button class="btn btn-danger" disabled>Inactive</button>
+                                            <?php } ?>
+                                        </td>
+                                        <td>
                                             <a href="edit/<?php echo $role['id']; ?>" class="btn btn-primary">Sửa</a>
                                             <a onclick="confirmDelete(event, <?php echo $role['id']; ?>)" href="delete/<?php echo $role['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>

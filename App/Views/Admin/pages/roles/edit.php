@@ -269,6 +269,13 @@ require_once './App/Models/Auth.php';
                                     <label for="name" class="form-label">Tên vai trò</label>
                                     <input value="<?php echo $role['name'] ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Trạng thái</label>
+                                    <select value="<?php echo $role['status'] ?>" class="form-select" id="status" name="status" required>
+                                        <option value="1" <?php echo $role['status'] == 1 ? 'selected' : ''; ?>>Active</option>
+                                        <option value="0" <?php echo $role['status'] == 0 ? 'selected' : ''; ?>>Inactive</option>
+                                    </select>
+                                </div>
                                 <div class=" mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
                                     <input value="<?php echo $role['description'] ?>" type="text" class="form-control" id="description" name="description" required>

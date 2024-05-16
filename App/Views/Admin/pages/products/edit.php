@@ -270,7 +270,9 @@ require_once './App/Models/Auth.php';
                                     <label for="status" class="form-label">Loại sản phẩm</label>
                                     <select value="<?php echo $product->category_id ?>" class="form-select" id="category_id" name="category_id" required>
                                         <?php foreach ($categories as $category) : ?>
-                                            <option value="<?php echo $category->id ?>" <?php echo $product->category_id == $category->id ? 'selected' : ''; ?>><?php echo $category->name ?></option>
+                                            <?php if ($category->status == 1) { ?>
+                                                <option value="<?php echo $category->id ?>" <?php echo $product->category_id == $category->id ? 'selected' : ''; ?>><?php echo $category->name ?></option>
+                                            <?php } ?>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

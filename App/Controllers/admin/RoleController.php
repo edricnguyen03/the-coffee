@@ -117,6 +117,7 @@ class RoleController extends Controller
         //if này là để tạo mới
         if (isset($_POST['submit'])) {
             $name = $_POST['name'];
+            $status = $_POST['status'];
             $this->data['permissions'] = $this->permissionModel->getAllPermissions();
             $description = $_POST['description'];
             // Get the current max id
@@ -127,6 +128,7 @@ class RoleController extends Controller
                 'id' => $newId,
                 'name' => $name,
                 'description' => $description,
+                'status' => $status
             ];
             if (!isset($_POST['permissions']) || $_POST['permissions'] == null) {
                 $this->roleModel->insertRole($data);
@@ -222,11 +224,13 @@ class RoleController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $description = $_POST['description'];
+            $status = $_POST['status'];
 
 
             $updateData = [
                 'name' => $name,
                 'description' => $description,
+                'status' => $status
             ];
             if (!isset($_POST['permissions']) || $_POST['permissions'] == null) {
                 $this->permissionRoleModel->deletePermissionsByRoleId($roleId);
@@ -365,10 +369,13 @@ class RoleController extends Controller
                 </script>";
             }
         } else {
-            // If role is in user table show an error message
-            $_SESSION['error'] = 'Không thể xóa vai trò này vì có người dùng đang sử dụng';
-            header('Location: /the-coffee/admin/role/');
-            exit();
+            if ($this->roleModel->setRoleStatus($roleId, 0)) {
+                $_SESSION['success'] = 'Vai trò đã được chuyển thành trạng thái Inactive vì có trong bảng người dùng';
+                header('Location: /the-coffee/admin/role/');
+                exit();
+            } else {
+                $_SESSION['error'] = 'Không thể chuyển vai trò thành trạng thái Inactive';
+            }
         }
     }
 }

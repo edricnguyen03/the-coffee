@@ -281,7 +281,9 @@ require_once './App/Models/Auth.php';
                                     <label for="status" class="form-label">Vai trò</label>
                                     <select value="<?php echo $user['role_id'] ?>" class="form-select" id="role_id" name="role_id" required>
                                         <?php foreach ($roles as $role) : ?>
-                                            <option value="<?php echo $role['id'] ?>" <?php echo $user['role_id'] == $role['id'] ? 'selected' : ''; ?>><?php echo $role['name'] ?></option>
+                                            <?php if ($role['status'] == 1) { ?>
+                                                <option value="<?php echo $role['id'] ?>" <?php echo $user['role_id'] == $role['id'] ? 'selected' : ''; ?>><?php echo $role['name'] ?></option>
+                                            <?php } ?>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -357,7 +359,7 @@ require_once './App/Models/Auth.php';
                                     icon: "success",
                                     title: "Chỉnh sửa người dùng thành công",
                                     showConfirmButton: false,
-                                    timer: 1500
+                                    timer: 2250
                                 });
                                 // $('.alert-success').text('Chỉnh sửa người dùng thành công').css('display', 'block');
                             }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -367,7 +369,7 @@ require_once './App/Models/Auth.php';
                                     icon: "error",
                                     title: "Chỉnh sửa người dùng thất bại",
                                     showConfirmButton: false,
-                                    timer: 1500
+                                    timer: 2250
                                 });
                                 $('.alert-danger').text('Chỉnh sửa người dùng thất bại').css('display', 'block');
                             });

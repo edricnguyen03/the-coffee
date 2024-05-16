@@ -60,7 +60,9 @@ require_once('./App/Views/Admin/layouts/header.php');
                             <label for="status" class="form-label">Loại sản phẩm</label>
                             <select class="form-select" id="category_id" name="category_id" required>
                                 <?php foreach ($categories as $category) : ?>
-                                    <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
+                                    <?php if ($category->status == 1) { ?>
+                                        <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
+                                    <?php } ?>
                                 <?php endforeach; ?>
                             </select>
                         </div>

@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 14, 2024 at 03:13 PM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th5 16, 2024 lúc 07:38 PM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,23 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `the-coffee`
+-- Cơ sở dữ liệu: `the-coffee`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `carts`
+-- Cấu trúc bảng cho bảng `carts`
 --
 
 CREATE TABLE `carts` (
-  `id` bigint NOT NULL,
-  `user_id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   `cart_items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `carts`
+-- Đang đổ dữ liệu cho bảng `carts`
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `cart_items`) VALUES
@@ -45,17 +45,17 @@ INSERT INTO `carts` (`id`, `user_id`, `cart_items`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
 CREATE TABLE `categories` (
-  `id` bigint NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `status`) VALUES
@@ -63,31 +63,29 @@ INSERT INTO `categories` (`id`, `name`, `status`) VALUES
 (2, 'Quà tặng cao cấp', 1),
 (3, 'Vật phẩm bán lẻ', 1),
 (4, 'Cà phê nhập khẩu', 1),
-(5, 'Đặc sản bản địa', 1),
-(6, '  ', 1),
-(7, '123123123123', 1);
+(5, 'Đặc sản bản địa', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Cấu trúc bảng cho bảng `orders`
 --
 
 CREATE TABLE `orders` (
-  `id` bigint NOT NULL,
-  `user_id` bigint DEFAULT NULL,
-  `name_receiver` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `address_receiver` text COLLATE utf8mb4_general_ci NOT NULL,
-  `phone_receiver` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `note` text COLLATE utf8mb4_general_ci,
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `name_receiver` varchar(255) NOT NULL,
+  `address_receiver` text NOT NULL,
+  `phone_receiver` varchar(255) NOT NULL,
+  `note` text DEFAULT NULL,
   `total` double NOT NULL,
-  `payment_status` tinyint(1) NOT NULL DEFAULT '0',
-  `order_status` tinyint NOT NULL DEFAULT '1',
-  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `payment_status` tinyint(1) NOT NULL DEFAULT 0,
+  `order_status` tinyint(4) NOT NULL DEFAULT 1,
+  `create_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `orders`
+-- Đang đổ dữ liệu cho bảng `orders`
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `name_receiver`, `address_receiver`, `phone_receiver`, `note`, `total`, `payment_status`, `order_status`, `create_at`) VALUES
@@ -103,18 +101,18 @@ INSERT INTO `orders` (`id`, `user_id`, `name_receiver`, `address_receiver`, `pho
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_products`
+-- Cấu trúc bảng cho bảng `order_products`
 --
 
 CREATE TABLE `order_products` (
-  `id` bigint NOT NULL,
-  `order_id` bigint NOT NULL,
-  `product_id` bigint NOT NULL,
-  `qty` int NOT NULL
+  `id` bigint(20) NOT NULL,
+  `order_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `order_products`
+-- Đang đổ dữ liệu cho bảng `order_products`
 --
 
 INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `qty`) VALUES
@@ -134,17 +132,17 @@ INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `qty`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permissions`
+-- Cấu trúc bảng cho bảng `permissions`
 --
 
 CREATE TABLE `permissions` (
-  `id` bigint NOT NULL,
-  `name` text COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci
+  `id` bigint(20) NOT NULL,
+  `name` text NOT NULL,
+  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `permissions`
+-- Đang đổ dữ liệu cho bảng `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
@@ -161,56 +159,52 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permission_role`
+-- Cấu trúc bảng cho bảng `permission_role`
 --
 
 CREATE TABLE `permission_role` (
-  `id` bigint NOT NULL,
-  `role_id` bigint NOT NULL,
-  `permission_id` bigint NOT NULL
+  `id` bigint(20) NOT NULL,
+  `role_id` bigint(20) NOT NULL,
+  `permission_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `permission_role`
+-- Đang đổ dữ liệu cho bảng `permission_role`
 --
 
 INSERT INTO `permission_role` (`id`, `role_id`, `permission_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4),
-(5, 1, 5),
-(6, 1, 6),
-(7, 1, 7),
-(8, 1, 8),
-(9, 1, 9),
-(37, 3, 9),
-(40, 4, 1),
-(41, 4, 2),
-(42, 4, 5);
+(49, 1, 1),
+(50, 1, 2),
+(51, 1, 3),
+(52, 1, 4),
+(53, 1, 5),
+(54, 1, 6),
+(55, 1, 7),
+(56, 1, 8),
+(57, 1, 9);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Cấu trúc bảng cho bảng `products`
 --
 
 CREATE TABLE `products` (
-  `id` bigint NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `thumb_image` text COLLATE utf8mb4_general_ci NOT NULL,
-  `category_id` bigint NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci NOT NULL,
-  `content` text COLLATE utf8mb4_general_ci NOT NULL,
-  `weight` int NOT NULL DEFAULT '500',
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `thumb_image` text NOT NULL,
+  `category_id` bigint(20) NOT NULL,
+  `description` text NOT NULL,
+  `content` text NOT NULL,
+  `weight` int(11) NOT NULL DEFAULT 500,
   `price` double NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `stock` int NOT NULL DEFAULT '0'
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `stock` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `products`
+-- Đang đổ dữ liệu cho bảng `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `slug`, `thumb_image`, `category_id`, `description`, `content`, `weight`, `price`, `status`, `stock`) VALUES
@@ -238,19 +232,19 @@ INSERT INTO `products` (`id`, `name`, `slug`, `thumb_image`, `category_id`, `des
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_receipt`
+-- Cấu trúc bảng cho bảng `product_receipt`
 --
 
 CREATE TABLE `product_receipt` (
-  `id` bigint NOT NULL,
-  `product_id` bigint NOT NULL,
-  `receipt_id` bigint NOT NULL,
-  `quantity` int NOT NULL DEFAULT '0',
-  `product_price` int NOT NULL
+  `id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `receipt_id` bigint(20) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 0,
+  `product_price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `product_receipt`
+-- Đang đổ dữ liệu cho bảng `product_receipt`
 --
 
 INSERT INTO `product_receipt` (`id`, `product_id`, `receipt_id`, `quantity`, `product_price`) VALUES
@@ -282,18 +276,18 @@ INSERT INTO `product_receipt` (`id`, `product_id`, `receipt_id`, `quantity`, `pr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `providers`
+-- Cấu trúc bảng cho bảng `providers`
 --
 
 CREATE TABLE `providers` (
-  `id` bigint NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `status` tinyint NOT NULL DEFAULT '1'
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `providers`
+-- Đang đổ dữ liệu cho bảng `providers`
 --
 
 INSERT INTO `providers` (`id`, `name`, `description`, `status`) VALUES
@@ -305,19 +299,19 @@ INSERT INTO `providers` (`id`, `name`, `description`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `receipts`
+-- Cấu trúc bảng cho bảng `receipts`
 --
 
 CREATE TABLE `receipts` (
-  `id` bigint NOT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `provider_id` bigint NOT NULL,
-  `total` int NOT NULL DEFAULT '0',
-  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` bigint(20) NOT NULL,
+  `name` text NOT NULL,
+  `provider_id` bigint(20) NOT NULL,
+  `total` int(11) NOT NULL DEFAULT 0,
+  `create_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `receipts`
+-- Đang đổ dữ liệu cho bảng `receipts`
 --
 
 INSERT INTO `receipts` (`id`, `name`, `provider_id`, `total`, `create_at`) VALUES
@@ -331,43 +325,41 @@ INSERT INTO `receipts` (`id`, `name`, `provider_id`, `total`, `create_at`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Cấu trúc bảng cho bảng `roles`
 --
 
 CREATE TABLE `roles` (
-  `id` bigint NOT NULL,
-  `name` text COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
-  `is_employee` tinyint(1) NOT NULL DEFAULT '0'
+  `id` bigint(20) NOT NULL,
+  `name` text NOT NULL,
+  `description` text DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `roles`
+-- Đang đổ dữ liệu cho bảng `roles`
 --
 
-INSERT INTO `roles` (`id`, `name`, `description`, `is_employee`) VALUES
+INSERT INTO `roles` (`id`, `name`, `description`, `status`) VALUES
 (1, 'Super Admin', 'Người dùng quyền lực', 1),
-(2, 'User', 'Người dùng', 0),
-(3, 'Chức trò chơi', 'sdfsdfsfsdf', 0),
-(4, 'haáy ém jú fd gì', 'fdsfsdfsdffdsfsd 42432@@$$$', 0);
+(2, 'User', 'Người dùng', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Cấu trúc bảng cho bảng `users`
 --
 
 CREATE TABLE `users` (
-  `id` bigint NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '$2y$10$1DrA6DFLnvGNiwxDuwLKT.LmAnRir1J51q4ii41pw.08pNKoL8JfC',
-  `role_id` bigint NOT NULL
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `password` varchar(255) NOT NULL DEFAULT '$2y$10$1DrA6DFLnvGNiwxDuwLKT.LmAnRir1J51q4ii41pw.08pNKoL8JfC',
+  `role_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Đang đổ dữ liệu cho bảng `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `status`, `password`, `role_id`) VALUES
@@ -390,31 +382,31 @@ INSERT INTO `users` (`id`, `name`, `email`, `status`, `password`, `role_id`) VAL
 (17, 'Edric', 'test123@gmail.com', 1, '$2y$10$EBsBg44sWN.yNHD5vmWDl.WbwWbuevEoYU6HaWVUrUAym1iv4dYQC', 2);
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `carts`
+-- Chỉ mục cho bảng `carts`
 --
 ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_carts_user_id` (`user_id`);
 
 --
--- Indexes for table `categories`
+-- Chỉ mục cho bảng `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `orders`
+-- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_orders_user_id` (`user_id`);
 
 --
--- Indexes for table `order_products`
+-- Chỉ mục cho bảng `order_products`
 --
 ALTER TABLE `order_products`
   ADD PRIMARY KEY (`id`),
@@ -422,13 +414,13 @@ ALTER TABLE `order_products`
   ADD KEY `fk_order_products_product_id` (`product_id`);
 
 --
--- Indexes for table `permissions`
+-- Chỉ mục cho bảng `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `permission_role`
+-- Chỉ mục cho bảng `permission_role`
 --
 ALTER TABLE `permission_role`
   ADD PRIMARY KEY (`id`),
@@ -436,14 +428,14 @@ ALTER TABLE `permission_role`
   ADD KEY `fk_permission_role_permission_id` (`permission_id`);
 
 --
--- Indexes for table `products`
+-- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_products_category_id` (`category_id`);
 
 --
--- Indexes for table `product_receipt`
+-- Chỉ mục cho bảng `product_receipt`
 --
 ALTER TABLE `product_receipt`
   ADD PRIMARY KEY (`id`),
@@ -451,113 +443,113 @@ ALTER TABLE `product_receipt`
   ADD KEY `fk_product_receipt_product_id` (`product_id`);
 
 --
--- Indexes for table `providers`
+-- Chỉ mục cho bảng `providers`
 --
 ALTER TABLE `providers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `receipts`
+-- Chỉ mục cho bảng `receipts`
 --
 ALTER TABLE `receipts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_receipt_provider_id` (`provider_id`);
 
 --
--- Indexes for table `roles`
+-- Chỉ mục cho bảng `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_users_role_id` (`role_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `carts`
+-- AUTO_INCREMENT cho bảng `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `order_products`
+-- AUTO_INCREMENT cho bảng `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `permission_role`
+-- AUTO_INCREMENT cho bảng `permission_role`
 --
 ALTER TABLE `permission_role`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
--- AUTO_INCREMENT for table `product_receipt`
+-- AUTO_INCREMENT cho bảng `product_receipt`
 --
 ALTER TABLE `product_receipt`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `carts`
+-- Các ràng buộc cho bảng `carts`
 --
 ALTER TABLE `carts`
-  ADD CONSTRAINT `fk_cart_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_cart_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `orders`
+-- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `fk_order_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_order_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `order_products`
+-- Các ràng buộc cho bảng `order_products`
 --
 ALTER TABLE `order_products`
   ADD CONSTRAINT `fk_order_products_order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
   ADD CONSTRAINT `fk_order_products_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
--- Constraints for table `permission_role`
+-- Các ràng buộc cho bảng `permission_role`
 --
 ALTER TABLE `permission_role`
   ADD CONSTRAINT `fk_permission_role_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_permission_role_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `products`
+-- Các ràng buộc cho bảng `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `fk_products_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
 
 --
--- Constraints for table `product_receipt`
+-- Các ràng buộc cho bảng `product_receipt`
 --
 ALTER TABLE `product_receipt`
-  ADD CONSTRAINT `fk_product_receipt_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_product_receipt_receipt_id` FOREIGN KEY (`receipt_id`) REFERENCES `receipts` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_product_receipt_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_product_receipt_receipt_id` FOREIGN KEY (`receipt_id`) REFERENCES `receipts` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `receipts`
+-- Các ràng buộc cho bảng `receipts`
 --
 ALTER TABLE `receipts`
-  ADD CONSTRAINT `fk_receipt_provider_id` FOREIGN KEY (`provider_id`) REFERENCES `providers` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_receipt_provider_id` FOREIGN KEY (`provider_id`) REFERENCES `providers` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `users`
+-- Các ràng buộc cho bảng `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `fk_user_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_user_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

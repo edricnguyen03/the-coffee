@@ -75,7 +75,9 @@
                                     <label for="status" class="form-label">Vai trò</label>
                                     <select class="form-select" id="role_id" name="role_id" required>
                                         <?php foreach ($roles as $role) : ?>
-                                            <option value="<?php echo $role['id'] ?>"><?php echo $role['name'] ?></option>
+                                            <?php if ($role['status'] == 1) { ?>
+                                                <option value="<?php echo $role['id'] ?>"><?php echo $role['name'] ?></option>
+                                            <?php } ?>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -155,7 +157,7 @@
                                             icon: "success",
                                             title: "Thêm người dùng thành công",
                                             showConfirmButton: false,
-                                            timer: 1500
+                                            timer: 2250
                                         });
                                         // $('.alert-success').text('Thêm người dùng thành công').css('display', 'block');
                                     }).fail(function(response) {
@@ -164,7 +166,7 @@
                                             icon: "error",
                                             title: "Thêm người dùng thất bại",
                                             showConfirmButton: false,
-                                            timer: 1500
+                                            timer: 2250
                                         });
                                         // $('.alert-danger').text('Thêm người dùng thất bại').css('display', 'block');
                                     });

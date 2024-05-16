@@ -61,6 +61,13 @@
                                     <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="status" class="form-label">Trạng thái</label>
+                                    <select class="form-select" id="status" name="status" required>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
                                     <input type="text" class="form-control" id="description" name="description" required>
                                 </div>
@@ -93,7 +100,7 @@
             function validate() {
                 let name = document.getElementById('name').value.trim();
                 let description = document.getElementById('description').value.trim();
-                if(name == '' || description == '') {
+                if (name == '' || description == '') {
                     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
                     return false;
                 }
