@@ -319,9 +319,9 @@ require_once './App/Models/Auth.php';
                                         <h2>Trạng thái đơn hàng</h2>
                                         <div class="status">
                                             <?php if ($order->order_status == '4') {
-                                                echo '<p class="order-status"><strong>Trạng thái đơn hàng:</strong><span style="color: green;">Đã giao hàng</span></p>';
+                                                echo '<p class="order-status icon "><strong style="padding-right:5px">>Trạng thái đơn hàng:</strong><span style="color: green;">Đã giao hàng</span></p>';
                                             } else if ($order->order_status == '5') {
-                                                echo '<p class="order-status"><strong>Trạng thái đơn hàng:</strong><span style="color: red;">Đã hủy</span></p>';
+                                                echo '<p class="order-status icon"><strong style="padding-right:5px">Trạng thái đơn hàng:</strong><span style="color: red;">Đã hủy</span></p>';
                                             } else {
                                                 echo '<p class="order-status"><strong>Trạng thái đơn hàng:</strong></p>';
                                                 echo '<select id="cbbTrangThaiDonHang" class="form-select">';

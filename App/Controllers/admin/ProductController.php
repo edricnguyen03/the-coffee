@@ -55,80 +55,178 @@ class productController extends Controller
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->data['categories'] = $this->categoryModel->get();
+            if (isset($_POST['column_id']) && !empty($_POST['column_id'])) {
+                // echo '<pre>';
+                // print_r($_POST['column_id']);
+                // echo '<pre>';
+                // die();
+                global $db;
+                $output = '';
+                $order = $_POST["order"];
+                if ($order == 'desc') {
+                    $order = 'asc';
+                } else {
+                    $order = 'desc';
+                }
+                // $query = "SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."";  
+                $query = $db->query("SELECT * FROM products ORDER BY " . $_POST["column_id"] . " " . $_POST["order"] . "");
+                $query->execute();
+                $output .= '
+                    <div class="mb-3">
+                        <form method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên sản phẩm">
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                            </div>
+                        </form>
+                    </div>  
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"><a class="column_sort" id="id" data-order="' . $order . '" href="#">ID</a></th>
+                            <th scope="col"><a class="column_sort" id="name" data-order="' . $order . '" href="#">Tên sản phẩm</a></th>
+                            <th scope="col"><span id="thumb_image" data-order="' . $order . '" href="#">Hình ảnh</span></th>
+                            <th scope="col"><a class="column_sort" id="price" data-order="' . $order . '" href="#">Giá tiền</a></th>
+                            <th scope="col"><a class="column_sort" id="weight" data-order="' . $order . '" href="#">Cân nặng</a></th>
+                            <th scope="col"><a class="column_sort" id="category_id" data-order="' . $order . '" href="#">Loại sản phẩm</a></th>
+                            <th scope="col"><a class="column_sort" id="status" data-order="' . $order . '" href="#">Trạng thái</a></th>
+                            <th scope="col"><a class="column_sort" id="stock" data-order="' . $order . '" href="#">Số lượng tồn</a></th>
+                            <th scope="col">Hành động</th>
+                        </tr>
+                    </thead>  
+                ';
+                // $role_id = $user['role_id'];
+                // $query = $db->query("SELECT * FROM roles WHERE id = $role_id");
+                // $query->execute();
+                // $role = $query->fetch();
+                // echo $role['name'];
+                $product2 = $query->fetchAll();
+                // foreach ($product2 as $row) {
+                //     echo '<pre>';
+                //     print_r($row);
+                //     echo '<pre>';
+                // }
+                // die();
+                $categories = $this->categoryModel->get();
+                foreach ($product2 as $row) {
+                    // $role_id = $row['role_id'];
+                    // $query = $db->query("SELECT * FROM roles WHERE id = $role_id");
+                    // $query->execute();
+                    // $role = $query->fetch();
+                    // echo $role['name'];
+                    $output .= ' 
+                    <tbody>  
+                    <tr>
+                            <th scope="row">' . $row["id"] . '</th>
+                                    <td>' . $row["name"] . '</td>
+                                    <td> <img src="../../resources/images/products/' . $row["thumb_image"] . '" width="100"></td>
+                                    <td>' . $row["price"] . '</td>
+                                    <td>' . $row["weight"] . '</td>
+                                    <td>';
 
-            $name = $_POST['name'];
+                    foreach ($categories as $category) {
+                        if ($category->id == $row['category_id']) {
+                            $output .= $category->name;
+                        }
+                    }
 
-            $slug = $this->createSlug($name);
-            $category_id = $_POST['category_id'];
-            $price = $_POST['price'];
-            $weight = $_POST['weight'];
-            $status = $_POST['status'];
-            $content = $_POST['content'];
-            $description = $_POST['description'];
+                    $output .= '</td>
+                                    <td>';
+                    if ($row["status"] == '1') {
+                        $output .= '<button class="btn btn-success" disabled>Active</button>';
+                    } else {
+                        $output .= '<button class="btn btn-danger" disabled>Inactive</button>';
+                    }
+
+                    $output .= '</td>
+                                    <td>' . $row["stock"] . '</td>
+                                    <td>
+                                        <a href="edit/' . $row['id'] . '" class="btn btn-primary">Sửa</a>
+                                        <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
+
+                    </tr>
+                    </tbody>
+                    ';
+                }
+                $output .= '</table>';
+                echo $output;
+                //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+            } else {
+                $this->data['categories'] = $this->categoryModel->get();
+
+                $name = $_POST['name'];
+
+                $slug = $this->createSlug($name);
+                $category_id = $_POST['category_id'];
+                $price = $_POST['price'];
+                $weight = $_POST['weight'];
+                $status = $_POST['status'];
+                $content = $_POST['content'];
+                $description = $_POST['description'];
 
 
-            $filename = uniqid() . '_' . $_FILES["uploadfile"]["name"];
-            $folder = "resources/images/products/" . $filename;
+                $filename = uniqid() . '_' . $_FILES["uploadfile"]["name"];
+                $folder = "resources/images/products/" . $filename;
 
-            $check = getimagesize($_FILES["uploadfile"]["tmp_name"]);
-            if ($check === false) {
-                $_SESSION['error'] = 'Tệp đã chọn không phải là hình ảnh';
-                $this->view('/Admin/pages/products/create', $this->data);
-                exit();
-            }
+                $check = getimagesize($_FILES["uploadfile"]["tmp_name"]);
+                if ($check === false) {
+                    $_SESSION['error'] = 'Tệp đã chọn không phải là hình ảnh';
+                    $this->view('/Admin/pages/products/create', $this->data);
+                    exit();
+                }
 
 
-            // Get the current max id
-            $maxId = $this->productModel->getMaxId();
-            $newId = $maxId + 1;
+                // Get the current max id
+                $maxId = $this->productModel->getMaxId();
+                $newId = $maxId + 1;
 
-            $dataInsert = [
-                'id' => $newId,
-                'name' => $name,
-                'slug' => $slug,
-                'thumb_image' => $filename,
-                'category_id' => $category_id,
-                'price' => $price,
-                'weight' => $weight,
-                'status' => $status,
-                'content' => $content,
-                'description' => $description,
-            ];
-            if ($this->productModel->insertProduct($dataInsert) && move_uploaded_file($_FILES["uploadfile"]["tmp_name"], $folder)) {
-                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
-                echo "<script>
+                $dataInsert = [
+                    'id' => $newId,
+                    'name' => $name,
+                    'slug' => $slug,
+                    'thumb_image' => $filename,
+                    'category_id' => $category_id,
+                    'price' => $price,
+                    'weight' => $weight,
+                    'status' => $status,
+                    'content' => $content,
+                    'description' => $description,
+                ];
+                if ($this->productModel->insertProduct($dataInsert) && move_uploaded_file($_FILES["uploadfile"]["tmp_name"], $folder)) {
+                    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                    echo "<script>
                     window.addEventListener('DOMContentLoaded', (event) => {
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
                             title: 'Thêm sản phẩm thành công',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
-                // $this->data['products'] = $this->productModel->getAllProducts();
-                $this->data['categories'] = $this->categoryModel->get();
-                $this->view('/Admin/pages/products/create', $this->data);
-                // exit();
-            } else {
-                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
-                echo "<script>
+                    // $this->data['products'] = $this->productModel->getAllProducts();
+                    $this->data['categories'] = $this->categoryModel->get();
+                    $this->view('/Admin/pages/products/create', $this->data);
+                    // exit();
+                } else {
+                    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                    echo "<script>
                     window.addEventListener('DOMContentLoaded', (event) => {
                         Swal.fire({
                             position: 'center',
                             icon: 'error',
                             title: 'Thêm sản phẩm thất bại',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
-                $this->data['categories'] = $this->categoryModel->get();
-                $this->view('/Admin/pages/products/create', $this->data);
-                exit();
-            };
+                    $this->data['categories'] = $this->categoryModel->get();
+                    $this->view('/Admin/pages/products/create', $this->data);
+                    exit();
+                };
+            }
         }
     }
 
@@ -236,7 +334,7 @@ class productController extends Controller
                             icon: 'success',
                             title: 'Chỉnh sửa sản phẩm thành công',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
@@ -256,7 +354,7 @@ class productController extends Controller
                             icon: 'error',
                             title: 'Chỉnh sửa sản phẩm thất bại',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
@@ -297,7 +395,7 @@ class productController extends Controller
                             icon: 'error',
                             title: 'Xóa sản phẩm thât bại',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";

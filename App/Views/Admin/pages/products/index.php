@@ -3,6 +3,17 @@
 <?php
 require_once('./App/Views/Admin/layouts/header.php');
 ?>
+
+<style>
+    .icon {
+        padding: 5px;
+    }
+
+    .column_sort {
+        text-decoration: none;
+    }
+</style>
+
 <div class="main">
     <nav class="navbar navbar-expand px-3 border-bottom">
         <button class="btn" id="sidebar-toggle" type="button">
@@ -32,7 +43,19 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <h5 class="card-title">
                         Danh sách sản phẩm
                 </div>
-                <div class="card-body">
+                <?php if (isset($_SESSION['error'])) : ?>
+                    <div class="alert alert-danger text-center" role="alert">
+                        <?php echo $_SESSION['error']; ?>
+                    </div>
+                    <?php unset($_SESSION['error']); ?>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['success'])) : ?>
+                    <div class="alert alert-success text-center" role="alert">
+                        <?php echo $_SESSION['success']; ?>
+                    </div>
+                    <?php unset($_SESSION['success']); ?>
+                <?php endif; ?>
+                <div class="card-body" id="receipt_table">
                     <div class="mb-3">
                         <form action="search" method="GET">
                             <div class="input-group">
@@ -41,32 +64,22 @@ require_once('./App/Views/Admin/layouts/header.php');
                             </div>
                         </form>
                     </div>
-                    <?php if (isset($_SESSION['error'])) : ?>
-                        <div class="alert alert-danger text-center" role="alert">
-                            <?php echo $_SESSION['error']; ?>
-                        </div>
-                        <?php unset($_SESSION['error']); ?>
-                    <?php endif; ?>
-                    <?php if (isset($_SESSION['success'])) : ?>
-                        <div class="alert alert-success text-center" role="alert">
-                            <?php echo $_SESSION['success']; ?>
-                        </div>
-                        <?php unset($_SESSION['success']); ?>
-                    <?php endif; ?>
+
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Tên sản phẩm</th>
-                                <th scope="col">Hình ảnh</th>
-                                <th scope="col">Giá tiền</th>
-                                <th scope="col">Cân nặng</th>
-                                <th scope="col">Loại sản phẩm</th>
-                                <th scope="col">Trạng thái</th>
-                                <th scope="col">Số lượng tồn</th>
+                                <th scope="col"><a class="column_sort" id="id" data-order="desc" href="#">ID<i class="fas fa-caret-up icon"></i></a></th>
+                                <th scope="col"><a class="column_sort" id="name" data-order="desc" href="#">Tên sản phẩm</a></th>
+                                <th scope="col"><span id="thumb_image" data-order="desc" href="#">Hình ảnh</span></th>
+                                <th scope="col"><a class="column_sort" id="price" data-order="desc" href="#">Giá tiền</a></th>
+                                <th scope="col"><a class="column_sort" id="weight" data-order="desc" href="#">Cân nặng</a></th>
+                                <th scope="col"><a class="column_sort" id="category_id" data-order="desc" href="#">Loại sản phẩm</a></th>
+                                <th scope="col"><a class="column_sort" id="status" data-order="desc" href="#">Trạng thái</a></th>
+                                <th scope="col"><a class="column_sort" id="stock" data-order="desc" href="#">Số lượng tồn</a></th>
                                 <th scope="col">Hành động</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             <?php foreach ($products as $product) : ?>
                                 <tr>
@@ -93,7 +106,11 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         <a href="delete/<?php echo $product->id; ?>" onclick="confirmDelete(event, <?php echo $product->id; ?>)" class="btn btn-danger">Xóa</a>
 
                                 </tr>
+
                             <?php endforeach; ?>
+
+
+
                         </tbody>
                     </table>
                 </div>
@@ -128,6 +145,37 @@ require_once('./App/Views/Admin/layouts/header.php');
         });
     }
 </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(document).on('click', '.column_sort', function() {
+            var column_id = $(this).attr("id");
+            var order = $(this).data("order");
+            var arrow = '';
+            //glyphicon glyphicon-arrow-up  
+            //glyphicon glyphicon-arrow-down  
+            if (order == 'desc') {
+                arrow = '<i class="fas fa-caret-down icon"></i>';
+            } else {
+                arrow = '<i class="fas fa-caret-up icon"></i>';
+            }
+            $.ajax({
+                url: "store",
+                method: "POST",
+                data: {
+                    column_id: column_id,
+                    order: order
+                },
+                success: function(data) {
+                    $('#receipt_table').html(data);
+                    $('#' + column_id + '').append(arrow);
+                }
+            })
+        });
+    });
+</script>
 
 </html>

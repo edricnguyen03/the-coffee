@@ -57,45 +57,109 @@ class ReceiptController extends Controller
         $this->view('/Admin/pages/receipts/create', $this->data);
     }
 
+    
 
     public function store()
     {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $name = $_POST['name'];
-            $providerId = $_POST['provider'];
-            $quantity = $_POST['item_quantity'];
-            $productId = $_POST['item_name'];
-            $price = $_POST['item_price'];
-            //phần sắp xếp
+             //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+            if (isset($_POST['column_id']) && !empty($_POST['column_id'])){
+                // echo '<pre>';
+                // print_r($_POST['column_id']);
+                // echo '<pre>';
+                // die();
+                global $db;
+                $output = '';  
+                $order = $_POST["order"];  
+                if($order == 'desc')  
+                {  
+                    $order = 'asc';  
+                }  
+                else  
+                {  
+                    $order = 'desc';  
+                }  
+                // $query = "SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."";  
+                $query = $db->query("SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."");
+                $query->execute();
+                $output .= '
+                    <div class="mb-3">
+                        <form method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên đơn nhập hàng">
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                            </div>
+                        </form>
+                    </div>  
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"><a class="column_sort" id="id" data-order="'.$order.'" href="#">ID</a></th>
+                            <th scope="col"><a class="column_sort" id="name" data-order="'.$order.'" href="#">Tên phiếu nhập</a></th>
+                            <th scope="col"><a class="column_sort" id="provider_id" data-order="'.$order.'" href="#">Nhà cung cấp</a></th>
+                            <th scope="col"><a class="column_sort" id="total" data-order="'.$order.'" href="#">Tổng số lượng</a></th>
+                            <th scope="col"><a class="column_sort" id="create_at" data-order="'.$order.'" href="#">Thời gian tạo</a></th>
+                            <th scope="col">Hành động</th>
+                        </tr>
+                    </thead>  
+                ';
+                $receipt2 = $query->fetchAll();
+                //  echo '<pre>';
+                // print_r($receipt2);
+                // echo '<pre>';
+                // die();
+                foreach ($receipt2 as $row) 
+                {  
+                    $output .= ' 
+                    <tbody>  
+                    <tr>
+                        <th scope="row">' . $row["id"] . '</th>
+                        <td>' . $row["name"] . '</td>
+                        <td>' . $row["provider_id"] . '</td>
+                        <td>' . $row["total"] . '</td>
+                        <td>' . $row["create_at"] . '</td>
+                        <td>
+                            <a href="detail/' . $row["id"] . '" class="btn btn-primary">Hiển thị</a>    
+                    </tr>
+                    </tbody>
+                    ';  
+                }  
+                $output .= '</table>';  
+                echo $output;  
+                //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+            } else {
+                $name = $_POST['name'];
+                $providerId = $_POST['provider'];
+                $quantity = $_POST['item_quantity'];
+                $productId = $_POST['item_name'];
+                $price = $_POST['item_price'];
+                //phần sắp xếp
+                //xử lý total = quantity từng phần + lại
+                $total = 0;
+                foreach ($quantity as $value) {
+                    $total += $value;
+                }
+                // echo $total;
+                // echo '<pre>';
+                // print_r($price);
+                // echo '<pre>'; 
+                // die();
+                $this->data['nameOfProvider'] = $this->providerModel->getAllProvidersName();
+                $this->data['nameOfProduct'] = $this->productModel->getAllProductsName();;
+                // Get the current max id
+                $maxId = $this->receiptModel->getMaxId();
+                $newId = $maxId + 1;
 
+                $data = [
+                    'id' => $newId,
+                    'name' => $name,
+                    'provider_id' => $providerId,
+                    'total' => $total,
+                ];
 
-
-            //xử lý total = quantity từng phần + lại
-            $total = 0;
-            foreach ($quantity as $value) {
-                $total += $value;
-            }
-            // echo $total;
-            // echo '<pre>';
-            // print_r($price);
-            // echo '<pre>'; 
-            // die();
-            $this->data['nameOfProvider'] = $this->providerModel->getAllProvidersName();
-            $this->data['nameOfProduct'] = $this->productModel->getAllProductsName();;
-            // Get the current max id
-            $maxId = $this->receiptModel->getMaxId();
-            $newId = $maxId + 1;
-
-            $data = [
-                'id' => $newId,
-                'name' => $name,
-                'provider_id' => $providerId,
-                'total' => $total,
-            ];
-
-            //create new receipt
-            if ($this->receiptModel->insertReceipt($data)) {
+                //create new receipt
+                if($this->receiptModel->insertReceipt($data)) {
                 global $db;
                 for ($count = 0; $count < count($_POST["item_name"]); $count++) {
                     $data2 = [
@@ -144,15 +208,19 @@ class ReceiptController extends Controller
 
                 //tao session
                 //them exit()
-            } else {
-                $_SESSION['error'] = 'Thêm đơn nhập hàng thành công thật bại';
-            };
+                } else {
+                    $_SESSION['error'] = 'Thêm đơn nhập hàng thành công thật bại';
+                }
+            }      
+        
         }
     }
+    
 
     // Function to edit an existing user in the database
     public function edit($receiptId)
     {
+        
         if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             // If not, display an alert message and redirect them to the login page
             // header('Location: alert');

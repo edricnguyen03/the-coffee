@@ -55,6 +55,66 @@ class RoleController extends Controller
 
     public function store()
     {
+        if (isset($_POST['column_id']) && !empty($_POST['column_id'])) {
+            // echo '<pre>';
+            // print_r($_POST['column_id']);
+            // echo '<pre>';
+            // die();
+            global $db;
+            $output = '';
+            $order = $_POST["order"];
+            if ($order == 'desc') {
+                $order = 'asc';
+            } else {
+                $order = 'desc';
+            }
+            // $query = "SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."";  
+            $query = $db->query("SELECT * FROM roles ORDER BY " . $_POST["column_id"] . " " . $_POST["order"] . "");
+            $query->execute();
+            $output .= '
+                <div class="mb-3">
+                    <form method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên vai trò">
+                            <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                        </div>
+                    </form>
+                </div>  
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><a class="column_sort" id="id" data-order="' . $order . '" href="#">ID</a></th>
+                        <th scope="col"><a class="column_sort" id="name" data-order="' . $order . '" href="#">Tên chức vụ</a></th>
+                        <th scope="col"><a class="column_sort" id="description" data-order="' . $order . '" href="#">Mô tả</a></th>
+                        <th scope="col">Hành động</th>
+                    </tr>
+                </thead>  
+            ';
+            $role2 = $query->fetchAll();
+            //  echo '<pre>';
+            // print_r($receipt2);
+            // echo '<pre>';
+            // die();
+            foreach ($role2 as $row) {
+                $output .= ' 
+                <tbody>  
+                <tr>        
+                    <th scope="row">' . $row["id"] . '</th>
+                    <td>' . $row["name"] . '</td>      
+                    <td>' . $row["description"] . '</td>
+                    <td>
+                    <a href="edit/' . $row["id"] . '" class="btn btn-primary">Sửa</a>
+                    <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row["id"] . '" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+                </tbody>
+                ';
+            }
+            $output .= '</table>';
+            echo $output;
+            //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+        }
+        //if này là để tạo mới
         if (isset($_POST['submit'])) {
             $name = $_POST['name'];
             $this->data['permissions'] = $this->permissionModel->getAllPermissions();
@@ -78,7 +138,7 @@ class RoleController extends Controller
                             icon: 'success',
                             title: 'Thêm vai trò thành công',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
@@ -106,7 +166,7 @@ class RoleController extends Controller
                             icon: 'success',
                             title: 'Thêm vai trò thành công',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
@@ -121,7 +181,7 @@ class RoleController extends Controller
                             icon: 'error',
                             title: 'Thêm vai trò thất bại',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
@@ -188,7 +248,7 @@ class RoleController extends Controller
                             icon: 'success',
                             title: 'Chỉnh sửa vai trò thành công',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
@@ -228,7 +288,7 @@ class RoleController extends Controller
                             icon: 'success',
                             title: 'Chỉnh sửa vai trò thành công',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
@@ -260,7 +320,7 @@ class RoleController extends Controller
                             icon: 'error',
                             title: 'Chỉnh sửa nhà cung cấp thất bại',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";
@@ -299,7 +359,7 @@ class RoleController extends Controller
                             icon: 'error',
                             title: 'Xóa danh mục thât bại',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2250
                           });
                     });
                 </script>";

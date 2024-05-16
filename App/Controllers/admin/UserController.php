@@ -48,6 +48,93 @@ class UserController extends Controller
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+            if (isset($_POST['column_id']) && !empty($_POST['column_id'])){
+                // echo '<pre>';
+                // print_r($_POST['column_id']);
+                // echo '<pre>';
+                // die();
+                global $db;
+                $output = '';  
+                $order = $_POST["order"];  
+                if($order == 'desc')  
+                {  
+                    $order = 'asc';  
+                }  
+                else  
+                {  
+                    $order = 'desc';  
+                }  
+                // $query = "SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."";  
+                $query = $db->query("SELECT * FROM users ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."");
+                $query->execute();
+                $output .= '
+                    <div class="mb-3">
+                        <form method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên hoặc email">
+                                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                            </div>
+                        </form>
+                    </div>  
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"><a class="column_sort" id="id" data-order="'.$order.'" href="#">ID</a></th>
+                            <th scope="col"><a class="column_sort" id="name" data-order="'.$order.'" href="#">Tên người dùng</a></th>
+                            <th scope="col"><a class="column_sort" id="email" data-order="'.$order.'" href="#">Email</a></th>
+                            <th scope="col"><a class="column_sort" id="status" data-order="'.$order.'" href="#">Trạng thái</a></th>
+                            <th scope="col"><a class="column_sort" id="role_id" data-order="'.$order.'" href="#">Vai trò</a></th>
+                            <th scope="col">Hành động</th>
+                        </tr>
+                    </thead>  
+                ';
+                // $role_id = $user['role_id'];
+                // $query = $db->query("SELECT * FROM roles WHERE id = $role_id");
+                // $query->execute();
+                // $role = $query->fetch();
+                // echo $role['name'];
+                $user2 = $query->fetchAll();
+                // foreach ($user2 as $row) {
+                //     echo '<pre>';
+                //     print_r($row);
+                //     echo '<pre>';
+                // }
+                // die();
+                foreach ($user2 as $row) 
+                {  
+                    $role_id = $row['role_id'];
+                    $query = $db->query("SELECT * FROM roles WHERE id = $role_id");
+                    $query->execute();
+                    $role = $query->fetch();
+                    // echo $role['name'];
+                    $output .= ' 
+                    <tbody>  
+                    <tr>
+                            <th scope="row">' . $row["id"] . '</th>
+                            <td>' . $row["name"] . '</td>
+                            <td>' . $row["email"] . '</td>
+                            <td>';
+                            if ($row['status'] == '1') {
+                                $output .= '<button class="btn btn-success" disabled>Active</button>';
+                            } else {
+                                $output .= '<button class="btn btn-danger" disabled>Inactive</button>';
+                            }
+                            $output .= '</td>
+                            <td>'. $role["name"] .'</td>
+                            <td>
+                                <a href="edit/' . $row['id'] . '" class="btn btn-primary">Sửa</a>
+                                <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    ';  
+                }  
+                $output .= '</table>';  
+                echo $output;  
+                //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+            } 
+            else {
             $name = $_POST['name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -73,6 +160,8 @@ class UserController extends Controller
             // print_r($data);
             // echo '<pre>';
             $this->userModel->insertUser($data);
+            }
+            
         }
     }
 
