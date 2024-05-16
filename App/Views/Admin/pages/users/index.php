@@ -97,7 +97,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             </td>
                                             <td>
                                                 <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
-                                                <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
+                                                <a onclick="confirmDelete(event, <?php echo $user['id']; ?>)" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
                                         </tr>
                                     <?php
                                     }
@@ -138,7 +138,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         </td>
                                         <td>
                                             <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Sửa</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa người dùng này không ?')" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Xóa</a>
+                                            <a onclick="confirmDelete(event, <?php echo $user['id']; ?>)" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>
                             <?php
                                 }
@@ -158,6 +158,27 @@ require_once('./App/Views/Admin/layouts/header.php');
 </div>
 <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./../../resources/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+    function confirmDelete(event, userId) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Bạn có muốn xóa người dùng này?",
+            text: "Bạn sẽ không thể khôi phục lại người dùng này!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "delete/" + userId;
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

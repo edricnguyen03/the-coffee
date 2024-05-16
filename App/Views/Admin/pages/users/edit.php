@@ -299,6 +299,8 @@ require_once './App/Models/Auth.php';
     </div>
     <script src="./../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./../../../resources/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <script type="text/javascript">
         // Edit user
         $(document).ready(function() {
@@ -350,9 +352,23 @@ require_once './App/Models/Auth.php';
                                 },
                                 // ...
                             }).done(function(response) {
-                                $('.alert-success').text('Chỉnh sửa người dùng thành công').css('display', 'block');
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "success",
+                                    title: "Chỉnh sửa người dùng thành công",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                // $('.alert-success').text('Chỉnh sửa người dùng thành công').css('display', 'block');
                             }).fail(function(jqXHR, textStatus, errorThrown) {
-                                console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
+                                // console.error("AJAX request failed: " + textStatus + ", " + errorThrown);
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "error",
+                                    title: "Chỉnh sửa người dùng thất bại",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
                                 $('.alert-danger').text('Chỉnh sửa người dùng thất bại').css('display', 'block');
                             });
                         }

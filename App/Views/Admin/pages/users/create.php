@@ -93,6 +93,7 @@
         </div>
         <script src="./../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./../../resources/js/script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#create_user').submit(function(e) {
@@ -134,7 +135,6 @@
                             }).done(function(response) {
                                 if (response.email_exists) {
                                     $('#email_error').text('Email đã được sử dụng').css('display', 'block');
-
                                 } else {
                                     // If email is not in use, submit the form data
                                     $.ajax({
@@ -150,9 +150,23 @@
                                         },
 
                                     }).done(function(response) {
-                                        $('.alert-success').text('Thêm người dùng thành công').css('display', 'block');
+                                        Swal.fire({
+                                            position: "center",
+                                            icon: "success",
+                                            title: "Thêm người dùng thành công",
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        });
+                                        // $('.alert-success').text('Thêm người dùng thành công').css('display', 'block');
                                     }).fail(function(response) {
-                                        $('.alert-danger').text('Thêm người dùng thất bại').css('display', 'block');
+                                        Swal.fire({
+                                            position: "center",
+                                            icon: "error",
+                                            title: "Thêm người dùng thất bại",
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        });
+                                        // $('.alert-danger').text('Thêm người dùng thất bại').css('display', 'block');
                                     });
                                 }
                             })

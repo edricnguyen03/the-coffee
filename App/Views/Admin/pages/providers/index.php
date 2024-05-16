@@ -142,7 +142,7 @@ require_once('./App/Views/Admin/layouts/header.php');
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-    function confirmDelete(event, categoryId) {
+    function confirmDelete(event, providerId) {
         event.preventDefault();
 
         Swal.fire({
@@ -155,7 +155,7 @@ require_once('./App/Views/Admin/layouts/header.php');
             confirmButtonText: "Yes"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "delete/" + categoryId;
+                window.location.href = "delete/" + providerId;
             }
         });
     }
