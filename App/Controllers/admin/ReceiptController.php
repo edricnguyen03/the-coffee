@@ -49,39 +49,33 @@ class ReceiptController extends Controller
             require_once './App/errors/404.php';
             return;
         }
-        $this->data['nameOfProvider'] = $this->providerModel->getAllProvidersName();
+        $this->data['providers'] = $this->providerModel->getAllProviders();
         $this->data['nameOfProduct'] = $this->productModel->getAllProductsName();;
-        // echo '<pre>';
-        // print_r($this->data['name']);
-        // echo '<pre>'; ;
         $this->view('/Admin/pages/receipts/create', $this->data);
     }
 
-    
+
 
     public function store()
     {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-             //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
-            if (isset($_POST['column_id']) && !empty($_POST['column_id'])){
+            //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
+            if (isset($_POST['column_id']) && !empty($_POST['column_id'])) {
                 // echo '<pre>';
                 // print_r($_POST['column_id']);
                 // echo '<pre>';
                 // die();
                 global $db;
-                $output = '';  
-                $order = $_POST["order"];  
-                if($order == 'desc')  
-                {  
-                    $order = 'asc';  
-                }  
-                else  
-                {  
-                    $order = 'desc';  
-                }  
+                $output = '';
+                $order = $_POST["order"];
+                if ($order == 'desc') {
+                    $order = 'asc';
+                } else {
+                    $order = 'desc';
+                }
                 // $query = "SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."";  
-                $query = $db->query("SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."");
+                $query = $db->query("SELECT * FROM receipts ORDER BY " . $_POST["column_id"] . " " . $_POST["order"] . "");
                 $query->execute();
                 $output .= '
                     <div class="mb-3">
@@ -95,11 +89,11 @@ class ReceiptController extends Controller
                     <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col"><a class="column_sort" id="id" data-order="'.$order.'" href="#">ID</a></th>
-                            <th scope="col"><a class="column_sort" id="name" data-order="'.$order.'" href="#">Tên phiếu nhập</a></th>
-                            <th scope="col"><a class="column_sort" id="provider_id" data-order="'.$order.'" href="#">Nhà cung cấp</a></th>
-                            <th scope="col"><a class="column_sort" id="total" data-order="'.$order.'" href="#">Tổng số lượng</a></th>
-                            <th scope="col"><a class="column_sort" id="create_at" data-order="'.$order.'" href="#">Thời gian tạo</a></th>
+                            <th scope="col"><a class="column_sort" id="id" data-order="' . $order . '" href="#">ID</a></th>
+                            <th scope="col"><a class="column_sort" id="name" data-order="' . $order . '" href="#">Tên phiếu nhập</a></th>
+                            <th scope="col"><a class="column_sort" id="provider_id" data-order="' . $order . '" href="#">Nhà cung cấp</a></th>
+                            <th scope="col"><a class="column_sort" id="total" data-order="' . $order . '" href="#">Tổng số lượng</a></th>
+                            <th scope="col"><a class="column_sort" id="create_at" data-order="' . $order . '" href="#">Thời gian tạo</a></th>
                             <th scope="col">Hành động</th>
                         </tr>
                     </thead>  
@@ -109,8 +103,7 @@ class ReceiptController extends Controller
                 // print_r($receipt2);
                 // echo '<pre>';
                 // die();
-                foreach ($receipt2 as $row) 
-                {  
+                foreach ($receipt2 as $row) {
                     $output .= ' 
                     <tbody>  
                     <tr>
@@ -123,10 +116,10 @@ class ReceiptController extends Controller
                             <a href="detail/' . $row["id"] . '" class="btn btn-primary">Hiển thị</a>    
                     </tr>
                     </tbody>
-                    ';  
-                }  
-                $output .= '</table>';  
-                echo $output;  
+                    ';
+                }
+                $output .= '</table>';
+                echo $output;
                 //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
             } else {
                 $name = $_POST['name'];
@@ -159,68 +152,67 @@ class ReceiptController extends Controller
                 ];
 
                 //create new receipt
-                if($this->receiptModel->insertReceipt($data)) {
-                global $db;
-                for ($count = 0; $count < count($_POST["item_name"]); $count++) {
-                    $data2 = [
-                        'product_id' => $_POST["item_name"][$count],
-                        'receipt_id' => $newId,
-                        'quantity' => $_POST["item_quantity"][$count],
-                        'product_price' => $_POST["item_price"][$count],
-                    ];
+                if ($this->receiptModel->insertReceipt($data)) {
+                    global $db;
+                    for ($count = 0; $count < count($_POST["item_name"]); $count++) {
+                        $data2 = [
+                            'product_id' => $_POST["item_name"][$count],
+                            'receipt_id' => $newId,
+                            'quantity' => $_POST["item_quantity"][$count],
+                            'product_price' => $_POST["item_price"][$count],
+                        ];
+                        // echo '<pre>';
+                        // print_r($_POST);
+                        // echo '<pre>'; 
+                        $this->productsReceipts->insertPR($data2);
+                        //cập nhật stock
+                        $this->productModel->changeStock($_POST["item_name"][$count], -$_POST["item_quantity"][$count]);
+                        // $query = "
+                        // INSERT INTO product_receipt 
+                        // (product_id, receipt_id, quantity) 
+                        // VALUES (:product_id, :receipt_id, :quantity)
+                        // ";
+                        // $query3 = "
+                        // INSERT INTO products 
+                        // (item_price) 
+                        // VALUES (:item_price)
+                        // ";
+                        // $connect = new PDO("mysql:host=localhost; dbname=the-coffe","root","");
+                        // $query = "INSERT INTO product_receipt (id, product_id, receipt_id, quantity) VALUES (:id, :product_id, :receipt_id, :quantity)";
+                        // // $query = "INSERT INTO product_receipt (id, product_id, receipt_id, quantity) VALUES (:product_id, :quantity)";
+                        // $statement1 = $connect->prepare($query);
+                        // $statement1->bindParam(':product_id', $_POST["item_name"][$count]);
+                        // $statement1->bindParam(':receipt_id', $newId);
+                        // $statement1->bindParam(':quantity', $_POST["item_quantity"][$count]);
+                        // $statement1->execute();
+                    }
+                    echo 'oke';
+                    // $result = $statement1->fetchAll();
+                    //     if(isset($result))
+                    //     {
+                    //         echo 'ok';
+                    //     }
                     // echo '<pre>';
                     // print_r($_POST);
                     // echo '<pre>'; 
-                    $this->productsReceipts->insertPR($data2);
-                    //cập nhật stock
-                    $this->productModel->changeStock($_POST["item_name"][$count], -$_POST["item_quantity"][$count]);
-                    // $query = "
-                    // INSERT INTO product_receipt 
-                    // (product_id, receipt_id, quantity) 
-                    // VALUES (:product_id, :receipt_id, :quantity)
-                    // ";
-                    // $query3 = "
-                    // INSERT INTO products 
-                    // (item_price) 
-                    // VALUES (:item_price)
-                    // ";
-                    // $connect = new PDO("mysql:host=localhost; dbname=the-coffe","root","");
-                    // $query = "INSERT INTO product_receipt (id, product_id, receipt_id, quantity) VALUES (:id, :product_id, :receipt_id, :quantity)";
-                    // // $query = "INSERT INTO product_receipt (id, product_id, receipt_id, quantity) VALUES (:product_id, :quantity)";
-                    // $statement1 = $connect->prepare($query);
-                    // $statement1->bindParam(':product_id', $_POST["item_name"][$count]);
-                    // $statement1->bindParam(':receipt_id', $newId);
-                    // $statement1->bindParam(':quantity', $_POST["item_quantity"][$count]);
-                    // $statement1->execute();
-                }
-                echo 'oke';
-                // $result = $statement1->fetchAll();
-                //     if(isset($result))
-                //     {
-                //         echo 'ok';
-                //     }
-                // echo '<pre>';
-                // print_r($_POST);
-                // echo '<pre>'; 
-                // $_SESSION['success'] = 'Thêm đơn nhập hàng thành công';
-                // header('Location: /the-coffee/admin/receipt/index');
-                // exit();
+                    // $_SESSION['success'] = 'Thêm đơn nhập hàng thành công';
+                    // header('Location: /the-coffee/admin/receipt/index');
+                    // exit();
 
-                //tao session
-                //them exit()
+                    //tao session
+                    //them exit()
                 } else {
                     $_SESSION['error'] = 'Thêm đơn nhập hàng thành công thật bại';
                 }
-            }      
-        
+            }
         }
     }
-    
+
 
     // Function to edit an existing user in the database
     public function edit($receiptId)
     {
-        
+
         if (!isset($_SESSION['login']['status']) && !isset($_SESSION['login']['id'])) {
             // If not, display an alert message and redirect them to the login page
             // header('Location: alert');

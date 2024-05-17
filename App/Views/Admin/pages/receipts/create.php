@@ -11,7 +11,9 @@
             $query = $db->query("SELECT * FROM products");
             $query->execute();
             foreach ($query as $row) {
-                $output .= '<option value="' . $row["id"] . '">' . $row["name"] . '</option>';
+                if ($row['status'] == 1) {
+                    $output .= '<option value="' . $row["id"] . '">' . $row["name"] . '</option>';
+                }
             }
             return $output;
         }
@@ -83,31 +85,14 @@
                                     </div>
 
                                     <div class="mb-3">
-
-                                        <label for="provider" class="form-label">Nhà cung cấp</label>
+                                        <label for="status" class="form-label">Nhà cung cấp</label>
                                         <select class="form-select" id="provider" name="provider" required>
-                                            <?php
-                                            // echo '<pre>';
-                                            // print_r($names);
-                                            // echo '<pre>'; 
-                                            $names = array_map(function ($row) {
-                                                return $row['name'];
-                                            }, $nameOfProvider);
-
-                                            // echo '<pre>';
-                                            // print_r($names);
-                                            // echo '<pre>'; 
-                                            foreach ($names as $id => $name) {
-                                                $id = $id + 1;
-                                                echo "<option value=\"$id\">$name</option>\n";
-                                            }
-                                            ?>
+                                            <?php foreach ($providers as $provider) : ?>
+                                                <?php if ($provider['status'] == 1) { ?>
+                                                    <option value="<?php echo $provider['id'] ?>"><?php echo $provider['name'] ?></option>
+                                                <?php } ?>
+                                            <?php endforeach; ?>
                                         </select>
-
-
-                                        <br> <br>
-                                        <!-- <button type="submit" name="submit"  class="btn btn-primary">Create Receipt</button>  -->
-                                        <!-- id="submit_button -->
                                     </div>
                                     <!-- nhập sản phẩm -->
                                     <div>

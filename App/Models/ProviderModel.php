@@ -22,7 +22,7 @@ class ProviderModel
     //     }
     //     return "notFound";
     // }
-    
+
     public function getProviderById($providerId)
     {
         global $db;
@@ -44,18 +44,20 @@ class ProviderModel
         return $provider;
     }
 
-    function getProvidersName($ProviderId) {
+    function getProvidersName($ProviderId)
+    {
         global $db;
-        $providers = $db->get('providers', 'name' ,'id = ' . $ProviderId);
+        $providers = $db->get('providers', 'name', 'id = ' . $ProviderId);
         return $providers;
     }
 
-    function getAllProvidersName() {
+    function getAllProvidersName()
+    {
         global $db;
         $providers = $db->get('providers', 'name');
         return $providers;
     }
-    
+
     public function getMaxId()
     {
         global $db;
