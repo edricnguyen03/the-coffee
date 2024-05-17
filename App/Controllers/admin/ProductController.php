@@ -142,7 +142,7 @@ class productController extends Controller
                                     <td>' . $row["stock"] . '</td>
                                     <td>
                                         <a href="edit/' . $row['id'] . '" class="btn btn-primary">Sửa</a>
-                                        <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
+                                        <a onclick="confirmDelete(event, ' . $row['id'] . ')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
 
                     </tr>
                     </tbody>

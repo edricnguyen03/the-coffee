@@ -22,7 +22,7 @@ class ProductsReceipts
     //     }
     //     return "notFound";
     // }
-    
+
     public function getPRById($PRId)
     {
         global $db;
@@ -37,26 +37,27 @@ class ProductsReceipts
         return $provider;
     }
 
-    function getAllProvidersName() {
+    function getAllProvidersName()
+    {
         global $db;
         $providers = $db->get('providers', 'name');
         return $providers;
     }
 
     public function getProductsReceipt($receiptId)
-     {
-          if ($receiptId != null) {
-               global $db;
-               $receipt = $db->get("product_receipt", "*", "receipt_id = " .$receiptId); // Gán kết quả cho $orders
-               return $receipt; // Trả về biến đã gán
-          }
-          return null;
-     }
-    
+    {
+        if ($receiptId != null) {
+            global $db;
+            $receipt = $db->get("product_receipt", "*", "receipt_id = " . $receiptId); // Gán kết quả cho $orders
+            return $receipt; // Trả về biến đã gán
+        }
+        return null;
+    }
+
     public function getMaxId()
     {
         global $db;
-        $query = $db->query("SELECT MAX(id) as max_id FROM users");
+        $query = $db->query("SELECT MAX(id) as max_id FROM product_receipt");
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['max_id'];

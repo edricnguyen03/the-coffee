@@ -49,24 +49,21 @@ class UserController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
-            if (isset($_POST['column_id']) && !empty($_POST['column_id'])){
+            if (isset($_POST['column_id']) && !empty($_POST['column_id'])) {
                 // echo '<pre>';
                 // print_r($_POST['column_id']);
                 // echo '<pre>';
                 // die();
                 global $db;
-                $output = '';  
-                $order = $_POST["order"];  
-                if($order == 'desc')  
-                {  
-                    $order = 'asc';  
-                }  
-                else  
-                {  
-                    $order = 'desc';  
-                }  
+                $output = '';
+                $order = $_POST["order"];
+                if ($order == 'desc') {
+                    $order = 'asc';
+                } else {
+                    $order = 'desc';
+                }
                 // $query = "SELECT * FROM receipts ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."";  
-                $query = $db->query("SELECT * FROM users ORDER BY ".$_POST["column_id"]." ".$_POST["order"]."");
+                $query = $db->query("SELECT * FROM users ORDER BY " . $_POST["column_id"] . " " . $_POST["order"] . "");
                 $query->execute();
                 $output .= '
                     <div class="mb-3">
@@ -80,11 +77,11 @@ class UserController extends Controller
                     <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col"><a class="column_sort" id="id" data-order="'.$order.'" href="#">ID</a></th>
-                            <th scope="col"><a class="column_sort" id="name" data-order="'.$order.'" href="#">Tên người dùng</a></th>
-                            <th scope="col"><a class="column_sort" id="email" data-order="'.$order.'" href="#">Email</a></th>
-                            <th scope="col"><a class="column_sort" id="status" data-order="'.$order.'" href="#">Trạng thái</a></th>
-                            <th scope="col"><a class="column_sort" id="role_id" data-order="'.$order.'" href="#">Vai trò</a></th>
+                            <th scope="col"><a class="column_sort" id="id" data-order="' . $order . '" href="#">ID</a></th>
+                            <th scope="col"><a class="column_sort" id="name" data-order="' . $order . '" href="#">Tên người dùng</a></th>
+                            <th scope="col"><a class="column_sort" id="email" data-order="' . $order . '" href="#">Email</a></th>
+                            <th scope="col"><a class="column_sort" id="status" data-order="' . $order . '" href="#">Trạng thái</a></th>
+                            <th scope="col"><a class="column_sort" id="role_id" data-order="' . $order . '" href="#">Vai trò</a></th>
                             <th scope="col">Hành động</th>
                         </tr>
                     </thead>  
@@ -101,8 +98,7 @@ class UserController extends Controller
                 //     echo '<pre>';
                 // }
                 // die();
-                foreach ($user2 as $row) 
-                {  
+                foreach ($user2 as $row) {
                     $role_id = $row['role_id'];
                     $query = $db->query("SELECT * FROM roles WHERE id = $role_id");
                     $query->execute();
@@ -115,53 +111,51 @@ class UserController extends Controller
                             <td>' . $row["name"] . '</td>
                             <td>' . $row["email"] . '</td>
                             <td>';
-                            if ($row['status'] == '1') {
-                                $output .= '<button class="btn btn-success" disabled>Active</button>';
-                            } else {
-                                $output .= '<button class="btn btn-danger" disabled>Inactive</button>';
-                            }
-                            $output .= '</td>
-                            <td>'. $role["name"] .'</td>
+                    if ($row['status'] == '1') {
+                        $output .= '<button class="btn btn-success" disabled>Active</button>';
+                    } else {
+                        $output .= '<button class="btn btn-danger" disabled>Inactive</button>';
+                    }
+                    $output .= '</td>
+                            <td>' . $role["name"] . '</td>
                             <td>
                                 <a href="edit/' . $row['id'] . '" class="btn btn-primary">Sửa</a>
-                                <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
+                                <a onclick="confirmDelete(event, ' . $row['id'] . ')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
                         </td>
                     </tr>
                     </tbody>
-                    ';  
-                }  
-                $output .= '</table>';  
-                echo $output;  
+                    ';
+                }
+                $output .= '</table>';
+                echo $output;
                 //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
-            } 
-            else {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            } else {
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-            $status = $_POST['status'];
-            $role = $_POST['role_id'];
+                $status = $_POST['status'];
+                $role = $_POST['role_id'];
 
 
-            // Get the current max id
-            $maxId = $this->userModel->getMaxId();
-            $newId = $maxId + 1;
+                // Get the current max id
+                $maxId = $this->userModel->getMaxId();
+                $newId = $maxId + 1;
 
-            $data = [
-                'id' => $newId,
-                'name' => $name,
-                'email' => $email,
-                'password' => $password_hash,
-                'status' => $status, // '1' or '0
-                'role_id' => $role
-            ];
-            // echo '<pre>';
-            // print_r($data);
-            // echo '<pre>';
-            $this->userModel->insertUser($data);
+                $data = [
+                    'id' => $newId,
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password_hash,
+                    'status' => $status, // '1' or '0
+                    'role_id' => $role
+                ];
+                // echo '<pre>';
+                // print_r($data);
+                // echo '<pre>';
+                $this->userModel->insertUser($data);
             }
-            
         }
     }
 

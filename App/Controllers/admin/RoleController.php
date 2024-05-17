@@ -104,7 +104,7 @@ class RoleController extends Controller
                     <td>' . $row["description"] . '</td>
                     <td>
                     <a href="edit/' . $row["id"] . '" class="btn btn-primary">Sửa</a>
-                    <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row["id"] . '" class="btn btn-danger">Xóa</a>
+                    <a onclick="confirmDelete(event, ' . $row['id'] . ')" href="delete/' . $row["id"] . '" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
                 </tbody>
@@ -121,6 +121,13 @@ class RoleController extends Controller
             $status = $_POST['status'];
             $this->data['permissions'] = $this->permissionModel->getAllPermissions();
             $description = $_POST['description'];
+
+            if ($this->roleModel->checkRoleNameExists($name)) {
+                $_SESSION['error'] = 'Tên vai trò đã tồn tại';
+                $this->view('/Admin/pages/roles/create', $this->data);
+                exit();
+            }
+
             // Get the current max id
             $maxId = $this->roleModel->getMaxId();
             $newId = $maxId + 1;
@@ -226,7 +233,28 @@ class RoleController extends Controller
             $description = $_POST['description'];
             $status = $_POST['status'];
 
+            //Get data from the table by roleId
+            $role = $this->roleModel->getRoleById($roleId);
+            $this->data['role'] = $role[0];
+            $this->data['permissions'] = $this->permissionModel->getAllPermissions();
+            $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
+            $this->data['rolePermissions'] = array_map(function ($permission) {
+                return $permission['permission_id'];
+            }, $rolePermissions);
 
+            // Check if the role name already exists
+            $oldName = $this->roleModel->getRoleById($roleId);
+
+            if ($name != $oldName[0]['name']) {
+
+                if ($this->roleModel->checkRoleNameExists($name)) {
+                    $_SESSION['error'] = 'Tên vai trò đã tồn tại';
+                    $this->view('/Admin/pages/roles/edit', $this->data);
+                    exit();
+                }
+            }
+
+            //update data
             $updateData = [
                 'name' => $name,
                 'description' => $description,
@@ -236,14 +264,6 @@ class RoleController extends Controller
                 $this->permissionRoleModel->deletePermissionsByRoleId($roleId);
 
                 $this->roleModel->updateRole($roleId, $updateData);
-                $role = $this->roleModel->getRoleById($roleId);
-                $this->data['permissions'] = $this->permissionModel->getAllPermissions();
-                $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
-                // Convert the result to an array of permission ids
-                $this->data['rolePermissions'] = array_map(function ($permission) {
-                    return $permission['permission_id'];
-                }, $rolePermissions);
-                $this->data['role'] = $role[0];
                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
                 echo "<script>
                     window.addEventListener('DOMContentLoaded', (event) => {
@@ -262,7 +282,6 @@ class RoleController extends Controller
                 $permissions = $_POST['permissions'];
             }
 
-
             if ($this->roleModel->updateRole($roleId, $updateData)) {
                 // Delete all current permissions of the role
                 $this->permissionRoleModel->deletePermissionsByRoleId($roleId);
@@ -276,14 +295,6 @@ class RoleController extends Controller
                         $this->permissionRoleModel->insertPermissionRole($data_permision_role);
                     }
                 }
-                $role = $this->roleModel->getRoleById($roleId);
-                $this->data['permissions'] = $this->permissionModel->getAllPermissions();
-                $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
-                // Convert the result to an array of permission ids
-                $this->data['rolePermissions'] = array_map(function ($permission) {
-                    return $permission['permission_id'];
-                }, $rolePermissions);
-                $this->data['role'] = $role[0];
                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
                 echo "<script>
                     window.addEventListener('DOMContentLoaded', (event) => {
@@ -308,21 +319,13 @@ class RoleController extends Controller
                         $this->permissionRoleModel->insertPermissionRole($data_permision_role);
                     }
                 }
-                $role = $this->roleModel->getRoleById($roleId);
-                $this->data['permissions'] = $this->permissionModel->getAllPermissions();
-                $rolePermissions = $this->permissionRoleModel->getPermissionsByRoleId($roleId);
-                // Convert the result to an array of permission ids
-                $this->data['rolePermissions'] = array_map(function ($permission) {
-                    return $permission['permission_id'];
-                }, $rolePermissions);
-                $this->data['role'] = $role[0];
                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
                 echo "<script>
                     window.addEventListener('DOMContentLoaded', (event) => {
                         Swal.fire({
                             position: 'center',
                             icon: 'error',
-                            title: 'Chỉnh sửa nhà cung cấp thất bại',
+                            title: 'Chỉnh sửa vai trò thất bại',
                             showConfirmButton: false,
                             timer: 2250
                           });

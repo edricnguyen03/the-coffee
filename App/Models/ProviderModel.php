@@ -61,7 +61,7 @@ class ProviderModel
     public function getMaxId()
     {
         global $db;
-        $query = $db->query("SELECT MAX(id) as max_id FROM users");
+        $query = $db->query("SELECT MAX(id) as max_id FROM providers");
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['max_id'];

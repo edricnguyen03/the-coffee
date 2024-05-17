@@ -256,7 +256,7 @@ require_once './App/Models/Auth.php';
                                 </div>
                                 <div class=" mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
-                                    <input value="<?php echo $provider['description'] ?>" type="text" class="form-control" id="description" name="description" value="<?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : $provider['description']; ?>" required>
+                                    <input type="text" class="form-control" id="description" name="description" value="<?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : $provider['description']; ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Trạng thái</label>

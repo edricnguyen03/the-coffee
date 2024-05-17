@@ -258,6 +258,12 @@ require_once './App/Models/Auth.php';
                                     <?php echo $error; ?>
                                 </div>
                             <?php endif; ?>
+                            <?php if (isset($_SESSION['error'])) : ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <?php echo $_SESSION['error']; ?>
+                                </div>
+                                <?php unset($_SESSION['error']); ?>
+                            <?php endif; ?>
                             <?php if (isset($_SESSION['success'])) : ?>
                                 <div class="alert alert-success text-center" role="alert">
                                     <?php echo $_SESSION['success']; ?>
@@ -267,7 +273,7 @@ require_once './App/Models/Auth.php';
                             <form action="../update/<?php echo $role['id'] ?>" id="form1" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên vai trò</label>
-                                    <input value="<?php echo $role['name'] ?>" type="text" class="form-control" id="name" name="name" required>
+                                    <input value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : $role['name']; ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Trạng thái</label>
@@ -278,7 +284,7 @@ require_once './App/Models/Auth.php';
                                 </div>
                                 <div class=" mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
-                                    <input value="<?php echo $role['description'] ?>" type="text" class="form-control" id="description" name="description" required>
+                                    <input value="<?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : $role['description']; ?>" type="text" class="form-control" id="description" name="description" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="permission" class="form-label">Quyền</label>
@@ -321,11 +327,11 @@ require_once './App/Models/Auth.php';
                     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
                     return false;
                 }
-                if (!/^[a-zA-ZáàảãạăắằặẳẵâầấẩẫậèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\s]+$/.test(name)) {
+                if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name)) {
                     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ gồm 4 đến 40 kí tự</div>';
                     return false;
                 }
-                if (!/^[a-zA-ZáàảãạăắằặẳẵâầấẩẫậèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\s]+$/.test(description)) {
+                if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(description)) {
                     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ gồm 4 đến 40 kí tự chữ</div>';
                     return false;
                 }
