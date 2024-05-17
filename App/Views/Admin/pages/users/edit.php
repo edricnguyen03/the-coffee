@@ -324,7 +324,7 @@ require_once './App/Models/Auth.php';
                 if (name.trim() === '') {
                     $('#name_error').text('Tên không được để trống').css('display', 'block');
                     return;
-                } else if (name.length > 40 || name.length < 4 || !/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name)) {
+                } else if (name.length > 40 || name.length < 4 || !/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name.trim())) {
                     $('#name_error').text('Tên không hợp lệ - Tối thiểu 4 ký tự, tối đa 40  ký tự và không chứa ký tự đặc biệt').css('display', 'block');
                     return;
                 } else if (email.length > 50 || !/^\S+@\S+\.\S+$/.test(email)) {
