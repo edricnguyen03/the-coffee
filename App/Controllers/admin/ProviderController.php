@@ -86,7 +86,7 @@ class ProviderController extends Controller
                                 <th scope="col"><a class="column_sort" id="name" data-order="' . $order . '" href="#">Tên nhà cung cấp</a></th>
                                 <th scope="col"><a class="column_sort" id="description" data-order="' . $order . '" href="#">Mô tả</a></th>
                                 <th scope="col"><a class="column_sort" id="status" data-order="' . $order . '" href="#">Trạng thái</a></th>
-                                <th scope="col">Hành động</th>
+                                <th scope="col"><a class="column_dif">Hành động</a></th>
                            </tr>
                        </thead>  
                    ';

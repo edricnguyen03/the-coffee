@@ -10,8 +10,13 @@ require_once('./App/Views/Admin/layouts/header.php');
         padding: 5px;
     }
 
-    .column_sort {
+    .column_sort, .column_dif {
         text-decoration: none;
+        color: white;
+    }
+
+    .column_dif:hover {
+        cursor: no-drop;
     }
 </style>
 <div class="main">
@@ -70,7 +75,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 <th scope="col"><a class="column_sort" id="id" data-order="desc" href="#">ID<i class="fas fa-caret-up icon"></i></a></th>
                                 <th scope="col"><a class="column_sort" id="name" data-order="desc" href="#">Tên Danh Mục</a></th>
                                 <th scope="col"><a class="column_sort" id="status" data-order="desc" href="#">Trạng thái</a></th>
-                                <th scope="col">Hành động</th>
+                                <th scope="col"><a class="column_dif">Hành động</a></th>
                             </tr>
                         </thead>
                         <?php
@@ -96,9 +101,10 @@ require_once('./App/Views/Admin/layouts/header.php');
                                         </td>
                                         <td>
                                             <a href="edit/<?php echo $category['id']; ?>" class="btn btn-primary">Sửa</a>
-                                            <a onclick="return confirm('Bạn có muốn xóa danh mục này không ?')" href="delete/<?php echo $category['id']; ?>" class="btn btn-danger">Xóa</a>
+                                            <!-- <a onclick="return confirm('Bạn có muốn xóa danh mục này không ?')" href="delete/<?php //echo $category['id']; ?>" class="btn btn-danger">Xóa</a> -->
+                                            <a onclick="confirmDelete(event, <?php echo $category['id']; ?>)" href="delete/<?php echo $category['id']; ?>" class="btn btn-danger">Xóa</a>
                                         </td>
-                                        <a onclick="confirmDelete(event, <?php echo $category['id']; ?>)" href="delete/<?php echo $category['id']; ?>" class="btn btn-danger">Xóa</a>
+                                        
                                     </tr>
                                 <?php
                                 }

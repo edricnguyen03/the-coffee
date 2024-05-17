@@ -85,7 +85,7 @@ class UserController extends Controller
                             <th scope="col"><a class="column_sort" id="email" data-order="'.$order.'" href="#">Email</a></th>
                             <th scope="col"><a class="column_sort" id="status" data-order="'.$order.'" href="#">Trạng thái</a></th>
                             <th scope="col"><a class="column_sort" id="role_id" data-order="'.$order.'" href="#">Vai trò</a></th>
-                            <th scope="col">Hành động</th>
+                            <th scope="col"><a class="column_dif">Hành động</a></th>
                         </tr>
                     </thead>  
                 ';

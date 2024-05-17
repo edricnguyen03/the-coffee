@@ -85,13 +85,13 @@ class productController extends Controller
                         <tr>
                             <th scope="col"><a class="column_sort" id="id" data-order="' . $order . '" href="#">ID</a></th>
                             <th scope="col"><a class="column_sort" id="name" data-order="' . $order . '" href="#">Tên sản phẩm</a></th>
-                            <th scope="col"><span id="thumb_image" data-order="' . $order . '" href="#">Hình ảnh</span></th>
+                            <th scope="col"><a class="column_dif" id="thumb_image" data-order="' . $order . '" href="#">Hình ảnh</a></th>
                             <th scope="col"><a class="column_sort" id="price" data-order="' . $order . '" href="#">Giá tiền</a></th>
                             <th scope="col"><a class="column_sort" id="weight" data-order="' . $order . '" href="#">Cân nặng</a></th>
                             <th scope="col"><a class="column_sort" id="category_id" data-order="' . $order . '" href="#">Loại sản phẩm</a></th>
                             <th scope="col"><a class="column_sort" id="status" data-order="' . $order . '" href="#">Trạng thái</a></th>
                             <th scope="col"><a class="column_sort" id="stock" data-order="' . $order . '" href="#">Số lượng tồn</a></th>
-                            <th scope="col">Hành động</th>
+                            <th scope="col"><a class="column_dif">Hành động</a></th>
                         </tr>
                     </thead>  
                 ';
@@ -119,7 +119,7 @@ class productController extends Controller
                     <tr>
                             <th scope="row">' . $row["id"] . '</th>
                                     <td>' . $row["name"] . '</td>
-                                    <td> <img src="../../resources/images/products/' . $row["thumb_image"] . '" width="100"></td>
+                                    <td > <img src="../../resources/images/products/' . $row["thumb_image"] . '" width="100"></td>
                                     <td>' . $row["price"] . '</td>
                                     <td>' . $row["weight"] . '</td>
                                     <td>';

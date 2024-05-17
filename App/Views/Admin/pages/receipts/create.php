@@ -263,10 +263,10 @@
                         count = count + 1; // Tăng biến đếm
 
                     });
+                    let name1 = document.getElementById('name1').value;
+                    if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(name1.trim())) {
 
-                    if (document.getElementById('name1').value.trim() === '') {
-
-                        error += "<li>Nhập tên phiếu nhập</li>";
+                        error += "<li>Tên không hợp lệ - Tối thiểu 4 ký tự, tối đa 40 ký tự và không chứa ký tự đặc biệt</li>";
                     } else {
                         document.getElementById('name1').value = document.getElementById('name1').value.trim();
                     }

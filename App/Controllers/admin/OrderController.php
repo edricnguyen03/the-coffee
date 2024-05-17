@@ -79,7 +79,7 @@ class OrderController extends Controller
                         <th scope="col"><a class="column_sort" id="payment_status" data-order="'.$order.'" href="#">Tình trạng thanh toán</a></th>
                         <th scope="col"><a class="column_sort" id="order_status" data-order="'.$order.'" href="#">Tình trạng đơn hàng</a></th>
                         <th scope="col"><a class="column_sort" id="create_at" data-order="'.$order.'" href="#">Ngày</a></th>
-                        <th scope="col">Hành động</th>
+                        <th scope="col"><a class="column_dif">Hành động</a></th>
                     </tr>
                 </thead>  
             ';

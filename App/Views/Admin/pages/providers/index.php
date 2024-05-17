@@ -10,8 +10,13 @@ require_once('./App/Views/Admin/layouts/header.php');
         padding: 5px;
     }
 
-    .column_sort {
+    .column_sort, .column_dif {
         text-decoration: none;
+        color: white;
+    }
+
+    .column_dif:hover {
+        cursor: no-drop;
     }
 </style>
 
@@ -72,7 +77,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 <th scope="col"><a class="column_sort" id="name" data-order="desc" href="#">Tên nhà cung cấp</a></th>
                                 <th scope="col"><a class="column_sort" id="description" data-order="desc" href="#">Mô tả</a></th>
                                 <th scope="col"><a class="column_sort" id="status" data-order="desc" href="#">Trạng thái</a></th>
-                                <th scope="col">Hành động</th>
+                                <th scope="col"><a class="column_dif">Hành động</a></th>
                             </tr>
                         </thead>
                         <?php

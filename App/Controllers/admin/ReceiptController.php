@@ -94,7 +94,7 @@ class ReceiptController extends Controller
                             <th scope="col"><a class="column_sort" id="provider_id" data-order="' . $order . '" href="#">Nhà cung cấp</a></th>
                             <th scope="col"><a class="column_sort" id="total" data-order="' . $order . '" href="#">Tổng số lượng</a></th>
                             <th scope="col"><a class="column_sort" id="create_at" data-order="' . $order . '" href="#">Thời gian tạo</a></th>
-                            <th scope="col">Hành động</th>
+                            <th scope="col"><a class="column_dif">Hành động</a></th>
                         </tr>
                     </thead>  
                 ';

@@ -86,7 +86,8 @@ class RoleController extends Controller
                         <th scope="col"><a class="column_sort" id="id" data-order="' . $order . '" href="#">ID</a></th>
                         <th scope="col"><a class="column_sort" id="name" data-order="' . $order . '" href="#">Tên chức vụ</a></th>
                         <th scope="col"><a class="column_sort" id="description" data-order="' . $order . '" href="#">Mô tả</a></th>
-                        <th scope="col">Hành động</th>
+                        <th scope="col"><a class="column_sort" id="description" data-order="' . $order . '" href="#">Trạng thái</a></th>
+                        <th scope="col"><a class="column_dif">Hành động</a></th>
                     </tr>
                 </thead>  
             ';
@@ -102,6 +103,13 @@ class RoleController extends Controller
                     <th scope="row">' . $row["id"] . '</th>
                     <td>' . $row["name"] . '</td>      
                     <td>' . $row["description"] . '</td>
+                    <td>';
+                    if ($row['status'] == '1') {
+                        $output .= '<button class="btn btn-success" disabled>Active</button>';
+                    } else {
+                        $output .= '<button class="btn btn-danger" disabled>Inactive</button>';
+                    }
+                    $output .= '</td>
                     <td>
                     <a href="edit/' . $row["id"] . '" class="btn btn-primary">Sửa</a>
                     <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row["id"] . '" class="btn btn-danger">Xóa</a>

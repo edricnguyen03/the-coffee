@@ -7,8 +7,13 @@ require_once('./App/Views/Admin/layouts/header.php');
         padding: 5px;
     }
 
-    .column_sort {
+    .column_sort, .column_dif {
         text-decoration: none;
+        color: white;
+    }
+
+    .column_dif:hover {
+        cursor: no-drop;
     }
 </style>
 
@@ -72,7 +77,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 <th scope="col"><a class="column_sort" id="payment_status" data-order="desc" href="#">Tình trạng thanh toán</a></th>
                                 <th scope="col"><a class="column_sort" id="order_status" data-order="desc" href="#">Tình trạng đơn hàng</a></th>
                                 <th scope="col"><a class="column_sort" id="create_at" data-order="desc" href="#">Ngày</a></th>
-                                <th scope="col">Hành động</th>
+                                <th scope="col"><a class="column_dif">Hành động</a></th>
                             </tr>
                         </thead>
                         <?php
