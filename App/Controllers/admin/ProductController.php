@@ -142,7 +142,7 @@ class productController extends Controller
                                     <td>' . $row["stock"] . '</td>
                                     <td>
                                         <a href="edit/' . $row['id'] . '" class="btn btn-primary">Sửa</a>
-                                        <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
+                                        <a onclick="confirmDelete(event, ' . $row['id'] . ')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
 
                     </tr>
                     </tbody>
@@ -155,6 +155,12 @@ class productController extends Controller
                 $this->data['categories'] = $this->categoryModel->get();
 
                 $name = $_POST['name'];
+
+                if ($this->productModel->checkProductNameExists($name)) {
+                    $_SESSION['error'] = 'Tên sản phẩm đã tồn tại';
+                    $this->view('/Admin/pages/products/create', $this->data);
+                    exit();
+                }
 
                 $slug = $this->createSlug($name);
                 $category_id = $_POST['category_id'];
@@ -253,7 +259,7 @@ class productController extends Controller
 
     public function update($productId)
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_POST['submit'])) {
 
             $name = $_POST['name'];
             $slug = $this->createSlug($name);
@@ -264,22 +270,19 @@ class productController extends Controller
             $content = $_POST['content'];
             $description = $_POST['description'];
 
+            $this->data['categories'] = $this->categoryModel->get();
+            $this->data['product'] =  $this->productModel->getProductById($productId);
 
             $oldName = $this->productModel->getProductById($productId)->name;
+
             if ($name != $oldName) {
                 // Check if the product name already exists
                 if ($this->productModel->checkProductNameExists($name)) {
                     $_SESSION['error'] = 'Tên sản phẩm đã tồn tại';
-                    $this->data['categories'] = $this->categoryModel->get();
-                    $this->data['product'] =  $this->productModel->getProductById($productId);
                     $this->view('/Admin/pages/products/edit', $this->data);
                     exit();
                 }
             }
-
-            $this->data['categories'] = $this->categoryModel->get();
-            $this->data['product'] =  $this->productModel->getProductById($productId);
-
             $old_image = $_POST['old-image'];
             $filename = $old_image; // default to old image
 
@@ -292,8 +295,6 @@ class productController extends Controller
 
                 if (!in_array($validation, $extention)) {
                     $_SESSION['error'] = 'Tệp đã chọn không phải là hình ảnh';
-                    $this->data['categories'] = $this->categoryModel->get();
-                    $this->data['product'] =  $this->productModel->getProductById($productId);
                     $this->view('/Admin/pages/products/edit', $this->data);
                     exit();
                 } else {
@@ -321,11 +322,6 @@ class productController extends Controller
                 'description' => $description,
             ];
             if ($this->productModel->updateproduct($productId, $updateData)) {
-                // $this->data['success'] = 'Chỉnh sửa sản phẩm thành công';
-                // $_SESSION['success'] = 'Chỉnh sửa sản phẩm thành công';
-                $this->data['categories'] = $this->categoryModel->get();
-                $this->data['product'] =  $this->productModel->getProductById($productId);
-
                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
                 echo "<script>
                     window.addEventListener('DOMContentLoaded', (event) => {
@@ -343,9 +339,7 @@ class productController extends Controller
 
                 exit();
             } else {
-                // $_SESSION['error'] = 'Chỉnh sửa sản phẩm không thành công';
-                $this->data['categories'] = $this->categoryModel->get();
-                $this->data['product'] =  $this->productModel->getProductById($productId);
+
                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
                 echo "<script>
                     window.addEventListener('DOMContentLoaded', (event) => {

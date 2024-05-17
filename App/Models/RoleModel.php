@@ -11,6 +11,16 @@ class RoleModel
         return $role;
     }
 
+    public function checkRoleNameExists($name)
+    {
+        global $db;
+        $result = $db->get("roles", "*", "name = '$name'");
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public function getAllRoles()
     {
         global $db;

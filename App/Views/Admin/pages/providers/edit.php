@@ -197,27 +197,6 @@ require_once './App/Models/Auth.php';
                     <?php
                     }
                     ?>
-                    <!-- <li class="sidebar-header">
-                        Multi Level Menu
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#multi" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-share-nodes pe-2"></i>
-                            Multi Dropdown
-                        </a>
-                        <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#level-1" data-bs-toggle="collapse" aria-expanded="false">Level 1</a>
-                                <ul id="level-1" class="sidebar-dropdown list-unstyled collapse">
-                                    <li class="sidebar-item">
-                                        <a href="#" class="sidebar-link">Level 1.1</a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="#" class="sidebar-link">Level 1.2</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li> -->
                 </ul>
             </div>
         </aside>
@@ -258,6 +237,12 @@ require_once './App/Models/Auth.php';
                                     <?php echo $error; ?>
                                 </div>
                             <?php endif; ?>
+                            <?php if (isset($_SESSION['error'])) : ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <?php echo $_SESSION['error']; ?>
+                                </div>
+                                <?php unset($_SESSION['error']); ?>
+                            <?php endif; ?>
                             <?php if (isset($_SESSION['success'])) : ?>
                                 <div class="alert alert-success text-center" role="alert">
                                     <?php echo $_SESSION['success']; ?>
@@ -267,11 +252,11 @@ require_once './App/Models/Auth.php';
                             <form action="../update/<?php echo $provider['id'] ?>" onsubmit="return validate()" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên nhà cung cấp</label>
-                                    <input value="<?php echo $provider['name'] ?>" type="text" class="form-control" id="name" name="name" required>
+                                    <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : $provider['name']; ?>" required>
                                 </div>
                                 <div class=" mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
-                                    <input value="<?php echo $provider['description'] ?>" type="text" class="form-control" id="description" name="description" required>
+                                    <input type="text" class="form-control" id="description" name="description" value="<?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : $provider['description']; ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Trạng thái</label>

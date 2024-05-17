@@ -253,6 +253,18 @@ require_once './App/Models/Auth.php';
                             </h5>
                         </div>
                         <div class="card-body">
+                            <?php if (isset($_SESSION['success'])) : ?>
+                                <div class="alert alert-success text-center" role="alert">
+                                    <?php echo $_SESSION['success']; ?>
+                                </div>
+                                <?php unset($_SESSION['success']); ?>
+                            <?php endif; ?>
+                            <?php if (isset($_SESSION['error'])) : ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <?php echo $_SESSION['error']; ?>
+                                </div>
+                                <?php unset($_SESSION['error']); ?>
+                            <?php endif; ?>
                             <span id="error"></span>
                             <form action="../update/ <?php echo $product->id ?>" onsubmit="return validate()" method="POST" enctype="multipart/form-data">
                                 <div class="mb-3">

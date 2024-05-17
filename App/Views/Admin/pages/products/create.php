@@ -48,7 +48,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <form action="store" method="POST" onsubmit="return validate()" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên sản phẩm</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Hình ảnh</label>
@@ -68,11 +68,11 @@ require_once('./App/Views/Admin/layouts/header.php');
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Giá</label>
-                            <input type="number" class="form-control" id="price" name="price" required>
+                            <input type="number" class="form-control" id="price" name="price" value="<?php echo isset($_POST['price']) ? htmlspecialchars($_POST['price']) : ''; ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="weight" class="form-label">Cân nặng</label>
-                            <input type="number" class="form-control" id="weight" name="weight" required>
+                            <input type="number" class="form-control" id="weight" name="weight" value="<?php echo isset($_POST['weight']) ? htmlspecialchars($_POST['weight']) : ''; ?>" required>
                         </div>
 
                         <div class="mb-3">
@@ -84,11 +84,11 @@ require_once('./App/Views/Admin/layouts/header.php');
                         </div>
                         <div class="mb-3">
                             <label for="content" class="form-label">Nội dung</label>
-                            <input type="text" class="form-control" id="content" name="content" required>
+                            <input type="text" class="form-control" id="content" name="content" value="<?php echo isset($_POST['content']) ? htmlspecialchars($_POST['content']) : ''; ?>" required>
                         </div>
                         <div class=" mb-3">
                             <label for="description" class="form-label">Miêu tả</label>
-                            <input type="text" class="form-control" id="description" name="description" required>
+                            <input type="text" class="form-control" id="description" name="description" value="<?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : ''; ?>" required>
                         </div>
                         <button type="submit" id="submit" name="submit" class="btn btn-primary">Tạo sản phẩm</button>
                     </form>

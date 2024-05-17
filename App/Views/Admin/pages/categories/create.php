@@ -33,20 +33,22 @@
                         </div>
                         <div class="card-body">
                             <span id="error"></span>
-                            <?php if (isset($error)) : ?>
-                                <div class="alert alert-danger text-center" role="alert">
-                                    <?php echo $error; ?>
-                                </div>
-                            <?php endif; ?>
-                            <?php if (isset($success)) : ?>
+                            <?php if (isset($_SESSION['success'])) : ?>
                                 <div class="alert alert-success text-center" role="alert">
-                                    <?php echo $success; ?>
+                                    <?php echo $_SESSION['success']; ?>
                                 </div>
+                                <?php unset($_SESSION['success']); ?>
+                            <?php endif; ?>
+                            <?php if (isset($_SESSION['error'])) : ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <?php echo $_SESSION['error']; ?>
+                                </div>
+                                <?php unset($_SESSION['error']); ?>
                             <?php endif; ?>
                             <form action="store" onsubmit="return validate()" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên Danh mục</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Trạng thái</label>

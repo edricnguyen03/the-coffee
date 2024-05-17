@@ -58,7 +58,7 @@
                             <form action="store" onsubmit="return validate()" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên chức vụ</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Trạng thái</label>
@@ -69,13 +69,13 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
-                                    <input type="text" class="form-control" id="description" name="description" required>
+                                    <input type="text" class="form-control" id="description" name="description" value="<?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : ''; ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="permission" class="form-label">Quyền</label>
                                     <?php foreach ($permissions as $permission) : ?>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="<?php echo $permission['id']; ?>" id="permission<?php echo $permission['id']; ?>" name="permissions[]">
+                                            <input class="form-check-input" type="checkbox" value="<?php echo $permission['id'] ?>" id="permission<?php echo $permission['id']; ?>" name="permissions[]">
                                             <label class="form-check-label" for="permission<?php echo $permission['id']; ?>">
                                                 <?php echo $permission['description']; ?>
                                             </label>

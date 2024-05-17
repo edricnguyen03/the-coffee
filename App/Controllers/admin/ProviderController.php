@@ -111,7 +111,7 @@ class ProviderController extends Controller
                     $output .= '</td>
                                 <td>
                                <a href="edit/' . $row['id'] . '" class="btn btn-primary">Sửa</a>
-                               <a onclick="return confirm(\'Bạn có muốn xóa nhà cung cấp này không ?\')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
+                               <a onclick="confirmDelete(event, ' . $row['id'] . ')" href="delete/' . $row['id'] . '" class="btn btn-danger">Xóa</a>
                            </td>
                        </tr>
                        </tbody>
@@ -124,6 +124,12 @@ class ProviderController extends Controller
                 $name = $_POST['name'];
                 $description = $_POST['description'];
                 $status = $_POST['status'];
+
+                if ($this->providerModel->checkProviderNameExists($name)) {
+                    $_SESSION['error'] = 'Tên nhà cung cấp đã tồn tại';
+                    $this->view('/Admin/pages/providers/create');
+                    exit();
+                }
 
                 // Get the current max id
                 $maxId = $this->providerModel->getMaxId();
@@ -192,9 +198,24 @@ class ProviderController extends Controller
     public function update($providerId)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $provider = $this->providerModel->getById($providerId);
+            $this->data['provider'] = $provider[0];
+
             $name = $_POST['name'];
             $description = $_POST['description'];
             $status = $_POST['status'];
+
+            $oldName = $this->providerModel->getById($providerId);
+
+            if ($name != $oldName[0]['name']) {
+                // Check if the product name already exists
+                if ($this->providerModel->checkProviderNameExists($name)) {
+                    $_SESSION['error'] = 'Tên nhà cung cấp đã tồn tại';
+                    $this->view('/Admin/pages/providers/edit', $this->data);
+                    exit();
+                }
+            }
+
 
             $updateData = [
                 'name' => $name,
@@ -202,8 +223,7 @@ class ProviderController extends Controller
                 'status' => $status,
             ];
             if ($this->providerModel->updateProvider($providerId, $updateData)) {
-                $provider = $this->providerModel->getById($providerId);
-                $this->data['provider'] = $provider[0];
+
                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
                 echo "<script>
                     window.addEventListener('DOMContentLoaded', (event) => {
@@ -218,8 +238,6 @@ class ProviderController extends Controller
                 </script>";
                 $this->view('/Admin/pages/providers/edit', $this->data);
             } else {
-                $provider = $this->providerModel->getById($providerId);
-                $this->data['provider'] = $provider[0];
                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
                 echo "<script>
                     window.addEventListener('DOMContentLoaded', (event) => {

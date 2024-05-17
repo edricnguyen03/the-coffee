@@ -258,6 +258,12 @@ require_once './App/Models/Auth.php';
                                     <?php echo $error; ?>
                                 </div>
                             <?php endif; ?>
+                            <?php if (isset($_SESSION['error'])) : ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <?php echo $_SESSION['error']; ?>
+                                </div>
+                                <?php unset($_SESSION['error']); ?>
+                            <?php endif; ?>
                             <?php if (isset($_SESSION['success'])) : ?>
                                 <div class="alert alert-success text-center" role="alert">
                                     <?php echo $_SESSION['success']; ?>
@@ -267,7 +273,7 @@ require_once './App/Models/Auth.php';
                             <form action="../update/<?php echo $category['id'] ?>" onsubmit="return validate()" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên quyền</label>
-                                    <input value="<?php echo $category['name'] ?>" type="text" class="form-control" id="name" name="name" required>
+                                    <input value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : $category['name']; ?>" type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Trạng thái</label>

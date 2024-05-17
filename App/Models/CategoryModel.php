@@ -17,9 +17,10 @@ class CategoryModel
         return $categories;
     }
 
-    function getAllCategoryExist(){
+    function getAllCategoryExist()
+    {
         global $db;
-        $result = $db->get('categories','*','status = 1');
+        $result = $db->get('categories', '*', 'status = 1');
         $categories = [];
         foreach ($result as $row) {
             $category = (object) $row;
@@ -54,6 +55,16 @@ class CategoryModel
         global $db;
         $db->insert('categories', $data);
         return true;
+    }
+
+    public function checkCategoryNameExists($name)
+    {
+        global $db;
+        $result = $db->get("categories", "*", "name = '$name'");
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
     }
 
     public function updateCategory($categoryId, $newData)
