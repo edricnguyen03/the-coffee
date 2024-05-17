@@ -28,7 +28,7 @@
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Thêm quyền vào danh sách
+                                Thêm danh mục vào danh sách
                             </h5>
                         </div>
                         <div class="card-body">

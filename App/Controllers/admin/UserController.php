@@ -161,7 +161,6 @@ class UserController extends Controller
             // echo '<pre>';
             $this->userModel->insertUser($data);
             }
-            
         }
     }
 

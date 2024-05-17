@@ -107,8 +107,8 @@ require_once('./App/Views/Admin/layouts/header.php');
                                             ?>
                                         </td>
                                         <td>
-                                            <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Edit</a>
-                                            <a onclick="confirmDelete(event, <?php echo $user['id']; ?>)" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
+                                            <a href="edit/<?php echo $user['id']; ?>" class="btn btn-primary">Sửa</a>
+                                            <a onclick="confirmDelete(event, <?php echo $user['id']; ?>)" href="delete/<?php echo $user['id']; ?>" class="btn btn-danger">Xóa</a>
                                     </tr>
                                 <?php
                                 }

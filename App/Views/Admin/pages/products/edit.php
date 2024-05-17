@@ -292,7 +292,7 @@ require_once './App/Models/Auth.php';
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="content" class="form-label">Content</label>
+                                    <label for="content" class="form-label">Nội dung</label>
                                     <input value="<?php echo $product->content ?>" type="text" class="form-control" id="content" name="content" required>
                                 </div>
                                 <div class=" mb-3">
@@ -362,11 +362,11 @@ require_once './App/Models/Auth.php';
                 document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Cân nặng không hợp lệ từ 1 đến 10 kí tự số</div>';
                 return false;
             }
-            if (txtContent.value.trim().length < 4 || txtContent.value.trim().length > 40) {
+            if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtContent.value.trim())) {
                 document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Nội dung không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
                 return false;
             }
-            if (txtDescription.value.trim().length < 4 || txtDescription.value.trim().length > 40) {
+            if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtDescription.value.trim())) {
                 document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
                 return false;
             }

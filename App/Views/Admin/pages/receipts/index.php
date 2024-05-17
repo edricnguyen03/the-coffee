@@ -104,7 +104,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 } else {    
                                 ?>
                                 <tr>
-                                    <td colspan="6" class="text-center">KHÔNG TÌM THẤY NGƯỜI DÙNG</td>
+                                    <td colspan="6" class="text-center">KHÔNG TÌM THẤY PHIẾU NHẬP</td>
                                 </tr>
                                 <?php
                                 }
