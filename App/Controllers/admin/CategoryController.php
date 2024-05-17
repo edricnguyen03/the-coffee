@@ -117,9 +117,15 @@ class CategoryController extends Controller
                 //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
             } else {
                 $name = $_POST['name'];
+
+                // Check if category name already exists
+                if ($this->categoryModel->checkCategoryNameExists($name)) {
+                    $_SESSION['error'] = 'Tên danh mục đã tồn tại';
+                    $this->view('/Admin/pages/categories/create', $this->data);
+                    exit();
+                }
+
                 $status = $_POST['status'];
-
-
 
                 // Get the current max id
                 $maxId = $this->categoryModel->getMaxId();
@@ -188,11 +194,21 @@ class CategoryController extends Controller
     public function update($categoryId)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $category = $this->categoryModel->getCategoryById($categoryId);
+            $this->data['category'] = $category[0];
+
             $name = $_POST['name'];
             $status = $_POST['status'];
 
-            $category = $this->categoryModel->getCategoryById($categoryId);
-            $this->data['category'] = $category[0];
+            $oldName = $this->categoryModel->getCategoryById($categoryId);
+            if ($name != $oldName[0]['name']) {
+                // Check if the product name already exists
+                if ($this->categoryModel->checkCategoryNameExists($name)) {
+                    $_SESSION['error'] = 'Tên danh mục đã tồn tại';
+                    $this->view('/Admin/pages/categories/edit', $this->data);
+                    exit();
+                }
+            }
 
             $updateData = [
                 'name' => $name,
