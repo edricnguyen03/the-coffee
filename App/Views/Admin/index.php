@@ -4,7 +4,7 @@ require_once('./App/Views/Admin/layouts/header.php');
 <div class="main sticky-top vh-100 overflow-auto">
     <?php
     require_once('./App/Views/Admin/pages/home.php');
-    require_once('./App/Views/Admin/layouts/footer.php');
+    // require_once('./App/Views/Admin/layouts/footer.php');
     ?>
 </div>
 </div>
