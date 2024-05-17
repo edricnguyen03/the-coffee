@@ -67,6 +67,16 @@ class ProviderModel
         return $result['max_id'];
     }
 
+    public function checkProviderNameExists($name)
+    {
+        global $db;
+        $result = $db->get("providers", "*", "name = '$name'");
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
+    }
+
     //write a function to create a user and save in database
     public function createProvider()
     {

@@ -35,7 +35,7 @@
                             <span id="error"></span>
                             <?php if (isset($_SESSION['error'])) : ?>
                                 <div class="alert alert-danger text-center" role="alert">
-                                    <?php echo $_SESSION['error'];?>
+                                    <?php echo $_SESSION['error']; ?>
                                 </div>
                             <?php endif; ?>
                             <?php if (isset($success)) : ?>
@@ -46,11 +46,11 @@
                             <form action="store" onsubmit="return validate()" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên nhà cung cấp</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Mô tả</label>
-                                    <input type="text" class="form-control" id="description" name="description" required>
+                                    <input type="text" class="form-control" id="description" value="<?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : ''; ?>" name="description" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Trạng thái</label>
