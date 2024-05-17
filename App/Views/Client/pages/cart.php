@@ -215,8 +215,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const total_price = 0;
+
     //thêm một hàm để xóa một sản phẩm khỏi giỏ hàng và tải lại trang
     function deleteProductInCart(User_id, idProduct) {
+        event.preventDefault();
         $.ajax({
             url: '/the-coffee/Cart/deleteProductInCart', //tro toi controller cart va goi ham delete
             type: 'POST',
@@ -225,7 +227,16 @@
                 idProduct: idProduct
             },
             success: function(response) {
-                location.reload();
+                // không reload lại trang mà chỉ xóa phần tử trong giỏ hàng theo idProduct
+                var cartItem = document.querySelector('.cart_item input[productid="' + idProduct + '"]').closest('.cart_item');
+
+                cartItem.remove();
+
+
+                // Recalculate the total price
+                calculateTotalPrice();
+
+
             }
         });
     }
@@ -240,7 +251,8 @@
                 newQuantity: newQuantity
             },
             success: function(response) {
-                location.reload();
+                total_price = response;
+
             }
 
         });
@@ -297,7 +309,7 @@
     // thêm hàm để tính tổng giá trị của giỏ hàng
     function calculateTotalPrice() {
         var quantityInputs = document.querySelectorAll('.product_quantity');
-        // var currentTotal = 0;
+        var currentTotal = 0;
 
         quantityInputs.forEach(function(input) {
             if (input.value.includes('.')) {
@@ -305,15 +317,18 @@
             }
             var quantity = parseInt(input.value);
             var priceElement = input.closest('.cart_item').querySelector('.cart_item_price');
-            var price = parseInt(priceElement.innerText);
+            var price = parseInt(priceElement.innerText.replace(/[^0-9]/g, ''));
             var total = quantity * price;
-            total_price += total;
+            currentTotal += total;
+
         });
         // if (isNaN(currentTotal)) {
         //     currentTotal = 0;
         // }
-        // document.querySelector('.cartSub').innerText = formatCurrency(currentTotal);
-        // document.querySelector('.cartTotal').innerText = formatCurrency(currentTotal);
+        document.querySelector('.cartSub').innerText = formatCurrency(currentTotal);
+        document.querySelector('.cartTotal').innerText = formatCurrency(currentTotal);
+
+
     }
 
     //thêm sự kiện để tính tổng giá trị của giỏ hàng
