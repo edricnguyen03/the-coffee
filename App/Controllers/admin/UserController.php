@@ -18,7 +18,7 @@ class UserController extends Controller
     // Function to show user data from the database
     public function index()
     {
-        if (Auth::checkPermission($_SESSION['login']['id'], 1) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionUser) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -36,7 +36,7 @@ class UserController extends Controller
             header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 1) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionUser) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -175,7 +175,7 @@ class UserController extends Controller
             header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 1) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionUser) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -237,7 +237,7 @@ class UserController extends Controller
             header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 1) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionUser) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
