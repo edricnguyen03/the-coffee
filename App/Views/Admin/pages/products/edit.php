@@ -349,10 +349,10 @@ require_once './App/Models/Auth.php';
                 return false;
             }
 
-            if (txtProductName.value.trim().length > 40 ||
+            if (txtProductName.value.trim().length > 70 ||
                 txtProductName.value.trim().length < 4 ||
-                !/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtProductName.value.trim())) {
-                document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+                !/^[a-zA-ZÀ-ỹ0-9\s]{4,70}$/.test(txtProductName.value.trim())) {
+                document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 70 kí tự chữ cái và số</div>';
                 return false;
             }
             //giá chỉ từ 5000 đến 10000000 

@@ -134,8 +134,8 @@ require_once('./App/Views/Admin/layouts/header.php');
             document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
             return false;
         }
-        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,40}$/.test(txtProductName.value.trim())) {
-            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 40 kí tự chữ cái và số</div>';
+        if (!/^[a-zA-ZÀ-ỹ0-9\s]{4,70}$/.test(txtProductName.value.trim())) {
+            document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ từ 4 đến 70 kí tự chữ cái và số</div>';
             return false;
         }
         //giá chỉ từ 5000 đến 10000000 

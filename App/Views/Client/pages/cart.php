@@ -214,7 +214,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    const total_price = 0;
+    let total_price = 0;
 
     //thêm một hàm để xóa một sản phẩm khỏi giỏ hàng và tải lại trang
     function deleteProductInCart(User_id, idProduct) {
@@ -251,14 +251,12 @@
                 newQuantity: newQuantity
             },
             success: function(response) {
-                total_price = response;
-
+                // total_price = response;
+                //calculateTotalPrice();
             }
 
         });
     }
-
-
 
     // thêm hàm để kiểm tra số lượng nhập từ người dùng
     function checkQuantityInput(event) {
@@ -327,8 +325,7 @@
         // }
         document.querySelector('.cartSub').innerText = formatCurrency(currentTotal);
         document.querySelector('.cartTotal').innerText = formatCurrency(currentTotal);
-
-
+        total_price = currentTotal;
     }
 
     //thêm sự kiện để tính tổng giá trị của giỏ hàng
@@ -364,6 +361,7 @@
     // kiểm tra đặt hàng bằng ajax, báo sweetalert nếu thành công và trỏ về trang chủ
     $('form').submit(function(e) {
         e.preventDefault();
+        calculateTotalPrice();
         var name = $('#name').val();
         var phone = $('#phone').val();
         var note = $('#note').val();
@@ -371,7 +369,7 @@
         var district = $('#district option:selected').text();
         var ward = $('#ward option:selected').text();
         var address_detail = $('#address_detail').val();
-        var cartTotal = $('#cartTotal').val();
+        var cartTotal = total_price;
 
         // kiểm tra dữ liệu nhập vào
         // kiem tra cac truong co rong hay khong
@@ -566,7 +564,7 @@
             }
 
         }
-
+        console.log(cartTotal+"abcbds");
         $.ajax({
             url: '/the-coffee/Cart/buyNow',
             type: 'POST',
@@ -579,7 +577,6 @@
                 ward_name: ward,
                 address_detail: address_detail,
                 cartTotal: cartTotal,
-
             },
             // xử lý kết quả trả về từ server
             success: function(response) {
