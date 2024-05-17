@@ -9,8 +9,13 @@ require_once('./App/Views/Admin/layouts/header.php');
         padding: 5px;
     }
 
-    .column_sort {
+    .column_sort, .column_dif {
         text-decoration: none;
+        color: white;
+    }
+
+    .column_dif:hover {
+        cursor: no-drop;
     }
 </style>
 
@@ -70,13 +75,13 @@ require_once('./App/Views/Admin/layouts/header.php');
                             <tr>
                                 <th scope="col"><a class="column_sort" id="id" data-order="desc" href="#">ID<i class="fas fa-caret-up icon"></i></a></th>
                                 <th scope="col"><a class="column_sort" id="name" data-order="desc" href="#">Tên sản phẩm</a></th>
-                                <th scope="col"><span id="thumb_image" data-order="desc" href="#">Hình ảnh</span></th>
+                                <th scope="col"><a class="column_dif" id="thumb_image" data-order="desc" href="#">Hình ảnh</a></th>
                                 <th scope="col"><a class="column_sort" id="price" data-order="desc" href="#">Giá tiền</a></th>
                                 <th scope="col"><a class="column_sort" id="weight" data-order="desc" href="#">Cân nặng</a></th>
                                 <th scope="col"><a class="column_sort" id="category_id" data-order="desc" href="#">Loại sản phẩm</a></th>
                                 <th scope="col"><a class="column_sort" id="status" data-order="desc" href="#">Trạng thái</a></th>
                                 <th scope="col"><a class="column_sort" id="stock" data-order="desc" href="#">Số lượng tồn</a></th>
-                                <th scope="col">Hành động</th>
+                                <th scope="col"><a class="column_dif">Hành động</a></th>
                             </tr>
                         </thead>
 

@@ -335,6 +335,8 @@ require_once './App/Models/Auth.php';
                     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ gồm 4 đến 40 kí tự chữ</div>';
                     return false;
                 }
+                document.getElementById('name').value = document.getElementById('name').value.trim();
+                document.getElementById('description').value = document.getElementById('description').value.trim();
                 return true;
             }
         });

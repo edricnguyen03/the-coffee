@@ -10,8 +10,13 @@ require_once('./App/Views/Admin/layouts/header.php');
         padding: 5px;
     }
 
-    .column_sort {
+    .column_sort, .column_dif {
         text-decoration: none;
+        color: white;
+    }
+
+    .column_dif:hover {
+        cursor: no-drop;
     }
 </style>
 

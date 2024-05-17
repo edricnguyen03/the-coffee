@@ -5,13 +5,18 @@ require_once('./App/Views/Admin/layouts/header.php');
 
 ?>
 <style>
-.icon {
-    padding: 5px;
-}
+    .icon {
+        padding: 5px;
+    }
 
-.column_sort {
-    text-decoration: none;
-}
+    .column_sort, .column_dif {
+        text-decoration: none;
+        color: white;
+    }
+
+    .column_dif:hover {
+        cursor: no-drop;
+    }
 </style>
 <div class="main">
     <nav class="navbar navbar-expand px-3 border-bottom" style="height:100px;">
@@ -74,7 +79,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 <th scope="col"><a class="column_sort" id="provider_id" data-order="desc" href="#">Nhà cung cấp</a></th>
                                 <th scope="col"><a class="column_sort" id="total" data-order="desc" href="#">Tổng số lượng</a></th>
                                 <th scope="col"><a class="column_sort" id="create_at" data-order="desc" href="#">Thời gian tạo</a></th>
-                                <th scope="col">Hành động</th>
+                                <th scope="col"><a class="column_dif">Hành động</a></th>
                             </tr>
                         </thead>
                         <?php
@@ -104,7 +109,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                                 } else {    
                                 ?>
                                 <tr>
-                                    <td colspan="6" class="text-center">KHÔNG TÌM THẤY NGƯỜI DÙNG</td>
+                                    <td colspan="6" class="text-center">KHÔNG TÌM THẤY PHIẾU NHẬP</td>
                                 </tr>
                                 <?php
                                 }
