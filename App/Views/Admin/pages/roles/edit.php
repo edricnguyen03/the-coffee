@@ -327,11 +327,11 @@ require_once './App/Models/Auth.php';
                     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Không để trống các ô</div>';
                     return false;
                 }
-                if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name)) {
+                if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name.trim())) {
                     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Tên không hợp lệ gồm 4 đến 40 kí tự</div>';
                     return false;
                 }
-                if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(description)) {
+                if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(description.trim())) {
                     document.getElementById('error').innerHTML = '<div class="alert alert-danger text-center" role="alert"> Mô tả không hợp lệ gồm 4 đến 40 kí tự chữ</div>';
                     return false;
                 }

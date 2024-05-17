@@ -115,13 +115,13 @@
                     } else if (name === '') {
                         $('#name_error').text('Tên không được để trống').css('display', 'block');
                         return;
-                    } else if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name)) {
+                    } else if (!/^[a-zA-ZÀ-ỹ\s]{4,40}$/.test(name.trim())) {
                         $('#name_error').text('Tên không hợp lệ - Tối thiểu 4 ký tự, tối đa 40 ký tự và không chứa ký tự đặc biệt').css('display', 'block');
                         return;
                     } else if (!/^[a-zA-Z0-9]{4,10}$/.test(password)) {
                         $('#password_error').text('Mật khẩu không hợp lệ - Tối thiểu 4 ký tự, tối đa 10 ký tự và không được có khoảng trắng').css('display', 'block');
                         return;
-                    } else if (email.length > 50 || !/^\S+@\S+\.\S+$/.test(email)) {
+                    } else if (email.length > 50 || !/^\S+@\S+\.\S+$/.test(email.trim())) {
                         $('#email_error').text('Email không hợp lệ - Tối đa 50 ký tự và phải đúng định dạng email').css('display', 'block');
                         return;
                     } else {
