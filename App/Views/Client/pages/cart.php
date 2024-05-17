@@ -218,6 +218,7 @@
 
     //thêm một hàm để xóa một sản phẩm khỏi giỏ hàng và tải lại trang
     function deleteProductInCart(User_id, idProduct) {
+        event.preventDefault();
         $.ajax({
             url: '/the-coffee/Cart/deleteProductInCart', //tro toi controller cart va goi ham delete
             type: 'POST',
@@ -226,11 +227,11 @@
                 idProduct: idProduct
             },
             success: function(response) {
-                // không reload lại trang mà chỉ xóa phần tử trong giỏ hàng
-                var productElement = document.querySelector('.cart_item[productid="' + idProduct + '"]');
-                if (productElement) {
-                    productElement.remove();
-                }
+                // không reload lại trang mà chỉ xóa phần tử trong giỏ hàng theo idProduct
+                var cartItem = document.querySelector('.cart_item input[productid="' + idProduct + '"]').closest('.cart_item');
+
+                cartItem.remove();
+
 
                 // Recalculate the total price
                 calculateTotalPrice();
