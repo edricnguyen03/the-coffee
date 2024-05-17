@@ -285,7 +285,7 @@ require_once './App/Models/Auth.php';
                                     <?php
                                     foreach ($permissions as $permission) :  ?>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="<?php echo $permission['id']; ?>" id="permission<?php echo $permission['id']; ?>" name="permissions[]" <?php echo in_array((int)$permission['id'], array_map('intval', $rolePermissions)) ? 'checked' : ''; ?>>
+                                            <input class="form-check-input" type="checkbox" value="<?php echo $permission['id']; ?>" <?php if ($role['id'] == 1) echo 'disabled' ?> id="permission<?php echo $permission['id']; ?>" name="permissions[]" <?php echo in_array((int)$permission['id'], array_map('intval', $rolePermissions)) ? 'checked' : ''; ?>>
                                             <label class="form-check-label" for="permission<?php echo $permission['id']; ?>">
                                                 <?php echo $permission['description']; ?>
                                             </label>

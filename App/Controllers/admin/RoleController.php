@@ -114,6 +114,7 @@ class RoleController extends Controller
             echo $output;
             //PHẦN XỬ LÝ SẮP XẾP TĂNG DẦN GIẢM DẦN
         }
+
         //if này là để tạo mới
         if (isset($_POST['submit'])) {
             $name = $_POST['name'];
@@ -146,34 +147,33 @@ class RoleController extends Controller
                 </script>";
                 $this->view('/Admin/pages/roles/create', $this->data);
                 // exit();
-            } else {
+            } else if (isset($_POST['permissions']) && $_POST['permissions'] != null) {
                 $permissions = $_POST['permissions'];
-            }
-
-            if ($this->roleModel->insertRole($data)) {
-                if ((is_array($permissions)) || is_object($permissions)) {
-                    foreach ($permissions as $permissionId) {
-                        $data_permision_role = [
-                            'role_id' => $newId,
-                            'permission_id' => $permissionId
-                        ];
-                        $this->permissionRoleModel->insertPermissionRole($data_permision_role);
+                if ($this->roleModel->insertRole($data)) {
+                    if ((is_array($permissions)) || is_object($permissions)) {
+                        foreach ($permissions as $permissionId) {
+                            $data_permision_role = [
+                                'role_id' => $newId,
+                                'permission_id' => $permissionId
+                            ];
+                            $this->permissionRoleModel->insertPermissionRole($data_permision_role);
+                        }
                     }
+                    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+                    echo "<script>
+                        window.addEventListener('DOMContentLoaded', (event) => {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Thêm vai trò thành công',
+                                showConfirmButton: false,
+                                timer: 2250
+                              });
+                        });
+                    </script>";
+                    // If role is inserted successfully, update permission_role model
+                    $this->view('/Admin/pages/roles/create', $this->data);
                 }
-                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
-                echo "<script>
-                    window.addEventListener('DOMContentLoaded', (event) => {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Thêm vai trò thành công',
-                            showConfirmButton: false,
-                            timer: 2250
-                          });
-                    });
-                </script>";
-                // If role is inserted successfully, update permission_role model
-                $this->view('/Admin/pages/roles/create', $this->data);
             } else {
                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
                 echo "<script>
