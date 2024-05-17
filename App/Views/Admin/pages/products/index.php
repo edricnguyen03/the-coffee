@@ -11,7 +11,7 @@ require_once('./App/Views/Admin/layouts/header.php');
 
     .column_sort, .column_dif {
         text-decoration: none;
-        color: white;
+        /* color: white; */
     }
 
     .column_dif:hover {
@@ -73,7 +73,7 @@ require_once('./App/Views/Admin/layouts/header.php');
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col"><a class="column_sort" id="id" data-order="desc" href="#">ID<i class="fas fa-caret-up icon"></i></a></th>
+                                <th scope="col"><a class="column_sort collapsed" data-bs-toggle="collapse" id="id" data-order="desc" href="#">ID<i class="fas fa-caret-up icon"></i></a></th>
                                 <th scope="col"><a class="column_sort" id="name" data-order="desc" href="#">Tên sản phẩm</a></th>
                                 <th scope="col"><a class="column_dif" id="thumb_image" data-order="desc" href="#">Hình ảnh</a></th>
                                 <th scope="col"><a class="column_sort" id="price" data-order="desc" href="#">Giá tiền</a></th>

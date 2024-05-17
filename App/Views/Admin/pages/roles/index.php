@@ -12,7 +12,7 @@ require_once('./App/Views/Admin/layouts/header.php');
 
     .column_sort, .column_dif {
         text-decoration: none;
-        color: white;
+       /* color: white; */
     }
 
     .column_dif:hover {
