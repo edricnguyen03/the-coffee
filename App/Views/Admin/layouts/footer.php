@@ -18,13 +18,13 @@
                         <a href="https://www.facebook.com/" class="text-muted">Contact</a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="#" class="text-muted">About Us</a>
+                        <a href="https://www.facebook.com/" class="text-muted">About Us</a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="#" class="text-muted">Terms</a>
+                        <a href="https://www.facebook.com/" class="text-muted">Terms</a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="#" class="text-muted">Booking</a>
+                        <a href="https://www.facebook.com/" class="text-muted">Booking</a>
                     </li>
                 </ul>
             </div>
