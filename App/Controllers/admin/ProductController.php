@@ -24,7 +24,7 @@ class productController extends Controller
             header('Location: ../../Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProduct) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -43,7 +43,7 @@ class productController extends Controller
             header('Location: ../../Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProduct) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -240,7 +240,7 @@ class productController extends Controller
             header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProduct) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -373,7 +373,7 @@ class productController extends Controller
             header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProduct) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -429,7 +429,7 @@ class productController extends Controller
             header('Location: ../../Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 3) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProduct) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;

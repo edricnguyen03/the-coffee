@@ -22,7 +22,7 @@ class ProviderController extends Controller
             header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProvider) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -40,7 +40,7 @@ class ProviderController extends Controller
             header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProvider) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -177,7 +177,7 @@ class ProviderController extends Controller
             header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProvider) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;
@@ -245,7 +245,7 @@ class ProviderController extends Controller
             header('Location: /the-coffee/Login_Regis/logout');
             exit;
         }
-        if (Auth::checkPermission($_SESSION['login']['id'], 7) == false) {
+        if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProvider) == false) {
             echo '<script> alert("Bạn không có quyền vào trang này"); </script>';
             require_once './App/errors/404.php';
             return;

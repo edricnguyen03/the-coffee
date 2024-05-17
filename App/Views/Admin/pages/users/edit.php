@@ -29,7 +29,7 @@ require_once './App/Models/Auth.php';
                         Danh sách chức năng
                     </li>
                     <?php
-                    if (Auth::checkPermission($_SESSION['login']['id'], 6) == true) {
+                    if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionDashboard) == true) {
                     ?>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-target="#stat" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
@@ -52,7 +52,7 @@ require_once './App/Models/Auth.php';
                     }
                     ?>
                     <?php
-                    if (Auth::checkPermission($_SESSION['login']['id'], 3) == true) {
+                    if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProduct) == true) {
                     ?>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
@@ -71,7 +71,7 @@ require_once './App/Models/Auth.php';
                     }
                     ?>
                     <?php
-                    if (Auth::checkPermission($_SESSION['login']['id'], 4) == true) {
+                    if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionOrder) == true) {
                     ?>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-target="#posts" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-sliders pe-2"></i>
@@ -87,7 +87,7 @@ require_once './App/Models/Auth.php';
                     }
                     ?>
                     <?php
-                    if (Auth::checkPermission($_SESSION['login']['id'], 8) == true) {
+                    if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionReceipt) == true) {
                     ?>
                         <!-- Receipt -->
                         <li class="sidebar-item">
@@ -107,7 +107,7 @@ require_once './App/Models/Auth.php';
                     }
                     ?>
                     <?php
-                    if (Auth::checkPermission($_SESSION['login']['id'], 1) == true) {
+                    if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionUser) == true) {
                     ?>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
@@ -126,7 +126,7 @@ require_once './App/Models/Auth.php';
                     }
                     ?>
                     <?php
-                    if (Auth::checkPermission($_SESSION['login']['id'], 7) == true) {
+                    if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionProvider) == true) {
                     ?>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-target="#provider" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-truck pe-2"></i>
@@ -145,7 +145,7 @@ require_once './App/Models/Auth.php';
                     }
                     ?>
                     <?php
-                    if (Auth::checkPermission($_SESSION['login']['id'], 2) == true) {
+                    if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionCategory) == true) {
                     ?>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-target="#category" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-tags pe-2"></i>
@@ -164,7 +164,7 @@ require_once './App/Models/Auth.php';
                     }
                     ?>
                     <?php
-                    if (Auth::checkPermission($_SESSION['login']['id'], 5) == true) {
+                    if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionRole) == true) {
                     ?>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-target="#role" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-user-shield"></i>
@@ -183,7 +183,7 @@ require_once './App/Models/Auth.php';
                     }
                     ?>
                     <?php
-                    if (Auth::checkPermission($_SESSION['login']['id'], 9) == true) {
+                    if (Auth::checkPermission($_SESSION['login']['id'], Auth::$permissionPermission) == true) {
                     ?>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-target="#permission" data-bs-toggle="collapse" aria-expanded="false"><i class="fa-solid fa-handshake pe-2"></i>
