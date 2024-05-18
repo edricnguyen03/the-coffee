@@ -81,7 +81,7 @@ class Cart extends Controller
         $ward = $_POST['ward_name'];
         $address = $_POST['address_detail'];
         $total = $_POST['cartTotal'];
-        $payment = 1;
+        $payment = 0;    //chua thanh toan
         $status = 1;
 
         //lay ngay hien tai lam ngay dat hang

@@ -287,7 +287,7 @@ require_once './App/Models/Auth.php';
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Cập nhật</button>
+                                <button type="submit" name="submit" class="btn btn-primary" <?php if($user['id'] == 1) echo 'disabled'; ?> >Cập nhật</button>
                             </form>
                         </div>
                     </div>

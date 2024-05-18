@@ -112,6 +112,7 @@
                                              <th scope="col">SDT</th>
                                              <th scope="col">Tổng tiền</th>
                                              <th scope="col">Thanh toán</th>
+                                             <th scope="col">Ngày tạo</th>
                                              <th scope="col">Ghi chú</th>
                                         </tr>
                                    </thead>
@@ -130,6 +131,8 @@
                                                                                      }
                                                                                      ?>
                                                   </td>
+                                                  <td style="text-align:center;"><?php echo $item->create_at;
+                                                   ?></td>
                                                   <td style="text-align:center;">
                                                        <?php
                                                        if (isset($item->note)) {

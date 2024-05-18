@@ -83,7 +83,11 @@ class OrdersModel
      {
           try {
                global $db;
-               $result = $db->update("orders", ["order_status" => $status], "id = $this->orderId");
+               if ($status == 4){
+                    $result = $db->update("orders", ["order_status" => $status, "payment_status" => 1], "id = $this->orderId");
+               }else{
+                    $result = $db->update("orders", ["order_status" => $status], "id = $this->orderId");
+               }
                return $result;
           } catch (Exception $e) {
                return $e->getMessage() . " OrdersModel, updateStatus exception";
