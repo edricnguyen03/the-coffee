@@ -214,7 +214,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    const total_price = 0;
+    var total_price = 0;
 
     //thêm một hàm để xóa một sản phẩm khỏi giỏ hàng và tải lại trang
     function deleteProductInCart(User_id, idProduct) {
